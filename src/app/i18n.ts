@@ -3,9 +3,10 @@ import en from '../content/en.json';
 import { useSettings } from './store/settings';
 import type { Lang } from './types';
 
-export type MessageKey = Exclude<keyof typeof en, '$source'>;
+export type MessageKey = Exclude<keyof typeof en, '$source' | '$pending'>;
 
-const catalogs: Record<Lang, Record<MessageKey, string>> = { te, en };
+const { $pending: _pending, ...teMessages } = te;
+const catalogs: Record<Lang, Record<MessageKey, string>> = { te: teMessages, en };
 
 /** Message for `key`, with {placeholders} filled from `vars`. */
 export function translate(lang: Lang, key: MessageKey, vars?: Record<string, string>): string {

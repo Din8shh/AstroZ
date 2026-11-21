@@ -59,7 +59,14 @@ export function TodayScreen() {
           <>
             <div className={s.facts}>
               <Fact label={t('today.samvatsaram')} value={name(day.panchangam.samvatsara.name)} />
-              <Fact label={t('today.masam')} value={`${name(day.panchangam.masa.name)}${day.panchangam.masa.adhika ? ' (Adhika)' : ''}`} />
+              <Fact
+                label={t('today.masam')}
+                value={[
+                  day.panchangam.masa.adhika ? t('today.adhika') : '',
+                  day.panchangam.masa.kshaya ? t('today.kshaya') : '',
+                  name(day.panchangam.masa.name),
+                ].filter(Boolean).join(' ')}
+              />
               <Fact label={t('today.paksham')} value={name(day.panchangam.paksha.name)} />
             </div>
             <p className={s.kicker}>

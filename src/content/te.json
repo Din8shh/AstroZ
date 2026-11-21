@@ -1,5 +1,5 @@
 {
-  "$source": "Telugu copy taken verbatim from design/handoff (Claude Design export, 2026-11-21). Needs review by a Telugu-speaking person before launch; never machine-translate.",
+  "$source": "Telugu copy taken verbatim from design/handoff (Claude Design export, 2026-11-21). Needs review by a Telugu-speaking person before launch; never machine-translate. Keys in $pending still hold English and need human-written Telugu.",
   "app.name": "ఆస్ట్రోజ్",
   "lang.groupLabel": "భాష / Language",
   "lang.te": "తెలుగు",
@@ -50,5 +50,11 @@
   "wish.house": "గృహప్రవేశం",
   "wish.job": "ఉద్యోగం",
   "wish.income": "ఆదాయ-వ్యయాలు",
-  "wish.seeAll": "అన్నీ చూడండి"
+  "wish.seeAll": "అన్నీ చూడండి",
+  "today.adhika": "Adhika",
+  "today.kshaya": "Kshaya",
+  "$pending": [
+    "today.adhika",
+    "today.kshaya"
+  ]
 }

@@ -1,7 +1,7 @@
 {
-  "source": "Rahu kalam / Yamagandam / Gulika slots: .claude/skills/telugu-jyotisha/reference.md §6 ('standard'), confirmed for Sat, Wed, Sun by Drik Panchang day pages (Hyderabad 2026-11-21, Vijayawada 2027-04-07, Dallas 2026-03-08), read by an automated agent on 2026-11-21; not yet checked by a person. Durmuhurtham and Abhijit: Sat/Wed/Sun confirmed by Drik Panchang day pages (Hyderabad 2026-11-21, Vijayawada 2027-04-07, Dallas 2026-03-08), read by an automated agent on 2026-11-21; not yet checked by a person; other weekdays are a commonly published table, unverified. Names (te/en) from design/handoff DayRibbon.",
-  "version": "0.1.0",
-  "notes": "Daytime = sunrise → sunset, night = sunset → next sunrise. A kalam slot n of parts covers [(n−1)/parts, n/parts] of daytime. Varjyam and Amrita kalam start ghati/60 of the way through their nakshatra and last lengthGhatis/60 of it (ghatis from nakshatras.json). 'verified' lists the weekdays checked against the reference; the rest must be locked with golden fixtures before launch.",
+  "source": "Rahu kalam / Yamagandam / Gulika slots: .claude/skills/telugu-jyotisha/reference.md §6 ('standard'). Durmuhurtham, Abhijit and the kalam slots were compared with Drik Panchang day pages for Hyderabad 2026-11-21 → 2026-12-20, Vijayawada 2027-04-07 and Dallas 2026-03-08 (read by automated agents on 2026-11-21, not yet checked by a person): all weekdays match, including Saturday's two Durmuhurtham slots and Tuesday's night slot. Thursday has no fixture row yet. Names (te/en) from design/handoff DayRibbon.",
+  "version": "0.2.0",
+  "notes": "Daytime = sunrise → sunset, night = sunset → next sunrise. A slot n of parts covers [(n−1)/parts, n/parts] of that span. Varjyam and Amrita kalam start ghati/60 of the way through their nakshatra and last lengthGhatis/60 of it (ghatis from nakshatras.json); assignBy 'start' = a window belongs to the panchangam day in which it starts (Drik Panchang convention), so a window crossing sunrise is listed once. 'verified' lists the weekdays compared against the reference; lock the rest with golden fixtures.",
   "kinds": {
     "rahu": {
       "en": "Rahu kalam",
@@ -80,7 +80,10 @@
     "parts": 15,
     "verified": [
       "sun",
+      "mon",
+      "tue",
       "wed",
+      "fri",
       "sat"
     ],
     "daySlots": {
@@ -106,7 +109,8 @@
         9
       ],
       "sat": [
-        1
+        1,
+        2
       ]
     },
     "nightSlots": {
@@ -129,6 +133,7 @@
   },
   "nakshatraWindows": {
     "lengthGhatis": 4,
-    "ghatisPerNakshatra": 60
+    "ghatisPerNakshatra": 60,
+    "assignBy": "start"
   }
 }

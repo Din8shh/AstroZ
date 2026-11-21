@@ -77,8 +77,10 @@ export function angaSpans(f: AngleFn, span: number, count: number, from: number,
   let idx = Math.floor(f(from) / span); // 0-based
   let start = findCrossing(f, idx * span, from + SECOND, -1);
   while (start < to) {
-    const end = findCrossing(f, ((idx + 1) % count) * span, Math.max(start, from) + SECOND, 1);
-    out.push({ number: idx + 1, name: name(idx + 1), start, end });
+    // Search from the anga's own start (not from `from`): if the boundary lies within a second
+    // after `from`, starting the search at `from` would step past it and find the NEXT cycle.
+    const end = findCrossing(f, ((idx + 1) % count) * span, start + SECOND, 1);
+    if (end > from) out.push({ number: idx + 1, name: name(idx + 1), start, end });
     start = end;
     idx = (idx + 1) % count;
   }
@@ -144,7 +146,7 @@ export function amantaMasa(e: Ephemeris, jdUt: number): Masa {
   const a = angles(e);
   // The elongation moves ≤ 15.5°/day, so 6-hour steps cannot skip the new moon.
   const startNewMoon = findCrossing(a.elongation, 0, jdUt, -1, 35, 6 * HOUR);
-  const endNewMoon = findCrossing(a.elongation, 0, jdUt + SECOND, 1, 35, 6 * HOUR);
+  const endNewMoon = findCrossing(a.elongation, 0, startNewMoon + SECOND, 1, 35, 6 * HOUR);
   const r0 = rasiOf(a.sun(startNewMoon));
   const r1 = rasiOf(a.sun(endNewMoon));
   const sankrantis = (r1 - r0 + 12) % 12;

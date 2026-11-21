@@ -54,18 +54,21 @@ export function dayPeriods(day: DayFrame, nakshatraSpans: NakshatraSpan[]): DayP
 
   // Varjyam and Amrita kalam: ghati/60 into each nakshatra, lasting lengthGhatis/60 of it.
   const w = table.nakshatraWindows;
+  // assignBy 'start': a window belongs to the day it starts in, so one crossing sunrise is listed once.
+  const belongs = (start: number, end: number) =>
+    w.assignBy === 'start' ? start >= sunrise && start < nextSunrise : end > sunrise && start < nextSunrise;
   for (const s of nakshatraSpans) {
     const row = nakshatras.items[s.number - 1];
     if (!row) continue;
     const dur = s.end - s.start;
     const windows: [PeriodKind, number, boolean][] = [
-      ['varjyam', row.varjyamGhati, row.varjyamVerified],
+      ...row.varjyamGhatis.map((g): [PeriodKind, number, boolean] => ['varjyam', g, row.varjyamVerified]),
       ['amrita', row.amritaGhati, row.amritaVerified],
     ];
     for (const [kind, ghati, verified] of windows) {
       const start = s.start + (ghati / w.ghatisPerNakshatra) * dur;
       const end = start + (w.lengthGhatis / w.ghatisPerNakshatra) * dur;
-      if (end > sunrise && start < nextSunrise) out.push(make(kind, start, end, verified));
+      if (belongs(start, end)) out.push(make(kind, start, end, verified));
     }
   }
 

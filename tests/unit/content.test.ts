@@ -4,23 +4,29 @@ import en from '../../src/content/en.json';
 import { parseHash } from '../../src/app/router';
 
 describe('content catalogs', () => {
+  const pending = new Set<string>((te as { $pending?: string[] }).$pending ?? []);
+  const teKeys = Object.keys(te).filter((k) => k !== '$pending');
+
   it('te and en have exactly the same keys', () => {
-    expect(Object.keys(te).sort()).toEqual(Object.keys(en).sort());
+    expect(teKeys.sort()).toEqual(Object.keys(en).sort());
   });
 
   it('every string is non-empty', () => {
     for (const [k, v] of [...Object.entries(te), ...Object.entries(en)]) {
-      expect(v.trim(), k).not.toBe('');
+      if (k === '$pending') continue;
+      expect(String(v).trim(), k).not.toBe('');
     }
   });
 
   it('Telugu strings are not left in English (except brand-neutral keys)', () => {
-    const latinOnly = new Set(['lang.en', '$source']);
+    const latinOnly = new Set(['lang.en', '$source', '$pending']);
     for (const [k, v] of Object.entries(te)) {
-      if (latinOnly.has(k)) continue;
-      expect(/[ఀ-౿]/.test(v), `te.${k} has no Telugu script`).toBe(true);
+      if (latinOnly.has(k) || pending.has(k)) continue;
+      expect(/[ఀ-౿]/.test(String(v)), `te.${k} has no Telugu script`).toBe(true);
     }
   });
+
+  if (pending.size) it.todo(`human-written Telugu needed for content keys: ${[...pending].join(', ')}`);
 });
 
 describe('hash router', () => {

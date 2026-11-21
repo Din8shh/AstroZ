@@ -31,6 +31,29 @@ describe('anga end times (bisection to 1 s)', () => {
     }
   });
 
+  it('handles an anga boundary less than a second after the start of the range', () => {
+    const a = angles(eph);
+    const base = resolveLocal({ date: '2026-11-21', time: '06:00', tz: HYD.tz }).jdUt;
+    // The real Ekadashi → Dwadashi boundary, refined to ~1 ms (the engine's own result is good to 1 s).
+    let lo = fiveAngas(eph, base, base + 0.5).tithi[0]!.end - 2 * SECOND;
+    let hi = lo + 4 * SECOND;
+    while (hi - lo > SECOND / 1000) {
+      const mid = (lo + hi) / 2;
+      if (a.elongation(mid) < 132) lo = mid;
+      else hi = mid;
+    }
+    const boundary = hi;
+    for (const offset of [0.2, 0.5, 0.9]) {
+      const from = boundary - offset * SECOND;
+      const spans = fiveAngas(eph, from, from + 1).tithi;
+      expect(spans[0]!.number, `offset ${offset}s`).toBe(11);
+      expect(Math.abs(spans[0]!.end - boundary) * 86_400, 'end found in the same cycle').toBeLessThan(2);
+      expect(spans[1]!.number).toBe(12);
+      expect(spans[1]!.end - spans[1]!.start).toBeLessThan(1.2); // a normal tithi, not a whole month
+    }
+    expect(Math.floor(a.elongation(boundary + SECOND) / 12) + 1).toBe(12);
+  });
+
   it('karana names follow the fixed + movable cycle', () => {
     expect(names.karana(1).en).toBe('Kimstughna');
     expect(names.karana(2).en).toBe('Bava');

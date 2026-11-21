@@ -103,6 +103,10 @@
             {
               "start": "2026-11-21T06:24",
               "end": "2026-11-21T07:09"
+            },
+            {
+              "start": "2026-11-21T07:09",
+              "end": "2026-11-21T07:54"
             }
           ],
           "varjyam": [
@@ -118,7 +122,8 @@
             }
           ]
         }
-      }
+      },
+      "notes": "Saturday: two Durmuhurtham slots (Drik prints the second in its other column)."
     },
     {
       "id": "vij-2027-04-07",
@@ -313,6 +318,346 @@
             {
               "start": "2026-03-08T19:55",
               "end": "2026-03-08T21:41"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-11-23",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=23/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Monday: Durmuhurtham slots 9 and 12.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-11-23",
+      "expected": {
+        "sunrise": "06:25",
+        "sunset": "17:40",
+        "panchangam": {
+          "vara": 2,
+          "rahuKalam": {
+            "start": "2026-11-23T07:50",
+            "end": "2026-11-23T09:14"
+          },
+          "yamagandam": {
+            "start": "2026-11-23T10:38",
+            "end": "2026-11-23T12:02"
+          },
+          "gulikaKalam": {
+            "start": "2026-11-23T13:27",
+            "end": "2026-11-23T14:51"
+          },
+          "abhijit": {
+            "start": "2026-11-23T11:40",
+            "end": "2026-11-23T12:25"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-11-23T12:25",
+              "end": "2026-11-23T13:10"
+            },
+            {
+              "start": "2026-11-23T14:40",
+              "end": "2026-11-23T15:25"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-11-23T12:58",
+              "end": "2026-11-23T14:25"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-11-23T21:40",
+              "end": "2026-11-23T23:08"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-11-24",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=24/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Tuesday: day Durmuhurtham slot 4 and night slot 7.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-11-24",
+      "expected": {
+        "sunrise": "06:26",
+        "sunset": "17:40",
+        "panchangam": {
+          "vara": 3,
+          "rahuKalam": {
+            "start": "2026-11-24T14:51",
+            "end": "2026-11-24T16:15"
+          },
+          "yamagandam": {
+            "start": "2026-11-24T09:14",
+            "end": "2026-11-24T10:39"
+          },
+          "gulikaKalam": {
+            "start": "2026-11-24T12:03",
+            "end": "2026-11-24T13:27"
+          },
+          "abhijit": {
+            "start": "2026-11-24T11:40",
+            "end": "2026-11-24T12:25"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-11-24T08:41",
+              "end": "2026-11-24T09:26"
+            },
+            {
+              "start": "2026-11-24T22:46",
+              "end": "2026-11-24T23:38"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-11-24T12:43",
+              "end": "2026-11-24T14:09"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-11-24T21:16",
+              "end": "2026-11-24T22:42"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-11-26",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=26/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Thursday. Durmuhurtham omitted: the saved page's second slot could not be recovered reliably. Two Amrita kalams; the second (starts before the next sunrise) is printed in Drik's other column.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-11-26",
+      "expected": {
+        "sunrise": "06:27",
+        "sunset": "17:40",
+        "panchangam": {
+          "vara": 5,
+          "rahuKalam": {
+            "start": "2026-11-26T13:27",
+            "end": "2026-11-26T14:52"
+          },
+          "yamagandam": {
+            "start": "2026-11-26T06:27",
+            "end": "2026-11-26T07:51"
+          },
+          "gulikaKalam": {
+            "start": "2026-11-26T09:15",
+            "end": "2026-11-26T10:39"
+          },
+          "abhijit": {
+            "start": "2026-11-26T11:41",
+            "end": "2026-11-26T12:26"
+          },
+          "varjyam": [
+            {
+              "start": "2026-11-27T01:15",
+              "end": "2026-11-27T02:41"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-11-26T10:01",
+              "end": "2026-11-26T11:26"
+            },
+            {
+              "start": "2026-11-27T06:14",
+              "end": "2026-11-27T07:40"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-11-27",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=27/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Friday: Durmuhurtham slots 4 and 9. No Amrita kalam STARTS this day (one crosses this sunrise but belongs to the previous day).",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-11-27",
+      "expected": {
+        "sunrise": "06:28",
+        "sunset": "17:40",
+        "panchangam": {
+          "vara": 6,
+          "rahuKalam": {
+            "start": "2026-11-27T10:40",
+            "end": "2026-11-27T12:04"
+          },
+          "yamagandam": {
+            "start": "2026-11-27T14:52",
+            "end": "2026-11-27T16:16"
+          },
+          "gulikaKalam": {
+            "start": "2026-11-27T07:52",
+            "end": "2026-11-27T09:16"
+          },
+          "abhijit": {
+            "start": "2026-11-27T11:41",
+            "end": "2026-11-27T12:26"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-11-27T08:42",
+              "end": "2026-11-27T09:27"
+            },
+            {
+              "start": "2026-11-27T12:26",
+              "end": "2026-11-27T13:11"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-11-28T01:59",
+              "end": "2026-11-28T03:26"
+            }
+          ],
+          "amritaKalam": []
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-11-28",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=28/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Saturday: Durmuhurtham slots 1 and 2. Two Amrita kalams; the second is printed in Drik's other column.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-11-28",
+      "expected": {
+        "sunrise": "06:28",
+        "sunset": "17:40",
+        "panchangam": {
+          "vara": 7,
+          "rahuKalam": {
+            "start": "2026-11-28T09:16",
+            "end": "2026-11-28T10:40"
+          },
+          "yamagandam": {
+            "start": "2026-11-28T13:28",
+            "end": "2026-11-28T14:52"
+          },
+          "gulikaKalam": {
+            "start": "2026-11-28T06:28",
+            "end": "2026-11-28T07:52"
+          },
+          "abhijit": {
+            "start": "2026-11-28T11:42",
+            "end": "2026-11-28T12:26"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-11-28T06:28",
+              "end": "2026-11-28T07:13"
+            },
+            {
+              "start": "2026-11-28T07:13",
+              "end": "2026-11-28T07:58"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-11-28T20:13",
+              "end": "2026-11-28T21:41"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-11-28T10:39",
+              "end": "2026-11-28T12:06"
+            },
+            {
+              "start": "2026-11-29T05:05",
+              "end": "2026-11-29T06:33"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-12-09",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=09/12/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "notes": "Wednesday (no Abhijit). Mula's first Varjyam window, 20 ghatis in (Mula has two: 20 and 56).",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-12-09",
+      "expected": {
+        "sunrise": "06:35",
+        "sunset": "17:42",
+        "panchangam": {
+          "vara": 4,
+          "rahuKalam": {
+            "start": "2026-12-09T12:08",
+            "end": "2026-12-09T13:32"
+          },
+          "yamagandam": {
+            "start": "2026-12-09T07:58",
+            "end": "2026-12-09T09:22"
+          },
+          "gulikaKalam": {
+            "start": "2026-12-09T10:45",
+            "end": "2026-12-09T12:08"
+          },
+          "abhijit": null,
+          "durmuhurtham": [
+            {
+              "start": "2026-12-09T11:46",
+              "end": "2026-12-09T12:31"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-12-10T05:59",
+              "end": "2026-12-10T07:47"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-12-09T11:12",
+              "end": "2026-12-09T12:59"
             }
           ]
         }

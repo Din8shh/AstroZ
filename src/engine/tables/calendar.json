@@ -1,7 +1,7 @@
 {
   "source": ".claude/skills/telugu-jyotisha/reference.md conventions; ayana by sidereal sankranti (Telugu almanac practice — 'standard', verify). Telugu labels from design/handoff.",
-  "version": "0.1.0",
-  "notes": "ayana: uttarayana while the Sun's sidereal rasi is one of uttarayanaRasis (Makara sankranti → Karkataka sankranti), else dakshinayana. paksha: tithi 1–15 shukla, 16–30 krishna.",
+  "version": "0.2.0",
+  "notes": "ayana: uttarayana while the Sun's sidereal rasi is one of uttarayanaRasis (Makara sankranti → Karkataka sankranti), else dakshinayana. paksha: tithi 1–15 shukla, 16–30 krishna. Krishna paksham has no human-written Telugu yet (the earlier value was composed by analogy, so it was removed).",
   "ayana": {
     "uttarayanaRasis": [
       10,
@@ -29,7 +29,7 @@
     },
     "krishna": {
       "en": "Krishna paksham",
-      "te": "కృష్ణ పక్షం"
+      "te": null
     }
   },
   "ruthus": [
