@@ -8,8 +8,9 @@ import type { Lord } from './core/chart';
 import type { NamaResult } from './core/nama';
 import type { Reading, Status } from './rules/strength';
 import type { KootaResult, KujaResult } from './rules/matching';
+import type { Door, EventId, Participant } from './rules/muhurtham';
 
-export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading, Status, KootaResult, KujaResult };
+export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading, Status, KootaResult, KujaResult, Door, EventId, Participant };
 
 /** A place as the engine needs it (subset of SPEC `Place`). */
 export type GeoPlace = { lat: number; lon: number; tz: string; altitude?: number };
@@ -161,6 +162,59 @@ export type MatchReading = {
   remedies: string[];
 };
 
+export type MuhurthamQuery = {
+  event: EventId;
+  /** First civil date searched (the panchangam day starting at that sunrise). */
+  from: string;
+  days: number;
+  place: GeoPlace;
+  /** Everyone whose tarabalam / chandrabalam counts (birth star and Moon rasi). */
+  people: Participant[];
+  /** Gruhapravesam: the direction the main door faces. */
+  door?: Door;
+};
+
+export type MuhurthamWindowView = {
+  date: string;
+  start: LocalTime;
+  end: LocalTime;
+  score: number;
+  status: Status;
+  /** Every reason, strongest first; `top` = the three shown on a card. */
+  reasons: Reading['reasons'];
+  top: Reading['reasons'];
+  panchanga: {
+    vara: { number: number; id: string; name: Name };
+    paksha: { id: 'shukla' | 'krishna'; name: Name };
+    masa: { number: number; name: Name };
+    tithi: { number: number; name: Name; start: LocalTime; end: LocalTime };
+    nakshatra: { number: number; name: Name; start: LocalTime; end: LocalTime };
+    yoga: { number: number; name: Name; start: LocalTime; end: LocalTime };
+    karana: { number: number; name: Name; start: LocalTime; end: LocalTime };
+    /** Karanas earlier the same day that were avoided (e.g. Vishti until 08:10). */
+    karanaBefore?: { number: number; name: Name; end: LocalTime };
+    moonRasi: { number: number; name: Name };
+  };
+  people: { id: string; tara: { number: number; name: Name }; taraStatus: Status; house: number; chandraStatus: Status }[];
+  /** Lagna rising at the window's start: information only, not scored yet. */
+  lagna: { rasi: number; name: Name };
+  door?: { door: Door; group: string | null; fits: boolean };
+};
+
+export type MuhurthamResult = {
+  event: EventId;
+  /** Best window of each qualifying day, highest score first. */
+  results: MuhurthamWindowView[];
+  /** Only when nothing qualified: the first qualifying day after the range (searched up to nearestDays). */
+  nearest?: MuhurthamWindowView;
+  daysSearched: number;
+  /** Why days had no window: the main exclusion of each such day, counted. */
+  exclusions: { ruleId: string; days: number; values: Record<string, unknown> }[];
+  /** Gruhapravesam only: the entry-direction table (door → tithi group, null = no rule yet) and the checklist ids. */
+  guide?: { byDoor: Record<Door, string | null>; groups: Record<string, number[]>; checklist: { id: string; when: string | null }[] };
+  ms: number;
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -184,5 +238,7 @@ export interface AstroEngine {
   /** Marriage matching (Ashtakoota, Rajju, Vedha, Kuja). basis 'names' = peru balam from names only, approximate. */
   match(input: { bride: MatchPersonInput; groom: MatchPersonInput; basis: 'chart' | 'names' }): Promise<MatchReading>;
   /** Rasi and nakshatra names (index 0 = number 1), for showing stored profile numbers. */
-  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> }>;
+  /** Ranked muhurtham windows for an event over a date range (rules: tables/muhurtham.json). */
+  findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult>;
+  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> }>;
 }
