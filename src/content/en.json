@@ -1,0 +1,23 @@
+{
+  "$source": "English copy from design/handoff (Claude Design export, 2026-11-21).",
+  "app.name": "AstroZ",
+  "lang.groupLabel": "Language / భాష",
+  "lang.te": "తెలుగు",
+  "lang.en": "English",
+  "nav.label": "Main",
+  "nav.today": "Today",
+  "nav.wishes": "Wishes",
+  "nav.family": "Family",
+  "nav.more": "More",
+  "offline.title": "Offline — everything still works",
+  "offline.body": "The panchangam is calculated on this phone. The city list is on the phone too.",
+  "privacy.line": "Your details stay on this phone. No login, nothing uploaded.",
+  "today.title": "Today's panchangam",
+  "wishes.title": "Your wishes",
+  "wishes.intro": "Pick a wish. We'll read the charts and give you simple, free to-dos.",
+  "family.title": "Family",
+  "family.privacy": "Family details stay on this phone. We never send them anywhere.",
+  "settings.title": "Settings",
+  "settings.intro": "Language, city, text size and your data.",
+  "disclaimer.body": "AstroZ offers suggestions based on traditional jyotisham; it does not promise outcomes. Make big decisions together with your family elders. For health, money or legal matters, ask a qualified professional."
+}
