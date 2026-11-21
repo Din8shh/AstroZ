@@ -1,0 +1,34 @@
+{
+  "source": "Kuja dosha 'what helps' list and the Tuesday diya to-do from design/handoff MatchMixed.dc.html (Telugu as written there).",
+  "version": "0.1.0",
+  "notes": "Simple and free only (CLAUDE.md, SPEC §8): stotram names, temple visits, fasting ('if your health allows'), daanam, colours/days, diyas, elders. NEVER gemstones, paid pujas, products or buy links. Every item has free: true (tests/unit/engine/matching.test.ts).",
+  "items": [
+    {
+      "id": "kuja.compareCharts",
+      "for": [
+        "kuja"
+      ],
+      "te": "ఇద్దరి జాతకాల్లో కుజ స్థానం కలిపి చూడటం",
+      "en": "Looking at Mars in both charts together",
+      "free": true
+    },
+    {
+      "id": "kuja.tuesdayDiya",
+      "for": [
+        "kuja"
+      ],
+      "te": "మంగళవారం సాయంత్రం దీపం వెలిగించడం",
+      "en": "Lighting a diya on Tuesday evening",
+      "free": true
+    },
+    {
+      "id": "kuja.strongMuhurtham",
+      "for": [
+        "kuja"
+      ],
+      "te": "పెద్దల సలహాతో బలమైన ముహూర్తం ఎంచుకోవడం",
+      "en": "Choosing a strong muhurtham with the elders' advice",
+      "free": true
+    }
+  ]
+}

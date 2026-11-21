@@ -4,7 +4,7 @@ import { getEngine, initEngine } from '../../engine/client';
 import { placeById } from '../places';
 import type { Profile } from '../profiles';
 
-type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[] };
+type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> };
 let namesCache: Promise<Names> | null = null;
 
 /** Rasi / nakshatra names from the engine tables (loaded once). */
@@ -65,4 +65,43 @@ export function derivedFrom(chart: BirthChart | null, nama: NamaResult | null): 
     ...(chart?.lagna && { lagna: chart.lagna.rasi }),
     ...(namaNakshatra?.length && { namaNakshatra }),
   };
+}
+
+export type MatchState = { status: 'loading' } | { status: 'ready'; reading: import('../../engine/api').MatchReading } | { status: 'error' } | { status: 'incomplete' };
+
+/** Runs the match for the pair in the match store (chart basis: saved people; names basis: typed names). */
+export function useMatchReading(sel: {
+  basis: 'chart' | 'names';
+  bride?: Profile | undefined; groom?: Profile | undefined;
+  brideName: string; groomName: string; brideChoice: number; groomChoice: number;
+}): MatchState {
+  const [state, setState] = useState<MatchState>({ status: 'loading' });
+  const key = JSON.stringify([sel.basis, sel.bride?.id, sel.bride?.birth, sel.groom?.id, sel.groom?.birth, sel.brideName, sel.groomName, sel.brideChoice, sel.groomChoice]);
+  useEffect(() => {
+    let live = true;
+    (async () => {
+      await initEngine();
+      const engine = getEngine();
+      const person = async (p: Profile) => {
+        const place = p.birth ? await placeById(p.birth.placeId) : undefined;
+        if (!p.birth || !place) throw new Error('no birth details');
+        return {
+          name: p.name,
+          birth: { date: p.birth.date, ...(p.birth.time && { time: p.birth.time }), timeKnown: p.birth.timeKnown, place: { lat: place.lat, lon: place.lon, tz: place.tz } },
+        };
+      };
+      let reading;
+      if (sel.basis === 'chart') {
+        if (!sel.bride || !sel.groom) { if (live) setState({ status: 'incomplete' }); return; }
+        reading = await engine.match({ basis: 'chart', bride: await person(sel.bride), groom: await person(sel.groom) });
+      } else {
+        if (!sel.brideName.trim() || !sel.groomName.trim()) { if (live) setState({ status: 'incomplete' }); return; }
+        reading = await engine.match({ basis: 'names', bride: { name: sel.brideName, namaChoice: sel.brideChoice }, groom: { name: sel.groomName, namaChoice: sel.groomChoice } });
+      }
+      if (live) setState({ status: 'ready', reading });
+    })().catch(() => { if (live) setState({ status: 'error' }); });
+    return () => { live = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return state;
 }

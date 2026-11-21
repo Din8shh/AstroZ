@@ -1,0 +1,803 @@
+{
+  "source": "Ashtakoota (Guna Milan) rules from onlinejyotish.com English articles (read verbatim by an automated agent on 2026-11-21; not yet checked by a person): varna-kootam.php, vashya-kootam.php, tara-kootam.php, yoni-kootam.php, graha-maitri-kootam.php, gana-kootam.php, bhakoota-kootam.php, nadi-kootam.php under https://www.onlinejyotish.com/articles/marriage-matching/english/ — the source .claude/skills/telugu-jyotisha/reference.md §2 names. Yoni: the site prints the animals, same yoni = 4 and the seven Mahavaira pairs = 0, but its full matrix was not readable; the remaining cells are the commonly published 14×14 yoni table (consistent with those rules) and are UNVERIFIED.",
+  "version": "0.1.0",
+  "notes": "All matrices are rows = BRIDE, columns = GROOM, as printed by the source. Points are the raw koota points; the classical exceptions (bhakoota/nadi/gana cancellations) are reported as reasons and do not change points. Tara: count inclusively from one star to the other in each direction, remainder of count ÷ 9 (0 → 9); remainders 3, 5, 7 are unfavourable; each favourable direction gives 1.5 (the source's 9×9 matrix). Bhakoota: count inclusively from the bride's rasi to the groom's and back; the pairs 2/12, 5/9 and 6/8 give 0, all others 7. Vashya: Dhanus and Makara split at 15°. bands: total ≥ good → good (bundle GunaDial), ≥ mixed → mixed (18 = 'generally considered acceptable', source intro), else avoid. Pandit review pending. Koota names (te) from design/handoff (bundle KootaRow); classNames te only where design/handoff has it (దేవ, మనుష్య).",
+  "total": 36,
+  "bands": {
+    "good": 24,
+    "mixed": 18
+  },
+  "kootas": {
+    "varna": {
+      "max": 1,
+      "order": [
+        "brahmin",
+        "kshatriya",
+        "vaishya",
+        "shudra"
+      ],
+      "byRasi": [
+        "kshatriya",
+        "vaishya",
+        "shudra",
+        "brahmin",
+        "kshatriya",
+        "vaishya",
+        "shudra",
+        "brahmin",
+        "kshatriya",
+        "vaishya",
+        "shudra",
+        "brahmin"
+      ],
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "name": {
+        "en": "Varna",
+        "te": "వర్ణం"
+      }
+    },
+    "vashya": {
+      "max": 2,
+      "order": [
+        "chatushpada",
+        "nara",
+        "jalachara",
+        "vanachara",
+        "keeta"
+      ],
+      "byRasi": [
+        [
+          "chatushpada"
+        ],
+        [
+          "chatushpada"
+        ],
+        [
+          "nara"
+        ],
+        [
+          "jalachara"
+        ],
+        [
+          "vanachara"
+        ],
+        [
+          "nara"
+        ],
+        [
+          "nara"
+        ],
+        [
+          "keeta"
+        ],
+        [
+          "nara",
+          "chatushpada"
+        ],
+        [
+          "chatushpada",
+          "jalachara"
+        ],
+        [
+          "nara"
+        ],
+        [
+          "jalachara"
+        ]
+      ],
+      "splitAtDegree": 15,
+      "matrix": [
+        [
+          2,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          2,
+          0.5,
+          0,
+          1
+        ],
+        [
+          1,
+          0.5,
+          2,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          2
+        ]
+      ],
+      "name": {
+        "en": "Vashya",
+        "te": "వశ్యం"
+      }
+    },
+    "tara": {
+      "max": 3,
+      "cycle": 9,
+      "unfavourableRemainders": [
+        3,
+        5,
+        7
+      ],
+      "pointsPerDirection": 1.5,
+      "name": {
+        "en": "Tara",
+        "te": "తార"
+      }
+    },
+    "yoni": {
+      "max": 4,
+      "order": [
+        "horse",
+        "elephant",
+        "sheep",
+        "serpent",
+        "dog",
+        "cat",
+        "rat",
+        "cow",
+        "buffalo",
+        "tiger",
+        "deer",
+        "monkey",
+        "mongoose",
+        "lion"
+      ],
+      "byNakshatra": [
+        "horse",
+        "elephant",
+        "sheep",
+        "serpent",
+        "serpent",
+        "dog",
+        "cat",
+        "sheep",
+        "cat",
+        "rat",
+        "rat",
+        "cow",
+        "buffalo",
+        "tiger",
+        "buffalo",
+        "tiger",
+        "deer",
+        "deer",
+        "dog",
+        "monkey",
+        "mongoose",
+        "monkey",
+        "lion",
+        "horse",
+        "lion",
+        "cow",
+        "elephant"
+      ],
+      "sexByAnimal": {
+        "horse": "m",
+        "elephant": "f",
+        "sheep": "f",
+        "serpent": "m",
+        "dog": "m",
+        "cat": "f",
+        "rat": "m",
+        "cow": "f",
+        "buffalo": "f",
+        "tiger": "m",
+        "deer": "f",
+        "monkey": "m",
+        "mongoose": "f",
+        "lion": "m"
+      },
+      "matrix": [
+        [
+          4,
+          2,
+          2,
+          3,
+          2,
+          2,
+          2,
+          1,
+          0,
+          1,
+          3,
+          3,
+          2,
+          1
+        ],
+        [
+          2,
+          4,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          3,
+          1,
+          2,
+          3,
+          2,
+          0
+        ],
+        [
+          2,
+          3,
+          4,
+          2,
+          1,
+          2,
+          1,
+          3,
+          3,
+          1,
+          2,
+          0,
+          3,
+          1
+        ],
+        [
+          3,
+          3,
+          2,
+          4,
+          2,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          0,
+          2
+        ],
+        [
+          2,
+          2,
+          1,
+          2,
+          4,
+          2,
+          1,
+          2,
+          2,
+          1,
+          0,
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          2,
+          1,
+          2,
+          4,
+          0,
+          2,
+          2,
+          1,
+          3,
+          3,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          1,
+          1,
+          1,
+          0,
+          4,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          3,
+          1,
+          2,
+          2,
+          2,
+          4,
+          3,
+          0,
+          3,
+          2,
+          2,
+          1
+        ],
+        [
+          0,
+          3,
+          3,
+          1,
+          2,
+          2,
+          2,
+          3,
+          4,
+          1,
+          2,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          2,
+          0,
+          1,
+          4,
+          1,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          2,
+          2,
+          2,
+          0,
+          3,
+          2,
+          3,
+          2,
+          1,
+          4,
+          2,
+          2,
+          1
+        ],
+        [
+          3,
+          3,
+          0,
+          2,
+          2,
+          3,
+          2,
+          2,
+          2,
+          1,
+          2,
+          4,
+          3,
+          2
+        ],
+        [
+          2,
+          2,
+          3,
+          0,
+          1,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          4,
+          2
+        ],
+        [
+          1,
+          0,
+          1,
+          2,
+          1,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          4
+        ]
+      ],
+      "verifiedCells": "diagonal (same yoni = 4) and the seven Mahavaira pairs (= 0)",
+      "name": {
+        "en": "Yoni",
+        "te": "యోని"
+      }
+    },
+    "grahaMaitri": {
+      "max": 5,
+      "order": [
+        "sun",
+        "moon",
+        "mars",
+        "mercury",
+        "jupiter",
+        "venus",
+        "saturn"
+      ],
+      "lordsFrom": "rasis.json (lord of each rasi)",
+      "matrix": [
+        [
+          5,
+          5,
+          5,
+          4,
+          5,
+          0,
+          0
+        ],
+        [
+          5,
+          5,
+          4,
+          1,
+          4,
+          0.5,
+          0.5
+        ],
+        [
+          5,
+          4,
+          5,
+          0.5,
+          5,
+          3,
+          0.5
+        ],
+        [
+          4,
+          1,
+          0.5,
+          5,
+          0.5,
+          5,
+          4
+        ],
+        [
+          5,
+          4,
+          5,
+          0.5,
+          5,
+          0.5,
+          3
+        ],
+        [
+          0,
+          0.5,
+          3,
+          5,
+          0.5,
+          5,
+          5
+        ],
+        [
+          0,
+          0.5,
+          0.5,
+          4,
+          3,
+          5,
+          5
+        ]
+      ],
+      "name": {
+        "en": "Graha Maitri",
+        "te": "గ్రహ మైత్రి"
+      }
+    },
+    "gana": {
+      "max": 6,
+      "order": [
+        "deva",
+        "manushya",
+        "rakshasa"
+      ],
+      "byNakshatra": [
+        "deva",
+        "manushya",
+        "rakshasa",
+        "manushya",
+        "deva",
+        "manushya",
+        "deva",
+        "deva",
+        "rakshasa",
+        "rakshasa",
+        "manushya",
+        "manushya",
+        "deva",
+        "rakshasa",
+        "deva",
+        "rakshasa",
+        "deva",
+        "rakshasa",
+        "rakshasa",
+        "manushya",
+        "manushya",
+        "deva",
+        "rakshasa",
+        "rakshasa",
+        "manushya",
+        "manushya",
+        "deva"
+      ],
+      "matrix": [
+        [
+          6,
+          6,
+          0
+        ],
+        [
+          5,
+          6,
+          0
+        ],
+        [
+          1,
+          0,
+          6
+        ]
+      ],
+      "name": {
+        "en": "Gana",
+        "te": "గణం"
+      }
+    },
+    "bhakoot": {
+      "max": 7,
+      "doshaDistances": [
+        [
+          2,
+          12
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "name": {
+        "en": "Bhakoot",
+        "te": "రాశి (భకూటం)"
+      }
+    },
+    "nadi": {
+      "max": 8,
+      "order": [
+        "adi",
+        "madhya",
+        "antya"
+      ],
+      "byNakshatra": [
+        "adi",
+        "madhya",
+        "antya",
+        "antya",
+        "madhya",
+        "adi",
+        "adi",
+        "madhya",
+        "antya",
+        "antya",
+        "madhya",
+        "adi",
+        "adi",
+        "madhya",
+        "antya",
+        "antya",
+        "madhya",
+        "adi",
+        "adi",
+        "madhya",
+        "antya",
+        "antya",
+        "madhya",
+        "adi",
+        "adi",
+        "madhya",
+        "antya"
+      ],
+      "matrix": [
+        [
+          0,
+          8,
+          8
+        ],
+        [
+          8,
+          0,
+          8
+        ],
+        [
+          8,
+          8,
+          0
+        ]
+      ],
+      "name": {
+        "en": "Nadi",
+        "te": "నాడి"
+      }
+    }
+  },
+  "classNames": {
+    "brahmin": {
+      "en": "Brahmin",
+      "te": null
+    },
+    "kshatriya": {
+      "en": "Kshatriya",
+      "te": null
+    },
+    "vaishya": {
+      "en": "Vaishya",
+      "te": null
+    },
+    "shudra": {
+      "en": "Shudra",
+      "te": null
+    },
+    "chatushpada": {
+      "en": "Chatushpada",
+      "te": null
+    },
+    "nara": {
+      "en": "Nara",
+      "te": null
+    },
+    "jalachara": {
+      "en": "Jalachara",
+      "te": null
+    },
+    "vanachara": {
+      "en": "Vanachara",
+      "te": null
+    },
+    "keeta": {
+      "en": "Keeta",
+      "te": null
+    },
+    "deva": {
+      "en": "Deva",
+      "te": "దేవ"
+    },
+    "manushya": {
+      "en": "Manushya",
+      "te": "మనుష్య"
+    },
+    "rakshasa": {
+      "en": "Rakshasa",
+      "te": null
+    },
+    "adi": {
+      "en": "Adi",
+      "te": null
+    },
+    "madhya": {
+      "en": "Madhya",
+      "te": null
+    },
+    "antya": {
+      "en": "Antya",
+      "te": null
+    },
+    "horse": {
+      "en": "Horse",
+      "te": null
+    },
+    "elephant": {
+      "en": "Elephant",
+      "te": null
+    },
+    "sheep": {
+      "en": "Sheep",
+      "te": null
+    },
+    "serpent": {
+      "en": "Serpent",
+      "te": null
+    },
+    "dog": {
+      "en": "Dog",
+      "te": null
+    },
+    "cat": {
+      "en": "Cat",
+      "te": null
+    },
+    "rat": {
+      "en": "Rat",
+      "te": null
+    },
+    "cow": {
+      "en": "Cow",
+      "te": null
+    },
+    "buffalo": {
+      "en": "Buffalo",
+      "te": null
+    },
+    "tiger": {
+      "en": "Tiger",
+      "te": null
+    },
+    "deer": {
+      "en": "Deer",
+      "te": null
+    },
+    "monkey": {
+      "en": "Monkey",
+      "te": null
+    },
+    "mongoose": {
+      "en": "Mongoose",
+      "te": null
+    },
+    "lion": {
+      "en": "Lion",
+      "te": null
+    }
+  }
+}

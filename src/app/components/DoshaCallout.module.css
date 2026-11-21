@@ -1,0 +1,16 @@
+/* Ported from bundle.css: .az-dosha */
+.dosha { display: flex; flex-direction: column; gap: var(--az-space-3); padding: var(--az-space-4); border-radius: var(--az-radius-card); border: 1px solid var(--az-line); }
+.mixed { background: var(--az-caution-soft); }
+.good { background: var(--az-leaf-soft); }
+.avoid { background: var(--az-avoid-soft); }
+.head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--az-space-2); }
+.icon { color: var(--az-caution-ink); display: inline-flex; }
+.good .icon { color: var(--az-leaf-ink); }
+.avoid .icon { color: var(--az-avoid-ink); }
+.title { flex: 1; min-width: 50%; font-size: calc(var(--fs-title) * var(--az-scale)); font-weight: 600; line-height: 1.45; }
+.body { line-height: 1.6; margin: 0; }
+.helps { display: flex; flex-direction: column; gap: 6px; padding: var(--az-space-3); border-radius: var(--az-radius-md); background: var(--az-surface); }
+.helpsTitle { font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; }
+.helps ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.helps li { display: flex; gap: var(--az-space-2); align-items: flex-start; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.55; }
+.check { color: var(--az-leaf-ink); margin-top: 2px; display: inline-flex; }

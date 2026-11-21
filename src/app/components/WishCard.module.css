@@ -1,0 +1,8 @@
+/* Ported from bundle.css: .az-wish */
+.wish { display: flex; align-items: center; gap: var(--az-space-3); width: 100%; min-height: 84px; padding: var(--az-space-4); background: var(--az-surface); border-radius: var(--az-radius-card); box-shadow: var(--az-shadow-card); border: 1px solid var(--az-line); color: var(--az-ink); text-align: left; text-decoration: none; }
+.disabled { opacity: 0.6; box-shadow: none; }
+.icon { flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--az-turmeric-soft); border: 1.5px solid var(--az-gold); color: var(--az-kumkum-ink); }
+.text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.title { font-size: calc(var(--fs-title) * var(--az-scale)); font-weight: 600; line-height: 1.4; }
+.sub { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
+.chev { color: var(--az-ink-muted); display: inline-flex; }

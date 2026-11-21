@@ -12,6 +12,8 @@ const ARTBOARDS = [
   ['family', 'te', 'FamilyTe.dc.html'], ['family', 'en', 'FamilyEn.dc.html'],
   ['add', 'te', 'AddPerson.dc.html'], ['add', 'en', 'AddPersonEnglish.dc.html'],
   ['reveal', 'te', 'Reveal.dc.html'],
+  ['wishes', 'te', 'WishesHub.dc.html'], ['pick', 'te', 'MatchPick.dc.html'],
+  ['result', 'te', 'MatchMixed.dc.html'], ['result', 'en', 'MatchStrongEn.dc.html'], ['why', 'te', 'MatchWhySheet.dc.html'],
 ] as const;
 
 for (const width of [360, 390]) {
@@ -31,7 +33,7 @@ for (const width of [360, 390]) {
       await page.goto(`http://design.local/${file}`);
       await page.waitForTimeout(1500);
       await page.evaluate(() => document.fonts.ready);
-      const dir = screen === 'today' ? 'today' : 'people';
+      const dir = screen === 'today' ? 'today' : ['wishes', 'pick', 'result', 'why'].includes(screen) ? 'marriage' : 'people';
       await page.screenshot({ path: `test-results/${dir}/design-${screen}-${lang}-${width}.png`, fullPage: true });
       await ctx.close();
     });

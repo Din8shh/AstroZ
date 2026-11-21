@@ -1,0 +1,121 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md: rajju groups §1 (rajju column), Vedha pairs §3 ('standard'), Kuja dosha houses (skill: 'Mars in 2, 4, 7, 8, 12 from lagna, also check from Moon; both partners having it is commonly treated as balanced').",
+  "version": "0.1.0",
+  "notes": "rajju: same rajju group for both partners → flag (serious in many families). vedha: the pair (either order) → flag. kuja: house = ((Mars rasi − reference rasi + 12) mod 12) + 1, counted from the lagna (only when the birth time is known) and from the Moon. onlinejyotish's kuja-dosha-nivarana page also lists house 1 and several cancellations (own/exalted signs, Jupiter's aspect…); they are NOT applied here — pandit review pending. Copy must stay calm: 'worth discussing with an astrologer', never 'do not marry'.",
+  "rajju": {
+    "byNakshatra": [
+      "pada",
+      "kati",
+      "nabhi",
+      "kantha",
+      "siro",
+      "kantha",
+      "nabhi",
+      "kati",
+      "pada",
+      "pada",
+      "kati",
+      "nabhi",
+      "kantha",
+      "siro",
+      "kantha",
+      "nabhi",
+      "kati",
+      "pada",
+      "pada",
+      "kati",
+      "nabhi",
+      "kantha",
+      "siro",
+      "kantha",
+      "nabhi",
+      "kati",
+      "pada"
+    ],
+    "order": [
+      "pada",
+      "kati",
+      "nabhi",
+      "kantha",
+      "siro"
+    ]
+  },
+  "vedha": {
+    "pairs": [
+      [
+        1,
+        18
+      ],
+      [
+        2,
+        17
+      ],
+      [
+        3,
+        16
+      ],
+      [
+        4,
+        15
+      ],
+      [
+        6,
+        22
+      ],
+      [
+        7,
+        21
+      ],
+      [
+        8,
+        20
+      ],
+      [
+        9,
+        19
+      ],
+      [
+        10,
+        27
+      ],
+      [
+        11,
+        26
+      ],
+      [
+        12,
+        25
+      ],
+      [
+        13,
+        24
+      ],
+      [
+        5,
+        23
+      ],
+      [
+        5,
+        14
+      ],
+      [
+        14,
+        23
+      ]
+    ]
+  },
+  "kuja": {
+    "houses": [
+      2,
+      4,
+      7,
+      8,
+      12
+    ],
+    "from": [
+      "lagna",
+      "moon"
+    ],
+    "bothBalance": true
+  }
+}

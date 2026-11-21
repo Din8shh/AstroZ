@@ -6,9 +6,10 @@ import type { Name } from './core/panchangam';
 import type { PeriodKind, PeriodStatus } from './core/dayPeriods';
 import type { Lord } from './core/chart';
 import type { NamaResult } from './core/nama';
-import type { Reading } from './rules/strength';
+import type { Reading, Status } from './rules/strength';
+import type { KootaResult, KujaResult } from './rules/matching';
 
-export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading };
+export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading, Status, KootaResult, KujaResult };
 
 /** A place as the engine needs it (subset of SPEC `Place`). */
 export type GeoPlace = { lat: number; lon: number; tz: string; altitude?: number };
@@ -118,6 +119,44 @@ export type DayStrength = {
   chandrabalam: StrengthSegment<ChandrabalamReading>[];
 };
 
+export type MatchPersonInput = {
+  name: string;
+  /** Required for basis 'chart'. */
+  birth?: BirthInput;
+  /** Which nama-nakshatra candidate to use when the name is ambiguous (default 0). */
+  namaChoice?: number;
+};
+
+export type MatchSideView = {
+  name: string;
+  nakshatra: number;
+  pada: number;
+  rasi: number;
+  /** Time unknown (chart) or name-based. */
+  approximate: boolean;
+  /** Names basis: the first sound used. */
+  aksharam?: string;
+};
+
+export type MatchReading = {
+  basis: 'chart' | 'names';
+  approximate: boolean;
+  status: Status;
+  score: number;
+  max: number;
+  kootas: KootaResult[];
+  rajju: { present: boolean; status: Status; reasons: Reading['reasons'] };
+  vedha: { present: boolean; status: Status; reasons: Reading['reasons'] };
+  kuja: KujaResult;
+  bride: MatchSideView;
+  groom: MatchSideView;
+  /** Name strength (ashtakoota on the nama nakshatras); always approximate. Absent if a name gives no candidate. */
+  peruBalam?: { status: Status; score: number; max: number };
+  reasons: Reading['reasons'];
+  todos: { id: string }[];
+  remedies: string[];
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -138,6 +177,8 @@ export interface AstroEngine {
   namaNakshatra(name: string): Promise<NamaResult | null>;
   /** Tarabalam and chandrabalam for a person on a panchangam day, split where the Moon changes nakshatra / rasi. */
   dayStrength(person: { nakshatra: number; rasi: number }, date: string, place: GeoPlace): Promise<DayStrength>;
+  /** Marriage matching (Ashtakoota, Rajju, Vedha, Kuja). basis 'names' = peru balam from names only, approximate. */
+  match(input: { bride: MatchPersonInput; groom: MatchPersonInput; basis: 'chart' | 'names' }): Promise<MatchReading>;
   /** Rasi and nakshatra names (index 0 = number 1), for showing stored profile numbers. */
-  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[] }>;
+  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> }>;
 }

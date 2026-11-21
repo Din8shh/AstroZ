@@ -8,9 +8,12 @@ import { dayPeriods, type DayFrame } from './dayPeriods';
 import { chartAt, nakshatraName, nakshatraOf, rasiName, rasiOf, vimshottariDashas, type Placement } from './chart';
 import { namaNakshatra } from './nama';
 import { chandrabalam, tarabalam } from '../rules/strength';
+import { guidanceFor, matchCore, type MatchSide } from '../rules/matching';
+import type { MatchPersonInput, MatchReading, MatchSideView } from '../api';
 import { angles, findCrossing } from './panchangam';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
+import kootaTable from '../tables/kootas.json';
 
 export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
   let eph: Ephemeris | null = null;
@@ -80,7 +83,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     return d;
   };
 
-  return {
+  const api: AstroEngine = {
     init,
 
     async positions(at: LocalMoment): Promise<PositionsResult> {
@@ -181,12 +184,63 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       return namaNakshatra(name);
     },
 
+    async match(input: { bride: MatchPersonInput; groom: MatchPersonInput; basis: 'chart' | 'names' }): Promise<MatchReading> {
+      await ready();
+      const NAK = nakshatraTable.spanDegrees;
+
+      /** A side from a nama-nakshatra pada (names basis): Moon taken at the middle of that pada. */
+      const fromName = (p: MatchPersonInput): { side: MatchSide; view: MatchSideView } | null => {
+        const nama = namaNakshatra(p.name);
+        const c = nama?.candidates[p.namaChoice ?? 0] ?? nama?.candidates[0];
+        if (!nama || !c) return null;
+        const lon = (c.nakshatra - 1) * NAK + (c.pada - 0.5) * (NAK / 4);
+        return {
+          side: { nakshatra: c.nakshatra, rasi: rasiOf(lon), moonDegree: lon % 30 },
+          view: { name: p.name, nakshatra: c.nakshatra, pada: c.pada, rasi: rasiOf(lon), approximate: true, aksharam: nama.aksharam },
+        };
+      };
+
+      /** A side from a birth chart: Moon, Mars, and the lagna only when the birth time is known. */
+      const fromChart = async (p: MatchPersonInput): Promise<{ side: MatchSide; view: MatchSideView }> => {
+        if (!p.birth) throw new Error('birth details needed for a chart match');
+        const c = await api.birthChart(p.birth);
+        const side: MatchSide = { nakshatra: c.moon.nakshatra, rasi: c.moon.rasi, moonDegree: c.moon.degree, mars: { rasi: c.planets.mars.rasi } };
+        if (c.lagna) side.lagnaRasi = c.lagna.rasi;
+        return { side, view: { name: p.name, nakshatra: c.moon.nakshatra, pada: c.moon.pada, rasi: c.moon.rasi, approximate: c.approximate } };
+      };
+
+      const namesB = fromName(input.bride), namesG = fromName(input.groom);
+      let b: { side: MatchSide; view: MatchSideView }, g: { side: MatchSide; view: MatchSideView };
+      if (input.basis === 'chart') {
+        [b, g] = await Promise.all([fromChart(input.bride), fromChart(input.groom)]);
+      } else {
+        if (!namesB || !namesG) throw new Error('a name gives no nama nakshatra');
+        b = namesB; g = namesG;
+      }
+      const core = matchCore(b.side, g.side);
+      const names = input.basis === 'names';
+      const peru = namesB && namesG ? matchCore(namesB.side, namesG.side) : null;
+      const { todos, remedies } = guidanceFor(core, names);
+      return {
+        basis: input.basis,
+        approximate: names || b.view.approximate || g.view.approximate,
+        status: core.status, score: core.score, max: core.max,
+        kootas: core.kootas, rajju: core.rajju, vedha: core.vedha, kuja: core.kuja,
+        bride: b.view, groom: g.view,
+        ...(peru && { peruBalam: { status: peru.status, score: peru.score, max: peru.max } }),
+        reasons: [{ ruleId: 'match.total', values: { score: core.score, max: core.max, status: core.status, basis: input.basis } }],
+        todos, remedies,
+      };
+    },
+
     async names() {
       return {
         rasis: rasiTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
         /** Telugu form used before రాశి / లగ్నం (e.g. వృషభ రాశి). */
         rasisCompound: rasiTable.items.map((r) => ({ en: r.en, te: r.teCompound ?? null })),
         nakshatras: nakshatraTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
+        kootas: Object.fromEntries(Object.entries(kootaTable.kootas).map(([id, k]) => [id, { en: k.name.en, te: k.name.te ?? null }])),
+        classes: Object.fromEntries(Object.entries(kootaTable.classNames).map(([id, n]) => [id, { en: n.en, te: n.te ?? null }])),
       };
     },
 
@@ -224,4 +278,5 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       }));
     },
   };
+  return api;
 }
