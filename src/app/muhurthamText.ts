@@ -36,7 +36,10 @@ export function useMhText() {
           break;
         case 'mh.tarabalam': {
           if (taras.every((x) => x.values.status === 'good')) push('tara', { text: t(taras.length === 2 ? 'mhr.tara.both' : 'mhr.tara.all'), status: 'good' });
-          else if (v.status !== 'good') push(`tara-${String(v.person)}`, { text: t('mhr.tara.mixed', { name: who(v.person as string) }), status: 'mixed' });
+          else if (v.status !== 'good') {
+            const p = w.people.find((x) => x.id === v.person);
+            push(`tara-${String(v.person)}`, { text: t('mhr.tara.mixed', { name: who(v.person as string), tara: p ? name(p.tara.name) : String(v.tara) }), status: 'mixed' });
+          }
           break;
         }
         case 'mh.chandrabalam': {
@@ -63,10 +66,8 @@ export function useMhText() {
           break; // yoga / karana are always clean in a window; shown on the detail screen instead
       }
     }
-    // The "clear of Rahu kalam / durmuhurtham" line is always true of a window: keep it as the last of the three.
-    const clear = out.find((l) => l.text === t('mhr.clear'));
-    const rest = out.filter((l) => l !== clear);
-    return [...rest.slice(0, clear ? limit - 1 : limit), ...(clear ? [clear] : [])].slice(0, limit);
+    // Engine order (strongest first); the always-true "clear of Rahu kalam" line comes last and only fills a gap.
+    return out.slice(0, limit);
   };
 
   return { lines, eventFor, nak };

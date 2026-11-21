@@ -284,7 +284,7 @@
   "mhr.vara.neutral": "{vara} — middling",
   "mhr.tara.both": "Good tarabalam for both",
   "mhr.tara.all": "Good tarabalam",
-  "mhr.tara.mixed": "Janma tara — middling · {name}",
+  "mhr.tara.mixed": "{tara} tara — middling · {name}",
   "mhr.chandra.all": "Good chandrabalam",
   "mhr.chandra.avoid": "Low chandrabalam · {name}",
   "mhr.clear": "A time free of Rahu kalam and durmuhurtham",

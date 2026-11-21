@@ -8,6 +8,7 @@ import type { DayPeriod } from '../../../src/engine/core/dayPeriods';
 import { createEngine } from '../../../src/engine/core/engine';
 import { loadEphemeris } from '../../../src/engine/ephemeris';
 import { addDays } from '../../../src/engine/core/time';
+import { amantaMasa } from '../../../src/engine/core/panchangam';
 import type { Door, MuhurthamWindowView } from '../../../src/engine/api';
 
 const HOUR = 1 / 24;
@@ -50,14 +51,19 @@ function plainDay(over: Partial<DayContext> = {}): DayContext {
   const sunrise = 2461400.5 + 0.5 / 24; // arbitrary: 06:00 IST-ish in UT terms; only differences matter
   const sunset = sunrise + 12 * HOUR, nextSunrise = sunrise + 24 * HOUR;
   const span = (n: number) => [{ number: n, name: { en: '', te: null }, start: sunrise - HOUR, end: nextSunrise + HOUR }];
-  return {
-    date: '2027-02-11', sunrise, sunset, nextSunrise, vara: 'fri',
+  const base = {
+    date: '2027-02-11', sunrise, sunset, nextSunrise, vara: 'fri' as const,
     masa: { number: 11, adhika: false, kshaya: false }, sunriseTithi: 3, sunRasi: 10,
     planets: { venus: { separation: 30, retrograde: false }, jupiter: { separation: 60, retrograde: false } },
     tithi: span(3), nakshatra: span(4), yoga: span(16), karana: span(2),
     moonRasi: [{ start: sunrise - HOUR, end: nextSunrise + HOUR, index: 2 }],
     periods: [],
     ...over,
+  };
+  return {
+    ...base,
+    masaSpans: over.masaSpans ?? [{ start: sunrise - HOUR, end: nextSunrise + HOUR, ...base.masa }],
+    sunRasiSpans: over.sunRasiSpans ?? [{ start: sunrise - HOUR, end: nextSunrise + HOUR, index: base.sunRasi }],
   };
 }
 const period = (kind: DayPeriod['kind'], start: number, end: number): DayPeriod => ({ kind, name: { en: kind, te: null }, status: 'avoid', start, end, verified: true });
@@ -89,6 +95,20 @@ describe('day-level exclusions', () => {
 
 describe('windows within a day', () => {
   const people = [{ id: 'a', nakshatra: 4, rasi: 2 }];
+  it('month rules are judged per stretch: a new moon or sankranti after sunrise changes the month mid-day', () => {
+    const d = plainDay({ masa: { number: 3, adhika: false, kshaya: false }, vara: 'thu' });
+    const nm = d.sunrise + 5 * HOUR; // Jyeshtha ends 5 h after sunrise; Ashadha is not a gruhapravesam month
+    const masaSpans = [{ start: d.sunrise, end: nm, number: 3, adhika: false, kshaya: false }, { start: nm, end: d.nextSunrise, number: 4, adhika: false, kshaya: false }];
+    const span2 = [{ number: 2, name: { en: '', te: null }, start: d.sunrise - HOUR, end: d.nextSunrise + HOUR }];
+    const r = scoreDay('gruhapravesam', { ...d, masaSpans, tithi: span2 }, [], 'east');
+    expect(r.windows.length).toBeGreaterThan(0);
+    for (const w of r.windows) expect(w.end).toBeLessThanOrEqual(nm + 1e-9);
+    // Sun enters Dhanus 6 h after sunrise: vivaham windows stop there.
+    const sk = d.sunrise + 6 * HOUR;
+    const v = scoreDay('vivaham', { ...d, masa: { number: 9, adhika: false, kshaya: false }, masaSpans: [{ start: d.sunrise, end: d.nextSunrise, number: 9, adhika: false, kshaya: false }], sunRasiSpans: [{ start: d.sunrise, end: sk, index: 8 }, { start: sk, end: d.nextSunrise, index: 9 }] }, []);
+    expect(v.windows.length).toBeGreaterThan(0);
+    for (const w of v.windows) expect(w.end).toBeLessThanOrEqual(sk + 1e-9);
+  });
   it('cuts out avoid periods and keeps the rest', () => {
     const d = plainDay();
     const rahu = period('rahu', d.sunrise + 3 * HOUR, d.sunrise + 4.5 * HOUR);
@@ -163,6 +183,7 @@ describe('engine.findMuhurtham', () => {
     for (let i = 1; i < r.results.length; i++) expect(r.results[i - 1]!.score).toBeGreaterThanOrEqual(r.results[i]!.score);
     const w = r.results[0]!;
     expect(w.top).toHaveLength(3);
+    expect(w.top.map((r) => r.ruleId)).not.toContain('mh.clear');
     expect(w.people.map((p) => p.id)).toEqual(['a', 'b']);
     expect(w.lagna.rasi).toBeGreaterThanOrEqual(1);
     expect(new Set(r.results.map((x) => x.date)).size).toBe(r.results.length); // one window per day
@@ -185,11 +206,33 @@ describe('engine.findMuhurtham', () => {
     expect(k.nearest!.date >= '2027-01-14').toBe(true);
   }, 30_000);
 
+  it('regression: gruhapravesam windows after a mid-day new moon are not in the next (forbidden) month', async () => {
+    const eph = await loadEphemeris();
+    const allowed = table.events.gruhapravesam.exclude.months as number[];
+    // Days the verifier found (2026–2028, Hyderabad, south door): amavasya ends after sunrise and the next month is not allowed.
+    for (const date of ['2026-03-19', '2026-07-14', '2027-07-04', '2028-03-26']) {
+      const r = await engine.findMuhurtham({ event: 'gruhapravesam', from: date, days: 1, place: PLACES.hyderabad, people: [], door: 'south' });
+      for (const w of r.results) {
+        for (const jd of [w.start.jdUt + 1 / 86_400, w.end.jdUt - 1 / 86_400]) {
+          expect(allowed, `${date} ${w.start.time}`).toContain(amantaMasa(eph, jd).number);
+        }
+      }
+    }
+  }, 30_000);
+
   // Property: for random events, places, dates, doors and participants, every suggested window
   // (a) overlaps no avoid period of its day, the day before or the day after;
   // (b) has no avoided tithi, yoga or karana anywhere inside it;
   // (c) stays inside the event's allowed part of the day.
-  it('property: no suggested window overlaps an avoid period', async () => {
+  it('property: no suggested window overlaps an avoid period or breaks a month rule', async () => {
+    const eph = await loadEphemeris();
+    /** Month facts recomputed independently at an instant (fresh amantaMasa, no cache). */
+    const headAt = (jd: number, planets: Parameters<typeof dayExclusions>[1]['planets']) => {
+      const sun = eph.position('sun', jd).longitude, moon = eph.position('moon', jd).longitude;
+      const m = amantaMasa(eph, jd);
+      return { masa: { number: m.number, adhika: m.adhika, kshaya: m.kshaya }, sunriseTithi: Math.floor((((moon - sun) % 360) + 360) % 360 / 12) + 1, sunRasi: Math.floor(sun / 30) + 1, planets };
+    };
+    const noCombust = { venus: { separation: 180, retrograde: false }, jupiter: { separation: 180, retrograde: false } };
     let seed = 20261121;
     const rand = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
     const pick = <T,>(xs: readonly T[]) => xs[Math.floor(rand() * xs.length)]!;
@@ -222,6 +265,10 @@ describe('engine.findMuhurtham', () => {
         for (const y of pc.yoga.filter(inside)) expect(table.general.avoidYogas, `${label} yoga ${y.number}`).not.toContain(y.number);
         for (const k of pc.karana.filter(inside)) expect(k.name.en, `${label} karana`).not.toBe('Vishti');
         if (w.door?.group) expect(w.door.fits, `${label} door ${w.door.door}`).toBe(true);
+        // (d) month rules (adhika, kshaya, month list, chaturmas, kharmas, pitru paksha) hold at both ends of the window.
+        for (const jd of [w.start.jdUt + 1 / 86_400, w.end.jdUt - 1 / 86_400]) {
+          expect(dayExclusions(event, headAt(jd, noCombust)).map((x) => x.ruleId), `${label} month rules at ${jd}`).toEqual([]);
+        }
         expect(w.start.jdUt, label).toBeGreaterThanOrEqual(pc.sunrise.jdUt - 1e-9);
         const ev = table.events[event] as { window: string };
         expect(w.end.jdUt, label).toBeLessThanOrEqual((ev.window === 'daytime' ? pc.sunset.jdUt : pc.nextSunrise.jdUt) + 1e-9);

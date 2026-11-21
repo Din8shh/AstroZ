@@ -21,9 +21,13 @@ export type DayContext = {
   nextSunrise: number;
   vara: VaraId;
   masa: { number: number; adhika: boolean; kshaya: boolean };
-  /** Tithi current at sunrise (1–30): month rules are judged at sunrise. */
+  /** Tithi current at sunrise (1–30). */
   sunriseTithi: number;
   sunRasi: number;
+  /** Amanta months touching the day (two when a new moon falls inside it). */
+  masaSpans: { start: number; end: number; number: number; adhika: boolean; kshaya: boolean }[];
+  /** Sun's sidereal rasi through the day (two spans when a sankranti falls inside it). */
+  sunRasiSpans: { start: number; end: number; index: number }[];
   /** Angular distance from the Sun and retrograde flag, at sunrise. */
   planets: Record<'venus' | 'jupiter', { separation: number; retrograde: boolean }>;
   tithi: AngaSpan[];
@@ -72,7 +76,9 @@ const at = (spans: AngaSpan[], t: number) => spans.find((s) => t >= s.start && t
 const rasiAt = (spans: DayContext['moonRasi'], t: number) => (spans.find((s) => t >= s.start && t < s.end) ?? spans[spans.length - 1]!).index;
 
 /** Day-level hard exclusions (month rules, combust planets) for an event. Empty = the day can hold windows. */
+/** The facts month rules need at one instant: masa, tithi (field kept as sunriseTithi), Sun rasi, combust state. */
 export type DayHead = Pick<DayContext, 'masa' | 'sunriseTithi' | 'sunRasi' | 'planets'>;
+/** Month / combust exclusions for the facts at one instant (a day's sunrise, or any stretch of it). */
 export function dayExclusions(event: EventId, d: DayHead): Reason[] {
   const ev = EVENTS[event];
   const x = ev.exclude;
@@ -118,7 +124,10 @@ function scoreSegment(event: EventId, d: DayContext, a: number, b: number, peopl
     reasons.push({ ruleId, values: { ...values, impact: got } });
   };
 
-  // 1. Hard exclusions inside the day.
+  // 1. Hard exclusions inside the day. Month rules first, with this stretch's masa, tithi and Sun rasi.
+  const m = (d.masaSpans.find((x) => mid >= x.start && mid < x.end) ?? d.masaSpans[d.masaSpans.length - 1]!);
+  const monthX = dayExclusions(event, { masa: { number: m.number, adhika: m.adhika, kshaya: m.kshaya }, sunriseTithi: tithi, sunRasi: rasiAt(d.sunRasiSpans, mid), planets: d.planets });
+  if (monthX.length) return fail(monthX[0]!.ruleId, monthX[0]!.values);
   for (const kind of G.removePeriods as PeriodKind[]) {
     const p = d.periods.find((q) => q.kind === kind && q.start < b && q.end > a);
     if (p) return fail('mh.x.period', { kind });
@@ -184,15 +193,14 @@ function rankReasons(reasons: Reason[], max: Record<string, number>): Reason[] {
   const strength = (r: Reason) => {
     const got = r.values.impact as number;
     const full = max[r.ruleId] ?? got;
-    return got >= full ? got : -(full - got) * 1.5; // a shortfall is worth more attention than an equal gain
+    return got >= full ? got : -(full - got) * W.shortfallFactor; // a shortfall is worth more attention than an equal gain
   };
   return [...reasons].filter((r) => (r.values.impact as number) > 0 || (max[r.ruleId] ?? 0) > 0).sort((x, y) => Math.abs(strength(y)) - Math.abs(strength(x)));
 }
 
 /** All windows of one day for an event, and the best one. */
 export function scoreDay(event: EventId, d: DayContext, people: Participant[], door?: Door): DayResult {
-  const dayX = dayExclusions(event, d);
-  if (dayX.length) return { best: null, windows: [], excluded: dayX };
+  // Month rules can change inside the day (a new moon or a sankranti after sunrise), so they are judged per stretch below.
 
   const ev = EVENTS[event];
   const from = d.sunrise, to = ev.window === 'daytime' ? d.sunset : d.nextSunrise;
@@ -201,6 +209,8 @@ export function scoreDay(event: EventId, d: DayContext, people: Participant[], d
   const addCut = (t: number) => { if (t > from && t < to) cuts.add(t); };
   for (const spans of [d.tithi, d.nakshatra, d.yoga, d.karana]) for (const s of spans) { addCut(s.start); addCut(s.end); }
   for (const s of d.moonRasi) { addCut(s.start); addCut(s.end); }
+  for (const s of d.masaSpans) { addCut(s.start); addCut(s.end); }
+  for (const s of d.sunRasiSpans) { addCut(s.start); addCut(s.end); }
   for (const p of d.periods) { addCut(p.start); addCut(p.end); }
   const edges = [...cuts].sort((x, y) => x - y);
 

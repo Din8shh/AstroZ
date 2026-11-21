@@ -345,7 +345,7 @@
   "mhr.vara.neutral": "{vara} — మధ్యమం",
   "mhr.tara.both": "ఇద్దరికీ తారాబలం బాగుంది",
   "mhr.tara.all": "తారాబలం బాగుంది",
-  "mhr.tara.mixed": "Janma tara — middling · {name}",
+  "mhr.tara.mixed": "{tara} tara — middling · {name}",
   "mhr.chandra.all": "Good chandrabalam",
   "mhr.chandra.avoid": "చంద్రబలం తక్కువ · {name}",
   "mhr.clear": "రాహు కాలం, దుర్ముహూర్తం లేని సమయం",

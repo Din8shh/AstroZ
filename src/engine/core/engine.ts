@@ -98,14 +98,15 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     return d;
   };
 
-  /** Spans of the day where the Moon stays in one nakshatra (span 13°20′) or rasi (30°). */
-  const moonSpans = (e: Ephemeris, from: number, to: number, span: number, count: number) => {
+  /** Spans of [from, to) where a body (Moon by default) stays in one division of `span` degrees. */
+  const moonSpans = (e: Ephemeris, from: number, to: number, span: number, count: number, body: 'moon' | 'sun' = 'moon') => {
     const a = angles(e);
+    const lon = a[body];
     const out: { start: number; end: number; index: number }[] = [];
     let start = from;
-    let index = Math.floor(a.moon(start + 1 / 86_400) / span) + 1;
+    let index = Math.floor(lon(start + 1 / 86_400) / span) + 1;
     while (start < to) {
-      const end = Math.min(to, findCrossing(a.moon, (index % count) * span, start + 1 / 86_400, 1));
+      const end = Math.min(to, findCrossing(lon, (index % count) * span, start + 1 / 86_400, 1));
       out.push({ start, end, index });
       start = end;
       index = (index % count) + 1;
@@ -116,13 +117,14 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
   const periodsOf = (d: ReturnType<typeof computeDay>) =>
     dayPeriods({ sunrise: d.f.sunrise, sunset: d.f.sunset, nextSunrise: d.f.nextSunrise, vara: d.v.id as DayFrame['vara'] }, d.angas.nakshatra);
 
-  /** The month, sunrise tithi, Sun and combust facts of a day: enough for day-level exclusions, without the angas. */
-  const dayHead = (e: Ephemeris, sunrise: number): DayHead => {
+  /** The month, tithi, Sun and combust facts at one instant: enough for month rules, without the angas. */
+  const dayHead = (e: Ephemeris, sunrise: number): DayHead & { masaStart: number } => {
     const pos = e.positions(sunrise);
     const sep = (x: number) => Math.abs((((x - pos.sun.longitude) % 360) + 540) % 360 - 180);
     const masa = masaAt(e, sunrise);
     const elongation = (((pos.moon.longitude - pos.sun.longitude) % 360) + 360) % 360;
     return {
+      masaStart: masa.startNewMoon,
       masa: { number: masa.number, adhika: masa.adhika, kshaya: masa.kshaya },
       sunriseTithi: Math.floor(elongation / 12) + 1,
       sunRasi: rasiOf(pos.sun.longitude),
@@ -138,10 +140,20 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     const prev = day(e, addDays(date, -1), place);
     const { f, angas, v } = d;
     const periods = [...periodsOf(prev).filter((p) => p.end > f.sunrise), ...periodsOf(d)];
+    // Months touching the day: a new moon after sunrise starts the next amanta month mid-day.
+    const m0 = masaAt(e, f.sunrise);
+    const span = (m: Masa, start: number, end: number) => ({ start, end, number: m.number, adhika: m.adhika, kshaya: m.kshaya });
+    const masaSpans = m0.endNewMoon < f.nextSunrise
+      ? [span(m0, f.sunrise, m0.endNewMoon), span(masaAt(e, m0.endNewMoon + 1 / 86_400), m0.endNewMoon, f.nextSunrise)]
+      : [span(m0, f.sunrise, f.nextSunrise)];
+    const { masaStart: _m, ...head } = dayHead(e, f.sunrise);
+    void _m;
     const ctx: DayContext = {
       date, sunrise: f.sunrise, sunset: f.sunset, nextSunrise: f.nextSunrise,
       vara: v.id as VaraId,
-      ...dayHead(e, f.sunrise),
+      ...head,
+      masaSpans,
+      sunRasiSpans: moonSpans(e, f.sunrise, f.nextSunrise, rasiTable.spanDegrees, 12, 'sun'),
       tithi: angas.tithi, nakshatra: angas.nakshatra, yoga: angas.yoga, karana: angas.karana,
       moonRasi: moonSpans(e, f.sunrise, f.nextSunrise, rasiTable.spanDegrees, 12),
       periods,
@@ -149,7 +161,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     return { ctx, d };
   };
 
-  const windowView = (e: Ephemeris, raw: Window, ctx: DayContext, d: ReturnType<typeof computeDay>, place: GeoPlace): MuhurthamWindowView => {
+  const windowView = (e: Ephemeris, raw: Window, ctx: DayContext, d: ReturnType<typeof computeDay>, place: GeoPlace, event: MuhurthamQuery['event']): MuhurthamWindowView => {
     const L = (jd: number) => toLocal(jd, place.tz);
     // Shown to the minute: round inward so the displayed window never touches a neighbouring avoid period.
     const w = { ...raw, start: Math.ceil(raw.start * 1440 - 1e-6) / 1440, end: Math.floor(raw.end * 1440 + 1e-6) / 1440 };
@@ -157,12 +169,16 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       const s = spans.find((x) => x.number === n && x.start < w.end && x.end > w.start) ?? spans[0]!;
       return { number: n, name: name(n), start: L(s.start), end: L(s.end) };
     };
-    const before = ctx.karana.filter((k) => k.end <= w.start && k.end > ctx.sunrise).pop();
+    // An earlier karana is mentioned only when it was one the window had to avoid (e.g. "Vishti until 08:10").
+    const avoidK = [...muhurthamTable.general.avoidKaranas, ...(muhurthamTable.events[event].avoidKaranas as string[])];
+    const before = ctx.karana.filter((k) => k.end <= w.start && k.end > ctx.sunrise && avoidK.includes(angaNames.karana(k.number).en)).pop();
     const lagnaRasi = rasiOf(e.ascendant(w.start, { lat: place.lat, lon: place.lon }));
     const taraName = (n: number) => { const t = tarabalamTable.taras.find((x) => x.tara === n)!; return { en: t.en, te: t.te ?? null }; };
     return {
       date: ctx.date, start: L(w.start), end: L(w.end), score: w.score, status: w.status,
-      reasons: w.reasons, top: w.reasons.slice(0, 3),
+      reasons: w.reasons,
+      // The three strongest reasons that say something: no empty "preferred period", no always-true "clear of periods".
+      top: w.reasons.filter((r) => !(r.ruleId === 'mh.preferred' && !r.values.kind) && r.ruleId !== 'mh.clear').slice(0, 3),
       panchanga: {
         vara: d.v, paksha: paksha(w.panchanga.tithi), masa: { number: d.masa.number, name: d.masa.name },
         tithi: span(ctx.tithi, w.panchanga.tithi, angaNames.tithi),
@@ -338,9 +354,14 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         let ctx: DayContext, d: ReturnType<typeof computeDay>;
         try {
           // Day-level rules first: a month or combust exclusion needs no angas, periods or windows.
+          // A whole day is skipped only when the same month rule holds at both ends and nothing between can change it:
+          // same amanta month and same Sun rasi at sunrise and at the next sunrise (tithi only rises within a month,
+          // so a tithi range such as chaturmas that holds at both ends holds throughout).
           const f = dayFrame(e, date, q.place);
-          const head = dayExclusions(q.event, dayHead(e, f.sunrise));
-          if (head.length) return { r: { best: null, windows: [], excluded: head.slice(0, 1) } };
+          const h0 = dayHead(e, f.sunrise), h1 = dayHead(e, f.nextSunrise - 1 / 86_400);
+          const x0 = dayExclusions(q.event, h0), x1 = new Set(dayExclusions(q.event, h1).map((x) => x.ruleId));
+          const whole = h0.masaStart === h1.masaStart && h0.sunRasi === h1.sunRasi ? x0.filter((x) => x1.has(x.ruleId)) : [];
+          if (whole.length) return { r: { best: null, windows: [], excluded: whole.slice(0, 1) } };
           ({ ctx, d } = dayContext(e, date, q.place));
         } catch (err) { if (err instanceof NoSunriseError) return null; throw err; }
         const r = scoreDay(q.event, ctx, q.people, q.door);
@@ -360,12 +381,12 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         }
       }
       kept.sort((a, b) => b.w.score - a.w.score || a.w.start - b.w.start);
-      for (const k of kept) views.push(windowView(e, k.w, k.ctx, k.d, q.place));
+      for (const k of kept) views.push(windowView(e, k.w, k.ctx, k.d, q.place, q.event));
       let nearest: MuhurthamWindowView | undefined;
       if (!views.length) {
         for (let i = 0; i < muhurthamTable.nearestDays && !nearest; i++) {
           const s = scan(addDays(q.from, q.days + i));
-          if (s?.r.best && s.ctx && s.d) nearest = windowView(e, s.r.best, s.ctx, s.d, q.place);
+          if (s?.r.best && s.ctx && s.d) nearest = windowView(e, s.r.best, s.ctx, s.d, q.place, q.event);
         }
       }
       return {
