@@ -1,0 +1,267 @@
+{
+  "version": 1,
+  "reference": "TO FILL: confirm each row against a published chart (pandit-made jatakam or a trusted Lahiri chart tool) and set verified: true.",
+  "rows": [
+    {
+      "id": "vij-1995-08-14",
+      "verified": false,
+      "source": "INDEPENDENT COMPUTATION, not a published chart: astronomy-engine 2.1.19 (MIT) positions + Lahiri (IAE) ayanamsa + standard ascendant formula, run outside the repo on 2026-11-21. Replace or confirm with a published jatakam.",
+      "notes": "Morning birth.",
+      "place": {
+        "nameEn": "Vijayawada",
+        "lat": 16.5062,
+        "lon": 80.648,
+        "tz": "Asia/Kolkata"
+      },
+      "birth": {
+        "date": "1995-08-14",
+        "time": "05:40",
+        "timeKnown": true
+      },
+      "expected": {
+        "moon": {
+          "rasi": 12,
+          "nakshatra": 26,
+          "pada": 2,
+          "longitude": 339.2505
+        },
+        "lagna": {
+          "rasi": 4,
+          "longitude": 113.6051
+        },
+        "planets": {
+          "sun": {
+            "rasi": 4
+          },
+          "mars": {
+            "rasi": 6
+          },
+          "mercury": {
+            "rasi": 5
+          },
+          "jupiter": {
+            "rasi": 8
+          },
+          "venus": {
+            "rasi": 4
+          },
+          "saturn": {
+            "rasi": 11
+          }
+        },
+        "dasha": {
+          "firstLord": "saturn",
+          "balanceYears": 10.568
+        }
+      }
+    },
+    {
+      "id": "hyd-1943-06-01",
+      "verified": false,
+      "source": "INDEPENDENT COMPUTATION, not a published chart: astronomy-engine 2.1.19 (MIT) positions + Lahiri (IAE) ayanamsa + standard ascendant formula, run outside the repo on 2026-11-21. Replace or confirm with a published jatakam.",
+      "notes": "War-time offset: India used UTC+06:30 from 1942-09 to 1945-10 (IANA Asia/Kolkata).",
+      "place": {
+        "nameEn": "Hyderabad",
+        "lat": 17.385,
+        "lon": 78.4867,
+        "tz": "Asia/Kolkata"
+      },
+      "birth": {
+        "date": "1943-06-01",
+        "time": "06:30",
+        "timeKnown": true
+      },
+      "expected": {
+        "moon": {
+          "rasi": 1,
+          "nakshatra": 2,
+          "pada": 4,
+          "longitude": 23.9664
+        },
+        "lagna": {
+          "rasi": 2,
+          "longitude": 42.9271
+        },
+        "planets": {
+          "sun": {
+            "rasi": 2
+          },
+          "mars": {
+            "rasi": 12
+          },
+          "mercury": {
+            "rasi": 2
+          },
+          "jupiter": {
+            "rasi": 4
+          },
+          "venus": {
+            "rasi": 3
+          },
+          "saturn": {
+            "rasi": 2
+          }
+        },
+        "dasha": {
+          "firstLord": "venus",
+          "balanceYears": 4.05
+        }
+      }
+    },
+    {
+      "id": "tpt-1988-01-15",
+      "verified": false,
+      "source": "INDEPENDENT COMPUTATION, not a published chart: astronomy-engine 2.1.19 (MIT) positions + Lahiri (IAE) ayanamsa + standard ascendant formula, run outside the repo on 2026-11-21. Replace or confirm with a published jatakam.",
+      "notes": "Late-night birth (before the next sunrise).",
+      "place": {
+        "nameEn": "Tirupati",
+        "lat": 13.6288,
+        "lon": 79.4192,
+        "tz": "Asia/Kolkata"
+      },
+      "birth": {
+        "date": "1988-01-15",
+        "time": "23:50",
+        "timeKnown": true
+      },
+      "expected": {
+        "moon": {
+          "rasi": 8,
+          "nakshatra": 17,
+          "pada": 4,
+          "longitude": 223.4848
+        },
+        "lagna": {
+          "rasi": 6,
+          "longitude": 174.8182
+        },
+        "planets": {
+          "sun": {
+            "rasi": 10
+          },
+          "mars": {
+            "rasi": 8
+          },
+          "mercury": {
+            "rasi": 10
+          },
+          "jupiter": {
+            "rasi": 12
+          },
+          "venus": {
+            "rasi": 11
+          },
+          "saturn": {
+            "rasi": 9
+          }
+        },
+        "dasha": {
+          "firstLord": "saturn",
+          "balanceYears": 4.534
+        }
+      }
+    },
+    {
+      "id": "dal-2012-07-04",
+      "verified": false,
+      "source": "INDEPENDENT COMPUTATION, not a published chart: astronomy-engine 2.1.19 (MIT) positions + Lahiri (IAE) ayanamsa + standard ascendant formula, run outside the repo on 2026-11-21. Replace or confirm with a published jatakam.",
+      "notes": "US daylight saving time (CDT).",
+      "place": {
+        "nameEn": "Dallas",
+        "lat": 32.7767,
+        "lon": -96.797,
+        "tz": "America/Chicago"
+      },
+      "birth": {
+        "date": "2012-07-04",
+        "time": "14:20",
+        "timeKnown": true
+      },
+      "expected": {
+        "moon": {
+          "rasi": 10,
+          "nakshatra": 21,
+          "pada": 2,
+          "longitude": 272.9276
+        },
+        "lagna": {
+          "rasi": 6,
+          "longitude": 178.3802
+        },
+        "planets": {
+          "sun": {
+            "rasi": 3
+          },
+          "mars": {
+            "rasi": 6
+          },
+          "mercury": {
+            "rasi": 4
+          },
+          "jupiter": {
+            "rasi": 2
+          },
+          "venus": {
+            "rasi": 2
+          },
+          "saturn": {
+            "rasi": 6
+          }
+        },
+        "dasha": {
+          "firstLord": "sun",
+          "balanceYears": 3.183
+        }
+      }
+    },
+    {
+      "id": "vsk-1970-03-21",
+      "verified": false,
+      "source": "INDEPENDENT COMPUTATION, not a published chart: astronomy-engine 2.1.19 (MIT) positions + Lahiri (IAE) ayanamsa + standard ascendant formula, run outside the repo on 2026-11-21. Replace or confirm with a published jatakam.",
+      "notes": "Birth time not known: Moon at local noon, no lagna.",
+      "place": {
+        "nameEn": "Visakhapatnam",
+        "lat": 17.6868,
+        "lon": 83.2185,
+        "tz": "Asia/Kolkata"
+      },
+      "birth": {
+        "date": "1970-03-21",
+        "timeKnown": false
+      },
+      "expected": {
+        "moon": {
+          "rasi": 5,
+          "nakshatra": 11,
+          "pada": 1,
+          "longitude": 136.5388
+        },
+        "lagna": null,
+        "planets": {
+          "sun": {
+            "rasi": 12
+          },
+          "mars": {
+            "rasi": 1
+          },
+          "mercury": {
+            "rasi": 12
+          },
+          "jupiter": {
+            "rasi": 7
+          },
+          "venus": {
+            "rasi": 12
+          },
+          "saturn": {
+            "rasi": 1
+          }
+        },
+        "dasha": {
+          "firstLord": "venus",
+          "balanceYears": 15.192
+        }
+      }
+    }
+  ]
+}

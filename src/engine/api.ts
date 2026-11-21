@@ -4,8 +4,11 @@ import type { Body, BodyPosition } from './ephemeris/types';
 import type { LocalMoment, LocalTime, TimeNote } from './core/time';
 import type { Name } from './core/panchangam';
 import type { PeriodKind, PeriodStatus } from './core/dayPeriods';
+import type { Lord } from './core/chart';
+import type { NamaResult } from './core/nama';
+import type { Reading } from './rules/strength';
 
-export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus };
+export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading };
 
 /** A place as the engine needs it (subset of SPEC `Place`). */
 export type GeoPlace = { lat: number; lon: number; tz: string; altitude?: number };
@@ -72,6 +75,49 @@ export type DayPeriodView = {
   verified: boolean;
 };
 
+export type BirthInput = {
+  date: string; // YYYY-MM-DD
+  time?: string; // HH:mm, only when timeKnown
+  timeKnown: boolean;
+  place: GeoPlace;
+};
+
+export type PlacementView = {
+  longitude: number;
+  rasi: number;
+  rasiName: Name;
+  degree: number;
+  nakshatra: number;
+  nakshatraName: Name;
+  pada: number;
+  retrograde: boolean;
+};
+
+export type DashaView = { lord: Lord; start: LocalTime; end: LocalTime };
+export type MahadashaView = DashaView & { antardashas: DashaView[] };
+
+export type BirthChart = {
+  /** true when the birth time is unknown: Moon taken at local noon, no lagna, label "approximate". */
+  approximate: boolean;
+  /** How the birth time was read: DST gap/ambiguity, or 'noon' when the time is unknown. */
+  timeNote: TimeNote | 'noon';
+  moon: PlacementView;
+  /** Absent whenever the birth time is unknown. Never estimate it. */
+  lagna?: PlacementView;
+  planets: Record<Body, PlacementView>;
+  /** Time unknown only: the nakshatras / rasis the Moon passes through on the birth date (more than one = uncertain). */
+  dayRange?: { nakshatras: number[]; rasis: number[] };
+  dasha: { balanceYears: number; mahadashas: MahadashaView[] };
+};
+
+export type StrengthSegment<R> = { start: LocalTime; end: LocalTime; reading: R };
+export type TarabalamReading = Reading & { tara: { number: number; name: Name } };
+export type ChandrabalamReading = Reading & { house: number };
+export type DayStrength = {
+  tarabalam: StrengthSegment<TarabalamReading>[];
+  chandrabalam: StrengthSegment<ChandrabalamReading>[];
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -86,4 +132,12 @@ export interface AstroEngine {
   panchangam(date: string, place: GeoPlace): Promise<DayPanchangam>;
   /** Rahu kalam, Yamagandam, Gulika, Durmuhurtham, Abhijit, Varjyam, Amrita kalam for that day, by start time. */
   dayPeriods(date: string, place: GeoPlace): Promise<DayPeriodView[]>;
+  /** Birth chart with Vimshottari dasha. No lagna when the birth time is unknown. */
+  birthChart(input: BirthInput): Promise<BirthChart>;
+  /** Nama nakshatra from the first sound of a name (Telugu script or Latin); several candidates when ambiguous. */
+  namaNakshatra(name: string): Promise<NamaResult | null>;
+  /** Tarabalam and chandrabalam for a person on a panchangam day, split where the Moon changes nakshatra / rasi. */
+  dayStrength(person: { nakshatra: number; rasi: number }, date: string, place: GeoPlace): Promise<DayStrength>;
+  /** Rasi and nakshatra names (index 0 = number 1), for showing stored profile numbers. */
+  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[] }>;
 }

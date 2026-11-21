@@ -1,10 +1,16 @@
 // Engine logic over the Ephemeris interface. Runs in the worker, and directly in Vitest.
 import { DateTime } from 'luxon';
-import { NoSunriseError, type AstroEngine, type DayPanchangam, type DayPeriodView, type EngineInfo, type GeoPlace, type PositionsResult, type SunTimes } from '../api';
+import { NoSunriseError, type AstroEngine, type BirthChart, type BirthInput, type DayPanchangam, type DayPeriodView, type DayStrength, type EngineInfo, type GeoPlace, type PlacementView, type PositionsResult, type SunTimes } from '../api';
 import type { Ephemeris } from '../ephemeris/types';
 import { addDays, resolveLocal, startOfLocalDay, toLocal, type LocalMoment } from './time';
 import { amantaMasa, ayana, fiveAngas, paksha, ruthu, samvatsara, vara, type AngaSpan } from './panchangam';
 import { dayPeriods, type DayFrame } from './dayPeriods';
+import { chartAt, nakshatraName, nakshatraOf, rasiName, rasiOf, vimshottariDashas, type Placement } from './chart';
+import { namaNakshatra } from './nama';
+import { chandrabalam, tarabalam } from '../rules/strength';
+import { angles, findCrossing } from './panchangam';
+import nakshatraTable from '../tables/nakshatras.json';
+import rasiTable from '../tables/rasis.json';
 
 export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
   let eph: Ephemeris | null = null;
@@ -125,6 +131,86 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         ruthu: ruthu(masa.ruthu),
         ayana: ayana(e.position('sun', f.sunrise).longitude),
         samvatsara: samvatsara(masa),
+      };
+    },
+
+    async birthChart(input: BirthInput): Promise<BirthChart> {
+      const e = await ready();
+      const tz = input.place.tz;
+      // Time unknown: Moon at local noon (SPEC §6); lagna is never computed.
+      const known = input.timeKnown && !!input.time;
+      const moment = resolveLocal({ date: input.date, time: known ? input.time! : '12:00', tz });
+      const core = chartAt(e, moment.jdUt, { lat: input.place.lat, lon: input.place.lon }, known);
+      const view = (p: Placement): PlacementView => ({
+        longitude: p.longitude, rasi: p.rasi, rasiName: rasiName(p.rasi), degree: p.degree,
+        nakshatra: p.nakshatra, nakshatraName: nakshatraName(p.nakshatra), pada: p.pada, retrograde: p.retrograde,
+      });
+      const planets = Object.fromEntries(Object.entries(core.planets).map(([b, p]) => [b, view(p)])) as BirthChart['planets'];
+      const { dashas, balanceYears } = vimshottariDashas(core.moon.longitude, moment.jdUt);
+      const L = (jd: number) => toLocal(jd, tz);
+      const chart: BirthChart = {
+        approximate: !known,
+        timeNote: known ? moment.note : 'noon',
+        moon: view(core.moon),
+        planets,
+        dasha: {
+          balanceYears,
+          mahadashas: dashas.map((m) => ({ lord: m.lord, start: L(m.start), end: L(m.end), antardashas: m.antardashas.map((a) => ({ lord: a.lord, start: L(a.start), end: L(a.end) })) })),
+        },
+      };
+      if (core.lagna) chart.lagna = view(core.lagna);
+      if (!known) {
+        const a = angles(e);
+        const t0 = startOfLocalDay(input.date, tz);
+        const t1 = startOfLocalDay(addDays(input.date, 1), tz) - 1 / 86_400;
+        // Step forward around the circle (the Moon only moves forward): 26 → 1 is [26, 27, 1].
+        const around = (x: number, y: number, count: number) => {
+          const out = [x];
+          for (let n = x; n !== y; ) out.push((n = (n % count) + 1));
+          return out;
+        };
+        chart.dayRange = {
+          nakshatras: around(nakshatraOf(a.moon(t0)), nakshatraOf(a.moon(t1)), 27),
+          rasis: around(rasiOf(a.moon(t0)), rasiOf(a.moon(t1)), 12),
+        };
+      }
+      return chart;
+    },
+
+    async namaNakshatra(name: string) {
+      return namaNakshatra(name);
+    },
+
+    async names() {
+      return {
+        rasis: rasiTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
+        /** Telugu form used before రాశి / లగ్నం (e.g. వృషభ రాశి). */
+        rasisCompound: rasiTable.items.map((r) => ({ en: r.en, te: r.teCompound ?? null })),
+        nakshatras: nakshatraTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
+      };
+    },
+
+    async dayStrength(person: { nakshatra: number; rasi: number }, date: string, place: GeoPlace): Promise<DayStrength> {
+      const e = await ready();
+      const { f } = day(e, date, place);
+      const a = angles(e);
+      const L = (jd: number) => toLocal(jd, place.tz);
+      // Split the day where the Moon enters a new nakshatra (tarabalam) or rasi (chandrabalam).
+      const segments = (span: number, count: number) => {
+        const out: { start: number; end: number; index: number }[] = [];
+        let start = f.sunrise;
+        let index = Math.floor(a.moon(start + 1 / 86_400) / span) + 1;
+        while (start < f.nextSunrise) {
+          const end = Math.min(f.nextSunrise, findCrossing(a.moon, (index % count) * span, start + 1 / 86_400, 1));
+          out.push({ start, end, index });
+          start = end;
+          index = (index % count) + 1;
+        }
+        return out;
+      };
+      return {
+        tarabalam: segments(nakshatraTable.spanDegrees, 27).map((s) => ({ start: L(s.start), end: L(s.end), reading: tarabalam(person.nakshatra, s.index) })),
+        chandrabalam: segments(rasiTable.spanDegrees, 12).map((s) => ({ start: L(s.start), end: L(s.end), reading: chandrabalam(person.rasi, s.index) })),
       };
     },
 

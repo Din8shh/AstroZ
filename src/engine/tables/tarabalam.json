@@ -1,0 +1,61 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md §4 (count birth star → day star inclusive, mod 9).",
+  "version": "0.1.0",
+  "notes": "count = ((dayNakshatra − birthNakshatra + 27) mod 27) + 1; tara = ((count − 1) mod 9) + 1. Status per tara below. Names: Telugu only where design/handoff has it.",
+  "taras": [
+    {
+      "tara": 1,
+      "en": "Janma",
+      "te": null,
+      "status": "mixed"
+    },
+    {
+      "tara": 2,
+      "en": "Sampat",
+      "te": null,
+      "status": "good"
+    },
+    {
+      "tara": 3,
+      "en": "Vipat",
+      "te": null,
+      "status": "avoid"
+    },
+    {
+      "tara": 4,
+      "en": "Kshema",
+      "te": null,
+      "status": "good"
+    },
+    {
+      "tara": 5,
+      "en": "Pratyak",
+      "te": "ప్రత్యక్",
+      "status": "avoid"
+    },
+    {
+      "tara": 6,
+      "en": "Sadhana",
+      "te": null,
+      "status": "good"
+    },
+    {
+      "tara": 7,
+      "en": "Naidhana",
+      "te": null,
+      "status": "avoid"
+    },
+    {
+      "tara": 8,
+      "en": "Mitra",
+      "te": null,
+      "status": "good"
+    },
+    {
+      "tara": 9,
+      "en": "Parama Mitra",
+      "te": null,
+      "status": "good"
+    }
+  ]
+}

@@ -5,9 +5,10 @@ import type { Anga, LocalTime } from '../../engine/api';
 import { Icon } from '../components/Icon';
 import type { IconName } from '../components/icons';
 import { DayRibbon } from '../components/DayRibbon';
-import { useDay, useNow } from '../hooks/useDay';
+import { YourDay } from '../components/YourDay';
+import { useDay, useNow, usePlace } from '../hooks/useDay';
 import { useName, useT, type MessageKey } from '../i18n';
-import { placeById, placeName } from '../places';
+import { placeName } from '../places';
 import { useSettings } from '../store/settings';
 import { chipDate, clockIn, jdNow, shortDate, todayIn } from '../dates';
 import s from './TodayScreen.module.css';
@@ -24,7 +25,7 @@ export function TodayScreen() {
   const t = useT();
   const name = useName();
   const lang = useSettings((st) => st.lang);
-  const place = placeById(useSettings((st) => st.homePlaceId));
+  const place = usePlace(useSettings((st) => st.homePlaceId));
   const now = useNow();
   const [date, setDate] = useState(() => todayIn(place.tz));
   const day = useDay(date, place);
@@ -134,6 +135,8 @@ export function TodayScreen() {
           </section>
         </>
       ) : null}
+
+      {day.status === 'ready' ? <YourDay date={date} place={place} periods={day.periods} nowJd={jdNow(now)} /> : null}
 
       <section className={s.wishes} aria-labelledby="wishes-h">
         <h2 className={s.h2} id="wishes-h">{t('today.yourWishes')}</h2>

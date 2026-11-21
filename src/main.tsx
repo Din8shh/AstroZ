@@ -4,6 +4,7 @@ import './app/styles/tokens.css';
 import './app/styles/base.css';
 import { App } from './app/App';
 import { useSettings } from './app/store/settings';
+import { useProfiles } from './app/profiles';
 import { registerPwa } from './app/pwa';
 import { initEngine } from './engine/client';
 
@@ -11,6 +12,7 @@ const root = document.getElementById('root');
 if (!root) throw new Error('#root missing');
 
 void useSettings.getState().load();
+void useProfiles.getState().load();
 createRoot(root).render(
   <StrictMode>
     <App />

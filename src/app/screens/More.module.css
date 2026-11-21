@@ -1,0 +1,9 @@
+.section { display: flex; flex-direction: column; gap: var(--az-space-3); }
+.h2 { margin: 0; font-family: var(--az-font-display); font-weight: var(--fw-display); font-size: calc(24px * var(--az-scale)); line-height: 1.4; }
+.card { background: var(--az-surface); border-radius: var(--az-radius-card); box-shadow: var(--az-shadow-card); border: 1px solid var(--az-line); overflow: hidden; }
+.row { display: flex; flex-direction: column; gap: var(--az-space-3); padding: 14px 16px; border-bottom: 1px solid var(--az-line); }
+.row:last-child { border-bottom: 0; }
+.rowText { display: flex; flex-direction: column; gap: 2px; }
+.rowTitle { font-size: calc(17px * var(--az-scale)); font-weight: 600; line-height: 1.5; }
+.rowSub { font-size: calc(15px * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }
+.row button { align-self: flex-start; }

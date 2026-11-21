@@ -16,6 +16,12 @@ It includes or bundles the following third-party software and fonts, each under 
 | idb-keyval | 6.3.0 | Apache-2.0 | © Jake Archibald |
 | Workbox (workbox-window, generated service worker) | 7.4.1 | MIT | © Google LLC |
 
+## Data
+
+| Data | Licence | Notes |
+|---|---|---|
+| City list `public/data/cities.json` | CC BY 4.0 | Derived from [GeoNames](https://www.geonames.org) (cities1000, cities15000, admin1 codes) by `scripts/build-cities.mjs`. |
+
 ## Fonts (self-hosted woff2 subsets from `design/handoff/`)
 
 | Font | Licence |

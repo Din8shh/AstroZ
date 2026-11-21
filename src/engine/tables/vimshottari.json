@@ -1,0 +1,45 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md §9 (standard Vimshottari years) and the skill's rule: first dasha lord = Moon's nakshatra lord; balance = unelapsed fraction × lord years; antardashas proportional, same order.",
+  "version": "0.1.1",
+  "notes": "Order repeats every 9 nakshatras starting at Ashwini (Ketu). yearDays = length of a dasha year in days; 365.25 (Julian year) is common in software, some almanacs use 365.2425 or a 360-day savana year. NOT yet tested: the chart fixtures check only the balance at birth; add a published mahadasha end date per fixture row to lock yearDays.",
+  "yearDays": 365.25,
+  "totalYears": 120,
+  "order": [
+    {
+      "lord": "ketu",
+      "years": 7
+    },
+    {
+      "lord": "venus",
+      "years": 20
+    },
+    {
+      "lord": "sun",
+      "years": 6
+    },
+    {
+      "lord": "moon",
+      "years": 10
+    },
+    {
+      "lord": "mars",
+      "years": 7
+    },
+    {
+      "lord": "rahu",
+      "years": 18
+    },
+    {
+      "lord": "jupiter",
+      "years": 16
+    },
+    {
+      "lord": "saturn",
+      "years": 19
+    },
+    {
+      "lord": "mercury",
+      "years": 17
+    }
+  ]
+}
