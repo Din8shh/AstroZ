@@ -1,0 +1,92 @@
+{
+  "source": "Rasi names and lords: standard; English spellings as in .claude/skills/telugu-jyotisha/reference.md §11. Telugu from design/handoff where present.",
+  "version": "0.2.0",
+  "notes": "rasi = floor(sidereal longitude / spanDegrees) + 1. te null = needs human-written Telugu (Mithuna, Tula, Vrischika, Dhanus, Makara). teCompound = the form used before రాశి / లగ్నం (final anusvara dropped, as the design writes వృషభ రాశి, సింహ లగ్నం, మేష లగ్నం, కుంభ లగ్నం).",
+  "spanDegrees": 30,
+  "items": [
+    {
+      "number": 1,
+      "en": "Mesha",
+      "te": "మేషం",
+      "lord": "mars",
+      "teCompound": "మేష"
+    },
+    {
+      "number": 2,
+      "en": "Vrishabha",
+      "te": "వృషభం",
+      "lord": "venus",
+      "teCompound": "వృషభ"
+    },
+    {
+      "number": 3,
+      "en": "Mithuna",
+      "te": null,
+      "lord": "mercury",
+      "teCompound": null
+    },
+    {
+      "number": 4,
+      "en": "Karkataka",
+      "te": "కర్కాటకం",
+      "lord": "moon",
+      "teCompound": "కర్కాటక"
+    },
+    {
+      "number": 5,
+      "en": "Simha",
+      "te": "సింహం",
+      "lord": "sun",
+      "teCompound": "సింహ"
+    },
+    {
+      "number": 6,
+      "en": "Kanya",
+      "te": "కన్య",
+      "lord": "mercury",
+      "teCompound": "కన్య"
+    },
+    {
+      "number": 7,
+      "en": "Tula",
+      "te": null,
+      "lord": "venus",
+      "teCompound": null
+    },
+    {
+      "number": 8,
+      "en": "Vrischika",
+      "te": null,
+      "lord": "mars",
+      "teCompound": null
+    },
+    {
+      "number": 9,
+      "en": "Dhanus",
+      "te": null,
+      "lord": "jupiter",
+      "teCompound": null
+    },
+    {
+      "number": 10,
+      "en": "Makara",
+      "te": null,
+      "lord": "saturn",
+      "teCompound": null
+    },
+    {
+      "number": 11,
+      "en": "Kumbha",
+      "te": "కుంభం",
+      "lord": "saturn",
+      "teCompound": "కుంభ"
+    },
+    {
+      "number": 12,
+      "en": "Meena",
+      "te": "మీనం",
+      "lord": "jupiter",
+      "teCompound": "మీన"
+    }
+  ]
+}

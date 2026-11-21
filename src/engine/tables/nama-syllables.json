@@ -1,0 +1,954 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md §1 (onlinejyotish Avakahada chart, Latin syllables per pada) with the standard Devanagari Avakahada letters, which separate dental (त थ द ध न) from retroflex (ट ठ ड ढ ण) sounds that the Latin column merges.",
+  "version": "0.1.0",
+  "notes": "consonant codes: '' (vowel-initial), k kh g gh ng c (च) ch (छ) j jh ny (ञ) T Th D Dh N (retroflex) t th d dh n (dental) p ph b bh m y r l v sh (श) Sh (ष) s h L (ళ). vowel classes: a i u e o (length ignored; ai → e, au → o, vocalic ṛ → i). Lookup rules (tiers, Latin ambiguity) live in fallbacks below. Telugu-script cross-check against the onlinejyotish Telugu table is pending (reference.md asks for it); pandit review pending. honorifics: a first word in this list is skipped when another word follows (శ్రీ is the script form of 'śrī').",
+  "fallbacks": {
+    "description": "If no syllable matches the exact consonant, try these consonants (in order of the list). Used for sounds the Avakahada does not list.",
+    "consonants": {
+      "sh": [
+        "Sh",
+        "s"
+      ],
+      "Sh": [
+        "sh",
+        "s"
+      ],
+      "s": [
+        "sh",
+        "Sh"
+      ],
+      "b": [
+        "v",
+        "bh"
+      ],
+      "v": [
+        "b",
+        "bh"
+      ],
+      "f": [
+        "ph"
+      ],
+      "z": [
+        "j"
+      ],
+      "q": [
+        "k"
+      ],
+      "x": [
+        "k"
+      ],
+      "w": [
+        "v"
+      ],
+      "L": [
+        "l"
+      ],
+      "ng": [
+        "n"
+      ],
+      "ny": [
+        "n"
+      ],
+      "N": [
+        "n"
+      ]
+    }
+  },
+  "honorifics": [
+    "sri",
+    "shri",
+    "sree",
+    "shree",
+    "శ్రీ"
+  ],
+  "items": [
+    {
+      "nakshatra": 1,
+      "pada": 1,
+      "devanagari": "चु",
+      "latin": "Chu",
+      "consonant": "c",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 1,
+      "pada": 2,
+      "devanagari": "चे",
+      "latin": "Che",
+      "consonant": "c",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 1,
+      "pada": 3,
+      "devanagari": "चो",
+      "latin": "Cho",
+      "consonant": "c",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 1,
+      "pada": 4,
+      "devanagari": "ला",
+      "latin": "La",
+      "consonant": "l",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 2,
+      "pada": 1,
+      "devanagari": "ली",
+      "latin": "Li",
+      "consonant": "l",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 2,
+      "pada": 2,
+      "devanagari": "लू",
+      "latin": "Lu",
+      "consonant": "l",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 2,
+      "pada": 3,
+      "devanagari": "ले",
+      "latin": "Le",
+      "consonant": "l",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 2,
+      "pada": 4,
+      "devanagari": "लो",
+      "latin": "Lo",
+      "consonant": "l",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 3,
+      "pada": 1,
+      "devanagari": "अ",
+      "latin": "A",
+      "consonant": "",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 3,
+      "pada": 2,
+      "devanagari": "इ",
+      "latin": "I",
+      "consonant": "",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 3,
+      "pada": 3,
+      "devanagari": "उ",
+      "latin": "U",
+      "consonant": "",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 3,
+      "pada": 4,
+      "devanagari": "ए",
+      "latin": "E",
+      "consonant": "",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 4,
+      "pada": 1,
+      "devanagari": "ओ",
+      "latin": "O",
+      "consonant": "",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 4,
+      "pada": 2,
+      "devanagari": "वा",
+      "latin": "Va",
+      "consonant": "v",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 4,
+      "pada": 3,
+      "devanagari": "वी",
+      "latin": "Vi",
+      "consonant": "v",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 4,
+      "pada": 4,
+      "devanagari": "वू",
+      "latin": "Vu",
+      "consonant": "v",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 5,
+      "pada": 1,
+      "devanagari": "वे",
+      "latin": "Ve",
+      "consonant": "v",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 5,
+      "pada": 2,
+      "devanagari": "वो",
+      "latin": "Vo",
+      "consonant": "v",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 5,
+      "pada": 3,
+      "devanagari": "का",
+      "latin": "Ka",
+      "consonant": "k",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 5,
+      "pada": 4,
+      "devanagari": "की",
+      "latin": "Ki",
+      "consonant": "k",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 6,
+      "pada": 1,
+      "devanagari": "कु",
+      "latin": "Ku",
+      "consonant": "k",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 6,
+      "pada": 2,
+      "devanagari": "घ",
+      "latin": "Gha",
+      "consonant": "gh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 6,
+      "pada": 3,
+      "devanagari": "ङ",
+      "latin": "Ng",
+      "consonant": "ng",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 6,
+      "pada": 4,
+      "devanagari": "छ",
+      "latin": "Chha",
+      "consonant": "ch",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 7,
+      "pada": 1,
+      "devanagari": "के",
+      "latin": "Ke",
+      "consonant": "k",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 7,
+      "pada": 2,
+      "devanagari": "को",
+      "latin": "Ko",
+      "consonant": "k",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 7,
+      "pada": 3,
+      "devanagari": "हा",
+      "latin": "Ha",
+      "consonant": "h",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 7,
+      "pada": 4,
+      "devanagari": "ही",
+      "latin": "Hi",
+      "consonant": "h",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 8,
+      "pada": 1,
+      "devanagari": "हु",
+      "latin": "Hu",
+      "consonant": "h",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 8,
+      "pada": 2,
+      "devanagari": "हे",
+      "latin": "He",
+      "consonant": "h",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 8,
+      "pada": 3,
+      "devanagari": "हो",
+      "latin": "Ho",
+      "consonant": "h",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 8,
+      "pada": 4,
+      "devanagari": "डा",
+      "latin": "Da",
+      "consonant": "D",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 9,
+      "pada": 1,
+      "devanagari": "डी",
+      "latin": "Di",
+      "consonant": "D",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 9,
+      "pada": 2,
+      "devanagari": "डू",
+      "latin": "Du",
+      "consonant": "D",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 9,
+      "pada": 3,
+      "devanagari": "डे",
+      "latin": "De",
+      "consonant": "D",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 9,
+      "pada": 4,
+      "devanagari": "डो",
+      "latin": "Do",
+      "consonant": "D",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 10,
+      "pada": 1,
+      "devanagari": "मा",
+      "latin": "Ma",
+      "consonant": "m",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 10,
+      "pada": 2,
+      "devanagari": "मी",
+      "latin": "Mi",
+      "consonant": "m",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 10,
+      "pada": 3,
+      "devanagari": "मू",
+      "latin": "Mu",
+      "consonant": "m",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 10,
+      "pada": 4,
+      "devanagari": "मे",
+      "latin": "Me",
+      "consonant": "m",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 11,
+      "pada": 1,
+      "devanagari": "मो",
+      "latin": "Mo",
+      "consonant": "m",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 11,
+      "pada": 2,
+      "devanagari": "टा",
+      "latin": "Ta",
+      "consonant": "T",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 11,
+      "pada": 3,
+      "devanagari": "टी",
+      "latin": "Ti",
+      "consonant": "T",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 11,
+      "pada": 4,
+      "devanagari": "टू",
+      "latin": "Tu",
+      "consonant": "T",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 12,
+      "pada": 1,
+      "devanagari": "टे",
+      "latin": "Te",
+      "consonant": "T",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 12,
+      "pada": 2,
+      "devanagari": "टो",
+      "latin": "To",
+      "consonant": "T",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 12,
+      "pada": 3,
+      "devanagari": "पा",
+      "latin": "Pa",
+      "consonant": "p",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 12,
+      "pada": 4,
+      "devanagari": "पी",
+      "latin": "Pi",
+      "consonant": "p",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 13,
+      "pada": 1,
+      "devanagari": "पू",
+      "latin": "Pu",
+      "consonant": "p",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 13,
+      "pada": 2,
+      "devanagari": "ष",
+      "latin": "Sha",
+      "consonant": "Sh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 13,
+      "pada": 3,
+      "devanagari": "ण",
+      "latin": "Na",
+      "consonant": "N",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 13,
+      "pada": 4,
+      "devanagari": "ठ",
+      "latin": "Tha",
+      "consonant": "Th",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 14,
+      "pada": 1,
+      "devanagari": "पे",
+      "latin": "Pe",
+      "consonant": "p",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 14,
+      "pada": 2,
+      "devanagari": "पो",
+      "latin": "Po",
+      "consonant": "p",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 14,
+      "pada": 3,
+      "devanagari": "रा",
+      "latin": "Ra",
+      "consonant": "r",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 14,
+      "pada": 4,
+      "devanagari": "री",
+      "latin": "Ri",
+      "consonant": "r",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 15,
+      "pada": 1,
+      "devanagari": "रू",
+      "latin": "Ru",
+      "consonant": "r",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 15,
+      "pada": 2,
+      "devanagari": "रे",
+      "latin": "Re",
+      "consonant": "r",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 15,
+      "pada": 3,
+      "devanagari": "रो",
+      "latin": "Ro",
+      "consonant": "r",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 15,
+      "pada": 4,
+      "devanagari": "ता",
+      "latin": "Ta",
+      "consonant": "t",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 16,
+      "pada": 1,
+      "devanagari": "ती",
+      "latin": "Ti",
+      "consonant": "t",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 16,
+      "pada": 2,
+      "devanagari": "तू",
+      "latin": "Tu",
+      "consonant": "t",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 16,
+      "pada": 3,
+      "devanagari": "ते",
+      "latin": "Te",
+      "consonant": "t",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 16,
+      "pada": 4,
+      "devanagari": "तो",
+      "latin": "To",
+      "consonant": "t",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 17,
+      "pada": 1,
+      "devanagari": "ना",
+      "latin": "Na",
+      "consonant": "n",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 17,
+      "pada": 2,
+      "devanagari": "नी",
+      "latin": "Ni",
+      "consonant": "n",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 17,
+      "pada": 3,
+      "devanagari": "नू",
+      "latin": "Nu",
+      "consonant": "n",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 17,
+      "pada": 4,
+      "devanagari": "ने",
+      "latin": "Ne",
+      "consonant": "n",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 18,
+      "pada": 1,
+      "devanagari": "नो",
+      "latin": "No",
+      "consonant": "n",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 18,
+      "pada": 2,
+      "devanagari": "या",
+      "latin": "Ya",
+      "consonant": "y",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 18,
+      "pada": 3,
+      "devanagari": "यी",
+      "latin": "Yi",
+      "consonant": "y",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 18,
+      "pada": 4,
+      "devanagari": "यू",
+      "latin": "Yu",
+      "consonant": "y",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 19,
+      "pada": 1,
+      "devanagari": "ये",
+      "latin": "Ye",
+      "consonant": "y",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 19,
+      "pada": 2,
+      "devanagari": "यो",
+      "latin": "Yo",
+      "consonant": "y",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 19,
+      "pada": 3,
+      "devanagari": "भा",
+      "latin": "Bha",
+      "consonant": "bh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 19,
+      "pada": 4,
+      "devanagari": "भी",
+      "latin": "Bhi",
+      "consonant": "bh",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 20,
+      "pada": 1,
+      "devanagari": "भू",
+      "latin": "Bhu",
+      "consonant": "bh",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 20,
+      "pada": 2,
+      "devanagari": "धा",
+      "latin": "Dha",
+      "consonant": "dh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 20,
+      "pada": 3,
+      "devanagari": "फा",
+      "latin": "Pha",
+      "consonant": "ph",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 20,
+      "pada": 4,
+      "devanagari": "ढा",
+      "latin": "Dha",
+      "consonant": "Dh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 21,
+      "pada": 1,
+      "devanagari": "भे",
+      "latin": "Bhe",
+      "consonant": "bh",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 21,
+      "pada": 2,
+      "devanagari": "भो",
+      "latin": "Bho",
+      "consonant": "bh",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 21,
+      "pada": 3,
+      "devanagari": "जा",
+      "latin": "Ja",
+      "consonant": "j",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 21,
+      "pada": 4,
+      "devanagari": "जी",
+      "latin": "Ji",
+      "consonant": "j",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 1,
+      "devanagari": "खी",
+      "latin": "Khi",
+      "consonant": "kh",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 1,
+      "devanagari": "जू",
+      "latin": "Ju",
+      "consonant": "j",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 2,
+      "devanagari": "खू",
+      "latin": "Khu",
+      "consonant": "kh",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 2,
+      "devanagari": "जे",
+      "latin": "Je",
+      "consonant": "j",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 3,
+      "devanagari": "खे",
+      "latin": "Khe",
+      "consonant": "kh",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 3,
+      "devanagari": "जो",
+      "latin": "Jo",
+      "consonant": "j",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 22,
+      "pada": 4,
+      "devanagari": "खो",
+      "latin": "Kho",
+      "consonant": "kh",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 23,
+      "pada": 1,
+      "devanagari": "गा",
+      "latin": "Ga",
+      "consonant": "g",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 23,
+      "pada": 2,
+      "devanagari": "गी",
+      "latin": "Gi",
+      "consonant": "g",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 23,
+      "pada": 3,
+      "devanagari": "गू",
+      "latin": "Gu",
+      "consonant": "g",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 23,
+      "pada": 4,
+      "devanagari": "गे",
+      "latin": "Ge",
+      "consonant": "g",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 24,
+      "pada": 1,
+      "devanagari": "गो",
+      "latin": "Go",
+      "consonant": "g",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 24,
+      "pada": 2,
+      "devanagari": "सा",
+      "latin": "Sa",
+      "consonant": "s",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 24,
+      "pada": 3,
+      "devanagari": "सी",
+      "latin": "Si",
+      "consonant": "s",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 24,
+      "pada": 4,
+      "devanagari": "सू",
+      "latin": "Su",
+      "consonant": "s",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 25,
+      "pada": 1,
+      "devanagari": "से",
+      "latin": "Se",
+      "consonant": "s",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 25,
+      "pada": 2,
+      "devanagari": "सो",
+      "latin": "So",
+      "consonant": "s",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 25,
+      "pada": 3,
+      "devanagari": "दा",
+      "latin": "Da",
+      "consonant": "d",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 25,
+      "pada": 4,
+      "devanagari": "दी",
+      "latin": "Di",
+      "consonant": "d",
+      "vowel": "i"
+    },
+    {
+      "nakshatra": 26,
+      "pada": 1,
+      "devanagari": "दू",
+      "latin": "Du",
+      "consonant": "d",
+      "vowel": "u"
+    },
+    {
+      "nakshatra": 26,
+      "pada": 2,
+      "devanagari": "थ",
+      "latin": "Tha",
+      "consonant": "th",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 26,
+      "pada": 3,
+      "devanagari": "झ",
+      "latin": "Jha",
+      "consonant": "jh",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 26,
+      "pada": 4,
+      "devanagari": "ञ",
+      "latin": "Na",
+      "consonant": "ny",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 27,
+      "pada": 1,
+      "devanagari": "दे",
+      "latin": "De",
+      "consonant": "d",
+      "vowel": "e"
+    },
+    {
+      "nakshatra": 27,
+      "pada": 2,
+      "devanagari": "दो",
+      "latin": "Do",
+      "consonant": "d",
+      "vowel": "o"
+    },
+    {
+      "nakshatra": 27,
+      "pada": 3,
+      "devanagari": "चा",
+      "latin": "Cha",
+      "consonant": "c",
+      "vowel": "a"
+    },
+    {
+      "nakshatra": 27,
+      "pada": 4,
+      "devanagari": "ची",
+      "latin": "Chi",
+      "consonant": "c",
+      "vowel": "i"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "version": 1,
+  "reference": "Expected candidates are derived by hand from src/engine/tables/nama-syllables.json (reference.md §1 Avakahada) and the lookup rules in its notes. They test the reading of Telugu script and Latin, not the table itself; the table needs the pandit review in SPEC §12.",
+  "rows": [
+    {
+      "input": "శ్రావణి",
+      "expected": [
+        "13-2",
+        "24-2"
+      ],
+      "why": "శ్రా = śrā; శ (ś) is not in the Avakahada → near matches ṣa (Hasta 2) and sā (Shatabhisha 2)"
+    },
+    {
+      "input": "Sravani",
+      "expected": [
+        "24-2"
+      ],
+      "why": "Latin 's' + a → Sa (Shatabhisha 2)"
+    },
+    {
+      "input": "కిరణ్",
+      "expected": [
+        "5-4"
+      ],
+      "why": "కి = ki → Mrigashira 4"
+    },
+    {
+      "input": "Kiran",
+      "expected": [
+        "5-4"
+      ],
+      "why": "Ki → Mrigashira 4"
+    },
+    {
+      "input": "లావణ్య",
+      "expected": [
+        "1-4"
+      ],
+      "why": "లా = lā → La (Ashwini 4)"
+    },
+    {
+      "input": "Lavanya",
+      "expected": [
+        "1-4"
+      ],
+      "why": "La → Ashwini 4"
+    },
+    {
+      "input": "రవి",
+      "expected": [
+        "14-3"
+      ],
+      "why": "ర = ra → Ra (Chitra 3)"
+    },
+    {
+      "input": "Ravi",
+      "expected": [
+        "14-3"
+      ],
+      "why": "Ra → Chitra 3"
+    },
+    {
+      "input": "అనూష",
+      "expected": [
+        "3-1"
+      ],
+      "why": "vowel-initial అ → A (Krittika 1)"
+    },
+    {
+      "input": "సాయి",
+      "expected": [
+        "24-2"
+      ],
+      "why": "సా = sā → Shatabhisha 2"
+    },
+    {
+      "input": "Sai",
+      "expected": [
+        "24-2",
+        "25-1"
+      ],
+      "why": "Latin 'ai' can be ā-i (Sa) or ai (Se): Shatabhisha 2 or Purva Bhadra 1"
+    },
+    {
+      "input": "తరుణ్",
+      "expected": [
+        "15-4"
+      ],
+      "why": "త is dental ta → Swati 4"
+    },
+    {
+      "input": "Tarun",
+      "expected": [
+        "11-2",
+        "15-4"
+      ],
+      "why": "Latin 'Ta' cannot separate ट (Purva Phalguni 2) from त (Swati 4)"
+    },
+    {
+      "input": "డింపుల్",
+      "expected": [
+        "9-1"
+      ],
+      "why": "డి is retroflex ḍi → Ashlesha 1"
+    },
+    {
+      "input": "Dimple",
+      "expected": [
+        "9-1",
+        "25-4"
+      ],
+      "why": "Latin 'Di': डी (Ashlesha 1) or दी (Purva Bhadra 4)"
+    },
+    {
+      "input": "నవీన్",
+      "expected": [
+        "17-1"
+      ],
+      "why": "న is dental na → Anuradha 1"
+    },
+    {
+      "input": "Naveen",
+      "expected": [
+        "13-3",
+        "17-1",
+        "26-4"
+      ],
+      "why": "Latin 'Na': ण (Hasta 3), ना (Anuradha 1), ञ (Uttara Bhadra 4)"
+    },
+    {
+      "input": "హర్ష",
+      "expected": [
+        "7-3"
+      ],
+      "why": "హ = ha → Punarvasu 3"
+    },
+    {
+      "input": "కృష్ణ",
+      "expected": [
+        "5-4"
+      ],
+      "why": "కృ = kṛ; vocalic ṛ counts as i → Ki (Mrigashira 4)"
+    },
+    {
+      "input": "Krishna",
+      "expected": [
+        "5-4"
+      ],
+      "why": "Kri → Ki (Mrigashira 4)"
+    },
+    {
+      "input": "క్షితిజ్",
+      "expected": [
+        "5-4"
+      ],
+      "why": "conjunct క్షి is one aksharam; first consonant k + i → Mrigashira 4"
+    },
+    {
+      "input": "భవాని",
+      "expected": [
+        "19-3"
+      ],
+      "why": "భ = bha → Mula 3"
+    },
+    {
+      "input": "బాలు",
+      "expected": [
+        "4-2",
+        "19-3"
+      ],
+      "why": "బ (ba) is not in the Avakahada → near matches Va (Rohini 2) and Bha (Mula 3)"
+    },
+    {
+      "input": "శ్రీ లక్ష్మి",
+      "expected": [
+        "1-4"
+      ],
+      "why": "honorific శ్రీ is skipped; ల = la → Ashwini 4"
+    },
+    {
+      "input": "Sri Lakshmi",
+      "expected": [
+        "1-4"
+      ],
+      "why": "honorific 'Sri' is skipped; La → Ashwini 4"
+    },
+    {
+      "input": "ఓంకార్",
+      "expected": [
+        "4-1"
+      ],
+      "why": "vowel-initial ఓ → O (Rohini 1)"
+    },
+    {
+      "input": "ఈశ్వర్",
+      "expected": [
+        "3-2"
+      ],
+      "why": "vowel-initial ఈ → I (Krittika 2)"
+    },
+    {
+      "input": "చైతన్య",
+      "expected": [
+        "1-2"
+      ],
+      "why": "చై = cai → Che (Ashwini 2)"
+    },
+    {
+      "input": "Chaitanya",
+      "expected": [
+        "1-2",
+        "27-3"
+      ],
+      "why": "Latin 'ai' ambiguous: Che (Ashwini 2) or Cha (Revati 3)"
+    },
+    {
+      "input": "ఫణి",
+      "expected": [
+        "20-3"
+      ],
+      "why": "ఫ = pha → Purva Ashadha 3"
+    },
+    {
+      "input": "Shravya",
+      "expected": [
+        "13-2"
+      ],
+      "why": "Latin 'Sh' + a → Sha (Hasta 2)"
+    },
+    {
+      "input": "గోపి",
+      "expected": [
+        "24-1"
+      ],
+      "why": "గో = go → Shatabhisha 1"
+    },
+    {
+      "input": "యామిని",
+      "expected": [
+        "18-2"
+      ],
+      "why": "యా = yā → Jyeshtha 2"
+    },
+    {
+      "input": "Fathima",
+      "expected": [
+        "20-3"
+      ],
+      "why": "'f' is not in the Avakahada → near match Pha (Purva Ashadha 3)"
+    }
+  ]
+}

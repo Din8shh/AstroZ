@@ -1,0 +1,11 @@
+/* Ported from bundle.css: .az-btn */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--az-space-2); min-height: var(--az-touch); padding: 10px var(--az-space-5); border-radius: var(--az-radius-md); border: 1.5px solid transparent; font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; line-height: 1.4; cursor: pointer; text-align: center; text-decoration: none; transition: transform 150ms ease, background-color 150ms ease; }
+.block { display: flex; width: 100%; }
+.primary { background: var(--az-kumkum); color: var(--az-on-kumkum); }
+.secondary { background: var(--az-surface); color: var(--az-kumkum-ink); border-color: var(--az-line-strong); }
+.quiet { background: transparent; color: var(--az-kumkum-ink); padding-left: var(--az-space-3); padding-right: var(--az-space-3); }
+.danger { background: var(--az-surface); color: var(--az-avoid-ink); border-color: var(--az-avoid-ink); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.primary:active:not(:disabled) { filter: brightness(0.92); }
+.secondary:active:not(:disabled), .quiet:active:not(:disabled) { background: var(--az-kumkum-soft); }
+.btn:disabled { background: var(--az-surface-sunk); color: var(--az-ink-muted); border-color: var(--az-line); cursor: not-allowed; }

@@ -41,7 +41,7 @@ test('Today shows the engine values for 21 Nov 2026, Hyderabad', async ({ page }
   const list = page.locator('ol').first();
   await expect(list.locator('li')).toHaveCount(8); // incl. Saturday's two Durmuhurtham slots
   await expect(list).toContainText('Rahu kalam');
-  await expect(list).toContainText('09:12 – 10:37'); // Drik: 09:13 – 10:38
+  await expect(list).toContainText('09:13 – 10:37'); // Drik (geoname 1269843, same coordinates): 09:13 – 10:38
   // 11:02 falls in no period; Abhijit (11:39) is next.
   await expect(list.locator('li', { hasText: 'Now' })).toHaveCount(0);
 });

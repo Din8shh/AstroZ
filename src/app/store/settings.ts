@@ -6,7 +6,7 @@ const KEY = 'settings';
 
 export const DEFAULT_SETTINGS: Settings = {
   lang: 'te',
-  homePlaceId: 'hyderabad',
+  homePlaceId: '1269843', // GeoNames id: Hyderabad
   elderText: false,
   theme: 'system',
 };

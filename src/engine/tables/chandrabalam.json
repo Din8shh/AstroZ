@@ -1,0 +1,13 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md §5 ('standard').",
+  "version": "0.1.0",
+  "notes": "house = ((dayMoonRasi − birthRasi + 12) mod 12) + 1. Good in goodHouses, otherwise avoid.",
+  "goodHouses": [
+    1,
+    3,
+    6,
+    7,
+    10,
+    11
+  ]
+}

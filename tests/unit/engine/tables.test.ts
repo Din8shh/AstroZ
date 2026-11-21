@@ -45,12 +45,14 @@ describe('engine tables', () => {
   });
 
   // Telugu astrology names must be written by a person (CLAUDE.md). Gaps are listed, never filled by machine.
-  const missing = ['tithis.json', 'nakshatras.json', 'yogas.json', 'masas.json', 'samvatsaras.json', 'varas.json']
+  const missing = ['tithis.json', 'nakshatras.json', 'yogas.json', 'masas.json', 'samvatsaras.json', 'varas.json', 'rasis.json']
     .flatMap((f) => items(f).filter((x) => !x.te).map((x) => `${f.replace('.json', '')}:${x.en}`));
   const k = tables['karanas.json'] as { movable: Named[]; fixed: Named[] };
   missing.push(...[...k.movable, ...k.fixed].filter((x) => !x.te).map((x) => `karanas:${x.en}`));
-  const cal = tables['calendar.json'] as { ruthus: Named[]; ayana: { names: Record<string, Named> } };
+  const cal = tables['calendar.json'] as { ruthus: Named[]; ayana: { names: Record<string, Named> }; paksha: Record<string, Named> };
   missing.push(...cal.ruthus.filter((x) => !x.te).map((x) => `ruthus:${x.en}`));
   missing.push(...Object.values(cal.ayana.names).filter((x) => !x.te).map((x) => `ayana:${x.en}`));
+  missing.push(...(Object.values(cal.paksha) as Named[]).filter((x) => !x.te).map((x) => `paksha:${x.en}`));
+  missing.push(...(tables['tarabalam.json'] as { taras: Named[] }).taras.filter((x) => !x.te).map((x) => `taras:${x.en}`));
   if (missing.length) it.todo(`human-written Telugu needed for ${missing.length} names: ${missing.join(', ')}`);
 });
