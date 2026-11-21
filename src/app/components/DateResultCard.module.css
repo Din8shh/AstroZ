@@ -1,0 +1,22 @@
+/* Ported from design/handoff ds bundle.css (.az-date). */
+.card { display: flex; flex-direction: column; gap: var(--az-space-3); padding: var(--az-space-4); background: var(--az-surface); border-radius: var(--az-radius-card); box-shadow: var(--az-shadow-card); border: 1px solid var(--az-line); }
+.link { color: inherit; text-decoration: none; border-radius: var(--az-radius-sm); }
+.link:focus-visible { outline: 3px solid var(--az-focus); outline-offset: 2px; }
+.head { display: flex; align-items: center; gap: var(--az-space-3); }
+.rank { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--az-gold); background: var(--az-turmeric-soft); font-family: var(--font-display-en); font-size: 20px; font-weight: 600; }
+.when { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.day { font-family: var(--az-font-display); font-size: calc(22px * var(--az-scale)); line-height: 1.3; }
+.sub { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
+.score { flex: none; text-align: right; }
+.score b { font-family: var(--font-display-en); font-size: calc(30px * var(--az-scale)); font-weight: 600; line-height: 1; }
+.score small { color: var(--az-ink-muted); font-size: 14px; }
+.window { display: inline-flex; align-items: center; gap: var(--az-space-2); align-self: flex-start; padding: 4px 12px; border-radius: var(--az-radius-sm); background: var(--az-surface-sunk); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: var(--az-space-2); }
+.reasons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.reasons li { display: flex; gap: var(--az-space-2); align-items: flex-start; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.55; }
+.reasons li > :first-child { flex: none; margin-top: 2px; }
+.r_good > :first-child { color: var(--az-leaf-ink); }
+.r_mixed > :first-child { color: var(--az-caution-ink); }
+.r_avoid > :first-child { color: var(--az-avoid-ink); }
+.foot { display: flex; align-items: center; justify-content: space-between; gap: var(--az-space-2); border-top: 1px solid var(--az-line); padding-top: var(--az-space-3); }
+.good, .mixed, .avoid { }
