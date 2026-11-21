@@ -138,8 +138,9 @@ function kujaSide(s: MatchSide, useLagna: boolean): KujaSide {
 export function kuja(bride: MatchSide, groom: MatchSide): KujaResult {
   if (!bride.mars || !groom.mars) return { checked: false, reasons: [{ ruleId: 'dosha.kuja.notChecked', values: { reason: 'noChart' } }] };
   // Both partners are checked on the same basis: from lagna only when BOTH birth times are known (doshas.json kuja.lagnaOnlyWhenBoth).
-  const fromLagna = doshas.kuja.lagnaOnlyWhenBoth ? bride.lagnaRasi !== undefined && groom.lagnaRasi !== undefined : true;
-  const b = kujaSide(bride, fromLagna), g = kujaSide(groom, fromLagna);
+  const useLagna = doshas.kuja.lagnaOnlyWhenBoth ? bride.lagnaRasi !== undefined && groom.lagnaRasi !== undefined : true;
+  const b = kujaSide(bride, useLagna), g = kujaSide(groom, useLagna);
+  const fromLagna = b.fromLagna !== undefined && g.fromLagna !== undefined; // both actually checked from a lagna
   const balanced = doshas.kuja.bothBalance && b.present && g.present;
   const status: Status = !b.present && !g.present ? 'good' : balanced ? 'good' : 'mixed';
   return {
