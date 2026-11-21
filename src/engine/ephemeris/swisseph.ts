@@ -3,7 +3,7 @@
 import SwissEph from 'swisseph-wasm';
 import libPkg from 'swisseph-wasm/package.json';
 import type { Body, BodyPosition, Ephemeris, EphemerisOptions, GeoLocation, SunriseMode } from './types';
-import { BODIES } from './types';
+import { BODIES, DEFAULT_EPHEMERIS_OPTIONS } from './types';
 
 // Standard atmosphere for refraction at rise/set (Swiss Ephemeris defaults).
 const PRESSURE_HPA = 1013.25;
@@ -30,7 +30,7 @@ function riseBits(mode: SunriseMode): number {
 }
 
 export async function createSwissEphemeris(options: EphemerisOptions = {}): Promise<Ephemeris> {
-  const opts: Required<EphemerisOptions> = { node: 'mean', sunrise: 'upper-limb', ...options };
+  const opts: Required<EphemerisOptions> = { ...DEFAULT_EPHEMERIS_OPTIONS, ...options };
   const swe = new SwissEph();
   await swe.initSwissEph();
   swe.set_sid_mode(swe.SE_SIDM_LAHIRI, 0, 0);

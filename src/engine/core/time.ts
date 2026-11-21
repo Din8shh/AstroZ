@@ -62,7 +62,9 @@ export function resolveLocal(m: LocalMoment): ResolvedMoment {
   const parts = parseParts(m);
   const probe = DateTime.fromObject(parts, { zone: m.tz });
   if (!probe.isValid) {
-    throw new TimeInputError(probe.invalidExplanation ?? probe.invalidReason ?? 'invalid date, time or zone');
+    // invalidReason is a short code ("unit out of range", "unsupported zone"); invalidExplanation
+    // echoes the input values, which may be birth details and must not reach logs.
+    throw new TimeInputError(probe.invalidReason ?? 'invalid date, time or zone');
   }
 
   let dt = probe;
@@ -102,7 +104,7 @@ export function toLocal(jdUt: number, tz: string): LocalTime {
   // A JD near 2.46e6 only resolves ~40 µs, so round to the millisecond before truncating
   // to seconds; otherwise 06:24:05 can come back as 06:24:04.9999 → "06:24:04".
   const dt = DateTime.fromMillis(Math.round(unixMsFromJd(jdUt)), { zone: tz });
-  if (!dt.isValid) throw new TimeInputError(`unknown time zone: ${tz}`);
+  if (!dt.isValid) throw new TimeInputError(dt.invalidReason ?? 'invalid time zone');
   return { jdUt, date: dt.toFormat('yyyy-MM-dd'), time: dt.toFormat('HH:mm:ss'), offsetMinutes: dt.offset };
 }
 
@@ -111,8 +113,15 @@ export function startOfLocalDay(date: string, tz: string): number {
   const d = DATE_RE.exec(date);
   if (!d) throw new TimeInputError('date must be YYYY-MM-DD');
   const dt = DateTime.fromObject({ year: Number(d[1]), month: Number(d[2]), day: Number(d[3]) }, { zone: tz }).startOf('day');
-  if (!dt.isValid) throw new TimeInputError(dt.invalidExplanation ?? 'invalid date or zone');
+  if (!dt.isValid) throw new TimeInputError(dt.invalidReason ?? 'invalid date or zone');
   return jdFromUnixMs(dt.toMillis());
+}
+
+/** The civil date n days after `date` (YYYY-MM-DD), calendar arithmetic only. */
+export function addDays(date: string, n: number): string {
+  const dt = DateTime.fromISO(date, { zone: 'UTC' });
+  if (!dt.isValid || !DATE_RE.test(date)) throw new TimeInputError('date must be YYYY-MM-DD');
+  return dt.plus({ days: n }).toFormat('yyyy-MM-dd');
 }
 
 /** Seconds between two Julian Days (b − a). */

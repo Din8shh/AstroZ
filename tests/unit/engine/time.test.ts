@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { jdFromUnixMs, resolveLocal, startOfLocalDay, TimeInputError, toLocal, unixMsFromJd } from '../../../src/engine/core/time';
+import { addDays, jdFromUnixMs, resolveLocal, startOfLocalDay, TimeInputError, toLocal, unixMsFromJd } from '../../../src/engine/core/time';
 
 describe('Julian Day', () => {
   it('J2000.0 = 2000-01-01T12:00Z = JD 2451545.0', () => {
@@ -67,5 +67,23 @@ describe('bad input', () => {
     [{ date: '2026-11-21', time: '10:00', tz: 'Mars/Olympus' }],
   ])('rejects %o', (m) => {
     expect(() => resolveLocal(m)).toThrow(TimeInputError);
+  });
+
+  it('error messages do not echo the input (it may be a birth date)', () => {
+    try {
+      resolveLocal({ date: '1994-02-31', time: '10:00', tz: 'Asia/Kolkata' });
+      expect.unreachable();
+    } catch (e) {
+      expect(String((e as Error).message)).not.toMatch(/1994|31|10:00/);
+    }
+  });
+});
+
+describe('addDays', () => {
+  it('crosses month, year and leap day', () => {
+    expect(addDays('2026-11-30', 1)).toBe('2026-12-01');
+    expect(addDays('2026-12-31', 1)).toBe('2027-01-01');
+    expect(addDays('2028-02-28', 1)).toBe('2028-02-29');
+    expect(addDays('2026-03-08', 1)).toBe('2026-03-09');
   });
 });

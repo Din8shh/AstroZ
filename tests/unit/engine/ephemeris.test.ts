@@ -73,6 +73,13 @@ describe('engine.sunTimes', () => {
     expect(s.sunset!.jdUt).toBeLessThan(s.nextSunrise!.jdUt);
   });
 
+  it('a sunrise is always on the requested civil date (Tromsø, midnight-sun season)', async () => {
+    for (const date of ['2026-05-10', '2026-05-18', '2026-05-22', '2026-07-25']) {
+      const s = await engine.sunTimes(date, { lat: 69.65, lon: 18.96, tz: 'Europe/Oslo' });
+      if (s.sunrise) expect(s.sunrise.date).toBe(date);
+    }
+  });
+
   it('polar night: no sunrise rather than a wrong one', async () => {
     const s = await engine.sunTimes('2026-12-21', { lat: 78.22, lon: 15.65, tz: 'Arctic/Longyearbyen' });
     expect(s.sunrise).toBeNull();

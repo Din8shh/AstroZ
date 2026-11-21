@@ -1,7 +1,7 @@
 // Engine logic over the Ephemeris interface. Runs in the worker, and directly in Vitest.
 import type { AstroEngine, EngineInfo, GeoPlace, PositionsResult, SunTimes } from '../api';
 import type { Ephemeris } from '../ephemeris/types';
-import { resolveLocal, startOfLocalDay, toLocal, type LocalMoment } from './time';
+import { addDays, resolveLocal, startOfLocalDay, toLocal, type LocalMoment } from './time';
 
 export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
   let eph: Ephemeris | null = null;
@@ -48,9 +48,10 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       const e = await ready();
       const loc = { lat: place.lat, lon: place.lon, ...(place.altitude !== undefined && { altitude: place.altitude }) };
       const dayStart = startOfLocalDay(date, place.tz);
-      // Polar night/day: the library returns null; also refuse a "sunrise" found days later.
+      const dayEnd = startOfLocalDay(addDays(date, 1), place.tz);
+      // Polar night: the library returns null. A sunrise on a later civil date is not this date's.
       const found = e.sunrise(dayStart, loc);
-      const sunrise = found !== null && found - dayStart < 1.5 ? found : null;
+      const sunrise = found !== null && found < dayEnd ? found : null;
       const sunset = e.sunset(sunrise ?? dayStart, loc);
       const nextSunrise = sunrise === null ? null : e.sunrise(sunrise + 1 / 1440, loc);
       const local = (jd: number | null) => (jd === null ? null : toLocal(jd, place.tz));

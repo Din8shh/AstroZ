@@ -2,6 +2,6 @@
 // The engine web worker. ALL astrology maths runs here (CLAUDE.md); screens use src/engine/client.ts.
 import { expose } from 'comlink';
 import { createEngine } from './core/engine';
-import { loadEphemeris } from './ephemeris';
+import { DEFAULT_EPHEMERIS_OPTIONS, loadEphemeris } from './ephemeris';
 
-expose(createEngine(() => loadEphemeris()));
+expose(createEngine(() => loadEphemeris(DEFAULT_EPHEMERIS_OPTIONS)));

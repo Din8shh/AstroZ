@@ -31,7 +31,10 @@ export type SunTimes = {
   /** Sunrise on the civil date (first sunrise after local midnight). */
   sunrise: LocalTime | null;
   sunset: LocalTime | null;
-  /** The next day's sunrise: the panchangam day runs sunrise → next sunrise. */
+  /**
+   * The next day's sunrise: the panchangam day runs sunrise → next sunrise.
+   * null (even with a sunrise) at high latitudes near midsummer: treat as "no panchangam day".
+   */
   nextSunrise: LocalTime | null;
 };
 

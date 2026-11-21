@@ -38,6 +38,9 @@ export type EphemerisOptions = {
   sunrise?: SunriseMode;
 };
 
+/** The settings the app's engine runs with. tests/fixtures/panchangam-golden.json must use the same. */
+export const DEFAULT_EPHEMERIS_OPTIONS: Readonly<Required<EphemerisOptions>> = { node: 'mean', sunrise: 'upper-limb' };
+
 export interface Ephemeris {
   /** Library and data description, e.g. "Swiss Ephemeris 2.10.03 (swisseph-wasm 0.1.0)". */
   readonly name: string;
