@@ -7,7 +7,7 @@ import schema from '../../fixtures/panchangam-golden.schema.json';
 import { createEngine } from '../../../src/engine/core/engine';
 import { DEFAULT_EPHEMERIS_OPTIONS, loadEphemeris, type Body } from '../../../src/engine/ephemeris';
 import { resolveLocal } from '../../../src/engine/core/time';
-import type { AstroEngine } from '../../../src/engine/api';
+import type { AstroEngine, DayPeriodView, LocalTime, PeriodKind } from '../../../src/engine/api';
 
 const SUNRISE_TOLERANCE_S = 60; // ±1 min
 const OTHER_TIME_TOLERANCE_S = 120; // ±2 min
@@ -17,13 +17,27 @@ const LONGITUDE_TOLERANCE_DEG = 0.01;
 const PLACEHOLDER_MARK = 'TO FILL';
 
 type Longitudes = { at: string } & Partial<Record<Body | 'ascendant', number>>;
+type Span = { start: string; end: string };
+type AngaRef = { number: number; name?: string; endsAt: string };
+type Panchangam = {
+  vara?: number; paksha?: 'shukla' | 'krishna'; masa?: number; adhika?: boolean; samvatsara?: number; shaka?: number;
+  tithi?: AngaRef[]; nakshatra?: AngaRef[]; yoga?: AngaRef[]; karana?: AngaRef[];
+  rahuKalam?: Span; yamagandam?: Span; gulikaKalam?: Span; abhijit?: Span | null;
+  durmuhurtham?: Span[]; varjyam?: Span[]; amritaKalam?: Span[];
+};
 type Row = {
   id: string;
   verified: boolean;
   place: { id: string; nameEn: string; lat: number; lon: number; tz: string; altitude?: number };
   date: string;
-  expected: { sunrise: string; sunset?: string; longitudes?: Longitudes; panchangam?: Record<string, unknown> };
+  expected: { sunrise: string; sunset?: string; longitudes?: Longitudes; panchangam?: Panchangam };
 };
+
+/** Fixture field → engine period kind. */
+const PERIOD_FIELDS = {
+  rahuKalam: 'rahu', yamagandam: 'yamagandam', gulikaKalam: 'gulika', abhijit: 'abhijit',
+  durmuhurtham: 'durmuhurtham', varjyam: 'varjyam', amritaKalam: 'amrita',
+} as const satisfies Record<string, PeriodKind>;
 const rows = fixture.rows as Row[];
 
 const angleDiff = (a: number, b: number) => Math.abs(((a - b + 540) % 360) - 180);
@@ -58,14 +72,17 @@ describe('panchangam-golden.json', () => {
   });
 
   const unverified = rows.filter((r) => !r.verified).map((r) => r.id);
-  if (unverified.length) it.todo(`replace SAMPLE rows with reference values: ${unverified.join(', ')}`);
+  if (unverified.length) it.todo(`a person must check these rows against the reference and set verified: true: ${unverified.join(', ')}`);
 
-  // Reference data that is typed in but not checked yet must be visible, never silently ignored.
-  const phase3 = rows.flatMap((r) => Object.keys(r.expected.panchangam ?? {}).map((k) => `${r.id}.${k}`));
-  if (phase3.length) it.todo(`Phase 3 will check panchangam fields: ${phase3.join(', ')}`);
+  it('every panchangam field in the fixtures is one this test checks', () => {
+    // Reference data that is typed in but not checked must never be silently ignored.
+    const checked = new Set(['vara', 'paksha', 'masa', 'adhika', 'samvatsara', 'shaka', 'tithi', 'nakshatra', 'yoga', 'karana', ...Object.keys(PERIOD_FIELDS)]);
+    const unchecked = rows.flatMap((r) => Object.keys(r.expected.panchangam ?? {}).filter((k) => !checked.has(k)).map((k) => `${r.id}.${k}`));
+    expect(unchecked).toEqual([]);
+  });
 });
 
-describe('golden: sunrise ±1 min, sunset ±2 min, longitudes ±0.01°', () => {
+describe('golden: sunrise ±1 min, sunset/ends/periods ±2 min, longitudes ±0.01°', () => {
   let engine: AstroEngine;
   beforeAll(async () => {
     engine = createEngine(() => loadEphemeris(DEFAULT_EPHEMERIS_OPTIONS));
@@ -73,7 +90,7 @@ describe('golden: sunrise ±1 min, sunset ±2 min, longitudes ±0.01°', () => {
   });
 
   for (const row of rows) {
-    const label = `${row.id} · ${row.place.nameEn} ${row.date}${row.verified ? '' : ' (SAMPLE)'}`;
+    const label = `${row.id} · ${row.place.nameEn} ${row.date}${row.verified ? '' : ' (unverified)'}`;
 
     it(`${label} · sunrise`, async () => {
       const got = await engine.sunTimes(row.date, row.place);
@@ -92,6 +109,51 @@ describe('golden: sunrise ±1 min, sunset ±2 min, longitudes ±0.01°', () => {
         const diffS = Math.abs(got.sunset!.jdUt - want) * 86_400;
         expect(diffS, `sunset ${got.sunset!.time} vs ${sunset} (${diffS.toFixed(0)} s)`).toBeLessThanOrEqual(OTHER_TIME_TOLERANCE_S);
       });
+    }
+
+    const pc = row.expected.panchangam;
+    if (pc) {
+      const tz = row.place.tz;
+      const jd = (local: string) => resolveLocal({ ...splitAt(local), tz }).jdUt;
+      const within = (got: LocalTime, want: string, what: string) => {
+        const diffS = Math.abs(got.jdUt - jd(want)) * 86_400;
+        expect(diffS, `${what}: ${got.date} ${got.time} vs ${want} (${diffS.toFixed(0)} s)`).toBeLessThanOrEqual(OTHER_TIME_TOLERANCE_S);
+      };
+
+      it(`${label} · vara, paksha, masa, samvatsara`, async () => {
+        const p = await engine.panchangam(row.date, row.place);
+        if (pc.vara !== undefined) expect(p.vara.number, 'vara').toBe(pc.vara);
+        if (pc.paksha !== undefined) expect(p.paksha.id, 'paksha').toBe(pc.paksha);
+        if (pc.masa !== undefined) expect(p.masa.number, 'masa').toBe(pc.masa);
+        if (pc.adhika !== undefined) expect(p.masa.adhika, 'adhika').toBe(pc.adhika);
+        if (pc.samvatsara !== undefined) expect(p.samvatsara.number, 'samvatsara').toBe(pc.samvatsara);
+        if (pc.shaka !== undefined) expect(p.samvatsara.shaka, 'shaka').toBe(pc.shaka);
+      });
+
+      for (const field of ['tithi', 'nakshatra', 'yoga', 'karana'] as const) {
+        const want = pc[field];
+        if (!want) continue;
+        it(`${label} · ${field} end times ±2 min`, async () => {
+          const got = (await engine.panchangam(row.date, row.place))[field];
+          // The reference lists the angas that end during the day, in order, starting with the one at sunrise.
+          expect(got.slice(0, want.length).map((a) => a.number), `${field} sequence`).toEqual(want.map((w) => w.number));
+          want.forEach((w, i) => within(got[i]!.end, w.endsAt, `${field} ${w.name ?? w.number} end`));
+        });
+      }
+
+      for (const [field, kind] of Object.entries(PERIOD_FIELDS) as [keyof typeof PERIOD_FIELDS, PeriodKind][]) {
+        if (!(field in pc)) continue;
+        const raw = pc[field];
+        const want: Span[] = raw === null || raw === undefined ? [] : Array.isArray(raw) ? raw : [raw];
+        it(`${label} · ${field} boundaries ±2 min`, async () => {
+          const got = (await engine.dayPeriods(row.date, row.place)).filter((p: DayPeriodView) => p.kind === kind);
+          expect(got.length, `${field}: ${got.map((g) => `${g.start.time}–${g.end.time}`).join(', ') || 'none'}`).toBe(want.length);
+          want.forEach((w, i) => {
+            within(got[i]!.start, w.start, `${field} start`);
+            within(got[i]!.end, w.end, `${field} end`);
+          });
+        });
+      }
     }
 
     const lon = row.expected.longitudes;

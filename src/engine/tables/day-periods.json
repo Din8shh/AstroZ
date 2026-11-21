@@ -1,0 +1,139 @@
+{
+  "source": "Rahu kalam / Yamagandam / Gulika slots: .claude/skills/telugu-jyotisha/reference.md §6 ('standard'). Durmuhurtham, Abhijit and the kalam slots were compared with Drik Panchang day pages for Hyderabad 2026-11-21 → 2026-12-20, Vijayawada 2027-04-07 and Dallas 2026-03-08 (read by automated agents on 2026-11-21, not yet checked by a person): all weekdays match, including Saturday's two Durmuhurtham slots and Tuesday's night slot. Thursday has no fixture row yet. Names (te/en) from design/handoff DayRibbon.",
+  "version": "0.2.0",
+  "notes": "Daytime = sunrise → sunset, night = sunset → next sunrise. A slot n of parts covers [(n−1)/parts, n/parts] of that span. Varjyam and Amrita kalam start ghati/60 of the way through their nakshatra and last lengthGhatis/60 of it (ghatis from nakshatras.json); assignBy 'start' = a window belongs to the panchangam day in which it starts (Drik Panchang convention), so a window crossing sunrise is listed once. 'verified' lists the weekdays compared against the reference; lock the rest with golden fixtures.",
+  "kinds": {
+    "rahu": {
+      "en": "Rahu kalam",
+      "te": "రాహు కాలం",
+      "status": "avoid"
+    },
+    "yamagandam": {
+      "en": "Yamagandam",
+      "te": "యమగండం",
+      "status": "avoid"
+    },
+    "gulika": {
+      "en": "Gulika kalam",
+      "te": "గుళిక కాలం",
+      "status": "avoid"
+    },
+    "durmuhurtham": {
+      "en": "Durmuhurtham",
+      "te": "దుర్ముహూర్తం",
+      "status": "avoid"
+    },
+    "varjyam": {
+      "en": "Varjyam",
+      "te": "వర్జ్యం",
+      "status": "avoid"
+    },
+    "abhijit": {
+      "en": "Abhijit muhurtham",
+      "te": "అభిజిత్ ముహూర్తం",
+      "status": "good"
+    },
+    "amrita": {
+      "en": "Amrita kalam",
+      "te": "అమృత కాలం",
+      "status": "good"
+    }
+  },
+  "daytimeKalams": {
+    "parts": 8,
+    "verified": [
+      "sun",
+      "wed",
+      "sat"
+    ],
+    "slots": {
+      "rahu": {
+        "sun": 8,
+        "mon": 2,
+        "tue": 7,
+        "wed": 5,
+        "thu": 6,
+        "fri": 4,
+        "sat": 3
+      },
+      "yamagandam": {
+        "sun": 5,
+        "mon": 4,
+        "tue": 3,
+        "wed": 2,
+        "thu": 1,
+        "fri": 7,
+        "sat": 6
+      },
+      "gulika": {
+        "sun": 7,
+        "mon": 6,
+        "tue": 5,
+        "wed": 4,
+        "thu": 3,
+        "fri": 2,
+        "sat": 1
+      }
+    }
+  },
+  "durmuhurtham": {
+    "parts": 15,
+    "verified": [
+      "sun",
+      "mon",
+      "tue",
+      "wed",
+      "fri",
+      "sat"
+    ],
+    "daySlots": {
+      "sun": [
+        14
+      ],
+      "mon": [
+        9,
+        12
+      ],
+      "tue": [
+        4
+      ],
+      "wed": [
+        8
+      ],
+      "thu": [
+        6,
+        12
+      ],
+      "fri": [
+        4,
+        9
+      ],
+      "sat": [
+        1,
+        2
+      ]
+    },
+    "nightSlots": {
+      "tue": [
+        7
+      ]
+    }
+  },
+  "abhijit": {
+    "parts": 15,
+    "slot": 8,
+    "skipVaras": [
+      "wed"
+    ],
+    "verified": [
+      "sun",
+      "wed",
+      "sat"
+    ]
+  },
+  "nakshatraWindows": {
+    "lengthGhatis": 4,
+    "ghatisPerNakshatra": 60,
+    "assignBy": "start"
+  }
+}

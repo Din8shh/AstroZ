@@ -40,6 +40,7 @@ Lords and rajju — standard.
 | 26 | Uttara Bhadra | ఉత్తరాభాద్ర | Saturn | Du, Tha, Jha, Na | 25 | Kati |
 | 27 | Revati | రేవతి | Mercury | De, Do, Cha, Chi | 31 | Pada |
 
+**Varjyam correction (2026-11-21, Phase 3):** the "Varjyam start ghati" column above is one higher than Drik Panchang for every nakshatra (it reads as the 1-based "Nth ghati"). The engine uses ELAPSED ghatis = this column − 1, and Mula has TWO windows, at 20 and 56 ghatis. Matched against Drik day pages for Hyderabad 2026-11-21 → 2026-12-20 (automated check; see src/engine/tables/nakshatras.json). Use the table file, not this column.
 Notes: other sources give slightly different Varjyam ghatis (e.g. 50 for Ashwini). Latin syllables collide (Ta, Ti, Tu, Te, To, Da, Di, Du, De, Do, Na, Dha) because the Devanagari original separates dental/retroflex sounds; the Telugu-script table resolves most of these (త vs ట, ద vs డ, న vs ణ). Use the Telugu table as primary.
 
 ## 2. Ashtakoota (source: https://www.onlinejyotish.com/astrology-lessons/lesson_116.php)

@@ -1,0 +1,360 @@
+{
+  "source": "Names, Telugu names, lords, rajju: .claude/skills/telugu-jyotisha/reference.md §1 (onlinejyotish Avakahada chart). Varjyam ghatis = Drik Panchang's nakshatra thyajyam table (the source reference.md cites), in ELAPSED ghatis. reference.md §1 lists every value one higher (apparently transcribed as the 1-based 'Nth ghati') and gives Mula a single value; Drik shows two Mula windows, at 20 and 56 ghatis. Evidence: Drik Panchang day pages for Hyderabad 2026-11-21 → 2026-12-20, Vijayawada 2027-04-07, Dallas 2026-03-08 (read by automated agents on 2026-11-21, not yet checked by a person) match all 27 varjyam values and all 27 amrita ghatis. Amrita ghatis: commonly published table.",
+  "version": "0.3.0",
+  "notes": "spanDegrees = 360/27. varjyamGhatis / amritaGhati = ghatis (of 60) ELAPSED in the nakshatra when the window starts; each window lasts lengthGhatis (day-periods.json). varjyamVerified / amritaVerified mark rows locked by a golden fixture row; the rest were compared automatically only. Pandit review pending.",
+  "spanDegrees": 13.333333333333334,
+  "items": [
+    {
+      "number": 1,
+      "en": "Ashwini",
+      "te": "అశ్విని",
+      "lord": "ketu",
+      "varjyamGhatis": [
+        50
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 42,
+      "amritaVerified": false,
+      "rajju": "pada"
+    },
+    {
+      "number": 2,
+      "en": "Bharani",
+      "te": "భరణి",
+      "lord": "venus",
+      "varjyamGhatis": [
+        24
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 48,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 3,
+      "en": "Krittika",
+      "te": "కృత్తిక",
+      "lord": "sun",
+      "varjyamGhatis": [
+        30
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 54,
+      "amritaVerified": false,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 4,
+      "en": "Rohini",
+      "te": "రోహిణి",
+      "lord": "moon",
+      "varjyamGhatis": [
+        40
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 52,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 5,
+      "en": "Mrigashira",
+      "te": "మృగశిర",
+      "lord": "mars",
+      "varjyamGhatis": [
+        14
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 38,
+      "amritaVerified": false,
+      "rajju": "siro"
+    },
+    {
+      "number": 6,
+      "en": "Ardra",
+      "te": "ఆర్ద్ర",
+      "lord": "rahu",
+      "varjyamGhatis": [
+        21
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 35,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 7,
+      "en": "Punarvasu",
+      "te": "పునర్వసు",
+      "lord": "jupiter",
+      "varjyamGhatis": [
+        30
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 54,
+      "amritaVerified": false,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 8,
+      "en": "Pushya",
+      "te": "పుష్యమి",
+      "lord": "saturn",
+      "varjyamGhatis": [
+        20
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 44,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 9,
+      "en": "Ashlesha",
+      "te": "ఆశ్లేష",
+      "lord": "mercury",
+      "varjyamGhatis": [
+        32
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 56,
+      "amritaVerified": false,
+      "rajju": "pada"
+    },
+    {
+      "number": 10,
+      "en": "Magha",
+      "te": "మఖ",
+      "lord": "ketu",
+      "varjyamGhatis": [
+        30
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 54,
+      "amritaVerified": false,
+      "rajju": "pada"
+    },
+    {
+      "number": 11,
+      "en": "Purva Phalguni",
+      "te": "పుబ్బ",
+      "lord": "venus",
+      "varjyamGhatis": [
+        20
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 44,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 12,
+      "en": "Uttara Phalguni",
+      "te": "ఉత్తర",
+      "lord": "sun",
+      "varjyamGhatis": [
+        18
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 42,
+      "amritaVerified": false,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 13,
+      "en": "Hasta",
+      "te": "హస్త",
+      "lord": "moon",
+      "varjyamGhatis": [
+        21
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 45,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 14,
+      "en": "Chitra",
+      "te": "చిత్త",
+      "lord": "mars",
+      "varjyamGhatis": [
+        20
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 44,
+      "amritaVerified": false,
+      "rajju": "siro"
+    },
+    {
+      "number": 15,
+      "en": "Swati",
+      "te": "స్వాతి",
+      "lord": "rahu",
+      "varjyamGhatis": [
+        14
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 38,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 16,
+      "en": "Vishakha",
+      "te": "విశాఖ",
+      "lord": "jupiter",
+      "varjyamGhatis": [
+        14
+      ],
+      "varjyamVerified": true,
+      "amritaGhati": 38,
+      "amritaVerified": true,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 17,
+      "en": "Anuradha",
+      "te": "అనూరాధ",
+      "lord": "saturn",
+      "varjyamGhatis": [
+        10
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 34,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 18,
+      "en": "Jyeshtha",
+      "te": "జ్యేష్ఠ",
+      "lord": "mercury",
+      "varjyamGhatis": [
+        14
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 38,
+      "amritaVerified": false,
+      "rajju": "pada"
+    },
+    {
+      "number": 19,
+      "en": "Mula",
+      "te": "మూల",
+      "lord": "ketu",
+      "varjyamGhatis": [
+        20,
+        56
+      ],
+      "varjyamVerified": true,
+      "amritaGhati": 44,
+      "amritaVerified": false,
+      "rajju": "pada"
+    },
+    {
+      "number": 20,
+      "en": "Purva Ashadha",
+      "te": "పూర్వాషాఢ",
+      "lord": "venus",
+      "varjyamGhatis": [
+        24
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 48,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 21,
+      "en": "Uttara Ashadha",
+      "te": "ఉత్తరాషాఢ",
+      "lord": "sun",
+      "varjyamGhatis": [
+        20
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 44,
+      "amritaVerified": false,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 22,
+      "en": "Shravana",
+      "te": "శ్రవణం",
+      "lord": "moon",
+      "varjyamGhatis": [
+        10
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 34,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 23,
+      "en": "Dhanishta",
+      "te": "ధనిష్ఠ",
+      "lord": "mars",
+      "varjyamGhatis": [
+        10
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 34,
+      "amritaVerified": false,
+      "rajju": "siro"
+    },
+    {
+      "number": 24,
+      "en": "Shatabhisha",
+      "te": "శతభిషం",
+      "lord": "rahu",
+      "varjyamGhatis": [
+        18
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 42,
+      "amritaVerified": false,
+      "rajju": "kantha"
+    },
+    {
+      "number": 25,
+      "en": "Purva Bhadra",
+      "te": "పూర్వాభాద్ర",
+      "lord": "jupiter",
+      "varjyamGhatis": [
+        16
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 40,
+      "amritaVerified": false,
+      "rajju": "nabhi"
+    },
+    {
+      "number": 26,
+      "en": "Uttara Bhadra",
+      "te": "ఉత్తరాభాద్ర",
+      "lord": "saturn",
+      "varjyamGhatis": [
+        24
+      ],
+      "varjyamVerified": false,
+      "amritaGhati": 48,
+      "amritaVerified": false,
+      "rajju": "kati"
+    },
+    {
+      "number": 27,
+      "en": "Revati",
+      "te": "రేవతి",
+      "lord": "mercury",
+      "varjyamGhatis": [
+        30
+      ],
+      "varjyamVerified": true,
+      "amritaGhati": 54,
+      "amritaVerified": true,
+      "rajju": "pada"
+    }
+  ]
+}

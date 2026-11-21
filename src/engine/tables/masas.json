@@ -1,0 +1,79 @@
+{
+  "source": "Amanta month rule: .claude/skills/telugu-jyotisha/reference.md (telugu-jyotisha skill conventions). Names (en/te) from design/handoff Income & expense month strip.",
+  "version": "0.1.0",
+  "notes": "Amanta: new moon to new moon. masa number = (Sun's sidereal rasi at the starting new moon mod 12) + 1, so Sun in Meena (12) → Chaitra (1). No sankranti during the month → adhika (same name as the following month). Two sankrantis → kshaya. ruthu = which of ruthus.json the month belongs to.",
+  "items": [
+    {
+      "number": 1,
+      "en": "Chaitram",
+      "te": "చైత్రం",
+      "ruthu": 1
+    },
+    {
+      "number": 2,
+      "en": "Vaishakham",
+      "te": "వైశాఖం",
+      "ruthu": 1
+    },
+    {
+      "number": 3,
+      "en": "Jyeshtham",
+      "te": "జ్యేష్ఠం",
+      "ruthu": 2
+    },
+    {
+      "number": 4,
+      "en": "Ashadham",
+      "te": "ఆషాఢం",
+      "ruthu": 2
+    },
+    {
+      "number": 5,
+      "en": "Shravanam",
+      "te": "శ్రావణం",
+      "ruthu": 3
+    },
+    {
+      "number": 6,
+      "en": "Bhadrapadam",
+      "te": "భాద్రపదం",
+      "ruthu": 3
+    },
+    {
+      "number": 7,
+      "en": "Ashwayujam",
+      "te": "ఆశ్వయుజం",
+      "ruthu": 4
+    },
+    {
+      "number": 8,
+      "en": "Karthikam",
+      "te": "కార్తీకం",
+      "ruthu": 4
+    },
+    {
+      "number": 9,
+      "en": "Margashiram",
+      "te": "మార్గశిరం",
+      "ruthu": 5
+    },
+    {
+      "number": 10,
+      "en": "Pushyam",
+      "te": "పుష్యం",
+      "ruthu": 5
+    },
+    {
+      "number": 11,
+      "en": "Magham",
+      "te": "మాఘం",
+      "ruthu": 6
+    },
+    {
+      "number": 12,
+      "en": "Phalgunam",
+      "te": "ఫాల్గుణం",
+      "ruthu": 6
+    }
+  ]
+}

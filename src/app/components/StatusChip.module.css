@@ -1,0 +1,8 @@
+/* Ported from bundle.css: .az-chip */
+.chip { display: inline-flex; align-items: center; gap: var(--az-space-1); padding: 3px 12px 3px 8px; border-radius: var(--az-radius-pill); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; line-height: 1.5; white-space: nowrap; }
+.soft.good { background: var(--az-leaf-soft); color: var(--az-leaf-ink); }
+.soft.mixed { background: var(--az-caution-soft); color: var(--az-caution-ink); }
+.soft.avoid { background: var(--az-avoid-soft); color: var(--az-avoid-ink); }
+.solid.good { background: var(--az-leaf); color: var(--az-on-leaf); }
+.solid.mixed { background: var(--az-caution); color: var(--az-on-caution); }
+.solid.avoid { background: var(--az-avoid); color: var(--az-on-avoid); }
