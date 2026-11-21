@@ -64,10 +64,13 @@ function Result({ r }: { r: MatchReading }) {
   const a = r.bride.name, b = r.groom.name;
   const namesBasis = r.basis === 'names';
   const band = t(`band.${r.status}`);
+  const approxLabel = namesBasis ? t('match.namesApprox') : r.approximate ? t('approx') : undefined;
+  // Time unknown: the Moon changed nakshatra or rasi on the birth date, so the points may differ.
+  const uncertain = (['bride', 'groom'] as const).filter((w) => { const d = r[w].dayRange; return !!d && (d.nakshatras.length > 1 || d.rasis.length > 1); });
 
   const shareData: ShareCardData = {
     names: [a, b], score: r.score, max: r.max, verdict: band, status: r.status,
-    approxLabel: namesBasis ? t('match.namesApprox') : undefined,
+    approxLabel,
     kicker: t('share.kicker'), foot: t('share.foot'), lang,
   };
 
@@ -75,7 +78,8 @@ function Result({ r }: { r: MatchReading }) {
     const key = `note.${k.id}.${k.status}` as MessageKey;
     if (!(key in KEYS)) return undefined;
     const d = k.reasons[0]?.values.distance as number[] | undefined;
-    return t(key, d ? { a: String(d[0]), b: String(d[1]) } : undefined);
+    const text = t(key, d ? { a: String(d[0]), b: String(d[1]) } : undefined);
+    return k.reasons[0]?.values.uncertain ? `${t('approx')} · ${text}` : text;
   };
 
   const todos: TodoItem[] = [
@@ -109,8 +113,9 @@ function Result({ r }: { r: MatchReading }) {
       ) : null}
 
       <section className={`${s.card} ${s.dialCard}`}>
-        <GunaDial score={r.score} max={r.max} status={r.status} label={band} unit={t('match.gunas')} approxLabel={namesBasis ? t('match.namesApprox') : undefined} />
+        <GunaDial score={r.score} max={r.max} status={r.status} label={band} unit={t('match.gunas')} approxLabel={approxLabel} />
         <p className={s.summary}>{t(namesBasis ? 'match.summaryNames' : 'match.summary', { score: formatScore(r.score) })}</p>
+        {uncertain.map((w) => <p key={w} className={s.text} role="note" data-testid="day-range">{t('match.dayRange', { name: r[w].name })}</p>)}
         <WhyLink label={t('match.whyScore')} onClick={() => setSheet({ kind: 'score' })} />
       </section>
 
@@ -118,6 +123,7 @@ function Result({ r }: { r: MatchReading }) {
         <section className={`${s.card} ${s.peru}`} data-testid="peru">
           <div className={s.rowHead}><h2 className={s.h3}>{t('match.peru')}</h2><StatusChip status={r.peruBalam.status} /></div>
           <p className={s.text}>{t(`match.peru.${r.peruBalam.status}`, { a, b })}</p>
+          {r.peruBalam.ambiguous ? <p className={s.text}>{t('match.peruAmbiguous')}</p> : null}
           <div className={s.inline}><span className={s.approx}>{t('match.peruApprox')}</span><WhyLink label={t('match.why')} onClick={() => setSheet({ kind: 'peru' })} /></div>
         </section>
       ) : null}
@@ -145,11 +151,12 @@ function Result({ r }: { r: MatchReading }) {
           ) : (
             (['bride', 'groom'] as const).filter((who) => r.kuja.checked && r.kuja[who].present).map((who) => {
               const side = r.kuja.checked ? r.kuja[who] : undefined;
-              const house = side?.fromLagna !== undefined && [2, 4, 7, 8, 12].includes(side.fromLagna) ? side.fromLagna : side?.fromMoon;
+              const trigger = side?.trigger;
               const person = who === 'bride' ? a : b;
+              const body = `${t('dosha.kuja.present', { name: person, house: String(trigger?.house ?? '') })} ${trigger ? t('dosha.kuja.ref', { ref: t(`ref.${trigger.from}`) }) : ''}`.trim();
               return (
                 <DoshaCallout key={who} title={t('dosha.kuja.titleFor', { name: person })} status="mixed" statusLabel={t('status.mixed')}
-                  body={t('dosha.kuja.present', { name: person, house: String(house) })} helpsTitle={t('dosha.helps')} helps={helps}
+                  body={body} helpsTitle={t('dosha.helps')} helps={helps}
                   whyLabel={t('match.why')} onWhy={() => setSheet({ kind: 'dosha', id: 'kuja' })} />
               );
             })

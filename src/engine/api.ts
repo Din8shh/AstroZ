@@ -136,6 +136,10 @@ export type MatchSideView = {
   approximate: boolean;
   /** Names basis: the first sound used. */
   aksharam?: string;
+  /** The name fits several nama-nakshatra padas and no choice was passed (the first candidate was used). */
+  namaAmbiguous?: boolean;
+  /** Chart basis, time unknown: the nakshatras / rasis the Moon passed through on the birth date. */
+  dayRange?: { nakshatras: number[]; rasis: number[] };
 };
 
 export type MatchReading = {
@@ -151,7 +155,7 @@ export type MatchReading = {
   bride: MatchSideView;
   groom: MatchSideView;
   /** Name strength (ashtakoota on the nama nakshatras); always approximate. Absent if a name gives no candidate. */
-  peruBalam?: { status: Status; score: number; max: number };
+  peruBalam?: { status: Status; score: number; max: number; ambiguous: boolean };
   reasons: Reading['reasons'];
   todos: { id: string }[];
   remedies: string[];

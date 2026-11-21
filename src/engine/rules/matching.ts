@@ -16,6 +16,8 @@ export type MatchSide = {
   rasi: number; // 1–12 (Moon)
   /** Degrees into the Moon's rasi (Vashya splits Dhanus/Makara at 15°). */
   moonDegree: number;
+  /** Names basis: the span of degrees the Moon could be in (the whole pada). A split rasi straddled by it makes Vashya uncertain. */
+  moonDegreeRange?: [number, number];
   /** Present only with a birth chart. */
   mars?: { rasi: number };
   /** Present only when the birth time is known. */
@@ -24,7 +26,8 @@ export type MatchSide = {
 
 export type KootaResult = { id: KootaId; points: number; max: number; status: Status; reasons: Reason[] };
 
-export type KujaSide = { fromLagna?: number; fromMoon?: number; present: boolean };
+/** `trigger`: the reference point (lagna checked first) and house that put Mars in a dosha position. */
+export type KujaSide = { fromLagna?: number; fromMoon?: number; present: boolean; trigger?: { from: 'lagna' | 'moon'; house: number } };
 export type KujaResult =
   | { checked: false; reasons: Reason[] }
   | { checked: true; fromLagna: boolean; bride: KujaSide; groom: KujaSide; status: Status; reasons: Reason[] };
@@ -53,6 +56,13 @@ function koota(id: KootaId, points: number, values: Record<string, unknown>): Ko
 function vashyaGroup(s: MatchSide): string {
   const groups = T.vashya.byRasi[s.rasi - 1]!;
   return groups.length > 1 && s.moonDegree >= T.vashya.splitAtDegree ? groups[1]! : groups[0]!;
+}
+
+/** True when the Moon's possible span crosses the Vashya split inside a split rasi (the group can't be decided). */
+function vashyaUncertain(s: MatchSide): boolean {
+  const groups = T.vashya.byRasi[s.rasi - 1]!;
+  const r = s.moonDegreeRange;
+  return groups.length > 1 && !!r && r[0] < T.vashya.splitAtDegree && r[1] > T.vashya.splitAtDegree;
 }
 
 export function ashtakoota(bride: MatchSide, groom: MatchSide): KootaResult[] {
@@ -89,7 +99,7 @@ export function ashtakoota(bride: MatchSide, groom: MatchSide): KootaResult[] {
 
   return [
     koota('varna', varna, { bride: vb, groom: vg }),
-    koota('vashya', vashya, { bride: wb, groom: wg }),
+    koota('vashya', vashya, { bride: wb, groom: wg, uncertain: vashyaUncertain(bride) || vashyaUncertain(groom) }),
     koota('tara', tara, { brideToGroom, groomToBride }),
     koota('yoni', yoni, { bride: yb, groom: yg }),
     koota('grahaMaitri', grahaMaitri, { bride: lb, groom: lg }),
@@ -115,21 +125,23 @@ export function vedha(bride: MatchSide, groom: MatchSide) {
   return { present, status: (present ? 'mixed' : 'good') as Status, reasons: [{ ruleId: 'dosha.vedha', values: { brideNakshatra: a, groomNakshatra: b, present } }] };
 }
 
-function kujaSide(s: MatchSide): KujaSide {
+function kujaSide(s: MatchSide, useLagna: boolean): KujaSide {
   if (!s.mars) return { present: false };
   const house = (from: number) => countFrom(from, s.mars!.rasi, 12);
   const fromMoon = house(s.rasi);
-  const fromLagna = s.lagnaRasi !== undefined ? house(s.lagnaRasi) : undefined;
+  const fromLagna = useLagna && s.lagnaRasi !== undefined ? house(s.lagnaRasi) : undefined;
   const hit = (h: number | undefined) => h !== undefined && doshas.kuja.houses.includes(h);
-  return { fromMoon, ...(fromLagna !== undefined && { fromLagna }), present: hit(fromMoon) || hit(fromLagna) };
+  const trigger = hit(fromLagna) ? { from: 'lagna' as const, house: fromLagna! } : hit(fromMoon) ? { from: 'moon' as const, house: fromMoon } : undefined;
+  return { fromMoon, ...(fromLagna !== undefined && { fromLagna }), present: !!trigger, ...(trigger && { trigger }) };
 }
 
 export function kuja(bride: MatchSide, groom: MatchSide): KujaResult {
   if (!bride.mars || !groom.mars) return { checked: false, reasons: [{ ruleId: 'dosha.kuja.notChecked', values: { reason: 'noChart' } }] };
-  const b = kujaSide(bride), g = kujaSide(groom);
+  // Both partners are checked on the same basis: from lagna only when BOTH birth times are known (doshas.json kuja.lagnaOnlyWhenBoth).
+  const fromLagna = doshas.kuja.lagnaOnlyWhenBoth ? bride.lagnaRasi !== undefined && groom.lagnaRasi !== undefined : true;
+  const b = kujaSide(bride, fromLagna), g = kujaSide(groom, fromLagna);
   const balanced = doshas.kuja.bothBalance && b.present && g.present;
   const status: Status = !b.present && !g.present ? 'good' : balanced ? 'good' : 'mixed';
-  const fromLagna = bride.lagnaRasi !== undefined && groom.lagnaRasi !== undefined;
   return {
     checked: true, fromLagna, bride: b, groom: g, status,
     reasons: [{ ruleId: balanced ? 'dosha.kuja.balanced' : b.present || g.present ? 'dosha.kuja.present' : 'dosha.kuja.absent', values: { bride: b, groom: g, fromLagna } }],

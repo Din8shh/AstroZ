@@ -60,7 +60,10 @@
     "match.peru.avoid",
     "note.nadi.avoid",
     "today.adhika",
-    "today.kshaya"
+    "today.kshaya",
+    "match.dayRange",
+    "match.peruAmbiguous",
+    "dosha.kuja.ref"
   ],
   "family.intro": "ఈ ఫోన్‌లో ఉన్నవారు. ఎవరిని నొక్కినా వారి వివరాలు మార్చవచ్చు.",
   "family.add": "వ్యక్తిని జోడించండి",
@@ -218,5 +221,10 @@
   "wish.muhurthamSub": "వివాహం, వాహనం, కొత్త ఉద్యోగం, వ్యాపారం",
   "wish.houseSub": "మంచి తేదీలు, ప్రవేశ దిశ",
   "wish.jobSub": "రాబోయే 90 రోజుల్లో మంచి సమయాలు",
-  "wish.incomeSub": "పరాభవ సంవత్సర ఆదాయం, వ్యయం"
+  "wish.incomeSub": "పరాభవ సంవత్సర ఆదాయం, వ్యయం",
+  "match.dayRange": "{name}'s birth time isn't known and the Moon changed nakshatram or rasi that day, so these points may differ. Add the birth time for an exact match.",
+  "match.peruAmbiguous": "A name fits more than one nakshatram; the first one was used. Try the names-only match to choose.",
+  "dosha.kuja.ref": "Counted from the {ref}.",
+  "ref.lagna": "లగ్నం",
+  "ref.moon": "చంద్రుడు"
 }

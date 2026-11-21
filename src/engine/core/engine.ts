@@ -194,9 +194,11 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         const c = nama?.candidates[p.namaChoice ?? 0] ?? nama?.candidates[0];
         if (!nama || !c) return null;
         const lon = (c.nakshatra - 1) * NAK + (c.pada - 0.5) * (NAK / 4);
+        const lo = (c.nakshatra - 1) * NAK + (c.pada - 1) * (NAK / 4), hi = lo + NAK / 4;
+        const base = (rasiOf(lon) - 1) * 30;
         return {
-          side: { nakshatra: c.nakshatra, rasi: rasiOf(lon), moonDegree: lon % 30 },
-          view: { name: p.name, nakshatra: c.nakshatra, pada: c.pada, rasi: rasiOf(lon), approximate: true, aksharam: nama.aksharam },
+          side: { nakshatra: c.nakshatra, rasi: rasiOf(lon), moonDegree: lon % 30, moonDegreeRange: [lo - base, hi - base] },
+          view: { name: p.name, nakshatra: c.nakshatra, pada: c.pada, rasi: rasiOf(lon), approximate: true, aksharam: nama.aksharam, namaAmbiguous: nama.candidates.length > 1 && p.namaChoice === undefined },
         };
       };
 
@@ -206,7 +208,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         const c = await api.birthChart(p.birth);
         const side: MatchSide = { nakshatra: c.moon.nakshatra, rasi: c.moon.rasi, moonDegree: c.moon.degree, mars: { rasi: c.planets.mars.rasi } };
         if (c.lagna) side.lagnaRasi = c.lagna.rasi;
-        return { side, view: { name: p.name, nakshatra: c.moon.nakshatra, pada: c.moon.pada, rasi: c.moon.rasi, approximate: c.approximate } };
+        return { side, view: { name: p.name, nakshatra: c.moon.nakshatra, pada: c.moon.pada, rasi: c.moon.rasi, approximate: c.approximate, ...(c.dayRange && { dayRange: c.dayRange }) } };
       };
 
       const namesB = fromName(input.bride), namesG = fromName(input.groom);
@@ -227,7 +229,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         status: core.status, score: core.score, max: core.max,
         kootas: core.kootas, rajju: core.rajju, vedha: core.vedha, kuja: core.kuja,
         bride: b.view, groom: g.view,
-        ...(peru && { peruBalam: { status: peru.status, score: peru.score, max: peru.max } }),
+        ...(peru && { peruBalam: { status: peru.status, score: peru.score, max: peru.max, ambiguous: !!(namesB!.view.namaAmbiguous || namesG!.view.namaAmbiguous) } }),
         reasons: [{ ruleId: 'match.total', values: { score: core.score, max: core.max, status: core.status, basis: input.basis } }],
         todos, remedies,
       };

@@ -20,6 +20,8 @@ const side = (nakshatra: number, pada: number, extra: Partial<MatchSide> = {}): 
 describe('matching fixtures (tests/fixtures/matching-golden.json): koota points exact', () => {
   const open = fixture.rows.filter((r) => !r.expected).map((r) => r.id);
   if (open.length) it.todo(`fill from published reports (${open.length} rows): ${open.join(', ')}`);
+  const published = fixture.rows.filter((r) => r.expected && !('illustrative' in r && r.illustrative));
+  if (published.length < 10) it.todo(`SPEC §9 Phase 5 needs 10 published reports; ${published.length} filled (illustrative examples do not count)`);
   const unverified = fixture.rows.filter((r) => r.expected && !r.verified).map((r) => r.id);
   if (unverified.length) it.todo(`a person must check: ${unverified.join(', ')}`);
 
@@ -104,6 +106,33 @@ describe('rules', () => {
     expect(k4.checked && k4.fromLagna).toBe(false);
   });
 
+  it('kuja: lagna is used only when both partners have one; the trigger names the reference point', () => {
+    const base = side(4, 1); // Moon in Vrishabha (2)
+    // Mars in Mesha (1): 12th from the Moon (dosha). From a Mithuna lagna (3) it is the 11th (clear).
+    const lagnaClear: MatchSide = { ...base, mars: { rasi: 1 }, lagnaRasi: 3 };
+    const lagnaHit: MatchSide = { ...base, mars: { rasi: 4 }, lagnaRasi: 3 }; // Karkataka: 2nd from Mithuna lagna, 3rd from Moon
+    const noTime: MatchSide = { ...base, mars: { rasi: 4 } };
+    const both = kuja(lagnaHit, { ...base, mars: { rasi: 4 }, lagnaRasi: 9 });
+    expect(both.checked && both.fromLagna).toBe(true);
+    expect(both.checked && both.bride.trigger).toEqual({ from: 'lagna', house: 2 });
+    // One partner has no birth time → both judged from the Moon only, so the lagna hit is not used.
+    const mixed = kuja(lagnaHit, noTime);
+    expect(mixed.checked && mixed.fromLagna).toBe(false);
+    expect(mixed.checked && mixed.bride.present).toBe(false);
+    expect(mixed.checked && mixed.bride.fromLagna).toBeUndefined();
+    const moonHit = kuja(lagnaClear, noTime);
+    expect(moonHit.checked && moonHit.bride.trigger).toEqual({ from: 'moon', house: 12 });
+  });
+
+  it('vashya: a names-basis pada that straddles the 15° split is flagged uncertain', () => {
+    const at = (nakshatra: number, rasi: number, lo: number, hi: number): MatchSide => ({ nakshatra, rasi, moonDegree: (lo + hi) / 2, moonDegreeRange: [lo, hi] });
+    // Purva Ashadha pada 1: 253°20′–256°40′ = Dhanus 13.33°–16.67°.
+    const k = ashtakoota(at(20, 9, 40 / 3, 50 / 3), side(4, 1)).find((x) => x.id === 'vashya')!;
+    expect(k.reasons[0]!.values.uncertain).toBe(true);
+    const k2 = ashtakoota(at(19, 9, 0, 10 / 3), side(4, 1)).find((x) => x.id === 'vashya')!;
+    expect(k2.reasons[0]!.values.uncertain).toBe(false);
+  });
+
   it('total and band', () => {
     const m = matchCore(side(4, 1), side(5, 1));
     expect(m.score).toBe(35);
@@ -142,6 +171,28 @@ describe('engine.match', () => {
     expect(m.kuja.checked && m.kuja.fromLagna).toBe(false);
     expect(m.score).toBe(m.kootas.reduce((s, k) => s + k.points, 0));
     expect(m.peruBalam).toBeDefined();
+    expect(m.groom.approximate).toBe(true);
+    expect(m.groom.dayRange).toBeDefined(); // time unknown → the day's Moon range is passed to the UI
+    expect(m.bride.dayRange).toBeUndefined();
+  });
+
+  it('names basis: Purva Ashadha 1 and Shravana 2 carry an uncertain vashya flag', async () => {
+    // Bhuvan → Purva Ashadha 1, Khushi → Shravana 2: both padas straddle 15° of a split rasi.
+    const m = await engine.match({ basis: 'names', bride: { name: 'Bhuvan' }, groom: { name: 'Khushi' } });
+    expect([m.bride.nakshatra, m.bride.pada, m.groom.nakshatra, m.groom.pada]).toEqual([20, 1, 22, 2]);
+    expect(m.kootas.find((k) => k.id === 'vashya')!.reasons[0]!.values.uncertain).toBe(true);
+    const clear = await engine.match({ basis: 'names', bride: { name: 'అనూష' }, groom: { name: 'సాయి' } });
+    expect(clear.kootas.find((k) => k.id === 'vashya')!.reasons[0]!.values.uncertain).toBe(false);
+  });
+
+  it('chart basis flags an ambiguous name for peru balam', async () => {
+    const m = await engine.match({
+      basis: 'chart',
+      bride: { name: 'Bunny', birth: { date: '1995-08-14', time: '05:40', timeKnown: true, place } },
+      groom: { name: 'Kiran', birth: { date: '1993-02-10', time: '10:00', timeKnown: true, place } },
+    });
+    expect(m.peruBalam?.ambiguous).toBe(true);
+    expect(m.approximate).toBe(false);
   });
 
   it('names basis is approximate and never checks kuja', async () => {

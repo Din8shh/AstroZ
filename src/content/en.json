@@ -209,5 +209,10 @@
   "wish.muhurthamSub": "Wedding, vehicle, new job, business",
   "wish.houseSub": "Gruhapravesam dates and entry direction",
   "wish.jobSub": "Best windows in the next 90 days",
-  "wish.incomeSub": "Parabhava-year aadayam and vyayam"
+  "wish.incomeSub": "Parabhava-year aadayam and vyayam",
+  "match.dayRange": "{name}'s birth time isn't known and the Moon changed nakshatram or rasi that day, so these points may differ. Add the birth time for an exact match.",
+  "match.peruAmbiguous": "A name fits more than one nakshatram; the first one was used. Try the names-only match to choose.",
+  "dosha.kuja.ref": "Counted from the {ref}.",
+  "ref.lagna": "lagna",
+  "ref.moon": "Moon"
 }
