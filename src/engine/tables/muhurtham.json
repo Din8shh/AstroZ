@@ -1,0 +1,454 @@
+{
+  "source": "Per-event sources are listed on each event and rule below. General rules: .claude/skills/telugu-jyotisha (SKILL.md 'Muhurtham scoring order', reference.md §7–§8); https://dekhopanchang.com/en/learn/muhurtas (rikta tithis 4/9/14; Vyatipata and Vaidhriti; outside Rahu kalam, Yamaganda, Gulika); https://dekhopanchang.com/en/learn/muhurta-selection (the nine inauspicious yogas; Vishti karana forbidden; combust Venus 10° / 8° retrograde, Jupiter 11°); https://www.onlinejyotish.com/free-astrology/astrology-lessons/lesson_148.php (same orbs). All pages read by an automated agent on 2026-11-21; NOT yet checked by a person.",
+  "version": 1,
+  "notes": "Scoring order (skill): 1 hard exclusions (month rules, combust, event-avoid nakshatra/tithi/vara, avoid yogas and karanas, a participant's tarabalam in Vipat/Pratyak/Naidhana); 2 panchanga shuddhi points; 3 personal tarabalam + chandrabalam; 4 windows: every period kind listed in removePeriods is cut out (all 'avoid' kinds in day-periods.json; Gulika is event-dependent in the skill, removed for every event here because the vehicle and business sources say to avoid it), Abhijit and Amrita kalam earn the preferred points; 5 best window per day, ranked by score, with the three strongest reasons. Tithi lists are paksha-relative (1–15, the same number in both pakshas); Amavasya is tithi 30. Score = 100 × earned / possible (components that don't apply, e.g. personal with no participants or the tithi of a gruhapravesam whose door has no tithi rule, or an event whose source lists no tithis, are left out of 'possible'). Lagna at the window start is reported for information only and does not score (lagna checks: later). Pandit review pending for every list here. Gruhapravesam tithis come from the door (entry.byDoor): a tithi in the door's group is 'good', others 'neutral'; with no door or an unmapped door the tithi component is left out. nearestDays: how far past the range to look for the nearest good day when nothing qualifies (gruhapravesam months can be over four months apart). Month rules (adhika, kshaya, month list, chaturmas, kharmas, pitru paksha) are judged for every stretch of the day — masa, tithi and Sun rasi at that stretch — not only at sunrise: the day is cut at a new moon and at a sankranti. Combust planets are judged at sunrise (their distance from the Sun changes about 1° a day). weights.shortfallFactor: when ranking reasons, points NOT earned count this much more than points earned, so a weak point surfaces.",
+  "weights": {
+    "nakshatra": {
+      "good": 30,
+      "neutral": 12
+    },
+    "tithi": {
+      "good": 20,
+      "neutral": 8
+    },
+    "shuklaBonus": 5,
+    "vara": {
+      "good": 15,
+      "neutral": 6
+    },
+    "yoga": 5,
+    "karana": 5,
+    "tarabalam": {
+      "good": 12,
+      "mixed": 6
+    },
+    "chandrabalam": {
+      "good": 8,
+      "mixed": 0
+    },
+    "preferredPeriod": 5,
+    "shortWindowMinutes": 60,
+    "shortfallFactor": 1.5
+  },
+  "bands": {
+    "good": 80,
+    "list": 50
+  },
+  "minWindowMinutes": 24,
+  "nearestDays": 400,
+  "general": {
+    "avoidTithis": [
+      4,
+      9,
+      14,
+      30
+    ],
+    "avoidTithisNote": "Rikta tithis 4, 9, 14 in either paksha (dekhopanchang learn/muhurtas) and Amavasya (30) (dekhopanchang muhurta-selection: B.V. Raman avoids Amavasya; vehicle and business sources set it aside).",
+    "avoidYogas": [
+      1,
+      6,
+      9,
+      10,
+      13,
+      15,
+      17,
+      19,
+      27
+    ],
+    "avoidYogasNote": "Vishkambha, Atiganda, Shula, Ganda, Vyaghata, Vajra, Vyatipata, Parigha, Vaidhriti (dekhopanchang muhurta-selection, citing Muhurta Chintamani for marriage); applied to every event here.",
+    "avoidKaranas": [
+      "Vishti"
+    ],
+    "removePeriods": [
+      "rahu",
+      "yamagandam",
+      "gulika",
+      "varjyam",
+      "durmuhurtham"
+    ],
+    "preferPeriods": [
+      "abhijit",
+      "amrita"
+    ]
+  },
+  "combust": {
+    "orbs": {
+      "venus": {
+        "direct": 10,
+        "retrograde": 8
+      },
+      "jupiter": {
+        "direct": 11,
+        "retrograde": 11
+      }
+    },
+    "source": "https://www.onlinejyotish.com/free-astrology/astrology-lessons/lesson_148.php ('Jupiter: 11°', 'Venus: 10° (8° when retrograde)'); same values on dekhopanchang muhurta-selection."
+  },
+  "chaturmas": {
+    "from": {
+      "masa": 4,
+      "tithi": 11
+    },
+    "to": {
+      "masa": 8,
+      "tithi": 11
+    },
+    "verified": false,
+    "note": "Ashadha shukla ekadashi to Karthika shukla ekadashi (amanta), the end tithi excluded from chaturmas. reference.md §7 names Chaturmas as an exclusion but none of the fetched pages states its limits: standard definition, pandit to confirm."
+  },
+  "kharmas": {
+    "sunRasis": [
+      9
+    ],
+    "note": "Sun in Dhanus (sidereal) — reference.md §7."
+  },
+  "pitruPaksha": {
+    "masa": 6,
+    "tithis": [
+      16,
+      30
+    ],
+    "note": "Bhadrapada krishna paksha (amanta), padyami to amavasya, inclusive."
+  },
+  "events": {
+    "vivaham": {
+      "name": {
+        "en": "Vivaham",
+        "te": "వివాహం"
+      },
+      "source": "reference.md §7 (nakshatras, tithis, exclusions: vedastrology.blogspot.com, drikpanchang, astrogle); varas and extra avoid karanas from https://dekhopanchang.com/en/learn/muhurta-selection (Muhurta Chintamani: Sunday, Wednesday, Thursday, Friday; Tuesday and Saturday excluded; Shakuni, Chatushpada, Naga inauspicious).",
+      "window": "fullDay",
+      "nakshatras": {
+        "good": [
+          4,
+          12,
+          21,
+          26,
+          5,
+          27,
+          17,
+          19,
+          15,
+          10,
+          13
+        ],
+        "avoid": [],
+        "strict": true
+      },
+      "tithis": {
+        "good": [
+          2,
+          3,
+          5,
+          7,
+          10,
+          11,
+          13
+        ],
+        "avoid": []
+      },
+      "pakshaPreference": "shukla",
+      "varas": {
+        "good": [
+          "sun",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "avoid": [
+          "tue",
+          "sat"
+        ]
+      },
+      "avoidKaranas": [
+        "Shakuni",
+        "Chatushpada",
+        "Naga"
+      ],
+      "exclude": {
+        "adhika": true,
+        "kshaya": true,
+        "chaturmas": true,
+        "kharmas": true,
+        "combust": [
+          "venus",
+          "jupiter"
+        ],
+        "pitruPaksha": false,
+        "months": null
+      }
+    },
+    "gruhapravesam": {
+      "name": {
+        "en": "Gruhapravesam",
+        "te": "గృహప్రవేశం"
+      },
+      "source": "reference.md §8: months (gotirupati.com), nakshatras (hindu-blog.com + assureshift.in), weekdays Mon/Wed/Thu/Fri; entry direction by tithi group (hindu-blog.com: nanda → south, bhadra → east).",
+      "window": "daytime",
+      "nakshatras": {
+        "good": [
+          4,
+          8,
+          23,
+          5,
+          24,
+          26,
+          12,
+          21,
+          14,
+          17,
+          27
+        ],
+        "avoid": [],
+        "strict": false
+      },
+      "tithis": {
+        "good": [],
+        "avoid": [],
+        "fromDoor": true
+      },
+      "pakshaPreference": "shukla",
+      "varas": {
+        "good": [
+          "mon",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "avoid": []
+      },
+      "avoidKaranas": [],
+      "exclude": {
+        "adhika": true,
+        "kshaya": true,
+        "chaturmas": false,
+        "kharmas": false,
+        "combust": [],
+        "pitruPaksha": false,
+        "months": [
+          11,
+          12,
+          2,
+          3
+        ]
+      },
+      "entry": {
+        "groups": {
+          "nanda": [
+            1,
+            6,
+            11
+          ],
+          "bhadra": [
+            2,
+            7,
+            12
+          ],
+          "jaya": [
+            3,
+            8,
+            13
+          ],
+          "purna": [
+            5,
+            10,
+            15
+          ],
+          "rikta": [
+            4,
+            9,
+            14
+          ]
+        },
+        "byDoor": {
+          "south": "nanda",
+          "east": "bhadra",
+          "north": null,
+          "west": null
+        },
+        "verified": false,
+        "note": "SOURCES DISAGREE — reported, not resolved. reference.md / hindu-blog.com: 'first, sixth or eleventh (nanda) … from the southern side; second, seventh or twelfth (bhadra) … from the eastern side'; jaya and purna not stated ('others from pandit review'). astrowindowschandigarh.blogspot.com (per a search summary; the page itself returned 503): purna → east, nanda → south, bhadra → west, jaya → north. design/handoff NewHouse: east = nanda, north = purna, west = jaya, south = bhadra. Only the reference's two rules are used; north and west doors get no tithi rule until a pandit decides. Rikta tithis suit no door. strict: with a mapped door, only tithis of that door's group qualify (hindu-blog: 'entry should be made from the southern side' on nanda tithis; design: 'Days with nanda tithis, for an east door'); unmapped doors are not limited.",
+        "strict": true
+      },
+      "checklist": [
+        {
+          "id": "checklist.diya",
+          "when": "eveBefore"
+        },
+        {
+          "id": "checklist.thoranam",
+          "when": "morning"
+        },
+        {
+          "id": "checklist.kalasham",
+          "when": "window"
+        },
+        {
+          "id": "checklist.milk",
+          "when": "afterEntry"
+        },
+        {
+          "id": "checklist.elders",
+          "when": null
+        }
+      ],
+      "checklistNote": "Ceremony checklist from design/handoff NewHouse (simple, free steps). Content keys in src/content; pandit review pending."
+    },
+    "vehicle": {
+      "name": {
+        "en": "Vehicle",
+        "te": "వాహనం"
+      },
+      "source": "https://dekhopanchang.com/en/muhurta/vehicle-purchase: 'Ashwini, Mrigashira, Pushya, Hasta, Anuradha, and Revati'; 'Shukla Paksha is preferred … Dwitiya, Tritiya, Panchami, Saptami, Dashami, and Trayodashi'; 'Wednesday and Friday … best' (FAQ: Thursday favourable; avoid Saturday and Tuesday); avoid Rahu kaal, Yamaganda, Gulika.",
+      "window": "daytime",
+      "nakshatras": {
+        "good": [
+          1,
+          5,
+          8,
+          13,
+          17,
+          27
+        ],
+        "avoid": [],
+        "strict": false
+      },
+      "tithis": {
+        "good": [
+          2,
+          3,
+          5,
+          7,
+          10,
+          13
+        ],
+        "avoid": []
+      },
+      "pakshaPreference": "shukla",
+      "varas": {
+        "good": [
+          "wed",
+          "fri",
+          "thu"
+        ],
+        "avoid": [
+          "tue",
+          "sat"
+        ]
+      },
+      "avoidKaranas": [],
+      "exclude": {
+        "adhika": false,
+        "kshaya": false,
+        "chaturmas": false,
+        "kharmas": false,
+        "combust": [],
+        "pitruPaksha": false,
+        "months": null
+      }
+    },
+    "job": {
+      "name": {
+        "en": "New job",
+        "te": "కొత్త ఉద్యోగం"
+      },
+      "source": "UNVERIFIED: no fetched page states rules (dekhopanchang new-job and job-joining pages are empty shells; hindupad.com lists only dated 2023 entries). Nakshatras from a web-search summary of astrobix.com 'Muhurat for Joining the Government Job' (page did not load): Hasta, Ashwini, Pushya + Mrigashira, Revati, Chitra, Anuradha; weekdays from the same search summary (Sunday, Wednesday, Thursday, Friday; Tuesday most often avoided). Pandit must supply this table.",
+      "verified": false,
+      "window": "daytime",
+      "nakshatras": {
+        "good": [
+          13,
+          1,
+          8,
+          5,
+          27,
+          14,
+          17
+        ],
+        "avoid": [],
+        "strict": false
+      },
+      "tithis": {
+        "good": [
+          2,
+          3,
+          5,
+          10
+        ],
+        "avoid": []
+      },
+      "pakshaPreference": "shukla",
+      "varas": {
+        "good": [
+          "sun",
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "avoid": [
+          "tue"
+        ]
+      },
+      "avoidKaranas": [],
+      "exclude": {
+        "adhika": false,
+        "kshaya": false,
+        "chaturmas": false,
+        "kharmas": false,
+        "combust": [],
+        "pitruPaksha": false,
+        "months": null
+      }
+    },
+    "business": {
+      "name": {
+        "en": "Business",
+        "te": "వ్యాపారం"
+      },
+      "source": "https://dekhopanchang.com/en/muhurta/business-start: Pushya 'the single most auspicious nakshatra for starting a business'; 'Ashwini, Rohini, Mrigashira, Punarvasu, Hasta, Anuradha, and Revati are also favorable'; 'Wednesday …, Thursday …, and Friday … are the best weekdays'; 'Avoid starting a business during Pitru Paksha, eclipses, or when Mercury is retrograde' (eclipses and Mercury retrograde: not applied yet). Tithis not stated: general rules only.",
+      "window": "daytime",
+      "nakshatras": {
+        "good": [
+          8,
+          1,
+          4,
+          5,
+          7,
+          13,
+          17,
+          27
+        ],
+        "avoid": [],
+        "strict": false
+      },
+      "tithis": {
+        "good": [],
+        "avoid": []
+      },
+      "pakshaPreference": "shukla",
+      "varas": {
+        "good": [
+          "wed",
+          "thu",
+          "fri"
+        ],
+        "avoid": []
+      },
+      "avoidKaranas": [],
+      "exclude": {
+        "adhika": false,
+        "kshaya": false,
+        "chaturmas": false,
+        "kharmas": false,
+        "combust": [],
+        "pitruPaksha": true,
+        "months": null
+      }
+    }
+  },
+  "personal": {
+    "taraAvoidExcludes": true,
+    "chandraAvoidExcludes": false,
+    "note": "A participant's tarabalam in an avoid tara (Vipat, Pratyak, Naidhana) removes the window (skill step 1: personal strength; design MhNothing: 'your tarabalam is low this week'). Weak chandrabalam keeps the window but makes it 'mixed' (design MhFinder rank 3)."
+  }
+}

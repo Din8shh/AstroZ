@@ -12,11 +12,18 @@ import { PersonFormScreen } from './screens/PersonFormScreen';
 import { RevealScreen } from './screens/RevealScreen';
 import { MatchPickScreen } from './screens/MatchPickScreen';
 import { MatchResultScreen } from './screens/MatchResultScreen';
+import { MuhurthamScreen } from './screens/MuhurthamScreen';
+import { MuhurthamDetailScreen } from './screens/MuhurthamDetailScreen';
+import { NewHouseScreen } from './screens/NewHouseScreen';
 import s from './App.module.css';
 
 /** Full-screen flows opened from a tab (own header, no bottom nav). */
 function subScreen(r: Route) {
   if (r.tab === 'wishes' && r.rest[0] === 'marriage') return r.rest[1] === 'result' ? <MatchResultScreen /> : <MatchPickScreen />;
+  // Muhurtham routes carry only the civil date of a result, never who it is for.
+  const isDate = (x?: string) => !!x && /^\d{4}-\d{2}-\d{2}$/.test(x);
+  if (r.tab === 'wishes' && r.rest[0] === 'muhurtham') return isDate(r.rest[1]) ? <MuhurthamDetailScreen key={r.rest[1]} date={r.rest[1]!} base="muhurtham" /> : <MuhurthamScreen />;
+  if (r.tab === 'wishes' && r.rest[0] === 'house') return isDate(r.rest[1]) ? <MuhurthamDetailScreen key={r.rest[1]} date={r.rest[1]!} base="house" /> : <NewHouseScreen />;
   if (r.tab !== 'family') return null;
   const [a, b] = r.rest;
   if (a === 'new') return <PersonFormScreen />;

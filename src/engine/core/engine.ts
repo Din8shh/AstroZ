@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { NoSunriseError, type AstroEngine, type BirthChart, type BirthInput, type DayPanchangam, type DayPeriodView, type DayStrength, type EngineInfo, type GeoPlace, type PlacementView, type PositionsResult, type SunTimes } from '../api';
 import type { Ephemeris } from '../ephemeris/types';
 import { addDays, resolveLocal, startOfLocalDay, toLocal, type LocalMoment } from './time';
-import { amantaMasa, ayana, fiveAngas, paksha, ruthu, samvatsara, vara, type AngaSpan } from './panchangam';
+import { amantaMasa, ayana, fiveAngas, names as angaNames, paksha, ruthu, samvatsara, vara, type AngaSpan, type Masa } from './panchangam';
 import { dayPeriods, type DayFrame } from './dayPeriods';
 import { chartAt, nakshatraName, nakshatraOf, rasiName, rasiOf, vimshottariDashas, type Placement } from './chart';
 import { namaNakshatra } from './nama';
@@ -11,6 +11,10 @@ import { chandrabalam, tarabalam } from '../rules/strength';
 import { guidanceFor, matchCore, type MatchSide } from '../rules/matching';
 import type { MatchPersonInput, MatchReading, MatchSideView } from '../api';
 import { angles, findCrossing } from './panchangam';
+import { dayExclusions, scoreDay, type DayContext, type DayHead, type VaraId, type Window } from '../rules/muhurtham';
+import muhurthamTable from '../tables/muhurtham.json';
+import tarabalamTable from '../tables/tarabalam.json';
+import type { Door, MuhurthamQuery, MuhurthamResult, MuhurthamWindowView } from '../api';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
 import kootaTable from '../tables/kootas.json';
@@ -65,11 +69,22 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
 
   // One day's computation serves both panchangam() and dayPeriods().
   const cache = new Map<string, ReturnType<typeof computeDay>>();
+  // A lunar month spans ~30 days: reuse it for every sunrise inside it (two new-moon searches per month, not per day).
+  const masas: Masa[] = [];
+  const masaAt = (e: Ephemeris, jd: number) => {
+    let m = masas.find((x) => jd >= x.startNewMoon && jd < x.endNewMoon);
+    if (!m) {
+      m = amantaMasa(e, jd);
+      masas.push(m);
+      if (masas.length > 8) masas.shift();
+    }
+    return m;
+  };
   const computeDay = (e: Ephemeris, date: string, place: GeoPlace) => {
     const f = dayFrame(e, date, place);
     const angas = fiveAngas(e, f.sunrise, f.nextSunrise);
     const v = vara(f.isoWeekday);
-    const masa = amantaMasa(e, f.sunrise);
+    const masa = masaAt(e, f.sunrise);
     return { f, angas, v, masa };
   };
   const day = (e: Ephemeris, date: string, place: GeoPlace) => {
@@ -81,6 +96,103 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       if (cache.size > 16) cache.delete(cache.keys().next().value as string);
     }
     return d;
+  };
+
+  /** Spans of [from, to) where a body (Moon by default) stays in one division of `span` degrees. */
+  const moonSpans = (e: Ephemeris, from: number, to: number, span: number, count: number, body: 'moon' | 'sun' = 'moon') => {
+    const a = angles(e);
+    const lon = a[body];
+    const out: { start: number; end: number; index: number }[] = [];
+    let start = from;
+    let index = Math.floor(lon(start + 1 / 86_400) / span) + 1;
+    while (start < to) {
+      const end = Math.min(to, findCrossing(lon, (index % count) * span, start + 1 / 86_400, 1));
+      out.push({ start, end, index });
+      start = end;
+      index = (index % count) + 1;
+    }
+    return out;
+  };
+
+  const periodsOf = (d: ReturnType<typeof computeDay>) =>
+    dayPeriods({ sunrise: d.f.sunrise, sunset: d.f.sunset, nextSunrise: d.f.nextSunrise, vara: d.v.id as DayFrame['vara'] }, d.angas.nakshatra);
+
+  /** The month, tithi, Sun and combust facts at one instant: enough for month rules, without the angas. */
+  const dayHead = (e: Ephemeris, sunrise: number): DayHead & { masaStart: number } => {
+    const pos = e.positions(sunrise);
+    const sep = (x: number) => Math.abs((((x - pos.sun.longitude) % 360) + 540) % 360 - 180);
+    const masa = masaAt(e, sunrise);
+    const elongation = (((pos.moon.longitude - pos.sun.longitude) % 360) + 360) % 360;
+    return {
+      masaStart: masa.startNewMoon,
+      masa: { number: masa.number, adhika: masa.adhika, kshaya: masa.kshaya },
+      sunriseTithi: Math.floor(elongation / 12) + 1,
+      sunRasi: rasiOf(pos.sun.longitude),
+      planets: {
+        venus: { separation: sep(pos.venus.longitude), retrograde: pos.venus.speed < 0 },
+        jupiter: { separation: sep(pos.jupiter.longitude), retrograde: pos.jupiter.speed < 0 },
+      },
+    };
+  };
+
+  const dayContext = (e: Ephemeris, date: string, place: GeoPlace): { ctx: DayContext; d: ReturnType<typeof computeDay> } => {
+    const d = day(e, date, place);
+    const prev = day(e, addDays(date, -1), place);
+    const { f, angas, v } = d;
+    const periods = [...periodsOf(prev).filter((p) => p.end > f.sunrise), ...periodsOf(d)];
+    // Months touching the day: a new moon after sunrise starts the next amanta month mid-day.
+    const m0 = masaAt(e, f.sunrise);
+    const span = (m: Masa, start: number, end: number) => ({ start, end, number: m.number, adhika: m.adhika, kshaya: m.kshaya });
+    const masaSpans = m0.endNewMoon < f.nextSunrise
+      ? [span(m0, f.sunrise, m0.endNewMoon), span(masaAt(e, m0.endNewMoon + 1 / 86_400), m0.endNewMoon, f.nextSunrise)]
+      : [span(m0, f.sunrise, f.nextSunrise)];
+    const { masaStart: _m, ...head } = dayHead(e, f.sunrise);
+    void _m;
+    const ctx: DayContext = {
+      date, sunrise: f.sunrise, sunset: f.sunset, nextSunrise: f.nextSunrise,
+      vara: v.id as VaraId,
+      ...head,
+      masaSpans,
+      sunRasiSpans: moonSpans(e, f.sunrise, f.nextSunrise, rasiTable.spanDegrees, 12, 'sun'),
+      tithi: angas.tithi, nakshatra: angas.nakshatra, yoga: angas.yoga, karana: angas.karana,
+      moonRasi: moonSpans(e, f.sunrise, f.nextSunrise, rasiTable.spanDegrees, 12),
+      periods,
+    };
+    return { ctx, d };
+  };
+
+  const windowView = (e: Ephemeris, raw: Window, ctx: DayContext, d: ReturnType<typeof computeDay>, place: GeoPlace, event: MuhurthamQuery['event']): MuhurthamWindowView => {
+    const L = (jd: number) => toLocal(jd, place.tz);
+    // Shown to the minute: round inward so the displayed window never touches a neighbouring avoid period.
+    const w = { ...raw, start: Math.ceil(raw.start * 1440 - 1e-6) / 1440, end: Math.floor(raw.end * 1440 + 1e-6) / 1440 };
+    const span = (spans: AngaSpan[], n: number, name: (k: number) => { en: string; te: string | null }) => {
+      const s = spans.find((x) => x.number === n && x.start < w.end && x.end > w.start) ?? spans[0]!;
+      return { number: n, name: name(n), start: L(s.start), end: L(s.end) };
+    };
+    // An earlier karana is mentioned only when it was one the window had to avoid (e.g. "Vishti until 08:10").
+    const avoidK = [...muhurthamTable.general.avoidKaranas, ...(muhurthamTable.events[event].avoidKaranas as string[])];
+    const before = ctx.karana.filter((k) => k.end <= w.start && k.end > ctx.sunrise && avoidK.includes(angaNames.karana(k.number).en)).pop();
+    const lagnaRasi = rasiOf(e.ascendant(w.start, { lat: place.lat, lon: place.lon }));
+    const wm = masaAt(e, w.start); // the window's own month (a new moon after sunrise starts the next one)
+    const taraName = (n: number) => { const t = tarabalamTable.taras.find((x) => x.tara === n)!; return { en: t.en, te: t.te ?? null }; };
+    return {
+      date: ctx.date, start: L(w.start), end: L(w.end), score: w.score, status: w.status,
+      reasons: w.reasons,
+      // The three strongest reasons that say something: no empty "preferred period", no always-true "clear of periods".
+      top: w.reasons.filter((r) => !(r.ruleId === 'mh.preferred' && !r.values.kind) && r.ruleId !== 'mh.clear').slice(0, 3),
+      panchanga: {
+        vara: d.v, paksha: paksha(w.panchanga.tithi), masa: { number: wm.number, name: wm.name },
+        tithi: span(ctx.tithi, w.panchanga.tithi, angaNames.tithi),
+        nakshatra: span(ctx.nakshatra, w.panchanga.nakshatra, angaNames.nakshatra),
+        yoga: span(ctx.yoga, w.panchanga.yoga, angaNames.yoga),
+        karana: span(ctx.karana, w.panchanga.karana, angaNames.karana),
+        ...(before && before.number !== w.panchanga.karana && { karanaBefore: { number: before.number, name: angaNames.karana(before.number), end: L(before.end) } }),
+        moonRasi: { number: w.panchanga.moonRasi, name: rasiName(w.panchanga.moonRasi) },
+      },
+      people: w.people.map((p) => ({ id: p.id, tara: { number: p.tara, name: taraName(p.tara) }, taraStatus: p.taraStatus, house: p.house, chandraStatus: p.chandraStatus })),
+      lagna: { rasi: lagnaRasi, name: rasiName(lagnaRasi) },
+      ...(w.door && { door: w.door }),
+    };
   };
 
   const api: AstroEngine = {
@@ -235,12 +347,68 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       };
     },
 
+    async findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult> {
+      const e = await ready();
+      const t0 = performance.now();
+      const counts = new Map<string, { days: number; values: Record<string, unknown> }>();
+      const scan = (date: string) => {
+        let ctx: DayContext, d: ReturnType<typeof computeDay>;
+        try {
+          // Day-level rules first: a month or combust exclusion needs no angas, periods or windows.
+          // A whole day is skipped only when the same month rule holds at both ends and nothing between can change it:
+          // same amanta month and same Sun rasi at sunrise and at the next sunrise (tithi only rises within a month,
+          // so a tithi range such as chaturmas that holds at both ends holds throughout).
+          const f = dayFrame(e, date, q.place);
+          const h0 = dayHead(e, f.sunrise), h1 = dayHead(e, f.nextSunrise - 1 / 86_400);
+          const x0 = dayExclusions(q.event, h0), x1 = new Set(dayExclusions(q.event, h1).map((x) => x.ruleId));
+          const whole = h0.masaStart === h1.masaStart && h0.sunRasi === h1.sunRasi ? x0.filter((x) => x1.has(x.ruleId)) : [];
+          if (whole.length) return { r: { best: null, windows: [], excluded: whole.slice(0, 1) } };
+          ({ ctx, d } = dayContext(e, date, q.place));
+        } catch (err) { if (err instanceof NoSunriseError) return null; throw err; }
+        const r = scoreDay(q.event, ctx, q.people, q.door);
+        return { r, ctx, d };
+      };
+      const views: MuhurthamWindowView[] = [];
+      const kept: { w: Window; ctx: DayContext; d: ReturnType<typeof computeDay> }[] = [];
+      for (let i = 0; i < q.days; i++) {
+        const date = addDays(q.from, i);
+        const s = scan(date);
+        if (!s) continue;
+        if (s.r.best && s.ctx && s.d) kept.push({ w: s.r.best, ctx: s.ctx, d: s.d });
+        else for (const x of s.r.excluded) {
+          const c = counts.get(x.ruleId) ?? { days: 0, values: x.values };
+          c.days++;
+          counts.set(x.ruleId, c);
+        }
+      }
+      kept.sort((a, b) => b.w.score - a.w.score || a.w.start - b.w.start);
+      for (const k of kept) views.push(windowView(e, k.w, k.ctx, k.d, q.place, q.event));
+      let nearest: MuhurthamWindowView | undefined;
+      if (!views.length) {
+        for (let i = 0; i < muhurthamTable.nearestDays && !nearest; i++) {
+          const s = scan(addDays(q.from, q.days + i));
+          if (s?.r.best && s.ctx && s.d) nearest = windowView(e, s.r.best, s.ctx, s.d, q.place, q.event);
+        }
+      }
+      return {
+        event: q.event, results: views, ...(nearest && { nearest }), daysSearched: q.days,
+        ...(q.event === 'gruhapravesam' && { guide: {
+          byDoor: muhurthamTable.events.gruhapravesam.entry.byDoor as Record<Door, string | null>,
+          groups: muhurthamTable.events.gruhapravesam.entry.groups,
+          checklist: muhurthamTable.events.gruhapravesam.checklist,
+        } }),
+        exclusions: [...counts.entries()].map(([ruleId, c]) => ({ ruleId, days: c.days, values: c.values })).sort((a, b) => b.days - a.days),
+        ms: Math.round(performance.now() - t0),
+      };
+    },
+
     async names() {
       return {
         rasis: rasiTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
         /** Telugu form used before రాశి / లగ్నం (e.g. వృషభ రాశి). */
         rasisCompound: rasiTable.items.map((r) => ({ en: r.en, te: r.teCompound ?? null })),
         nakshatras: nakshatraTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
+        tithis: Array.from({ length: 30 }, (_, i) => angaNames.tithi(i + 1)),
         kootas: Object.fromEntries(Object.entries(kootaTable.kootas).map(([id, k]) => [id, { en: k.name.en, te: k.name.te ?? null }])),
         classes: Object.fromEntries(Object.entries(kootaTable.classNames).map(([id, n]) => [id, { en: n.en, te: n.te ?? null }])),
       };
