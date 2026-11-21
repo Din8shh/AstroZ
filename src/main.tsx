@@ -5,6 +5,7 @@ import './app/styles/base.css';
 import { App } from './app/App';
 import { useSettings } from './app/store/settings';
 import { registerPwa } from './app/pwa';
+import { initEngine } from './engine/client';
 
 const root = document.getElementById('root');
 if (!root) throw new Error('#root missing');
@@ -16,3 +17,8 @@ createRoot(root).render(
   </StrictMode>,
 );
 registerPwa();
+
+// Warm the engine worker once the page has loaded, so the first reading is instant.
+window.addEventListener('load', () => {
+  initEngine().catch((err: unknown) => console.error('engine init failed', err));
+}, { once: true });
