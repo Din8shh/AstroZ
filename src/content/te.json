@@ -1,0 +1,23 @@
+{
+  "$source": "Telugu copy taken verbatim from design/handoff (Claude Design export, 2026-11-21). Needs review by a Telugu-speaking person before launch; never machine-translate.",
+  "app.name": "ఆస్ట్రోజ్",
+  "lang.groupLabel": "భాష / Language",
+  "lang.te": "తెలుగు",
+  "lang.en": "English",
+  "nav.label": "ప్రధాన మెను",
+  "nav.today": "నేడు",
+  "nav.wishes": "కోరికలు",
+  "nav.family": "కుటుంబం",
+  "nav.more": "మరిన్ని",
+  "offline.title": "ఆఫ్‌లైన్ — అన్నీ పనిచేస్తాయి",
+  "offline.body": "పంచాంగం ఈ ఫోన్‌లోనే లెక్కిస్తాం. ఊర్ల జాబితా కూడా ఫోన్‌లోనే ఉంది.",
+  "privacy.line": "మీ వివరాలు ఈ ఫోన్‌లోనే ఉంటాయి.",
+  "today.title": "నేటి పంచాంగం",
+  "wishes.title": "మీ కోరికలు",
+  "wishes.intro": "ఒక కోరిక ఎంచుకోండి. జవాబు, దాని కారణం, చేయగలిగే ఉచిత పనులు చూపిస్తాం.",
+  "family.title": "కుటుంబం",
+  "family.privacy": "కుటుంబ వివరాలు ఈ ఫోన్‌లోనే ఉంటాయి. ఎవరికీ పంపము.",
+  "settings.title": "సెట్టింగ్స్",
+  "settings.intro": "భాష, ఊరు, అక్షరాల పరిమాణం, మీ డేటా.",
+  "disclaimer.body": "ఆస్ట్రోజ్ సంప్రదాయ జ్యోతిషం ఆధారంగా సూచనలు ఇస్తుంది; ఫలితాలకు హామీ ఇవ్వదు. పెద్ద నిర్ణయాలు కుటుంబ పెద్దలతో కలిసి తీసుకోండి. ఆరోగ్యం, డబ్బు, చట్ట విషయాల్లో నిపుణుల సలహా తీసుకోండి."
+}

@@ -1,0 +1,30 @@
+/* Global base, ported from design/handoff/ds/astroz/components/bundle.css (language + elder scaling). */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--az-bg);
+  color: var(--az-ink);
+  font-family: var(--font-body-te);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Per-language type scale. Telugu body is 1px above English so vowel signs and ottulu read clearly. */
+.az-te { --az-font: var(--font-body-te); --az-font-display: var(--font-display-te); --fs-body: 17px; --fs-label: 15px; --fs-caption: 14px; --fs-title: 20px; --fs-display: 28px; --fs-display-lg: 32px; --lh-body: 1.6; --fw-display: 400; }
+.az-en { --az-font: var(--font-body-en); --az-font-display: var(--font-display-en); --fs-body: 16px; --fs-label: 14px; --fs-caption: 13px; --fs-title: 19px; --fs-display: 28px; --fs-display-lg: 32px; --lh-body: 1.6; --fw-display: 600; }
+
+.az { --az-scale: 1; color: var(--az-ink); font-family: var(--az-font); font-size: calc(var(--fs-body) * var(--az-scale)); line-height: var(--lh-body); }
+.az-elder, .az-elder .az { --az-scale: var(--az-elder-scale, 1.2); }
+
+:where(.az) button { font: inherit; color: inherit; }
+:where(.az) :focus-visible { outline: 2px solid var(--az-focus); outline-offset: 2px; }
+
+.az-times { font-family: var(--font-body-en); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.az-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

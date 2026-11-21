@@ -1,0 +1,6 @@
+/* Ported from bundle.css: .az-lang */
+.root { display: inline-flex; padding: 3px; border-radius: var(--az-radius-pill); background: var(--az-surface-sunk); border: 1px solid var(--az-line-strong); }
+.opt { min-width: 52px; min-height: 42px; padding: 0 14px; border: 0; border-radius: var(--az-radius-pill); background: transparent; color: var(--az-ink-muted); font-weight: 600; cursor: pointer; transition: background-color 150ms ease; }
+.te { font-family: var(--font-body-te); font-size: 18px; }
+.en { font-family: var(--font-body-en); font-size: 15px; letter-spacing: 0.02em; }
+.on { background: var(--az-kumkum); color: var(--az-on-kumkum); }
