@@ -1,0 +1,49 @@
+{
+  "source": "Weekday names; Telugu from design/handoff (Sunday not in the handoff).",
+  "version": "0.1.0",
+  "notes": "Vara = weekday at sunrise (the civil date on which the day's sunrise falls). number 1 = Sunday … 7 = Saturday.",
+  "items": [
+    {
+      "number": 1,
+      "id": "sun",
+      "en": "Sunday",
+      "te": null
+    },
+    {
+      "number": 2,
+      "id": "mon",
+      "en": "Monday",
+      "te": "సోమవారం"
+    },
+    {
+      "number": 3,
+      "id": "tue",
+      "en": "Tuesday",
+      "te": "మంగళవారం"
+    },
+    {
+      "number": 4,
+      "id": "wed",
+      "en": "Wednesday",
+      "te": "బుధవారం"
+    },
+    {
+      "number": 5,
+      "id": "thu",
+      "en": "Thursday",
+      "te": "గురువారం"
+    },
+    {
+      "number": 6,
+      "id": "fri",
+      "en": "Friday",
+      "te": "శుక్రవారం"
+    },
+    {
+      "number": 7,
+      "id": "sat",
+      "en": "Saturday",
+      "te": "శనివారం"
+    }
+  ]
+}

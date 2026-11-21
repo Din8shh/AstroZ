@@ -1,0 +1,58 @@
+{
+  "source": "Standard karana cycle (confirmed against Drik Panchang: Kimstughna at Chaitra shukla padyami; Vishti→Bava→Balava; Taitila→Garaja→Vanija). Telugu only where design/handoff has it.",
+  "version": "0.1.0",
+  "notes": "karana number k = floor(((Moon − Sun) mod 360) / 6) + 1 (1–60 per lunar month). k = 1 → fixed[0]; k = 2–57 → movable[(k − 2) mod 7]; k = 58, 59, 60 → fixed[1], fixed[2], fixed[3].",
+  "spanDegrees": 6,
+  "movable": [
+    {
+      "en": "Bava",
+      "te": "బవ"
+    },
+    {
+      "en": "Balava",
+      "te": "బాలవ"
+    },
+    {
+      "en": "Kaulava",
+      "te": null
+    },
+    {
+      "en": "Taitila",
+      "te": null
+    },
+    {
+      "en": "Garaja",
+      "te": null
+    },
+    {
+      "en": "Vanija",
+      "te": null
+    },
+    {
+      "en": "Vishti",
+      "te": "విష్టి"
+    }
+  ],
+  "fixed": [
+    {
+      "k": 1,
+      "en": "Kimstughna",
+      "te": null
+    },
+    {
+      "k": 58,
+      "en": "Shakuni",
+      "te": null
+    },
+    {
+      "k": 59,
+      "en": "Chatushpada",
+      "te": null
+    },
+    {
+      "k": 60,
+      "en": "Naga",
+      "te": null
+    }
+  ]
+}

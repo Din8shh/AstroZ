@@ -1,0 +1,188 @@
+{
+  "source": "Telugu-tradition tithi names. English and Telugu spellings from design/handoff (Claude Design export, 2026-11-21: Today, New house, Muhurtham screens).",
+  "version": "0.1.0",
+  "notes": "tithi = floor(((Moon − Sun) mod 360) / spanDegrees) + 1. 1–15 shukla, 16–30 krishna. te null = no human-written Telugu yet (Amavasya); the UI falls back to English.",
+  "spanDegrees": 12,
+  "items": [
+    {
+      "number": 1,
+      "paksha": "shukla",
+      "en": "Padyami",
+      "te": "పాడ్యమి"
+    },
+    {
+      "number": 2,
+      "paksha": "shukla",
+      "en": "Vidiya",
+      "te": "విదియ"
+    },
+    {
+      "number": 3,
+      "paksha": "shukla",
+      "en": "Tadiya",
+      "te": "తదియ"
+    },
+    {
+      "number": 4,
+      "paksha": "shukla",
+      "en": "Chavithi",
+      "te": "చవితి"
+    },
+    {
+      "number": 5,
+      "paksha": "shukla",
+      "en": "Panchami",
+      "te": "పంచమి"
+    },
+    {
+      "number": 6,
+      "paksha": "shukla",
+      "en": "Shashthi",
+      "te": "షష్ఠి"
+    },
+    {
+      "number": 7,
+      "paksha": "shukla",
+      "en": "Saptami",
+      "te": "సప్తమి"
+    },
+    {
+      "number": 8,
+      "paksha": "shukla",
+      "en": "Ashtami",
+      "te": "అష్టమి"
+    },
+    {
+      "number": 9,
+      "paksha": "shukla",
+      "en": "Navami",
+      "te": "నవమి"
+    },
+    {
+      "number": 10,
+      "paksha": "shukla",
+      "en": "Dashami",
+      "te": "దశమి"
+    },
+    {
+      "number": 11,
+      "paksha": "shukla",
+      "en": "Ekadashi",
+      "te": "ఏకాదశి"
+    },
+    {
+      "number": 12,
+      "paksha": "shukla",
+      "en": "Dwadashi",
+      "te": "ద్వాదశి"
+    },
+    {
+      "number": 13,
+      "paksha": "shukla",
+      "en": "Trayodashi",
+      "te": "త్రయోదశి"
+    },
+    {
+      "number": 14,
+      "paksha": "shukla",
+      "en": "Chaturdashi",
+      "te": "చతుర్దశి"
+    },
+    {
+      "number": 15,
+      "paksha": "shukla",
+      "en": "Pournami",
+      "te": "పౌర్ణమి"
+    },
+    {
+      "number": 16,
+      "paksha": "krishna",
+      "en": "Padyami",
+      "te": "పాడ్యమి"
+    },
+    {
+      "number": 17,
+      "paksha": "krishna",
+      "en": "Vidiya",
+      "te": "విదియ"
+    },
+    {
+      "number": 18,
+      "paksha": "krishna",
+      "en": "Tadiya",
+      "te": "తదియ"
+    },
+    {
+      "number": 19,
+      "paksha": "krishna",
+      "en": "Chavithi",
+      "te": "చవితి"
+    },
+    {
+      "number": 20,
+      "paksha": "krishna",
+      "en": "Panchami",
+      "te": "పంచమి"
+    },
+    {
+      "number": 21,
+      "paksha": "krishna",
+      "en": "Shashthi",
+      "te": "షష్ఠి"
+    },
+    {
+      "number": 22,
+      "paksha": "krishna",
+      "en": "Saptami",
+      "te": "సప్తమి"
+    },
+    {
+      "number": 23,
+      "paksha": "krishna",
+      "en": "Ashtami",
+      "te": "అష్టమి"
+    },
+    {
+      "number": 24,
+      "paksha": "krishna",
+      "en": "Navami",
+      "te": "నవమి"
+    },
+    {
+      "number": 25,
+      "paksha": "krishna",
+      "en": "Dashami",
+      "te": "దశమి"
+    },
+    {
+      "number": 26,
+      "paksha": "krishna",
+      "en": "Ekadashi",
+      "te": "ఏకాదశి"
+    },
+    {
+      "number": 27,
+      "paksha": "krishna",
+      "en": "Dwadashi",
+      "te": "ద్వాదశి"
+    },
+    {
+      "number": 28,
+      "paksha": "krishna",
+      "en": "Trayodashi",
+      "te": "త్రయోదశి"
+    },
+    {
+      "number": 29,
+      "paksha": "krishna",
+      "en": "Chaturdashi",
+      "te": "చతుర్దశి"
+    },
+    {
+      "number": 30,
+      "paksha": "krishna",
+      "en": "Amavasya",
+      "te": null
+    }
+  ]
+}

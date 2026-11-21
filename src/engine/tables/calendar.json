@@ -1,0 +1,67 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md conventions; ayana by sidereal sankranti (Telugu almanac practice — 'standard', verify). Telugu labels from design/handoff.",
+  "version": "0.1.0",
+  "notes": "ayana: uttarayana while the Sun's sidereal rasi is one of uttarayanaRasis (Makara sankranti → Karkataka sankranti), else dakshinayana. paksha: tithi 1–15 shukla, 16–30 krishna.",
+  "ayana": {
+    "uttarayanaRasis": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "names": {
+      "uttarayana": {
+        "en": "Uttarayanam",
+        "te": null
+      },
+      "dakshinayana": {
+        "en": "Dakshinayanam",
+        "te": "దక్షిణాయనం"
+      }
+    }
+  },
+  "paksha": {
+    "shukla": {
+      "en": "Shukla paksham",
+      "te": "శుక్ల పక్షం"
+    },
+    "krishna": {
+      "en": "Krishna paksham",
+      "te": "కృష్ణ పక్షం"
+    }
+  },
+  "ruthus": [
+    {
+      "number": 1,
+      "en": "Vasanta ruthu",
+      "te": null
+    },
+    {
+      "number": 2,
+      "en": "Grishma ruthu",
+      "te": null
+    },
+    {
+      "number": 3,
+      "en": "Varsha ruthu",
+      "te": null
+    },
+    {
+      "number": 4,
+      "en": "Sharad ruthu",
+      "te": "శరదృతువు"
+    },
+    {
+      "number": 5,
+      "en": "Hemanta ruthu",
+      "te": null
+    },
+    {
+      "number": 6,
+      "en": "Shishira ruthu",
+      "te": null
+    }
+  ]
+}

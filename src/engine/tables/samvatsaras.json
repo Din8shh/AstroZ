@@ -1,0 +1,308 @@
+{
+  "source": "60-year cycle, Telugu (Shaka) reckoning. Anchors: .claude/skills/telugu-jyotisha/reference.md (2026–27 Parabhava, 2027–28 Plavanga) and Drik Panchang day pages (Hyderabad 2026-11-21, Vijayawada 2027-04-07, Dallas 2026-03-08), read by an automated agent on 2026-11-21; not yet checked by a person (Shaka 1947 Vishvavasu, 1948 Parabhava, 1949 Plavanga).",
+  "version": "0.1.0",
+  "notes": "The year starts at Ugadi (Chaitra shukla padyami, i.e. the start of amanta Chaitra). Shaka year = Gregorian year in which that Chaitra starts − 78. number = ((shaka − epochShaka) mod 60) + 1. Telugu only for Parabhava so far; others need human-written Telugu.",
+  "epochShaka": 1909,
+  "items": [
+    {
+      "number": 1,
+      "en": "Prabhava",
+      "te": null
+    },
+    {
+      "number": 2,
+      "en": "Vibhava",
+      "te": null
+    },
+    {
+      "number": 3,
+      "en": "Shukla",
+      "te": null
+    },
+    {
+      "number": 4,
+      "en": "Pramoduta",
+      "te": null
+    },
+    {
+      "number": 5,
+      "en": "Prajotpatti",
+      "te": null
+    },
+    {
+      "number": 6,
+      "en": "Angirasa",
+      "te": null
+    },
+    {
+      "number": 7,
+      "en": "Shrimukha",
+      "te": null
+    },
+    {
+      "number": 8,
+      "en": "Bhava",
+      "te": null
+    },
+    {
+      "number": 9,
+      "en": "Yuva",
+      "te": null
+    },
+    {
+      "number": 10,
+      "en": "Dhatu",
+      "te": null
+    },
+    {
+      "number": 11,
+      "en": "Ishvara",
+      "te": null
+    },
+    {
+      "number": 12,
+      "en": "Bahudhanya",
+      "te": null
+    },
+    {
+      "number": 13,
+      "en": "Pramathi",
+      "te": null
+    },
+    {
+      "number": 14,
+      "en": "Vikrama",
+      "te": null
+    },
+    {
+      "number": 15,
+      "en": "Vrisha",
+      "te": null
+    },
+    {
+      "number": 16,
+      "en": "Chitrabhanu",
+      "te": null
+    },
+    {
+      "number": 17,
+      "en": "Svabhanu",
+      "te": null
+    },
+    {
+      "number": 18,
+      "en": "Tarana",
+      "te": null
+    },
+    {
+      "number": 19,
+      "en": "Parthiva",
+      "te": null
+    },
+    {
+      "number": 20,
+      "en": "Vyaya",
+      "te": null
+    },
+    {
+      "number": 21,
+      "en": "Sarvajit",
+      "te": null
+    },
+    {
+      "number": 22,
+      "en": "Sarvadhari",
+      "te": null
+    },
+    {
+      "number": 23,
+      "en": "Virodhi",
+      "te": null
+    },
+    {
+      "number": 24,
+      "en": "Vikriti",
+      "te": null
+    },
+    {
+      "number": 25,
+      "en": "Khara",
+      "te": null
+    },
+    {
+      "number": 26,
+      "en": "Nandana",
+      "te": null
+    },
+    {
+      "number": 27,
+      "en": "Vijaya",
+      "te": null
+    },
+    {
+      "number": 28,
+      "en": "Jaya",
+      "te": null
+    },
+    {
+      "number": 29,
+      "en": "Manmatha",
+      "te": null
+    },
+    {
+      "number": 30,
+      "en": "Durmukhi",
+      "te": null
+    },
+    {
+      "number": 31,
+      "en": "Hevilambi",
+      "te": null
+    },
+    {
+      "number": 32,
+      "en": "Vilambi",
+      "te": null
+    },
+    {
+      "number": 33,
+      "en": "Vikari",
+      "te": null
+    },
+    {
+      "number": 34,
+      "en": "Sharvari",
+      "te": null
+    },
+    {
+      "number": 35,
+      "en": "Plava",
+      "te": null
+    },
+    {
+      "number": 36,
+      "en": "Shubhakritu",
+      "te": null
+    },
+    {
+      "number": 37,
+      "en": "Shobhakritu",
+      "te": null
+    },
+    {
+      "number": 38,
+      "en": "Krodhi",
+      "te": null
+    },
+    {
+      "number": 39,
+      "en": "Vishvavasu",
+      "te": null
+    },
+    {
+      "number": 40,
+      "en": "Parabhava",
+      "te": "పరాభవ"
+    },
+    {
+      "number": 41,
+      "en": "Plavanga",
+      "te": null
+    },
+    {
+      "number": 42,
+      "en": "Kilaka",
+      "te": null
+    },
+    {
+      "number": 43,
+      "en": "Saumya",
+      "te": null
+    },
+    {
+      "number": 44,
+      "en": "Sadharana",
+      "te": null
+    },
+    {
+      "number": 45,
+      "en": "Virodhikritu",
+      "te": null
+    },
+    {
+      "number": 46,
+      "en": "Paridhavi",
+      "te": null
+    },
+    {
+      "number": 47,
+      "en": "Pramadicha",
+      "te": null
+    },
+    {
+      "number": 48,
+      "en": "Ananda",
+      "te": null
+    },
+    {
+      "number": 49,
+      "en": "Rakshasa",
+      "te": null
+    },
+    {
+      "number": 50,
+      "en": "Nala",
+      "te": null
+    },
+    {
+      "number": 51,
+      "en": "Pingala",
+      "te": null
+    },
+    {
+      "number": 52,
+      "en": "Kalayukti",
+      "te": null
+    },
+    {
+      "number": 53,
+      "en": "Siddharthi",
+      "te": null
+    },
+    {
+      "number": 54,
+      "en": "Raudri",
+      "te": null
+    },
+    {
+      "number": 55,
+      "en": "Durmati",
+      "te": null
+    },
+    {
+      "number": 56,
+      "en": "Dundubhi",
+      "te": null
+    },
+    {
+      "number": 57,
+      "en": "Rudhirodgari",
+      "te": null
+    },
+    {
+      "number": 58,
+      "en": "Raktakshi",
+      "te": null
+    },
+    {
+      "number": 59,
+      "en": "Krodhana",
+      "te": null
+    },
+    {
+      "number": 60,
+      "en": "Akshaya",
+      "te": null
+    }
+  ]
+}

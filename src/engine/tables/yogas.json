@@ -1,0 +1,143 @@
+{
+  "source": "Standard list of 27 yogas (order confirmed against Drik Panchang: Siddhi→Vyatipata, Indra→Vaidhriti→Vishkambha). Telugu only where design/handoff has it.",
+  "version": "0.1.0",
+  "notes": "yoga = floor(((Sun + Moon) mod 360) / spanDegrees) + 1. te null = needs human-written Telugu.",
+  "spanDegrees": 13.333333333333334,
+  "items": [
+    {
+      "number": 1,
+      "en": "Vishkambha",
+      "te": null
+    },
+    {
+      "number": 2,
+      "en": "Priti",
+      "te": null
+    },
+    {
+      "number": 3,
+      "en": "Ayushman",
+      "te": null
+    },
+    {
+      "number": 4,
+      "en": "Saubhagya",
+      "te": null
+    },
+    {
+      "number": 5,
+      "en": "Shobhana",
+      "te": null
+    },
+    {
+      "number": 6,
+      "en": "Atiganda",
+      "te": null
+    },
+    {
+      "number": 7,
+      "en": "Sukarma",
+      "te": null
+    },
+    {
+      "number": 8,
+      "en": "Dhriti",
+      "te": null
+    },
+    {
+      "number": 9,
+      "en": "Shula",
+      "te": null
+    },
+    {
+      "number": 10,
+      "en": "Ganda",
+      "te": null
+    },
+    {
+      "number": 11,
+      "en": "Vriddhi",
+      "te": null
+    },
+    {
+      "number": 12,
+      "en": "Dhruva",
+      "te": null
+    },
+    {
+      "number": 13,
+      "en": "Vyaghata",
+      "te": null
+    },
+    {
+      "number": 14,
+      "en": "Harshana",
+      "te": null
+    },
+    {
+      "number": 15,
+      "en": "Vajra",
+      "te": null
+    },
+    {
+      "number": 16,
+      "en": "Siddhi",
+      "te": "సిద్ధి"
+    },
+    {
+      "number": 17,
+      "en": "Vyatipata",
+      "te": null
+    },
+    {
+      "number": 18,
+      "en": "Variyan",
+      "te": null
+    },
+    {
+      "number": 19,
+      "en": "Parigha",
+      "te": null
+    },
+    {
+      "number": 20,
+      "en": "Shiva",
+      "te": null
+    },
+    {
+      "number": 21,
+      "en": "Siddha",
+      "te": null
+    },
+    {
+      "number": 22,
+      "en": "Sadhya",
+      "te": "సాధ్య"
+    },
+    {
+      "number": 23,
+      "en": "Shubha",
+      "te": null
+    },
+    {
+      "number": 24,
+      "en": "Shukla",
+      "te": null
+    },
+    {
+      "number": 25,
+      "en": "Brahma",
+      "te": null
+    },
+    {
+      "number": 26,
+      "en": "Indra",
+      "te": null
+    },
+    {
+      "number": 27,
+      "en": "Vaidhriti",
+      "te": null
+    }
+  ]
+}
