@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "panchangam-golden.schema.json",
+  "title": "AstroZ panchangam golden fixtures",
+  "description": "Reference values copied from one published panchangam (Drik Panchang, Telugu) for a place and civil date. Tolerances live in the tests, not here: sunrise ±1 min, other times ±2 min, longitudes ±0.01°.",
+  "type": "object",
+  "required": ["version", "reference", "settings", "rows"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "reference": {
+      "type": "string",
+      "description": "Where the expected values come from, e.g. 'Drik Panchang (Telugu), drikpanchang.com, read 2026-11-25'."
+    },
+    "settings": {
+      "type": "object",
+      "description": "The conventions the reference uses. Must match the engine settings under test.",
+      "required": ["ayanamsa", "sunrise", "node"],
+      "additionalProperties": false,
+      "properties": {
+        "ayanamsa": { "const": "lahiri" },
+        "sunrise": { "enum": ["upper-limb", "disc-centre", "hindu"] },
+        "node": { "enum": ["mean", "true"] }
+      }
+    },
+    "rows": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/row" } }
+  },
+  "$defs": {
+    "localDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "clock": {
+      "type": "string",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$",
+      "description": "Local civil time on the row's date, HH:mm or HH:mm:ss."
+    },
+    "localDateTime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$",
+      "description": "Local civil date and time (end times can fall after midnight), YYYY-MM-DDTHH:mm[:ss]."
+    },
+    "degrees": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMaximum": 360,
+      "description": "Sidereal longitude in decimal degrees from 0° Mesha. Convert Drik's 'Vrishchika 4° 43′ 05″' as (rasi−1)×30 + 4 + 43/60 + 5/3600."
+    },
+    "span": {
+      "type": "object",
+      "required": ["start", "end"],
+      "additionalProperties": false,
+      "properties": { "start": { "$ref": "#/$defs/localDateTime" }, "end": { "$ref": "#/$defs/localDateTime" } }
+    },
+    "anga": {
+      "type": "array",
+      "description": "Every anga (tithi, nakshatra…) that is current during the day, in order, with its end time.",
+      "items": {
+        "type": "object",
+        "required": ["number", "endsAt"],
+        "additionalProperties": false,
+        "properties": {
+          "number": { "type": "integer", "minimum": 1, "maximum": 60 },
+          "name": { "type": "string" },
+          "endsAt": { "$ref": "#/$defs/localDateTime" }
+        }
+      }
+    },
+    "row": {
+      "type": "object",
+      "required": ["id", "verified", "source", "place", "date", "expected"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "verified": {
+          "type": "boolean",
+          "description": "true only when every expected value was copied from the reference by a person."
+        },
+        "source": { "type": "string", "description": "Exact page or URL, and when it was read." },
+        "notes": { "type": "string" },
+        "place": {
+          "type": "object",
+          "required": ["id", "nameEn", "lat", "lon", "tz"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "nameEn": { "type": "string" },
+            "nameTe": { "type": "string" },
+            "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+            "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+            "altitude": { "type": "number" },
+            "tz": { "type": "string", "description": "IANA zone, e.g. Asia/Kolkata." }
+          }
+        },
+        "date": { "$ref": "#/$defs/localDate" },
+        "expected": {
+          "type": "object",
+          "required": ["sunrise"],
+          "additionalProperties": false,
+          "properties": {
+            "sunrise": { "$ref": "#/$defs/clock" },
+            "sunset": { "$ref": "#/$defs/clock" },
+            "longitudes": {
+              "type": "object",
+              "description": "Sidereal longitudes at one local moment ('at'). Phase 2 checks sun and moon.",
+              "required": ["at"],
+              "additionalProperties": false,
+              "properties": {
+                "at": { "$ref": "#/$defs/localDateTime" },
+                "sun": { "$ref": "#/$defs/degrees" },
+                "moon": { "$ref": "#/$defs/degrees" },
+                "mars": { "$ref": "#/$defs/degrees" },
+                "mercury": { "$ref": "#/$defs/degrees" },
+                "jupiter": { "$ref": "#/$defs/degrees" },
+                "venus": { "$ref": "#/$defs/degrees" },
+                "saturn": { "$ref": "#/$defs/degrees" },
+                "rahu": { "$ref": "#/$defs/degrees" },
+                "ascendant": { "$ref": "#/$defs/degrees" }
+              }
+            },
+            "panchangam": {
+              "type": "object",
+              "description": "Phase 3 fields. Optional now; checked once the panchangam is implemented.",
+              "additionalProperties": false,
+              "properties": {
+                "tithi": { "$ref": "#/$defs/anga" },
+                "nakshatra": { "$ref": "#/$defs/anga" },
+                "yoga": { "$ref": "#/$defs/anga" },
+                "karana": { "$ref": "#/$defs/anga" },
+                "rahuKalam": { "$ref": "#/$defs/span" },
+                "yamagandam": { "$ref": "#/$defs/span" },
+                "gulikaKalam": { "$ref": "#/$defs/span" },
+                "abhijit": { "$ref": "#/$defs/span" },
+                "durmuhurtham": { "type": "array", "items": { "$ref": "#/$defs/span" } },
+                "varjyam": { "type": "array", "items": { "$ref": "#/$defs/span" } },
+                "amritaKalam": { "type": "array", "items": { "$ref": "#/$defs/span" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
