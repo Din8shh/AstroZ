@@ -1,9 +1,9 @@
 {
   "source": ".claude/skills/telugu-jyotisha/reference.md §1 (onlinejyotish Avakahada chart, Latin syllables per pada) with the standard Devanagari Avakahada letters, which separate dental (त थ द ध न) from retroflex (ट ठ ड ढ ण) sounds that the Latin column merges.",
-  "version": "0.1.0",
-  "notes": "consonant codes: '' (vowel-initial), k kh g gh ng c (च) ch (छ) j jh ny (ञ) T Th D Dh N (retroflex) t th d dh n (dental) p ph b bh m y r l v sh (श) Sh (ष) s h L (ళ). vowel classes: a i u e o (length ignored; ai → e, au → o, vocalic ṛ → i). Lookup rules (tiers, Latin ambiguity) live in fallbacks below. Telugu-script cross-check against the onlinejyotish Telugu table is pending (reference.md asks for it); pandit review pending. honorifics: a first word in this list is skipped when another word follows (శ్రీ is the script form of 'śrī').",
+  "version": "0.2.0",
+  "notes": "consonant codes: '' (vowel-initial), k kh g gh ng c (च) ch (छ) j jh ny (ञ) T Th D Dh N (retroflex) t th d dh n (dental) p ph b bh m y r l v sh (श) Sh (ष) s h L (ళ). vowel classes: a i u e o. The spelling rules for Latin and the vowel classes for Telugu are in 'latin' and 'telugu' below; unmatched sounds use 'fallbacks'. One rule per sound for both scripts: ś (Telugu శ, Latin sh) is not in the Avakahada, so both reach ṣa / sa through fallbacks; vocalic ṛ is i in both. honorifics: a first word in this list is skipped when another word follows (శ్రీ is the script form of 'śrī'). Telugu-script cross-check against the onlinejyotish Telugu table is pending; pandit review pending.",
   "fallbacks": {
-    "description": "If no syllable matches the exact consonant, try these consonants (in order of the list). Used for sounds the Avakahada does not list.",
+    "description": "If no syllable matches the exact consonant and vowel, try these consonants (in order). Covers sounds the Avakahada does not list: ś, b, f, z…, and aspirated consonants with vowels the chart only lists unaspirated (dhī → dī). Matches through a fallback are reported as 'near'. Pandit review pending.",
     "consonants": {
       "sh": [
         "Sh",
@@ -51,7 +51,425 @@
       ],
       "N": [
         "n"
+      ],
+      "kh": [
+        "k"
+      ],
+      "gh": [
+        "g"
+      ],
+      "ch": [
+        "c"
+      ],
+      "jh": [
+        "j"
+      ],
+      "Th": [
+        "T"
+      ],
+      "Dh": [
+        "D"
+      ],
+      "th": [
+        "t"
+      ],
+      "dh": [
+        "d"
+      ],
+      "ph": [
+        "p"
+      ],
+      "bh": [
+        "b",
+        "v"
       ]
+    }
+  },
+  "latin": {
+    "description": "How Latin spellings map onto Avakahada sounds. Latin cannot separate dental from retroflex (t/ṭ, d/ḍ, n/ṇ), so those spellings list every consonant they may stand for and the lookup returns every candidate.",
+    "consonants": [
+      [
+        "chh",
+        [
+          "ch"
+        ]
+      ],
+      [
+        "ksh",
+        [
+          "k"
+        ]
+      ],
+      [
+        "shr",
+        [
+          "sh"
+        ]
+      ],
+      [
+        "sh",
+        [
+          "sh"
+        ]
+      ],
+      [
+        "kh",
+        [
+          "kh"
+        ]
+      ],
+      [
+        "gh",
+        [
+          "gh"
+        ]
+      ],
+      [
+        "ch",
+        [
+          "c"
+        ]
+      ],
+      [
+        "jh",
+        [
+          "jh"
+        ]
+      ],
+      [
+        "th",
+        [
+          "t",
+          "th",
+          "T",
+          "Th"
+        ]
+      ],
+      [
+        "dh",
+        [
+          "dh",
+          "Dh"
+        ]
+      ],
+      [
+        "ph",
+        [
+          "ph"
+        ]
+      ],
+      [
+        "bh",
+        [
+          "bh"
+        ]
+      ],
+      [
+        "gn",
+        [
+          "g"
+        ]
+      ],
+      [
+        "k",
+        [
+          "k"
+        ]
+      ],
+      [
+        "g",
+        [
+          "g"
+        ]
+      ],
+      [
+        "c",
+        [
+          "k",
+          "s"
+        ]
+      ],
+      [
+        "j",
+        [
+          "j"
+        ]
+      ],
+      [
+        "t",
+        [
+          "t",
+          "T"
+        ]
+      ],
+      [
+        "d",
+        [
+          "d",
+          "D"
+        ]
+      ],
+      [
+        "n",
+        [
+          "n",
+          "N",
+          "ny"
+        ]
+      ],
+      [
+        "p",
+        [
+          "p"
+        ]
+      ],
+      [
+        "f",
+        [
+          "f"
+        ]
+      ],
+      [
+        "b",
+        [
+          "b"
+        ]
+      ],
+      [
+        "m",
+        [
+          "m"
+        ]
+      ],
+      [
+        "y",
+        [
+          "y"
+        ]
+      ],
+      [
+        "r",
+        [
+          "r"
+        ]
+      ],
+      [
+        "l",
+        [
+          "l"
+        ]
+      ],
+      [
+        "v",
+        [
+          "v"
+        ]
+      ],
+      [
+        "w",
+        [
+          "w"
+        ]
+      ],
+      [
+        "s",
+        [
+          "s"
+        ]
+      ],
+      [
+        "h",
+        [
+          "h"
+        ]
+      ],
+      [
+        "z",
+        [
+          "z"
+        ]
+      ],
+      [
+        "q",
+        [
+          "q"
+        ]
+      ],
+      [
+        "x",
+        [
+          "x"
+        ]
+      ]
+    ],
+    "vowels": [
+      [
+        "aa",
+        [
+          "a"
+        ]
+      ],
+      [
+        "ai",
+        [
+          "e",
+          "a"
+        ]
+      ],
+      [
+        "au",
+        [
+          "o",
+          "a"
+        ]
+      ],
+      [
+        "ay",
+        [
+          "e",
+          "a"
+        ]
+      ],
+      [
+        "ee",
+        [
+          "i"
+        ]
+      ],
+      [
+        "ii",
+        [
+          "i"
+        ]
+      ],
+      [
+        "ei",
+        [
+          "e"
+        ]
+      ],
+      [
+        "oo",
+        [
+          "u"
+        ]
+      ],
+      [
+        "ou",
+        [
+          "o",
+          "u"
+        ]
+      ],
+      [
+        "uu",
+        [
+          "u"
+        ]
+      ],
+      [
+        "a",
+        [
+          "a"
+        ]
+      ],
+      [
+        "e",
+        [
+          "e"
+        ]
+      ],
+      [
+        "i",
+        [
+          "i"
+        ]
+      ],
+      [
+        "o",
+        [
+          "o"
+        ]
+      ],
+      [
+        "u",
+        [
+          "u"
+        ]
+      ],
+      [
+        "y",
+        [
+          "i"
+        ]
+      ]
+    ],
+    "digraphBeforeVowel": {
+      "description": "ai / ay / au followed by another vowel is a plain a plus a glide (Jaya-, Gayathri → a).",
+      "ai": [
+        "a"
+      ],
+      "ay": [
+        "a"
+      ],
+      "au": [
+        "a"
+      ]
+    },
+    "yGlide": {
+      "description": "After the first consonant, y + vowel is a glide (Jyothi → jo, Shyam → sha); y + consonant spells ai (Vyshnavi → ve, Mythili → me).",
+      "beforeVowel": "skip",
+      "beforeConsonant": [
+        "e"
+      ]
+    },
+    "vocalicR": {
+      "description": "Consonant + r + i/u may spell vocalic ṛ (Krishna = కృష్ణ, Kruthi = కృతి), read as i like the Telugu sign ృ. 'ru' can also be a plain r + u (Dhruv = ధ్రువ), so it gives both readings.",
+      "after": {
+        "ri": [
+          "i"
+        ],
+        "ru": [
+          "i",
+          "u"
+        ]
+      }
+    }
+  },
+  "telugu": {
+    "description": "Vowel classes for Telugu independent vowels and vowel signs (length ignored; ai → e, au → o, vocalic ṛ → i). Consonant letters map to consonant codes by script (code-point mechanics in nama.ts).",
+    "vowels": {
+      "అ": "a",
+      "ఆ": "a",
+      "ఇ": "i",
+      "ఈ": "i",
+      "ఉ": "u",
+      "ఊ": "u",
+      "ఎ": "e",
+      "ఏ": "e",
+      "ఐ": "e",
+      "ఒ": "o",
+      "ఓ": "o",
+      "ఔ": "o"
+    },
+    "vocalicVowels": {
+      "ఋ": "i",
+      "ౠ": "i"
+    },
+    "signs": {
+      "ా": "a",
+      "ి": "i",
+      "ీ": "i",
+      "ు": "u",
+      "ూ": "u",
+      "ృ": "i",
+      "ౄ": "i",
+      "ె": "e",
+      "ే": "e",
+      "ై": "e",
+      "ొ": "o",
+      "ో": "o",
+      "ౌ": "o"
     }
   },
   "honorifics": [

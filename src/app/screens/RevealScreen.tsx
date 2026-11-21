@@ -96,7 +96,8 @@ export function RevealScreen({ id }: { id: string }) {
                 )}
               </>
             ) : null}
-            {nama ? (
+            {/* No candidates (an unusual first sound): show no nama nakshatra rather than an empty card. */}
+            {nama && nama.candidates.length ? (
               <Fact label={t('reveal.nama')} value={namaNames} sub={t('reveal.namaSub', { aksharam: nama.aksharam })} testId="reveal-nama" />
             ) : null}
           </div>

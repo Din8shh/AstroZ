@@ -24,21 +24,24 @@ export type NamaResult = {
 type Sound = { consonants: string[]; vowels: string[] };
 
 // --- Telugu -----------------------------------------------------------------
+// Consonant letters → consonant codes is script mechanics (Brahmic letters map one-to-one);
+// vowel classes come from the table.
 const TE_CONSONANT: Record<string, string> = {
   క: 'k', ఖ: 'kh', గ: 'g', ఘ: 'gh', ఙ: 'ng', చ: 'c', ఛ: 'ch', జ: 'j', ఝ: 'jh', ఞ: 'ny',
   ట: 'T', ఠ: 'Th', డ: 'D', ఢ: 'Dh', ణ: 'N', త: 't', థ: 'th', ద: 'd', ధ: 'dh', న: 'n',
   ప: 'p', ఫ: 'ph', బ: 'b', భ: 'bh', మ: 'm', య: 'y', ర: 'r', ఱ: 'r', ల: 'l', ళ: 'L', వ: 'v',
   శ: 'sh', ష: 'Sh', స: 's', హ: 'h',
 };
-const TE_VOWEL: Record<string, string> = { అ: 'a', ఆ: 'a', ఇ: 'i', ఈ: 'i', ఉ: 'u', ఊ: 'u', ఎ: 'e', ఏ: 'e', ఐ: 'e', ఒ: 'o', ఓ: 'o', ఔ: 'o' };
-const TE_SIGN: Record<string, string> = { 'ా': 'a', 'ి': 'i', 'ీ': 'i', 'ు': 'u', 'ూ': 'u', 'ృ': 'i', 'ౄ': 'i', 'ె': 'e', 'ే': 'e', 'ై': 'e', 'ొ': 'o', 'ో': 'o', 'ౌ': 'o' };
-const VIRAMA = '్';
+const TE_VOWEL = table.telugu.vowels as Record<string, string>;
+const TE_VOCALIC = table.telugu.vocalicVowels as Record<string, string>;
+const TE_SIGN = table.telugu.signs as Record<string, string>;
+const VIRAMA = '\u0C4D';
 
 function teluguFirst(word: string): { aksharam: string; sound: Sound } | null {
   const chars = [...word];
   const c0 = chars[0];
   if (!c0) return null;
-  if (c0 === 'ఋ' || c0 === 'ౠ') return { aksharam: c0, sound: { consonants: ['r'], vowels: ['i'] } };
+  if (TE_VOCALIC[c0]) return { aksharam: c0, sound: { consonants: ['r'], vowels: [TE_VOCALIC[c0]] } };
   if (TE_VOWEL[c0]) return { aksharam: c0, sound: { consonants: [''], vowels: [TE_VOWEL[c0]] } };
   const first = TE_CONSONANT[c0];
   if (!first) return null;
@@ -51,36 +54,43 @@ function teluguFirst(word: string): { aksharam: string; sound: Sound } | null {
 }
 
 // --- Latin ------------------------------------------------------------------
-// Longest-first initial consonant spellings → possible Avakahada consonants.
-const LATIN_CONSONANT: [string, string[]][] = [
-  ['chh', ['ch']], ['ksh', ['k']], ['shr', ['sh', 'Sh']], ['sh', ['sh', 'Sh']],
-  ['kh', ['kh']], ['gh', ['gh']], ['ch', ['c']], ['jh', ['jh']], ['th', ['t', 'th', 'T', 'Th']],
-  ['dh', ['dh', 'Dh']], ['ph', ['ph']], ['bh', ['bh']], ['gn', ['g']], ['kr', ['k']],
-  ['k', ['k']], ['g', ['g']], ['c', ['k', 's']], ['j', ['j']], ['t', ['t', 'T']], ['d', ['d', 'D']],
-  ['n', ['n', 'N', 'ny']], ['p', ['p']], ['f', ['f']], ['b', ['b']], ['m', ['m']], ['y', ['y']],
-  ['r', ['r']], ['l', ['l']], ['v', ['v']], ['w', ['w']], ['s', ['s']], ['h', ['h']],
-  ['z', ['z']], ['q', ['q']], ['x', ['x']],
-];
-// Vowel spellings → vowel classes (digraphs like "ai" are ambiguous: Sai = sā-i, Chaitanya = cai).
-const LATIN_VOWEL: [string, string[]][] = [
-  ['aa', ['a']], ['ai', ['e', 'a']], ['au', ['o', 'a']], ['ay', ['e', 'a']], ['ee', ['i']], ['ii', ['i']],
-  ['ei', ['e']], ['oo', ['u']], ['ou', ['o', 'u']], ['uu', ['u']], ['ri', ['i']],
-  ['a', ['a']], ['e', ['e']], ['i', ['i']], ['o', ['o']], ['u', ['u']], ['y', ['i']],
-];
+const L = table.latin;
+const LATIN_CONSONANT = L.consonants as [string, string[]][];
+const LATIN_VOWEL = L.vowels as [string, string[]][];
+const BEFORE_VOWEL = L.digraphBeforeVowel as unknown as Record<string, string[] | string>;
+const isVowel = (ch: string | undefined) => !!ch && 'aeiou'.includes(ch);
 
 function latinFirst(word: string): { aksharam: string; sound: Sound } | null {
   const w = word.toLowerCase().replace(/[^a-z]/g, '');
   if (!w) return null;
   let consonants = [''];
   let rest = w;
-  if (!/^[aeiou]/.test(w)) {
+  if (!isVowel(w[0])) {
     const hit = LATIN_CONSONANT.find(([sp]) => w.startsWith(sp));
     if (!hit) return null;
     consonants = hit[1];
-    rest = w.slice(hit[0].length).replace(/^[^aeiouy]+/, ''); // skip the rest of a cluster (Sravani → a…)
+    rest = w.slice(hit[0].length);
+    // Vocalic ṛ: consonant + r + u/i (Kruthi, Krishna, Mrudula) — same reading as the Telugu sign ృ.
+    const vocalic = L.vocalicR.after as Record<string, string[]>;
+    const r = Object.keys(vocalic).find((sp) => rest.startsWith(sp));
+    if (r && hit[0] !== 'r') {
+      const used = w.length - rest.length + r.length;
+      return { aksharam: w.slice(0, used), sound: { consonants, vowels: vocalic[r]! } };
+    }
+    rest = rest.replace(/^[^aeiouy]+/, ''); // rest of a cluster (Sravani → a…)
+    // y after the first consonant: glide before a vowel (Jyothi → o), "ai" before a consonant (Vyshnavi → e).
+    if (rest.startsWith('y')) {
+      if (isVowel(rest[1])) rest = rest.slice(1);
+      else {
+        const used = w.length - rest.length + 1;
+        return { aksharam: w.slice(0, used), sound: { consonants, vowels: L.yGlide.beforeConsonant } };
+      }
+    }
   }
   const v = LATIN_VOWEL.find(([sp]) => rest.startsWith(sp));
-  const vowels = v ? v[1] : ['a'];
+  let vowels = v ? v[1] : ['a'];
+  // ai / ay / au followed by another vowel is a + glide (Jayanth, Gayathri → a).
+  if (v && v[0].length === 2 && isVowel(rest[2]) && Array.isArray(BEFORE_VOWEL[v[0]])) vowels = BEFORE_VOWEL[v[0]] as string[];
   const aksharam = w.slice(0, w.length - rest.length + (v ? v[0].length : 0));
   return { aksharam, sound: { consonants, vowels } };
 }
@@ -96,8 +106,17 @@ function lookup(sound: Sound): NamaCandidate[] {
     }));
   const exact = find(sound.consonants, 'exact');
   if (exact.length) return exact;
-  const near = [...new Set(sound.consonants.flatMap((c) => fallbacks[c] ?? []))];
-  return find(near, 'near');
+  // Fallback tiers: the fallbacks of the sound, then their fallbacks (f → ph → p). First tier with a match wins.
+  const tried = new Set(sound.consonants);
+  let tier = sound.consonants;
+  for (let depth = 0; depth < 3; depth++) {
+    tier = [...new Set(tier.flatMap((c) => fallbacks[c] ?? []))].filter((c) => !tried.has(c));
+    if (!tier.length) break;
+    tier.forEach((c) => tried.add(c));
+    const near = find(tier, 'near');
+    if (near.length) return near;
+  }
+  return [];
 }
 
 const dedupe = (cs: NamaCandidate[]) => {

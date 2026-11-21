@@ -22,10 +22,12 @@
         "moon": {
           "rasi": 12,
           "nakshatra": 26,
-          "pada": 2
+          "pada": 2,
+          "longitude": 339.2505
         },
         "lagna": {
-          "rasi": 4
+          "rasi": 4,
+          "longitude": 113.6051
         },
         "planets": {
           "sun": {
@@ -73,10 +75,12 @@
         "moon": {
           "rasi": 1,
           "nakshatra": 2,
-          "pada": 4
+          "pada": 4,
+          "longitude": 23.9664
         },
         "lagna": {
-          "rasi": 2
+          "rasi": 2,
+          "longitude": 42.9271
         },
         "planets": {
           "sun": {
@@ -124,10 +128,12 @@
         "moon": {
           "rasi": 8,
           "nakshatra": 17,
-          "pada": 4
+          "pada": 4,
+          "longitude": 223.4848
         },
         "lagna": {
-          "rasi": 6
+          "rasi": 6,
+          "longitude": 174.8182
         },
         "planets": {
           "sun": {
@@ -175,10 +181,12 @@
         "moon": {
           "rasi": 10,
           "nakshatra": 21,
-          "pada": 2
+          "pada": 2,
+          "longitude": 272.9276
         },
         "lagna": {
-          "rasi": 6
+          "rasi": 6,
+          "longitude": 178.3802
         },
         "planets": {
           "sun": {
@@ -225,7 +233,8 @@
         "moon": {
           "rasi": 5,
           "nakshatra": 11,
-          "pada": 1
+          "pada": 1,
+          "longitude": 136.5388
         },
         "lagna": null,
         "planets": {

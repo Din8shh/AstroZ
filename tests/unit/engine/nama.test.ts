@@ -36,6 +36,23 @@ describe('nama nakshatra', () => {
     expect(namaNakshatra('Kiran')!.candidates.every((c) => c.match === 'exact')).toBe(true);
   });
 
+  it('every Telugu consonant with every vowel sign (and every vowel) gives at least one candidate', () => {
+    const consonants = [...'కఖగఘఙచఛజఝఞటఠడఢణతథదధనపఫబభమయరఱలళవశషసహ'];
+    const signs = ['', ...Object.keys(table.telugu.signs)];
+    const empty: string[] = [];
+    for (const c of consonants) for (const sign of signs) if (!namaNakshatra(c + sign)?.candidates.length) empty.push(c + sign);
+    for (const v of [...Object.keys(table.telugu.vowels), ...Object.keys(table.telugu.vocalicVowels)]) if (!namaNakshatra(v)?.candidates.length) empty.push(v);
+    expect(empty).toEqual([]);
+  });
+
+  it('every Latin consonant spelling with every vowel gives at least one candidate', () => {
+    const empty: string[] = [];
+    for (const [sp] of table.latin.consonants as [string, string[]][]) {
+      for (const v of ['a', 'i', 'u', 'e', 'o']) if (!namaNakshatra(`${sp}${v}x`)?.candidates.length) empty.push(sp + v);
+    }
+    expect(empty).toEqual([]);
+  });
+
   it.each(['', '   ', '123', '!!!'])('no result for %j', (input) => {
     expect(namaNakshatra(input)).toBeNull();
   });

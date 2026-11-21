@@ -163,10 +163,15 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         const a = angles(e);
         const t0 = startOfLocalDay(input.date, tz);
         const t1 = startOfLocalDay(addDays(input.date, 1), tz) - 1 / 86_400;
-        const span = (x: number, y: number) => (x <= y ? Array.from({ length: y - x + 1 }, (_, i) => x + i) : [x, y]);
+        // Step forward around the circle (the Moon only moves forward): 26 → 1 is [26, 27, 1].
+        const around = (x: number, y: number, count: number) => {
+          const out = [x];
+          for (let n = x; n !== y; ) out.push((n = (n % count) + 1));
+          return out;
+        };
         chart.dayRange = {
-          nakshatras: span(nakshatraOf(a.moon(t0)), nakshatraOf(a.moon(t1))),
-          rasis: span(rasiOf(a.moon(t0)), rasiOf(a.moon(t1))),
+          nakshatras: around(nakshatraOf(a.moon(t0)), nakshatraOf(a.moon(t1)), 27),
+          rasis: around(rasiOf(a.moon(t0)), rasiOf(a.moon(t1)), 12),
         };
       }
       return chart;

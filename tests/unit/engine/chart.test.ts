@@ -6,7 +6,10 @@ import vimshottari from '../../../src/engine/tables/vimshottari.json';
 import type { BirthInput } from '../../../src/engine/api';
 
 const engine = createEngine(() => loadEphemeris());
-const BALANCE_TOLERANCE_YEARS = 0.05; // ≈ 18 days: covers the independent method's ~0.01° Moon difference
+const LONGITUDE_TOLERANCE_DEG = 0.01; // SPEC §9 Phase 2: longitudes ±0.01°
+/** The dasha balance error that a 0.01° Moon error produces: lord years × 0.01° / 13°20′. */
+const balanceTolerance = (lord: string) => (vimshottari.order.find((o) => o.lord === lord)!.years * LONGITUDE_TOLERANCE_DEG) / (360 / 27);
+const angleDiff = (a: number, b: number) => Math.abs(((a - b + 540) % 360) - 180);
 
 type Row = (typeof fixture.rows)[number];
 const input = (r: Row): BirthInput => ({
@@ -23,14 +26,18 @@ describe('chart fixtures (tests/fixtures/charts-golden.json)', () => {
   for (const r of fixture.rows) {
     it(`${r.id} · ${r.place.nameEn} ${r.birth.date}${r.birth.timeKnown ? '' : ' (time unknown)'}`, async () => {
       const c = await engine.birthChart(input(r));
-      expect({ rasi: c.moon.rasi, nakshatra: c.moon.nakshatra, pada: c.moon.pada }, 'moon').toEqual(r.expected.moon);
-      if (r.expected.lagna) expect(c.lagna?.rasi, 'lagna').toBe(r.expected.lagna.rasi);
-      else expect(c.lagna, 'no lagna when the time is unknown').toBeUndefined();
+      const { longitude: moonLon, ...moonPlace } = r.expected.moon;
+      expect({ rasi: c.moon.rasi, nakshatra: c.moon.nakshatra, pada: c.moon.pada }, 'moon').toEqual(moonPlace);
+      expect(angleDiff(c.moon.longitude, moonLon), `moon ${c.moon.longitude.toFixed(4)}° vs ${moonLon}°`).toBeLessThanOrEqual(LONGITUDE_TOLERANCE_DEG);
+      if (r.expected.lagna) {
+        expect(c.lagna?.rasi, 'lagna').toBe(r.expected.lagna.rasi);
+        expect(angleDiff(c.lagna!.longitude, r.expected.lagna.longitude), `lagna ${c.lagna!.longitude.toFixed(4)}° vs ${r.expected.lagna.longitude}°`).toBeLessThanOrEqual(LONGITUDE_TOLERANCE_DEG);
+      } else expect(c.lagna, 'no lagna when the time is unknown').toBeUndefined();
       for (const [body, want] of Object.entries(r.expected.planets)) {
         expect(c.planets[body as keyof typeof c.planets].rasi, body).toBe(want.rasi);
       }
       expect(c.dasha.mahadashas[0]!.lord, 'first dasha lord').toBe(r.expected.dasha.firstLord);
-      expect(Math.abs(c.dasha.balanceYears - r.expected.dasha.balanceYears), 'dasha balance (years)').toBeLessThanOrEqual(BALANCE_TOLERANCE_YEARS);
+      expect(Math.abs(c.dasha.balanceYears - r.expected.dasha.balanceYears), 'dasha balance (years)').toBeLessThanOrEqual(balanceTolerance(r.expected.dasha.firstLord));
       expect(c.approximate).toBe(!r.birth.timeKnown);
     });
   }
@@ -54,6 +61,24 @@ describe('time unknown never produces a lagna', () => {
     const c = await engine.birthChart({ date: '2000-01-01', time: '05:30', timeKnown: true, place: { lat: 17.385, lon: 78.4867, tz: 'Asia/Kolkata' } });
     expect(c.lagna?.rasi).toBeGreaterThanOrEqual(1);
     expect(c.dayRange).toBeUndefined();
+  });
+});
+
+describe('time unknown: the nakshatra range steps around 27 → 1', () => {
+  it('lists every nakshatra the Moon touches on the date, in order', async () => {
+    // Search Jan–Feb 2026 for a civil day on which the Moon crosses 360° (Revati → Ashwini).
+    let found = false;
+    for (let d = 1; d <= 60 && !found; d++) {
+      const date = new Date(Date.UTC(2026, 0, d)).toISOString().slice(0, 10);
+      const c = await engine.birthChart({ date, timeKnown: false, place: { lat: 17.385, lon: 78.4867, tz: 'Asia/Kolkata' } });
+      const n = c.dayRange!.nakshatras;
+      if (n.includes(27) && n.includes(1)) {
+        found = true;
+        expect(n.indexOf(1)).toBe(n.indexOf(27) + 1);
+        for (let i = 1; i < n.length; i++) expect(n[i]).toBe((n[i - 1]! % 27) + 1);
+      }
+    }
+    expect(found, 'a wrap day exists in the window').toBe(true);
   });
 });
 
