@@ -10,10 +10,13 @@ import { FamilyScreen } from './screens/FamilyScreen';
 import { MoreScreen } from './screens/MoreScreen';
 import { PersonFormScreen } from './screens/PersonFormScreen';
 import { RevealScreen } from './screens/RevealScreen';
+import { MatchPickScreen } from './screens/MatchPickScreen';
+import { MatchResultScreen } from './screens/MatchResultScreen';
 import s from './App.module.css';
 
 /** Full-screen flows opened from a tab (own header, no bottom nav). */
 function subScreen(r: Route) {
+  if (r.tab === 'wishes' && r.rest[0] === 'marriage') return r.rest[1] === 'result' ? <MatchResultScreen /> : <MatchPickScreen />;
   if (r.tab !== 'family') return null;
   const [a, b] = r.rest;
   if (a === 'new') return <PersonFormScreen />;

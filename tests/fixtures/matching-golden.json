@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "reference": "TO FILL: 10 published matching reports (SPEC §9 Phase 5), with a person checking each. Koota points must match exactly. Rows with illustrative: true are worked examples, not real reports, and do not count toward the 10.",
+  "rows": [
+    {
+      "id": "calcatools-rohini-mrigashira",
+      "verified": false,
+      "source": "https://calcatools.com/how-guna-milan-score-is-calculated-worked-example/ — worked example (the page calls it 'a composite illustration, not a real pair'); read by an automated agent on 2026-11-21, NOT yet checked by a person.",
+      "bride": {
+        "nakshatra": 4,
+        "pada": 1,
+        "note": "Rohini, Taurus (pada not stated; all Rohini padas are in Taurus)"
+      },
+      "groom": {
+        "nakshatra": 5,
+        "pada": 1,
+        "note": "Mrigashira in its Taurus padas (pada not stated)"
+      },
+      "expected": {
+        "varna": 1,
+        "vashya": 2,
+        "tara": 3,
+        "yoni": 4,
+        "grahaMaitri": 5,
+        "gana": 5,
+        "bhakoot": 7,
+        "nadi": 8,
+        "total": 35
+      },
+      "illustrative": true,
+      "disagreement": "The page states rules that contradict kootas.json (gana Rakshasa–Rakshasa = 0 and Manushya–Rakshasa = 1; tara remainder 1 unfavourable; Rohini as Adya nadi). It agrees with our tables for this pair only by coincidence. Reported, not changed."
+    },
+    {
+      "id": "oj-hasta2-rohini2",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 4,
+        "pada": 2,
+        "note": "Rohini 2"
+      },
+      "groom": {
+        "nakshatra": 13,
+        "pada": 2,
+        "note": "Hasta 2"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-ashwini1-bharani2",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 2,
+        "pada": 2,
+        "note": "Bharani 2"
+      },
+      "groom": {
+        "nakshatra": 1,
+        "pada": 1,
+        "note": "Ashwini 1"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-magha1-uttara-bhadra3",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 26,
+        "pada": 3,
+        "note": "Uttara Bhadra 3"
+      },
+      "groom": {
+        "nakshatra": 10,
+        "pada": 1,
+        "note": "Magha 1"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-swati2-anuradha3",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 17,
+        "pada": 3,
+        "note": "Anuradha 3"
+      },
+      "groom": {
+        "nakshatra": 15,
+        "pada": 2,
+        "note": "Swati 2"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-pushya2-shravana1",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 22,
+        "pada": 1,
+        "note": "Shravana 1"
+      },
+      "groom": {
+        "nakshatra": 8,
+        "pada": 2,
+        "note": "Pushya 2"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-revati4-krittika1",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 3,
+        "pada": 1,
+        "note": "Krittika 1"
+      },
+      "groom": {
+        "nakshatra": 27,
+        "pada": 4,
+        "note": "Revati 4"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-mula1-ardra2",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 6,
+        "pada": 2,
+        "note": "Ardra 2"
+      },
+      "groom": {
+        "nakshatra": 19,
+        "pada": 1,
+        "note": "Mula 1"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-chitra3-dhanishta3",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 23,
+        "pada": 3,
+        "note": "Dhanishta 3"
+      },
+      "groom": {
+        "nakshatra": 14,
+        "pada": 3,
+        "note": "Chitra 3"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-jyeshtha4-punarvasu4",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 7,
+        "pada": 4,
+        "note": "Punarvasu 4"
+      },
+      "groom": {
+        "nakshatra": 18,
+        "pada": 4,
+        "note": "Jyeshtha 4"
+      },
+      "expected": null
+    },
+    {
+      "id": "oj-shatabhisha1-purva-phalguni1",
+      "verified": false,
+      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+      "bride": {
+        "nakshatra": 11,
+        "pada": 1,
+        "note": "Purva Phalguni 1"
+      },
+      "groom": {
+        "nakshatra": 24,
+        "pada": 1,
+        "note": "Shatabhisha 1"
+      },
+      "expected": null
+    }
+  ]
+}

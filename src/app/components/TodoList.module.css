@@ -1,0 +1,16 @@
+/* Ported from bundle.css: .az-todo */
+.todo { padding: var(--az-space-2) var(--az-space-4) var(--az-space-3); background: var(--az-surface); border-radius: var(--az-radius-card); box-shadow: var(--az-shadow-card); border: 1px solid var(--az-line); }
+.title { display: flex; align-items: center; gap: var(--az-space-2); margin: var(--az-space-2) 0 var(--az-space-1); font-size: calc(var(--fs-title) * var(--az-scale)); font-weight: 600; line-height: 1.45; }
+.titleIcon { color: var(--az-gold); display: inline-flex; }
+.list { list-style: none; margin: 0; padding: 0; }
+.item { position: relative; border-bottom: 1px solid var(--az-line); }
+.item:last-child { border-bottom: 0; }
+.item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.item label { display: flex; align-items: flex-start; gap: var(--az-space-3); min-height: var(--az-touch); padding: 12px 0; cursor: pointer; }
+.box { flex: none; display: grid; place-items: center; width: 24px; height: 24px; margin-top: 1px; border-radius: 7px; border: 1.5px solid var(--az-line-strong); background: var(--az-surface); color: transparent; }
+.done .box { background: var(--az-leaf); border-color: var(--az-leaf); color: var(--az-on-leaf); }
+.item input:focus-visible + label .box { outline: 2px solid var(--az-focus); outline-offset: 2px; }
+.text { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: calc(var(--fs-body) * var(--az-scale)); line-height: 1.55; }
+.done .text { color: var(--az-ink-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.when { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
+.free { flex: none; align-self: center; padding: 1px 10px; border-radius: var(--az-radius-pill); background: var(--az-leaf-soft); color: var(--az-leaf-ink); font-size: calc(var(--fs-caption) * var(--az-scale)); font-weight: 600; line-height: 1.6; }

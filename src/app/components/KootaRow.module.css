@@ -1,0 +1,17 @@
+/* Ported from bundle.css: .az-koota */
+.row { display: grid; grid-template-columns: 28px 1fr auto; gap: var(--az-space-3); align-items: start; padding: var(--az-space-3) var(--az-space-4); border-bottom: 1px solid var(--az-line); background: var(--az-surface); }
+.row:last-child { border-bottom: 0; }
+.icon { padding-top: 2px; }
+.good .icon { color: var(--az-leaf-ink); }
+.mixed .icon { color: var(--az-caution-ink); }
+.avoid .icon { color: var(--az-avoid-ink); }
+.main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.name { font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; line-height: 1.45; }
+.note { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
+.pips { display: flex; gap: 3px; margin-top: 2px; }
+.pip { width: 18px; height: 6px; border-radius: 3px; background: var(--az-gold-soft); }
+.good .on { background: var(--az-leaf); }
+.mixed .on { background: var(--az-caution); }
+.mixed .half { background: linear-gradient(90deg, var(--az-caution) 50%, var(--az-gold-soft) 50%); }
+.side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.score { font-size: calc(15px * var(--az-scale)); font-weight: 600; }

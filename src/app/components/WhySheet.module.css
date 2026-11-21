@@ -1,0 +1,22 @@
+/* Ported from bundle.css: .az-sheet, .az-why */
+.wrap { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; justify-content: flex-end; }
+.scrim { position: absolute; inset: 0; background: var(--az-scrim); border: 0; padding: 0; }
+.sheet { position: relative; display: flex; flex-direction: column; gap: var(--az-space-3); max-height: 88vh; overflow: auto; padding: var(--az-space-3) var(--az-space-5) var(--az-space-6); background: var(--az-surface); border-radius: var(--az-radius-card) var(--az-radius-card) 0 0; box-shadow: var(--az-shadow-card); max-width: 480px; width: 100%; margin: 0 auto; }
+.grab { align-self: center; width: 40px; height: 4px; border-radius: 2px; background: var(--az-line-strong); }
+.head { display: flex; align-items: center; justify-content: space-between; }
+.kicker { display: inline-flex; align-items: center; gap: var(--az-space-1); color: var(--az-kumkum-ink); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; }
+.close { display: grid; place-items: center; width: var(--az-touch); height: var(--az-touch); margin: -8px -12px -8px 0; border: 0; border-radius: 50%; background: transparent; color: var(--az-ink); cursor: pointer; }
+.title { margin: 0; font-family: var(--az-font-display); font-size: calc(var(--fs-display) * var(--az-scale)); font-weight: var(--fw-display); line-height: 1.3; }
+.body { line-height: 1.6; }
+.body p { margin: 0 0 var(--az-space-2); }
+.factors { margin: 0; display: flex; flex-direction: column; border: 1px solid var(--az-line); border-radius: var(--az-radius-md); }
+.factor { display: flex; justify-content: space-between; align-items: center; gap: var(--az-space-3); padding: 10px var(--az-space-3); border-bottom: 1px solid var(--az-line); }
+.factor:last-child { border-bottom: 0; }
+.factor dt { color: var(--az-ink-muted); font-size: calc(var(--fs-label) * var(--az-scale)); }
+.factor dd { margin: 0; display: inline-flex; align-items: center; gap: var(--az-space-1); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; text-align: right; }
+.good { color: var(--az-leaf-ink); }
+.mixed { color: var(--az-caution-ink); }
+.avoid { color: var(--az-avoid-ink); }
+.method { display: flex; gap: var(--az-space-2); margin: 0; font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
+.methodIcon { color: var(--az-gold); margin-top: 1px; display: inline-flex; }
+.why { display: inline-flex; align-items: center; gap: var(--az-space-1); min-height: var(--az-touch); padding: 0 var(--az-space-1); margin: -12px 0; background: none; border: 0; color: var(--az-kumkum-ink); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }

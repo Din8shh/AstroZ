@@ -1,0 +1,12 @@
+/* Ported from bundle.css: .az-share */
+.share { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--az-space-2); width: 320px; max-width: 100%; margin: 0; padding: 56px var(--az-space-6) var(--az-space-5); background: var(--az-surface); border-radius: var(--az-radius-card); border: 1.5px solid var(--az-gold); box-shadow: inset 0 0 0 5px var(--az-surface), inset 0 0 0 6px var(--az-gold), var(--az-shadow-card); text-align: center; overflow: hidden; }
+.thoranam { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 220px; height: 37px; }
+.string { stroke: var(--az-gold); stroke-width: 1.5; stroke-linecap: round; }
+.leaf { fill: var(--az-leaf-soft); stroke: var(--az-thoranam); stroke-width: 1.5; stroke-linejoin: round; }
+.kicker { font-size: calc(var(--fs-label) * var(--az-scale)); color: var(--az-ink-muted); font-weight: 600; }
+.names { font-family: var(--az-font-display); font-weight: var(--fw-display); font-size: calc(26px * var(--az-scale)); line-height: 1.3; }
+.score b { font-family: var(--font-display-en); font-variation-settings: "opsz" 72; font-size: 56px; font-weight: 600; line-height: 1; }
+.score small { font-family: var(--font-display-en); font-size: 22px; color: var(--az-ink-muted); }
+.foot { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: var(--az-space-3); font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
+.brand { font-family: var(--font-display-en); font-weight: 600; font-size: 16px; color: var(--az-kumkum-ink); letter-spacing: 0.02em; }
+.approx { display: inline-flex; align-items: center; gap: var(--az-space-1); padding: 2px 10px 2px 6px; border-radius: var(--az-radius-pill); border: 1px dashed var(--az-line-strong); color: var(--az-ink-muted); font-size: calc(var(--fs-caption) * var(--az-scale)); }
