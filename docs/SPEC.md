@@ -16,7 +16,7 @@ Core loop: **Wish → Reading → To-dos and free remedies.** Telugu default, En
 Out of scope for MVP: accounts, sync, paid features, gemstones/paid remedies, Tamil/other panchangams, full divisional charts.
 
 ## 2. Locked decisions
-- Real ephemeris in browser (Swiss Ephemeris WASM behind `Ephemeris` interface; astronomy-engine fallback). Licence choice pending — see §11.
+- Real ephemeris in browser (Swiss Ephemeris WASM behind `Ephemeris` interface; astronomy-engine fallback). Licence: repo public under AGPL-3.0-or-later (decided 2026-11-21) — see §11.
 - Sidereal, Lahiri, drik ganitam, amanta months, sunrise-to-sunrise day.
 - Telugu + English. Remedies simple and free only. Modern-festive design (see `design/handoff/`).
 
@@ -90,7 +90,7 @@ States: calculating, time unknown, nothing auspicious in range, offline, mixed s
 - PWA: `start_url` and `scope` = base; `registerType: 'autoUpdate'` + update toast; `globPatterns` include `**/*.{js,css,html,wasm,woff2,json}`; maskable icons; `lang: 'te'`.
 
 ## 11. Risks
-- Swiss Ephemeris is AGPL-3.0 or commercial: keep repo public + AGPL, buy a licence, or use astronomy-engine (MIT, ±1′ ≈ up to ~2 min on nakshatra times).
+- Swiss Ephemeris is AGPL-3.0 or commercial. **Decided 2026-11-21: keep the repo public under AGPL-3.0-or-later** (`LICENSE`, `THIRD_PARTY_NOTICES.md`). AGPL §13: the deployed app must offer its source — README links it; add an in-app "Source" link in Phase 8 (Settings → About). Alternatives were a commercial licence or astronomy-engine (MIT, ±1′ ≈ up to ~2 min on nakshatra times).
 - Sources disagree (Varjyam ghatis, Durmuhurtham slots): data tables + one reference (Drik Panchang Telugu) + fixtures.
 - No public aadayam-vyayam formula: yearly tables, add at each Ugadi.
 - Historical time zones, Telugu name ambiguity, cultural harm from dosha copy: see mitigations in the build guide.
@@ -102,5 +102,6 @@ States: calculating, time unknown, nothing auspicious in range, offline, mixed s
 - [ ] Lighthouse ≥ 90 (PWA, a11y, perf) on throttled mobile
 - [ ] te/en at 360 px with elder text
 - [ ] Disclaimer, methodology, privacy pages
-- [ ] LICENSE matches ephemeris choice
+- [x] LICENSE matches ephemeris choice (AGPL-3.0-or-later)
+- [ ] In-app "Source" link (AGPL §13)
 - [ ] Parabhava 2026–27 table loaded; reminder for Plavanga 2027–28 at Ugadi
