@@ -1,0 +1,695 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1532,
+      "title": "Home · Wishes",
+      "radius": 24
+    },
+    {
+      "file": "Today.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 1892,
+      "title": "Today · Panchangam",
+      "radius": 24
+    },
+    {
+      "file": "Marriage.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 3116,
+      "title": "Marriage matching",
+      "radius": 24
+    },
+    {
+      "file": "Muhurtham.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 1820,
+      "title": "Muhurtham",
+      "radius": 24
+    },
+    {
+      "file": "NewHouse.dc.html",
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 1922,
+      "title": "New house · Gruhapravesam",
+      "radius": 24
+    },
+    {
+      "file": "Job.dc.html",
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 2096,
+      "title": "Job",
+      "radius": 24
+    },
+    {
+      "file": "Income.dc.html",
+      "x": 2820,
+      "y": 0,
+      "w": 390,
+      "h": 1732,
+      "title": "Income & expense",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsALight.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 7420,
+      "title": "1 · Foundations & controls · Light",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsADark.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 7420,
+      "title": "1 · Foundations & controls · Dark",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsBLight.dc.html",
+      "x": 1020,
+      "y": 0,
+      "w": 390,
+      "h": 6960,
+      "title": "2 · Readings · Light",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsBDark.dc.html",
+      "x": 1490,
+      "y": 0,
+      "w": 390,
+      "h": 6960,
+      "title": "2 · Readings · Dark",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsCLight.dc.html",
+      "x": 2040,
+      "y": 0,
+      "w": 390,
+      "h": 5081,
+      "title": "3 · Forms, to-dos & sharing · Light",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "FoundationsCDark.dc.html",
+      "x": 2510,
+      "y": 0,
+      "w": 390,
+      "h": 5081,
+      "title": "3 · Forms, to-dos & sharing · Dark",
+      "page": "foundations",
+      "radius": 24
+    },
+    {
+      "file": "OnbLanguage.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1 · Language choice",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "OnbSlide1.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1a · Slide · Panchangam",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "OnbSlide2.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1b · Slide · Wishes",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "OnbSlide3.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "1c · Slide · Privacy",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "AddPerson.dc.html",
+      "x": 0,
+      "y": 1264,
+      "w": 390,
+      "h": 844,
+      "title": "2 · Add a person · default",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "AddPersonError.dc.html",
+      "x": 470,
+      "y": 1264,
+      "w": 390,
+      "h": 844,
+      "title": "2 · Add a person · error",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "AddPersonTimeUnknown.dc.html",
+      "x": 940,
+      "y": 1264,
+      "w": 390,
+      "h": 844,
+      "title": "2 · Add a person · time not known",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "AddPersonEnglish.dc.html",
+      "x": 1410,
+      "y": 1264,
+      "w": 390,
+      "h": 844,
+      "title": "2 · Add a person · English",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "RevealCalculating.dc.html",
+      "x": 0,
+      "y": 2528,
+      "w": 390,
+      "h": 844,
+      "title": "3 · Reveal · calculating",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "Reveal.dc.html",
+      "x": 470,
+      "y": 2528,
+      "w": 390,
+      "h": 844,
+      "title": "3 · Reveal · result",
+      "page": "onboarding",
+      "radius": 32
+    },
+    {
+      "file": "TodayTe.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 2615,
+      "title": "Today · default",
+      "page": "today",
+      "radius": 24
+    },
+    {
+      "file": "TodayTeOffline.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 2733,
+      "title": "Today · offline",
+      "page": "today",
+      "radius": 24
+    },
+    {
+      "file": "TodayTeElder.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 2980,
+      "title": "Today · elder mode",
+      "page": "today",
+      "radius": 24
+    },
+    {
+      "file": "WishesHub.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1094,
+      "title": "Wishes hub",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchPick.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Marriage · pick two people",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchStrong.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 3046,
+      "title": "Result · strong match",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchMixed.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 3319,
+      "title": "Result · mixed, with Kuja dosha",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchNamesOnly.dc.html",
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 3146,
+      "title": "Result · names only (approximate)",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchWhySheet.dc.html",
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Why sheet · Bhakoot",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MatchShare.dc.html",
+      "x": 2820,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "WhatsApp share card",
+      "page": "marriage",
+      "radius": 24
+    },
+    {
+      "file": "MhFinder.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 2046,
+      "title": "Muhurtham finder · results",
+      "page": "muhurtham",
+      "radius": 24
+    },
+    {
+      "file": "MhDetail.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 2770,
+      "title": "Muhurtham detail · 11 Dec",
+      "page": "muhurtham",
+      "radius": 24
+    },
+    {
+      "file": "NewHouseTe.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 2856,
+      "title": "New house · gruhapravesam",
+      "page": "muhurtham",
+      "radius": 24
+    },
+    {
+      "file": "MhNothing.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 1785,
+      "title": "Nothing auspicious in range",
+      "page": "muhurtham",
+      "radius": 24
+    },
+    {
+      "file": "JobTe.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 3020,
+      "title": "Job outlook",
+      "page": "jobincome",
+      "radius": 24
+    },
+    {
+      "file": "IncomeTe.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 2719,
+      "title": "Income & expense · vyayam > aadayam",
+      "page": "jobincome",
+      "radius": 24
+    },
+    {
+      "file": "FamilyTe.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 1352,
+      "title": "Family",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "SettingsTe.dc.html",
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 1952,
+      "title": "Settings",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "FamilyEn.dc.html",
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 1435,
+      "title": "Family · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "SettingsEn.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 1970,
+      "title": "Settings · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "TodayEn.dc.html",
+      "x": 0,
+      "y": 2390,
+      "w": 390,
+      "h": 2702,
+      "title": "Today · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "MatchStrongEn.dc.html",
+      "x": 470,
+      "y": 2390,
+      "w": 390,
+      "h": 3238,
+      "title": "Marriage result · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "MhDetailEn.dc.html",
+      "x": 940,
+      "y": 2390,
+      "w": 390,
+      "h": 2795,
+      "title": "Muhurtham detail · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "NewHouseEn.dc.html",
+      "x": 1410,
+      "y": 2390,
+      "w": 390,
+      "h": 2821,
+      "title": "New house · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "JobEn.dc.html",
+      "x": 1880,
+      "y": 2390,
+      "w": 390,
+      "h": 3112,
+      "title": "Job · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "IncomeEn.dc.html",
+      "x": 2350,
+      "y": 2390,
+      "w": 390,
+      "h": 2716,
+      "title": "Income & expense · English",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "TodayTe360.dc.html",
+      "x": 0,
+      "y": 6048,
+      "w": 360,
+      "h": 2697,
+      "title": "Today · 360 px",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "MatchStrong360.dc.html",
+      "x": 440,
+      "y": 6048,
+      "w": 360,
+      "h": 3221,
+      "title": "Marriage result · 360 px",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "MhDetail360.dc.html",
+      "x": 880,
+      "y": 6048,
+      "w": 360,
+      "h": 2812,
+      "title": "Muhurtham detail · 360 px",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "IncomeTe360.dc.html",
+      "x": 1320,
+      "y": 6048,
+      "w": 360,
+      "h": 2745,
+      "title": "Income & expense · 360 px",
+      "page": "polish",
+      "radius": 24
+    },
+    {
+      "file": "SettingsTe360.dc.html",
+      "x": 1760,
+      "y": 6048,
+      "w": 360,
+      "h": 1973,
+      "title": "Settings · 360 px",
+      "page": "polish",
+      "radius": 24
+    }
+  ],
+  "annotations": [
+    {
+      "id": "title",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 3210,
+      "text": "AstroZ · core screens",
+      "kind": "title1"
+    },
+    {
+      "id": "foundationsTitle",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 2900,
+      "text": "P1 · Foundations sheet",
+      "kind": "title1",
+      "page": "foundations"
+    },
+    {
+      "id": "p2Onb",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 1800,
+      "text": "1 · Onboarding",
+      "kind": "title1",
+      "page": "onboarding"
+    },
+    {
+      "id": "p2Add",
+      "x": 0,
+      "y": 964,
+      "w": 240,
+      "maxW": 1800,
+      "text": "2 · Add a person",
+      "kind": "title1",
+      "page": "onboarding"
+    },
+    {
+      "id": "p2Rev",
+      "x": 0,
+      "y": 2228,
+      "w": 240,
+      "maxW": 1800,
+      "text": "3 · Reveal",
+      "kind": "title1",
+      "page": "onboarding"
+    },
+    {
+      "id": "p3Title",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 1330,
+      "text": "P3 · Today",
+      "kind": "title1",
+      "page": "today"
+    },
+    {
+      "id": "p4Title",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 3210,
+      "text": "P4 · Wishes hub & marriage",
+      "kind": "title1",
+      "page": "marriage"
+    },
+    {
+      "id": "p5Title",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 1800,
+      "text": "P5 · Muhurtham & new house",
+      "kind": "title1",
+      "page": "muhurtham"
+    },
+    {
+      "id": "p6Title",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 860,
+      "text": "P6 · Job & income",
+      "kind": "title1",
+      "page": "jobincome"
+    },
+    {
+      "id": "p7row0",
+      "x": 0,
+      "y": -300,
+      "w": 240,
+      "maxW": 1800,
+      "text": "P7 · Family & settings",
+      "kind": "title1",
+      "page": "polish"
+    },
+    {
+      "id": "p7row1",
+      "x": 0,
+      "y": 2090,
+      "w": 240,
+      "maxW": 2740,
+      "text": "English pass",
+      "kind": "title1",
+      "page": "polish"
+    },
+    {
+      "id": "p7row2",
+      "x": 0,
+      "y": 5748,
+      "w": 240,
+      "maxW": 2120,
+      "text": "360 px checks",
+      "kind": "title1",
+      "page": "polish"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [
+    {
+      "id": "screens",
+      "name": "Core screens"
+    },
+    {
+      "id": "foundations",
+      "name": "P1 · Foundations"
+    },
+    {
+      "id": "onboarding",
+      "name": "P2 · Onboarding & reveal"
+    },
+    {
+      "id": "today",
+      "name": "P3 · Today"
+    },
+    {
+      "id": "marriage",
+      "name": "P4 · Wishes & marriage"
+    },
+    {
+      "id": "muhurtham",
+      "name": "P5 · Muhurtham & new house"
+    },
+    {
+      "id": "jobincome",
+      "name": "P6 · Job & income"
+    },
+    {
+      "id": "polish",
+      "name": "P7 · Family, settings & polish"
+    }
+  ]
+}
