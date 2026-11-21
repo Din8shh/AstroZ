@@ -13,12 +13,12 @@ import { useSettings } from '../store/settings';
 import { chipDate, clockIn, jdNow, shortDate, todayIn } from '../dates';
 import s from './TodayScreen.module.css';
 
-const WISHES: { icon: IconName; label: MessageKey; href: string }[] = [
-  { icon: 'rings', label: 'wish.marriage', href: '#/wishes/marriage' },
-  { icon: 'muhurtham', label: 'wish.muhurtham', href: '#/wishes/muhurtham' },
-  { icon: 'house', label: 'wish.house', href: '#/wishes/house' },
-  { icon: 'briefcase', label: 'wish.job', href: '#/wishes' },
-  { icon: 'coins', label: 'wish.income', href: '#/wishes' },
+const WISHES: { icon: IconName; label: MessageKey }[] = [
+  { icon: 'rings', label: 'wish.marriage' },
+  { icon: 'muhurtham', label: 'wish.muhurtham' },
+  { icon: 'house', label: 'wish.house' },
+  { icon: 'briefcase', label: 'wish.job' },
+  { icon: 'coins', label: 'wish.income' },
 ];
 
 export function TodayScreen() {
@@ -142,7 +142,7 @@ export function TodayScreen() {
         <h2 className={s.h2} id="wishes-h">{t('today.yourWishes')}</h2>
         <div className={s.wishGrid}>
           {WISHES.map((w) => (
-            <a key={w.label} className={s.wish} href={w.href}>
+            <a key={w.label} className={s.wish} href="#/wishes">
               <span className={s.wishIcon}><Icon name={w.icon} size={20} /></span>
               <span className={s.wishLabel}>{t(w.label)}</span>
             </a>

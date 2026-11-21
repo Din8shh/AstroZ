@@ -32,33 +32,3 @@ export function shortDate(date: string, lang: Lang): string {
 }
 
 export const jdNow = (now = Date.now()) => now / 86_400_000 + 2440587.5;
-
-/** Civil date + n days (YYYY-MM-DD, calendar arithmetic in UTC). */
-export function plusDays(date: string, n: number): string {
-  const [y, m, d] = date.split('-').map(Number);
-  return new Date(Date.UTC(y!, m! - 1, d! + n)).toISOString().slice(0, 10);
-}
-
-/** Days from a to b (b − a). */
-export function daysBetween(a: string, b: string): number {
-  const ms = (x: string) => { const [y, m, d] = x.split('-').map(Number); return Date.UTC(y!, m! - 1, d!); };
-  return Math.round((ms(b) - ms(a)) / 86_400_000);
-}
-
-/** "11 డిసెంబర్" / "11 December". */
-export function dayMonth(date: string, lang: Lang): string {
-  const p = parts(date, lang, { day: 'numeric', month: 'long' });
-  return `${p.day} ${p.month}`;
-}
-
-/** "21 నవంబర్ 2026" / "21 November 2026". */
-export function longDate(date: string, lang: Lang): string {
-  const p = parts(date, lang, { day: 'numeric', month: 'long', year: 'numeric' });
-  return `${p.day} ${p.month} ${p.year}`;
-}
-
-/** "11 Dec" style short date with the day (for reminders and chips). */
-export function shortDayMonth(date: string, lang: Lang): string {
-  const p = parts(date, lang, { day: 'numeric', month: lang === 'te' ? 'long' : 'short' });
-  return `${p.day} ${p.month}`;
-}

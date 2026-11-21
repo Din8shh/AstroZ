@@ -1,7 +1,7 @@
 {
   "source": ".claude/skills/telugu-jyotisha/reference.md §4 (count birth star → day star inclusive, mod 9).",
   "version": "0.1.0",
-  "notes": "count = ((dayNakshatra − birthNakshatra + 27) mod 27) + 1; tara = ((count − 1) mod 9) + 1. Status per tara below. Names: Telugu only where design/handoff has it. te for Sampat (సంపత్) and Parama mitra (పరమ మైత్ర) from design/handoff MhDetail ('సంపత్ తార', 'పరమ మైత్ర').",
+  "notes": "count = ((dayNakshatra − birthNakshatra + 27) mod 27) + 1; tara = ((count − 1) mod 9) + 1. Status per tara below. Names: Telugu only where design/handoff has it.",
   "taras": [
     {
       "tara": 1,
@@ -12,7 +12,7 @@
     {
       "tara": 2,
       "en": "Sampat",
-      "te": "సంపత్",
+      "te": null,
       "status": "good"
     },
     {
@@ -54,7 +54,7 @@
     {
       "tara": 9,
       "en": "Parama Mitra",
-      "te": "పరమ మైత్ర",
+      "te": null,
       "status": "good"
     }
   ]

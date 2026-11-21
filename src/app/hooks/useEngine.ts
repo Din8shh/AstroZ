@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import type { BirthChart, MuhurthamQuery, MuhurthamResult, Name, NamaResult } from '../../engine/api';
+import type { BirthChart, Name, NamaResult } from '../../engine/api';
 import { getEngine, initEngine } from '../../engine/client';
 import { placeById } from '../places';
 import type { Profile } from '../profiles';
 
-type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> };
+type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> };
 let namesCache: Promise<Names> | null = null;
 
 /** Rasi / nakshatra names from the engine tables (loaded once). */
@@ -104,24 +104,4 @@ export function useMatchReading(sel: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
   return state;
-}
-
-export type MuhurthamState = { status: 'idle' } | { status: 'loading' } | { status: 'ready'; result: MuhurthamResult } | { status: 'error' };
-
-/** Runs findMuhurtham in the worker on demand (not on every render): call `run(query)`. */
-export function useMuhurthamSearch(): [MuhurthamState, (q: MuhurthamQuery) => Promise<MuhurthamResult | null>] {
-  const [state, setState] = useState<MuhurthamState>({ status: 'idle' });
-  const run = async (q: MuhurthamQuery) => {
-    setState({ status: 'loading' });
-    try {
-      await initEngine();
-      const result = await getEngine().findMuhurtham(q);
-      setState({ status: 'ready', result });
-      return result;
-    } catch {
-      setState({ status: 'error' });
-      return null;
-    }
-  };
-  return [state, run];
 }

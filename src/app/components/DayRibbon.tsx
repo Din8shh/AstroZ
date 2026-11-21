@@ -8,14 +8,11 @@ import { Icon } from './Icon';
 import { STATUS_ICON, StatusChip } from './StatusChip';
 import s from './DayRibbon.module.css';
 
-/** A day period, or a chosen muhurtham window shown alongside them (detail screen). */
-export type RibbonPeriod = Omit<DayPeriodView, 'kind'> & { kind: DayPeriodView['kind'] | 'muhurtham' };
-
 type Props = {
   sunrise: LocalTime;
   sunset: LocalTime;
   nextSunrise: LocalTime;
-  periods: RibbonPeriod[];
+  periods: DayPeriodView[];
   /** Current instant (JD UT); shown only when it falls inside this day. */
   nowJd?: number | undefined;
   /** The current clock time in the day's zone, HH:MM, for the "now" pill. */
@@ -29,12 +26,12 @@ const minutesOf = (t: LocalTime) => Number(t.time.slice(0, 2)) * 60 + Number(t.t
 export function DayRibbon({ sunrise, sunset, nextSunrise, periods, nowJd, nowLabel, view = 'bar' }: Props) {
   const t = useT();
   const lang = useSettings((st) => st.lang);
-  const nameOf = (p: RibbonPeriod) => (lang === 'te' && p.name.te ? p.name.te : p.name.en);
+  const nameOf = (p: DayPeriodView) => (lang === 'te' && p.name.te ? p.name.te : p.name.en);
   const total = nextSunrise.jdUt - sunrise.jdUt;
   const frac = (jd: number) => Math.max(0, Math.min(1, (jd - sunrise.jdUt) / total));
   const pct = (f: number) => `${(f * 100).toFixed(3)}%`;
   const live = nowJd !== undefined && nowJd >= sunrise.jdUt && nowJd < nextSunrise.jdUt ? nowJd : undefined;
-  const isNow = (p: RibbonPeriod) => live !== undefined && live >= p.start.jdUt && live < p.end.jdUt;
+  const isNow = (p: DayPeriodView) => live !== undefined && live >= p.start.jdUt && live < p.end.jdUt;
 
   if (view === 'list') {
     return (
