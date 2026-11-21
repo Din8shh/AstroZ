@@ -173,6 +173,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     const avoidK = [...muhurthamTable.general.avoidKaranas, ...(muhurthamTable.events[event].avoidKaranas as string[])];
     const before = ctx.karana.filter((k) => k.end <= w.start && k.end > ctx.sunrise && avoidK.includes(angaNames.karana(k.number).en)).pop();
     const lagnaRasi = rasiOf(e.ascendant(w.start, { lat: place.lat, lon: place.lon }));
+    const wm = masaAt(e, w.start); // the window's own month (a new moon after sunrise starts the next one)
     const taraName = (n: number) => { const t = tarabalamTable.taras.find((x) => x.tara === n)!; return { en: t.en, te: t.te ?? null }; };
     return {
       date: ctx.date, start: L(w.start), end: L(w.end), score: w.score, status: w.status,
@@ -180,7 +181,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       // The three strongest reasons that say something: no empty "preferred period", no always-true "clear of periods".
       top: w.reasons.filter((r) => !(r.ruleId === 'mh.preferred' && !r.values.kind) && r.ruleId !== 'mh.clear').slice(0, 3),
       panchanga: {
-        vara: d.v, paksha: paksha(w.panchanga.tithi), masa: { number: d.masa.number, name: d.masa.name },
+        vara: d.v, paksha: paksha(w.panchanga.tithi), masa: { number: wm.number, name: wm.name },
         tithi: span(ctx.tithi, w.panchanga.tithi, angaNames.tithi),
         nakshatra: span(ctx.nakshatra, w.panchanga.nakshatra, angaNames.nakshatra),
         yoga: span(ctx.yoga, w.panchanga.yoga, angaNames.yoga),

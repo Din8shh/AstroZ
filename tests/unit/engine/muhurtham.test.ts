@@ -198,7 +198,7 @@ describe('engine.findMuhurtham', () => {
     expect(r.exclusions[0]).toMatchObject({ ruleId: 'mh.x.month', days: 7 });
     expect(r.nearest).toBeDefined();
     expect(r.nearest!.date > '2026-11-28').toBe(true);
-    expect(r.nearest!.panchanga.masa.number).toBeOneOf([11, 12, 2, 3]);
+    expect(r.nearest!.panchanga.masa.number).toBeOneOf([11, 12, 2, 3]); // the window's own month
     // Vivaham in the Dhanus kharmas: nothing that week, nearest after the Sun leaves Dhanus.
     const k = await engine.findMuhurtham({ event: 'vivaham', from: '2026-12-20', days: 7, place: PLACES.hyderabad, people: [] });
     expect(k.results).toEqual([]);
@@ -211,7 +211,14 @@ describe('engine.findMuhurtham', () => {
     const allowed = table.events.gruhapravesam.exclude.months as number[];
     // Days the verifier found (2026–2028, Hyderabad, south door): amavasya ends after sunrise and the next month is not allowed.
     for (const date of ['2026-03-19', '2026-07-14', '2027-07-04', '2028-03-26']) {
+      // The scenario is real: the day starts in an allowed month and a new moon moves it into a forbidden one.
+      const pc = await engine.panchangam(date, PLACES.hyderabad);
+      const atSunrise = amantaMasa(eph, pc.sunrise.jdUt + 1 / 86_400), atNext = amantaMasa(eph, pc.nextSunrise.jdUt - 1 / 86_400);
+      expect(allowed, date).toContain(atSunrise.number);
+      expect(allowed, date).not.toContain(atNext.number);
       const r = await engine.findMuhurtham({ event: 'gruhapravesam', from: date, days: 1, place: PLACES.hyderabad, people: [], door: 'south' });
+      // Any window that day must end by the new moon.
+      for (const w of r.results) expect(w.end.jdUt, `${date} ${w.end.time}`).toBeLessThanOrEqual(atSunrise.endNewMoon + 1e-9);
       for (const w of r.results) {
         for (const jd of [w.start.jdUt + 1 / 86_400, w.end.jdUt - 1 / 86_400]) {
           expect(allowed, `${date} ${w.start.time}`).toContain(amantaMasa(eph, jd).number);
