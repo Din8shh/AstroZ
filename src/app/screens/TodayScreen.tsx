@@ -138,7 +138,8 @@ export function TodayScreen() {
 
       {day.status === 'ready' ? <YourDay date={date} place={place} periods={day.periods} nowJd={jdNow(now)} /> : null}
 
-      <section className={s.wishes} aria-labelledby="wishes-h">
+      {/* Shown once the day is ready: rendered earlier it would jump down when the panchangam arrives (layout shift). */}
+      {day.status !== 'loading' ? <section className={s.wishes} aria-labelledby="wishes-h">
         <h2 className={s.h2} id="wishes-h">{t('today.yourWishes')}</h2>
         <div className={s.wishGrid}>
           {WISHES.map((w) => (
@@ -152,7 +153,7 @@ export function TodayScreen() {
             <span className={s.wishLabel}>{t('wish.seeAll')}</span>
           </a>
         </div>
-      </section>
+      </section> : null}
     </main>
   );
 }

@@ -7,3 +7,20 @@
 .rowTitle { font-size: calc(17px * var(--az-scale)); font-weight: 600; line-height: 1.5; }
 .rowSub { font-size: calc(15px * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }
 .row button { align-self: flex-start; }
+.rowInline { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--az-line); flex-wrap: wrap; }
+.rowInlineTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.rowLink { color: inherit; text-decoration: none; }
+.rowLink:hover .rowTitle, .link:hover { text-decoration: underline; }
+.switch { flex: none; position: relative; width: 52px; height: 32px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-line-strong); background: var(--az-surface-sunk); cursor: pointer; padding: 0; }
+.switch[aria-checked='true'] { background: var(--az-kumkum); border-color: var(--az-kumkum); }
+.knob { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--az-surface); box-shadow: 0 1px 2px rgb(0 0 0 / 25%); transition: transform 150ms ease; }
+.switch[aria-checked='true'] .knob { transform: translateX(20px); }
+.preview { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: var(--az-radius-md); background: var(--az-surface-sunk); }
+.previewLabel { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
+.previewSample { --az-scale: var(--az-elder-scale, 1.2); font-size: calc(var(--fs-body) * var(--az-scale)); }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { min-height: 44px; padding: 4px 16px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-line-strong); background: var(--az-surface); color: var(--az-ink); cursor: pointer; }
+.choice[aria-checked='true'] { border-color: var(--az-kumkum); background: var(--az-kumkum-soft); box-shadow: inset 0 0 0 1px var(--az-kumkum); color: var(--az-kumkum-ink); font-weight: 600; }
+.bullets { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.55; }
+.link { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; min-height: 44px; color: var(--az-kumkum-ink); font-weight: 600; text-decoration: none; }
+.para { margin: 0; font-size: calc(var(--fs-body) * var(--az-scale)); line-height: 1.65; }

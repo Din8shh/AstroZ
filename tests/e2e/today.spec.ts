@@ -11,7 +11,7 @@ for (const width of [360, 390]) {
       await page.clock.install({ time: DESIGN_NOW });
       await page.goto('./#/today');
       if (lang === 'en') await page.getByRole('radio', { name: 'English' }).click();
-      await expect(page.getByRole('heading', { name: lang === 'te' ? 'పంచాంగం' : 'Panchangam' })).toBeVisible({ timeout: 15_000 });
+      await expect(page.getByRole('heading', { name: lang === 'te' ? 'పంచాంగం' : 'Panchangam', exact: true })).toBeVisible({ timeout: 15_000 });
       await expect(page.getByTestId('ribbon-now')).toBeAttached();
       await expect(page.getByTestId('ribbon-now')).toContainText('11:02');
       await page.evaluate(() => document.fonts.ready);
