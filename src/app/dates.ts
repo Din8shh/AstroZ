@@ -78,3 +78,8 @@ export function dayRange(a: string, b: string, lang: Lang): string {
 
 /** Gregorian year of a civil date. */
 export const yearOf = (date: string) => date.slice(0, 4);
+
+/** Weekday of a civil date ("గురువారం" / "Thursday"), from Intl (CLDR). */
+export function weekdayName(date: string, lang: Lang): string {
+  return parts(date, lang, { weekday: 'long' }).weekday!;
+}

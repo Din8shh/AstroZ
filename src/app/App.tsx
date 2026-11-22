@@ -5,6 +5,7 @@ import { useRoute, type Route } from './router';
 import { AppHeader } from './components/AppHeader';
 import { OfflineBanner } from './components/OfflineBanner';
 import { BottomNav } from './components/BottomNav';
+import { UpdateToast } from './components/UpdateToast';
 import { TodayScreen } from './screens/TodayScreen';
 import { WishesScreen } from './screens/WishesScreen';
 import { FamilyScreen } from './screens/FamilyScreen';
@@ -66,6 +67,7 @@ export function App() {
   const Current = TAB_SCREENS[route.tab];
   return (
     <div className={['az', `az-${lang}`, elder && 'az-elder', s.app].filter(Boolean).join(' ')}>
+      <UpdateToast />
       {sub ? <Suspense fallback={<Loading />}>{sub}</Suspense> : (
         <>
           <AppHeader />

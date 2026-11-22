@@ -46,6 +46,12 @@ export function PersonFormScreen({ id }: { id?: string | undefined }) {
       ...(v.date && { birth: { date: v.date, ...(timeKnown && { time: v.time }), timeKnown, placeId: v.place.id } }),
       createdAt: existing?.createdAt ?? Date.now(),
     };
+    // Same birth details: keep the saved rasi/nakshatra (Reveal refreshes them; the name-based nama nakshatra may change).
+    const b = existing?.birth, nb = profile.birth;
+    if (existing?.derived && b && nb && b.date === nb.date && b.time === nb.time && b.timeKnown === nb.timeKnown && b.placeId === nb.placeId) {
+      const { namaNakshatra: _n, ...keep } = existing.derived;
+      profile.derived = existing.name === profile.name ? existing.derived : keep;
+    }
     await save(profile);
     navigate('family', profile.id, 'reveal');
   };

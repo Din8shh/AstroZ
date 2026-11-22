@@ -6,11 +6,12 @@ import { Icon } from '../components/Icon';
 import type { IconName } from '../components/icons';
 import { DayRibbon } from '../components/DayRibbon';
 import { YourDay } from '../components/YourDay';
+import { WhyLink, WhySheet } from '../components/WhySheet';
 import { useDay, useNow, usePlace } from '../hooks/useDay';
 import { useName, useT, type MessageKey } from '../i18n';
 import { placeName } from '../places';
 import { useSettings } from '../store/settings';
-import { chipDate, clockIn, jdNow, shortDate, todayIn } from '../dates';
+import { chipDate, clockIn, jdNow, plusDays, shortDate, todayIn } from '../dates';
 import s from './TodayScreen.module.css';
 
 const WISHES: { icon: IconName; label: MessageKey; href: string }[] = [
@@ -27,8 +28,16 @@ export function TodayScreen() {
   const lang = useSettings((st) => st.lang);
   const place = usePlace(useSettings((st) => st.homePlaceId));
   const now = useNow();
-  const [date, setDate] = useState(() => todayIn(place.tz));
+  // The date shown follows the home city's zone (resolved from cities.json) and the sunrise-to-sunrise day:
+  // before today's sunrise the previous panchangam day is still running. Only a date the user picks is kept in state.
+  const [picked, setPicked] = useState<{ date: string; placeId: string } | null>(null);
+  const civil = todayIn(place.tz, now);
+  const civilDay = useDay(civil, place);
+  const beforeSunrise = civilDay.status === 'ready' && jdNow(now) < civilDay.panchangam.sunrise.jdUt;
+  const date = picked && picked.placeId === place.id ? picked.date : beforeSunrise ? plusDays(civil, -1) : civil;
+  const setDate = (d: string) => setPicked({ date: d, placeId: place.id });
   const day = useDay(date, place);
+  const [why, setWhy] = useState<null | 'panchangam' | 'times'>(null);
   const city = placeName(place, lang);
 
   const hm = (x: LocalTime) => x.time.slice(0, 5);
@@ -108,6 +117,7 @@ export function TodayScreen() {
               </span>
             </div>
             <span className={s.note}>{t('today.realSunrise', { city })}</span>
+            <WhyLink label={t('match.why')} onClick={() => setWhy('panchangam')} />
           </section>
 
           <section className={`${s.card} ${s.dayCard}`} aria-labelledby="day-h">
@@ -132,6 +142,7 @@ export function TodayScreen() {
               periods={day.periods}
               nowJd={jdNow(now)}
             />
+            <WhyLink label={t('mhd.whyTimes')} onClick={() => setWhy('times')} />
           </section>
         </>
       ) : null}
@@ -154,6 +165,11 @@ export function TodayScreen() {
           </a>
         </div>
       </section> : null}
+      {day.status !== 'loading' ? <p className={s.note} data-testid="today-disclaimer">{t('disclaimer.body')}</p> : null}
+      {why ? (
+        <WhySheet title={why === 'panchangam' ? t('today.panchangam') : t('mhd.whyTimes')} kicker={t('why.kicker')} closeLabel={t('form.close')}
+          method={t(why === 'panchangam' ? 'method.day' : 'method.periods')} onClose={() => setWhy(null)} />
+      ) : null}
     </main>
   );
 }

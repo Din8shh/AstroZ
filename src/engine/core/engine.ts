@@ -43,7 +43,11 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         ayanamsaJ2000,
       };
       return info;
-    })();
+    })().catch((err: unknown) => {
+      loading = null; // retry on the next call instead of caching the failure
+      eph = null;
+      throw err;
+    });
     return loading;
   };
 

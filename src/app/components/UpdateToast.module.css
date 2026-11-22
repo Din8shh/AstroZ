@@ -1,0 +1,5 @@
+.toast { position: fixed; left: 12px; right: 12px; bottom: 84px; z-index: 40; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px; border-radius: var(--az-radius-card); background: var(--az-ink); color: var(--az-bg); box-shadow: var(--az-shadow-card); }
+.text { font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.4; }
+.actions { display: flex; gap: 8px; }
+.later, .now { min-height: 44px; padding: 0 14px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-bg); background: transparent; color: var(--az-bg); font-weight: 600; cursor: pointer; }
+.now { background: var(--az-bg); color: var(--az-ink); }

@@ -120,7 +120,8 @@ export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise
     const c = chandrabalam(janma, rasiOf(moon));
     const tr = TRANSIT_PLANETS.map((p) => transit(p, janma, rasiAt(e, p, jd)));
     const good = tr.filter((x) => x.status === 'good').length;
-    const score = t.status === 'avoid' || held(date) ? 0 : (t.status === 'good' ? 2 : 1) + (c.status === 'good' ? 1 : 0) + good;
+    const wt = W.weights;
+    const score = t.status === 'avoid' || held(date) ? 0 : (t.status === 'good' ? wt.taraGood : wt.taraMixed) + (c.status === 'good' ? wt.chandraGood : 0) + good * wt.perGoodTransit;
     days.push({ date, score, reasons: [
       { ruleId: 'job.tarabalam', values: { tara: t.tara.number, status: t.status } },
       { ruleId: 'job.chandrabalam', values: { house: c.house, status: c.status } },
@@ -138,15 +139,15 @@ export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise
   }
   const windows = runs.sort((a, b) => b.total - a.total || a.from - b.from).slice(0, W.count).sort((a, b) => a.from - b.from).map((r) => {
     const best = days.slice(r.from, r.to + 1).reduce((x, y) => (y.score > x.score ? y : x));
-    const maxScore = 2 + 1 + TRANSIT_PLANETS.length;
-    return { start: days[r.from]!.date, end: days[r.to]!.date, score: Math.round((100 * r.total) / ((r.to - r.from + 1) * maxScore)), status: (best.score >= maxScore - 1 ? 'good' : 'mixed') as Status, reasons: best.reasons };
+    const maxScore = W.weights.taraGood + W.weights.chandraGood + TRANSIT_PLANETS.length * W.weights.perGoodTransit;
+    return { start: days[r.from]!.date, end: days[r.to]!.date, score: Math.round((100 * r.total) / ((r.to - r.from + 1) * maxScore)), status: (best.score >= maxScore - W.goodWithin ? 'good' : 'mixed') as Status, reasons: best.reasons };
   });
 
   // Joining days: the job muhurtham search, outside hold-off days.
   const mh = await deps.findMuhurtham({ event: 'job', from: q.from, days: q.days, place: q.place, people: [{ id: q.person.id, nakshatra: birthNak, rasi: janma }] });
   const joining = mh.results.filter((w) => !held(w.date)).slice(0, outlook.job.joining.count);
 
-  const status: Status = goodTransits >= 2 ? 'good' : 'mixed';
+  const status: Status = goodTransits >= outlook.job.statusGoodTransitsAtLeast ? 'good' : 'mixed';
   const reasons: Reason[] = [
     { ruleId: 'job.status', values: { goodTransits, of: transits.length, status } },
     { ruleId: 'job.dasha', values: { mahadasha: cur.lord, antardasha: curA.lord, ...(nextM && { nextMahadasha: nextM.lord, nextDate: nextM.start.date }) } },

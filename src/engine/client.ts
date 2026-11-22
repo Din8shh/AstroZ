@@ -26,6 +26,9 @@ export function initEngine(): Promise<EngineInfo> {
     performance.mark('engine:init:end', { detail: info });
     performance.measure('engine:init', 'engine:init:start', 'engine:init:end');
     return info;
-  })();
+  })().catch((err: unknown) => {
+    ready = null; // a failed start (e.g. wasm fetch on a flaky first visit) is retried on the next call
+    throw err;
+  });
   return ready;
 }

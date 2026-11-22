@@ -131,3 +131,31 @@ test('elder text at 360 px in te and en: every main screen fits, screenshots sav
   }
   await ctx.close();
 });
+
+test('Today follows the home city and the sunrise-to-sunrise day (code review)', async ({ browser }) => {
+  // Dallas home city at 20:00 CST on 21 Nov (already 22 Nov in India): Today must show Dallas's 21 Nov.
+  const ctx = await browser.newContext({ timezoneId: 'America/Chicago' });
+  const page = await ctx.newPage();
+  await page.clock.install({ time: new Date('2026-11-21T20:00:00-06:00') });
+  await english(page);
+  await page.goto('./#/more');
+  await page.getByRole('button', { name: /Change town/ }).click();
+  await page.getByRole('searchbox', { name: 'Search a town' }).fill('Dallas');
+  await page.getByRole('option', { name: /Dallas/ }).first().click();
+  await page.goto('./#/today');
+  await expect(page.getByTestId('today-date')).toHaveText('Sat, 21 Nov', { timeout: 15_000 });
+  await expect(page.getByTestId('ribbon-now')).toBeAttached();
+  await ctx.close();
+
+  // Hyderabad at 04:30 IST on 22 Nov: before sunrise, the 21 Nov panchangam day is still running.
+  const ctx2 = await browser.newContext({ timezoneId: 'Asia/Kolkata' });
+  const p2 = await ctx2.newPage();
+  await p2.clock.install({ time: new Date('2026-11-22T04:30:00+05:30') });
+  await english(p2);
+  await expect(p2.getByTestId('today-date')).toHaveText('Sat, 21 Nov', { timeout: 15_000 });
+  await expect(p2.getByTestId('ribbon-now')).toBeAttached();
+  await expect(p2.getByTestId('today-disclaimer')).toBeVisible();
+  await p2.getByRole('button', { name: 'Why?' }).first().click();
+  await expect(p2.getByRole('dialog')).toBeVisible();
+  await ctx2.close();
+});

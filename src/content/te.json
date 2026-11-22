@@ -175,7 +175,12 @@
     "privacy.p1",
     "privacy.p2",
     "privacy.p3",
-    "privacy.p4"
+    "privacy.p4",
+    "mh.panchangDay",
+    "update.ready",
+    "update.reload",
+    "update.later",
+    "today.whyYourDay"
   ],
   "family.intro": "ఈ ఫోన్‌లో ఉన్నవారు. ఎవరిని నొక్కినా వారి వివరాలు మార్చవచ్చు.",
   "family.add": "వ్యక్తిని జోడించండి",
@@ -647,5 +652,10 @@
   "privacy.p2": "Nothing is uploaded: every calculation runs on this phone, and the app works offline after the first visit.",
   "privacy.p3": "Birth details never go into links, logs, share images or calendar files. Share cards show names and the result only; calendar files show the event, town, date and time.",
   "privacy.p4": "You can export everything as one file, or delete everything, from Settings.",
-  "disclaimer.title": "ఒక మాట"
+  "disclaimer.title": "ఒక మాట",
+  "mh.panchangDay": "Before sunrise — part of {vara}'s panchangam day ({date})",
+  "update.ready": "A new version of AstroZ is ready.",
+  "update.reload": "Update now",
+  "update.later": "Later",
+  "today.whyYourDay": "Tarabalam counts from your birth nakshatram to today's; chandrabalam counts the Moon's house from your rasi. Both change when the Moon moves on, so the time shown applies until then."
 }

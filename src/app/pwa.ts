@@ -1,8 +1,14 @@
 import { registerSW } from 'virtual:pwa-register';
+import { create } from 'zustand';
 
-// registerType 'autoUpdate': a new service worker activates and the page reloads on its own.
-// TODO(phase 8): update toast — needs te/en copy written by a person (docs/design-mapping.md §4.6).
+// registerType 'prompt': when a new version is installed it waits; the UpdateToast offers to switch now or later.
+type UpdateState = { ready: boolean; apply: () => void; dismiss: () => void };
+export const useUpdate = create<UpdateState>()((set) => ({ ready: false, apply: () => undefined, dismiss: () => set({ ready: false }) }));
+
 export function registerPwa(): void {
   if (!('serviceWorker' in navigator)) return;
-  registerSW({ immediate: true });
+  const updateSW = registerSW({
+    immediate: true,
+    onNeedRefresh: () => useUpdate.setState({ ready: true, apply: () => void updateSW(true) }),
+  });
 }

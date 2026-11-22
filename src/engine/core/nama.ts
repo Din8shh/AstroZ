@@ -130,9 +130,14 @@ const dedupe = (cs: NamaCandidate[]) => {
 };
 
 export function namaNakshatra(fullName: string): NamaResult | null {
-  const words = fullName.trim().split(/\s+/).filter(Boolean);
+  // "K.Lakshmi" → "K. Lakshmi"; then skip an honorific and any initials ("K.", "K", "కె.") before the name itself.
+  const words = fullName.trim().replace(/\.(?=\S)/g, '. ').split(/\s+/).filter(Boolean);
   const honorifics = new Set(table.honorifics.map((h) => h.toLowerCase()));
-  const word = words.length > 1 && honorifics.has(words[0]!.toLowerCase()) ? words[1]! : words[0];
+  let i = 0;
+  if (words.length > 1 && honorifics.has(words[0]!.toLowerCase())) i++;
+  const isInitial = (w: string) => w.endsWith('.') || /^[A-Za-z]$/.test(w);
+  while (i < words.length - 1 && isInitial(words[i]!)) i++;
+  const word = words[i];
   if (!word) return null;
   const telugu = /[ఀ-౿]/.test(word);
   const parsed = telugu ? teluguFirst(word) : latinFirst(word);
