@@ -10,6 +10,7 @@ import { chandrabalam, tarabalam, type Reason, type Status } from '../rules/stre
 import { TRANSIT_PLANETS, transit, type TransitPlanet } from '../rules/gochara';
 import grahas from '../tables/grahas.json';
 import outlook from '../tables/outlook.json';
+import vimshottari from '../tables/vimshottari.json';
 
 const DAY = 1;
 const SECOND = 1 / 86_400;
@@ -72,7 +73,7 @@ function transitView(e: Ephemeris, planet: TransitPlanet, janmaRasi: number, jd:
 }
 
 const span = (lord: string, start: BirthChart['dasha']['mahadashas'][number]['start'], end: BirthChart['dasha']['mahadashas'][number]['end']): DashaSpan =>
-  ({ lord: lord as DashaSpan['lord'], ...graha(lord), start, end });
+  ({ lord: lord as DashaSpan['lord'], ...graha(lord), start, end, years: vimshottari.order.find((o) => o.lord === lord)!.years });
 
 export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise<JobOutlook> {
   const e = deps.eph;
@@ -85,7 +86,8 @@ export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise
 
   // Dasha now.
   const mahas = chart.dasha.mahadashas;
-  const mi = Math.max(0, mahas.findIndex((m) => m.start.jdUt <= now && now < m.end.jdUt));
+  const found = mahas.findIndex((m) => m.start.jdUt <= now && now < m.end.jdUt);
+  const mi = found >= 0 ? found : now >= mahas[mahas.length - 1]!.end.jdUt ? mahas.length - 1 : 0;
   const cur = mahas[mi]!;
   const ai = Math.max(0, cur.antardashas.findIndex((a) => a.start.jdUt <= now && now < a.end.jdUt));
   const curA = cur.antardashas[ai]!;
@@ -100,7 +102,7 @@ export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise
   const sandhi = outlook.job.sandhiDays;
   for (const m of mahas) {
     if (m.start.jdUt > now - sandhi && m.start.jdUt < rangeEnd + sandhi && m !== mahas[0]) {
-      const d = m.start.date;
+      const d = toLocal(m.start.jdUt, tz).date; // the change date where the person lives, like the windows
       holdOff.push({ start: addDays(d, -sandhi), end: addDays(d, sandhi), reasons: [{ ruleId: 'job.sandhi', values: { from: mahas[mahas.indexOf(m) - 1]!.lord, to: m.lord, date: d } }] });
     }
   }
@@ -231,15 +233,16 @@ export function yearOutlook(deps: OutlookDeps, q: YearOutlookInput): YearOutlook
   });
   const current = Math.max(0, months.findIndex((_, i) => q.date >= starts[i]! && q.date < starts[i + 1]!));
   const status: Status = row ? (row.aadayam >= row.vyayam ? 'good' : 'mixed') : 'mixed';
+  const honour: Status = row && outlook.income.honour.goodIf === 'rajapujyamAtLeastAvamanam' && row.rajapujyam >= row.avamanam ? 'good' : 'mixed';
   return {
     samvatsara: { number: sam.number, name: sam.name, shaka: sam.shaka },
     ugadi,
-    table: row && tableRow ? { aadayam: row.aadayam, vyayam: row.vyayam, rajapujyam: row.rajapujyam, avamanam: row.avamanam, scale: tableRow.scale, source: tableRow.source } : null,
+    table: row && tableRow ? { aadayam: row.aadayam, vyayam: row.vyayam, rajapujyam: row.rajapujyam, avamanam: row.avamanam, scale: tableRow.scale, source: tableRow.source, honour } : null,
     status,
     months: monthViews,
     current,
     reasons: row
-      ? [{ ruleId: 'year.aadayamVyayam', values: { aadayam: row.aadayam, vyayam: row.vyayam, status } }, { ruleId: 'year.rajapujyamAvamanam', values: { rajapujyam: row.rajapujyam, avamanam: row.avamanam } }]
+      ? [{ ruleId: 'year.aadayamVyayam', values: { aadayam: row.aadayam, vyayam: row.vyayam, status } }, { ruleId: 'year.rajapujyamAvamanam', values: { rajapujyam: row.rajapujyam, avamanam: row.avamanam, status: honour } }]
       : [{ ruleId: 'year.tableMissing', values: { samvatsara: sam.number, shaka: sam.shaka } }],
     todos: outlook.income.todos.map((id) => ({ id })),
     remedies: outlook.income.remedies,

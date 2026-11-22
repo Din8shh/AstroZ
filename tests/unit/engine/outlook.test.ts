@@ -30,6 +30,8 @@ describe('dasha fixtures (tests/fixtures/dasha-golden.json)', () => {
       const tol = shiftTolerance(row.mahadashas[0]!.lord);
       expect(c.dasha.mahadashas.map((m) => m.lord)).toEqual(row.mahadashas.map((m) => m.lord));
       row.mahadashas.forEach((m, i) => {
+        // Each period's own length is pure arithmetic (years × yearDays): it must agree to the minute.
+        expect(Math.abs((c.dasha.mahadashas[i]!.end.jdUt - c.dasha.mahadashas[i]!.start.jdUt) - (m.endJd - m.startJd)), `${m.lord} length`).toBeLessThanOrEqual(MINUTE);
         expect(Math.abs(c.dasha.mahadashas[i]!.start.jdUt - m.startJd), `${m.lord} start`).toBeLessThanOrEqual(tol);
         expect(Math.abs(c.dasha.mahadashas[i]!.end.jdUt - m.endJd), `${m.lord} end`).toBeLessThanOrEqual(tol);
       });
@@ -40,6 +42,7 @@ describe('dasha fixtures (tests/fixtures/dasha-golden.json)', () => {
       expect(antar.lord).toBe(row.at.antardasha.lord);
       row.at.antardashas.forEach((a, i) => {
         expect(maha.antardashas[i]!.lord).toBe(a.lord);
+        expect(Math.abs((maha.antardashas[i]!.end.jdUt - maha.antardashas[i]!.start.jdUt) - (a.endJd - a.startJd)), `${maha.lord}–${a.lord} length`).toBeLessThanOrEqual(MINUTE);
         expect(Math.abs(maha.antardashas[i]!.start.jdUt - a.startJd), `${maha.lord}–${a.lord} start`).toBeLessThanOrEqual(tol);
         expect(Math.abs(maha.antardashas[i]!.end.jdUt - a.endJd), `${maha.lord}–${a.lord} end`).toBeLessThanOrEqual(tol);
       });
@@ -120,7 +123,7 @@ describe('engine.yearOutlook: Ugadi rollover', () => {
     expect(before.table).toBeNull();
     const day = await engine.yearOutlook({ rasi: 1, date: '2026-03-19', place: HYD });
     expect(day.samvatsara.number).toBe(40);
-    expect(day.table).toMatchObject({ aadayam: 11, vyayam: 5 });
+    expect(day.table).toMatchObject({ aadayam: 11, vyayam: 5, rajapujyam: 2, avamanam: 4, honour: 'mixed' });
   }, 30_000);
 
   it('Parabhava has 13 months (adhika Jyeshtha in 2026), Chaitram first and Phalgunam last, each with three transits', async () => {
@@ -150,6 +153,7 @@ describe('engine.jobOutlook', () => {
     expect(o.dasha.current.lord).toBe(fx.at.mahadasha.lord);
     expect(o.dasha.currentAntar.lord).toBe(fx.at.antardasha.lord);
     expect(o.dasha.mahadashas).toHaveLength(9);
+    for (const m of o.dasha.mahadashas) expect(m.years).toBe(vimshottari.order.find((x) => x.lord === m.lord)!.years);
     expect(o.person.rasi).toBe(vij.expected.moon.rasi);
     expect(o.transits.map((t) => t.planet)).toEqual(['jupiter', 'saturn', 'rahu']);
     for (const t of o.transits) {

@@ -1,7 +1,7 @@
 {
   "source": "Job and Income guidance ids from design/handoff JobTe/JobEn and IncomeTe/IncomeEn (to-dos and free remedies). Window rules: tarabalam (tarabalam.json), chandrabalam (chandrabalam.json) and gochara (gochara.json).",
   "version": "0.1.0",
-  "notes": "job.windows: each day of the range is judged with the Moon at local noon: score = tarabalam good 2 / mixed 1, chandrabalam good 1, + 1 for each good transit (Jupiter, Saturn, Rahu); a day with an avoid tara is never a best day. Best windows = runs of consecutive best days (score ≥ minScore), the top `count` by total score. job.sandhiDays: days either side of a mahadasha change marked 'hold off on joining' (design JobTe 'మహాదశ మారే సంధి కాలం'); tradition, pandit to confirm the length. job.joining: the first `count` results of findMuhurtham('job') in the range. year.monthStatus: a month is 'good' when at least `goodIfAtLeast` of the three transits are good, else 'mixed'. income.status: aadayam ≥ vyayam → good, else mixed. year.ugadiRule 'pratipadaAtSunrise': a lunar month (and the Ugadi year) starts on the day whose sunrise falls inside shukla pratipada; when pratipada touches no sunrise (kshaya pratipada), on the day it begins. Ugadi 2026: pratipada began 06:52 IST on 19 March and ended before the next sunrise, so Ugadi = 19 March (samvatsaras.json anchors). The panchangam's day-level samvatsara (Today screen) still follows the month at sunrise, so it shows the old year on such an Ugadi morning — reported, not changed here.",
+  "notes": "job.windows: each day of the range is judged with the Moon at local noon: score = tarabalam good 2 / mixed 1, chandrabalam good 1, + 1 for each good transit (Jupiter, Saturn, Rahu); a day with an avoid tara is never a best day. Best windows = runs of consecutive best days (score ≥ minScore), the top `count` by total score. job.sandhiDays: days either side of a mahadasha change marked 'hold off on joining' (design JobTe 'మహాదశ మారే సంధి కాలం'); tradition, pandit to confirm the length. job.joining: the first `count` results of findMuhurtham('job') in the range. year.monthStatus: a month is 'good' when at least `goodIfAtLeast` of the three transits are good, else 'mixed'. income.status: aadayam ≥ vyayam → good, else mixed. year.ugadiRule 'pratipadaAtSunrise': a lunar month (and the Ugadi year) starts on the day whose sunrise falls inside shukla pratipada; when pratipada touches no sunrise (kshaya pratipada), on the day it begins. Ugadi 2026: pratipada began 06:52 IST on 19 March and ended before the next sunrise, so Ugadi = 19 March (samvatsaras.json anchors). The panchangam's day-level samvatsara (Today screen) still follows the month at sunrise, so it shows the old year on such an Ugadi morning — reported, not changed here. income.honour: rajapujyam ≥ avamanam → good (respect outweighs setbacks), else mixed — decides which rajapujyam/avamanam note is shown.",
   "job": {
     "windows": {
       "minScore": 4,
@@ -37,6 +37,9 @@
       "income.fridayDiya",
       "income.thursdayElders",
       "income.feedHungry"
-    ]
+    ],
+    "honour": {
+      "goodIf": "rajapujyamAtLeastAvamanam"
+    }
   }
 }

@@ -526,7 +526,7 @@
   "job.windows": "రాబోయే {days} రోజుల్లో మంచి సమయాలు",
   "job.windowsSub": "ఇంటర్వ్యూలు, దరఖాస్తులు",
   "job.windowLabel": "ఇంటర్వ్యూలు, దరఖాస్తులు పంపడం",
-  "job.windowNote": "Tarabalam is good · {good} of 3 transits good",
+  "job.windowNote": "{good} of 3 transits good",
   "job.noWindows": "No clear stretch in these days — any day with good tarabalam on Today works.",
   "job.whyTimes": "ఎందుకు ఈ సమయాలు?",
   "job.joining": "కొత్త ఉద్యోగంలో చేరడం",

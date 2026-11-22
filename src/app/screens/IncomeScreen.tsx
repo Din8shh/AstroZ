@@ -12,7 +12,8 @@ import { monthYear, plusDays, todayIn, yearOf } from '../dates';
 import { usePlace } from '../hooks/useDay';
 import { useNames, useYearOutlook } from '../hooks/useEngine';
 import { buildIcs, downloadIcs } from '../ics';
-import { useName, useT } from '../i18n';
+import en from '../../content/en.json';
+import { useName, useT, type MessageKey } from '../i18n';
 import { hrefFor } from '../router';
 import { useSettings } from '../store/settings';
 import { PersonPicker, remedyItems, usePerson } from './OutlookShared';
@@ -78,11 +79,11 @@ function Year({ y, date }: { y: YearOutlook; date: string }) {
   const masaName = (m: YearOutlook['months'][number]) => (m.masa.adhika ? t('inc.adhika', { masa: name(m.masa.name) }) : name(m.masa.name));
   const ahead = y.months.slice(y.current, y.current + 4);
 
-  const todos: TodoItem[] = [
-    { id: 'todo.fridaySaving', text: t('todo.fridaySaving.text'), when: t('todo.fridaySaving.when'), free: true },
-    { id: 'todo.sankrantiMoney', text: t('todo.sankrantiMoney.text'), when: t('todo.sankrantiMoney.when'), free: true },
-    { id: 'todo.spendingList', text: t('todo.spendingList.text'), free: true },
-  ];
+  // To-dos from the engine (outlook.json income.todos).
+  const KEYS = new Set(Object.keys(en));
+  const todos: TodoItem[] = y.todos.map(({ id }) => ({
+    id, text: t(`${id}.text` as MessageKey), when: KEYS.has(`${id}.when`) ? t(`${id}.when` as MessageKey) : undefined, free: true,
+  }));
 
   const fridayReminder = () => {
     // Next Friday from today (civil date), 18:00 local is not needed: an all-day weekly reminder.
@@ -117,9 +118,9 @@ function Year({ y, date }: { y: YearOutlook; date: string }) {
       {tb ? (
         <div className={s.gauges}>
           <Gauge value={tb.rajapujyam} max={tb.scale.rajapujyam} tone="good" label={t('inc.rajapujyam')} sub={t('inc.rajapujyamSub')}
-            note={tb.rajapujyam >= tb.avamanam ? t('inc.rajapujyamNote') : t('inc.rajapujyamLow')} />
+            note={tb.honour === 'good' ? t('inc.rajapujyamNote') : t('inc.rajapujyamLow')} />
           <Gauge value={tb.avamanam} max={tb.scale.avamanam} tone="mixed" label={t('inc.avamanam')} sub={t('inc.avamanamSub')}
-            note={tb.avamanam <= tb.rajapujyam ? t('inc.avamanamNote') : t('inc.avamanamHigh')} />
+            note={tb.honour === 'good' ? t('inc.avamanamNote') : t('inc.avamanamHigh')} />
         </div>
       ) : null}
 

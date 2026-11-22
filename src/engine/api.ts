@@ -230,7 +230,7 @@ export type TransitView = {
   reasons: Reading['reasons'];
 };
 
-export type DashaSpan = { lord: Lord; name: Name; short: Name; start: LocalTime; end: LocalTime };
+export type DashaSpan = { lord: Lord; name: Name; short: Name; start: LocalTime; end: LocalTime; /** Full length of this lord's mahadasha (vimshottari.json). */ years: number };
 
 export type JobOutlookInput = { person: { id: string; birth: BirthInput }; from: string; days: number; place: GeoPlace };
 export type JobOutlook = {
@@ -266,7 +266,9 @@ export type YearOutlook = {
   /** Civil dates of this Ugadi and the next one. */
   ugadi: { start: string; end: string };
   /** Null when this year's table is not loaded yet (add tables/yearly/<name>-<years>.json at Ugadi). */
-  table: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number; scale: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number }; source: string } | null;
+  table: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number; scale: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number }; source: string;
+    /** outlook.json income.honour: rajapujyam ≥ avamanam → good, else mixed. */
+    honour: Status } | null;
   status: Status;
   months: { masa: { number: number; name: Name; adhika: boolean }; start: string; end: string; status: Status; transits: { planet: 'jupiter' | 'saturn' | 'rahu'; house: number; status: Status }[] }[];
   /** Index into months for `date`. */

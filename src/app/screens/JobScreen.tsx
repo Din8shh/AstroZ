@@ -12,6 +12,7 @@ import { dayMonth, dayRange, monthYear, plusDays, todayIn, yearOf } from '../dat
 import { usePlace } from '../hooks/useDay';
 import { useJobOutlook, useNames } from '../hooks/useEngine';
 import { buildIcs, downloadIcs } from '../ics';
+import en from '../../content/en.json';
 import { useName, useT, type MessageKey } from '../i18n';
 import { placeName } from '../places';
 import { hrefFor } from '../router';
@@ -21,7 +22,6 @@ import { PersonPicker, remedyItems, usePerson } from './OutlookShared';
 import s from './Outlook.module.css';
 
 const DAYS = 90;
-const LORD_YEARS: Record<string, number> = { ketu: 7, venus: 20, sun: 6, moon: 10, mars: 7, rahu: 18, jupiter: 16, saturn: 19, mercury: 17 };
 
 export function JobScreen() {
   const t = useT();
@@ -100,11 +100,16 @@ function Outlook({ o, name: personName, from, place }: { o: JobOutlook; name: st
   const range = (x: DashaSpan) => `${monthYear(x.start.date, lang)} – ${monthYear(x.end.date, lang)}`;
   const meaningLord = d.nextMaha ?? d.current;
 
-  const todos: TodoItem[] = [
-    { id: 'todo.resume', text: t('todo.resume.text', { date: dayMonth(o.windows[0]?.start ?? plusDays(from, 7), lang) }), when: t('todo.resume.when'), free: true },
-    ...remedyItems(o.remedies, lang),
-    { id: 'todo.joinBlessings', text: t('todo.joinBlessings.text'), free: true },
-  ];
+  // To-dos come from the engine (outlook.json job.todos); remedies after the first to-do, as in the design.
+  const KEYS = new Set(Object.keys(en));
+  const todoItem = ({ id }: { id: string }): TodoItem => ({
+    id,
+    text: t(`${id}.text` as MessageKey, { date: dayMonth(o.windows[0]?.start ?? plusDays(from, 7), lang) }),
+    when: KEYS.has(`${id}.when`) ? t(`${id}.when` as MessageKey) : undefined,
+    free: true,
+  });
+  const [firstTodo, ...restTodos] = o.todos.map(todoItem);
+  const todos: TodoItem[] = [...(firstTodo ? [firstTodo] : []), ...remedyItems(o.remedies, lang), ...restTodos];
 
   const exportAll = () => {
     const ics = buildIcs([
@@ -146,7 +151,7 @@ function Outlook({ o, name: personName, from, place }: { o: JobOutlook; name: st
               : t('job.antarRow', { maha: lord(d.current), antar: lord(d.nextAntar) })} when={range(d.nextAntar)} />
           ) : null}
         </div>
-        <p className={s.meaning}><Icon name="lotus" size={18} /><span>{t('dasha.lasts', { lord: lord(meaningLord), years: String(LORD_YEARS[meaningLord.lord]), meaning: t(`dasha.meaning.${meaningLord.lord}` as MessageKey) })}</span></p>
+        <p className={s.meaning}><Icon name="lotus" size={18} /><span>{t('dasha.lasts', { lord: lord(meaningLord), years: String(meaningLord.years), meaning: t(`dasha.meaning.${meaningLord.lord}` as MessageKey) })}</span></p>
       </section>
 
       <section className={s.section} aria-labelledby="tr-h">
@@ -165,11 +170,12 @@ function Outlook({ o, name: personName, from, place }: { o: JobOutlook; name: st
         <div className={`${s.card} ${s.list}`} data-testid="job-windows">
           {o.windows.length ? o.windows.map((w, i) => {
             const good = (w.reasons.find((r) => r.ruleId === 'job.transits')?.values.good as number) ?? 0;
+            const taraGood = w.reasons.find((r) => r.ruleId === 'job.tarabalam')?.values.status === 'good';
             return (
               <div key={w.start} className={`${s.wrow} ${i === 0 ? s.wrowTop : ''}`} data-testid="job-window">
                 <div className={s.wHead}><span className={s.wDate}>{dayRange(w.start, w.end, lang)}</span><StatusChip status={w.status} /></div>
                 <span>{t('job.windowLabel')}</span>
-                <span className={s.note}>{t('job.windowNote', { good: String(good) })}</span>
+                <span className={s.note}>{taraGood ? `${t('mhr.tara.all')} · ` : ''}{t('job.windowNote', { good: String(good) })}</span>
               </div>
             );
           }) : <div className={s.wrow}><span className={s.note}>{t('job.noWindows')}</span></div>}

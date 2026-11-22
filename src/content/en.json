@@ -424,7 +424,7 @@
   "job.windows": "Best windows in the next {days} days",
   "job.windowsSub": "Interviews and applications",
   "job.windowLabel": "Interviews and sending applications",
-  "job.windowNote": "Tarabalam is good · {good} of 3 transits good",
+  "job.windowNote": "{good} of 3 transits good",
   "job.noWindows": "No clear stretch in these days — any day with good tarabalam on Today works.",
   "job.whyTimes": "Why these times?",
   "job.joining": "Joining a new job",
