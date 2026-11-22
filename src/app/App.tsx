@@ -6,6 +6,7 @@ import { AppHeader } from './components/AppHeader';
 import { OfflineBanner } from './components/OfflineBanner';
 import { BottomNav } from './components/BottomNav';
 import { UpdateToast } from './components/UpdateToast';
+import { ScreenBoundary } from './components/ScreenBoundary';
 import { TodayScreen } from './screens/TodayScreen';
 import { WishesScreen } from './screens/WishesScreen';
 import { FamilyScreen } from './screens/FamilyScreen';
@@ -68,7 +69,7 @@ export function App() {
   return (
     <div className={['az', `az-${lang}`, elder && 'az-elder', s.app].filter(Boolean).join(' ')}>
       <UpdateToast />
-      {sub ? <Suspense fallback={<Loading />}>{sub}</Suspense> : (
+      {sub ? <Boundary key={route.rest.join('/')}><Suspense fallback={<Loading />}>{sub}</Suspense></Boundary> : (
         <>
           <AppHeader />
           <OfflineBanner />
@@ -83,4 +84,9 @@ export function App() {
 function Loading() {
   const t = useT();
   return <p role="status" style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--az-ink-muted)' }}>{t('today.calculating')}</p>;
+}
+
+function Boundary({ children }: { children: React.ReactNode }) {
+  const t = useT();
+  return <ScreenBoundary message={t('error.screen')} retry={t('error.retry')}>{children}</ScreenBoundary>;
 }

@@ -34,9 +34,13 @@ export function TodayScreen() {
   const civil = todayIn(place.tz, now);
   const civilDay = useDay(civil, place);
   const beforeSunrise = civilDay.status === 'ready' && jdNow(now) < civilDay.panchangam.sunrise.jdUt;
-  const date = picked && picked.placeId === place.id ? picked.date : beforeSunrise ? plusDays(civil, -1) : civil;
+  const userDate = picked && picked.placeId === place.id ? picked.date : null;
+  // Until the civil day (and so today's sunrise) is known, show "calculating" rather than a guessed date.
+  const decided = userDate ?? (civilDay.status === 'loading' ? null : beforeSunrise ? plusDays(civil, -1) : civil);
+  const date = decided ?? civil;
   const setDate = (d: string) => setPicked({ date: d, placeId: place.id });
-  const day = useDay(date, place);
+  const dayRaw = useDay(date, place);
+  const day: typeof dayRaw = decided ? dayRaw : { status: 'loading' };
   const [why, setWhy] = useState<null | 'panchangam' | 'times'>(null);
   const city = placeName(place, lang);
 

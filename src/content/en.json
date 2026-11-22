@@ -528,5 +528,7 @@
   "update.ready": "A new version of AstroZ is ready.",
   "update.reload": "Update now",
   "update.later": "Later",
-  "today.whyYourDay": "Tarabalam counts from your birth nakshatram to today's; chandrabalam counts the Moon's house from your rasi. Both change when the Moon moves on, so the time shown applies until then."
+  "today.whyYourDay": "Tarabalam counts from your birth nakshatram to today's; chandrabalam counts the Moon's house from your rasi. Both change when the Moon moves on, so the time shown applies until then.",
+  "error.screen": "This screen couldn't load. Check your connection and try again.",
+  "error.retry": "Try again"
 }
