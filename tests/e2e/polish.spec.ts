@@ -106,3 +106,28 @@ for (const width of [360, 390]) {
     await ctx.close();
   });
 }
+
+// SPEC §12: "te/en at 360 px with elder text" — no horizontal overflow on any main screen with larger text on.
+test('elder text at 360 px in te and en: every main screen fits, screenshots saved', async ({ browser }) => {
+  test.setTimeout(120_000);
+  const ctx = await browser.newContext({ viewport: { width: 360, height: 800 }, deviceScaleFactor: 2, timezoneId: 'Asia/Kolkata' });
+  const page = await ctx.newPage();
+  await page.clock.install({ time: NOW });
+  await english(page);
+  await page.getByRole('button', { name: 'Larger text' }).click();
+  for (const lang of ['te', 'en'] as const) {
+    await page.goto('./#/wishes');
+    await page.getByRole('radio', { name: lang === 'te' ? 'తెలుగు' : 'English' }).click();
+    for (const [name, url] of [['today', './#/today'], ['wishes', './#/wishes'], ['family', './#/family'], ['settings', './#/more'], ['muhurtham', './#/wishes/muhurtham'], ['house', './#/wishes/house'], ['match', './#/wishes/marriage']] as const) {
+      await page.goto(url);
+      await page.waitForTimeout(name === 'today' || name === 'house' ? 2500 : 600);
+      await page.evaluate(() => document.fonts.ready);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), `${lang} ${name}`).toBeLessThanOrEqual(0);
+      const h = await page.evaluate(() => document.documentElement.scrollHeight);
+      await page.setViewportSize({ width: 360, height: h });
+      await page.screenshot({ path: `test-results/polish/elder-${name}-${lang}-360.png`, fullPage: true, animations: 'disabled' });
+      await page.setViewportSize({ width: 360, height: 800 });
+    }
+  }
+  await ctx.close();
+});
