@@ -11,6 +11,7 @@ import { createEngine } from '../../../src/engine/core/engine';
 import { loadEphemeris } from '../../../src/engine/ephemeris';
 import { houseFrom, transit } from '../../../src/engine/rules/gochara';
 import { yearlyTables } from '../../../src/engine/core/outlook';
+import remedies from '../../../src/content/remedies.json';
 
 const engine = createEngine(() => loadEphemeris());
 const LONGITUDE_TOLERANCE_DEG = 0.01;
@@ -141,6 +142,41 @@ describe('engine.yearOutlook: Ugadi rollover', () => {
     }
     expect(y.months[y.current]!.masa.number).toBe(8); // 22 Nov 2026 is in Karthikam
   }, 30_000);
+});
+
+describe('Today and Income agree on the year at Ugadi (outlook.json year.ugadiRule)', () => {
+  it('Ugadi 2026 (kshaya pratipada, new moon after sunrise): the Today panchangam already names Parabhava', async () => {
+    const before = await engine.panchangam('2026-03-18', HYD);
+    const day = await engine.panchangam('2026-03-19', HYD);
+    const after = await engine.panchangam('2026-03-20', HYD);
+    expect(before.samvatsara.number).toBe(39);
+    expect(day.masa.number).toBe(12); // the month at sunrise is still Phalgunam (amavasya)…
+    expect(day.samvatsara.number).toBe(40); // …but the year is the new one, as on the Income screen
+    expect(after.samvatsara.number).toBe(40);
+    for (const date of ['2026-03-18', '2026-03-19', '2026-03-20', '2027-04-06', '2027-04-07']) {
+      const [p, y] = await Promise.all([engine.panchangam(date, HYD), engine.yearOutlook({ rasi: 1, date, place: HYD })]);
+      expect(p.samvatsara.number, date).toBe(y.samvatsara.number);
+    }
+  }, 60_000);
+
+  it('adhika Chaitra convention (startsYear, pandit to confirm): Ugadi 2029 starts with the adhika Chaitra', async () => {
+    expect(outlookTable.year.adhikaChaitra).toBe('startsYear');
+    const y = await engine.yearOutlook({ rasi: 1, date: '2029-04-20', place: HYD });
+    expect(y.months[0]!.masa).toMatchObject({ number: 1, adhika: true });
+    expect(y.months[1]!.masa).toMatchObject({ number: 1, adhika: false });
+    expect(y.months).toHaveLength(13);
+    expect(y.ugadi.start).toBe('2029-03-16');
+  }, 60_000);
+});
+
+describe('outlook guidance ids', () => {
+  it('every outlook remedy id exists in content/remedies.json with free: true', () => {
+    for (const id of [...outlookTable.job.remedies, ...outlookTable.income.remedies]) {
+      const r = remedies.items.find((x) => x.id === id);
+      expect(r, id).toBeDefined();
+      expect(r!.free, id).toBe(true);
+    }
+  });
 });
 
 describe('engine.jobOutlook', () => {

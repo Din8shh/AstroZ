@@ -176,7 +176,11 @@ export async function jobOutlook(deps: OutlookDeps, q: JobOutlookInput): Promise
   };
 }
 
-/** The first Chaitra new moon at or before jd: the start of the Ugadi year (an adhika Chaitra counts as the start). */
+// Conventions are data (outlook.json year); only the ones implemented here are accepted.
+if (outlook.year.ugadiRule !== 'pratipadaAtSunrise') throw new Error(`outlook.json year.ugadiRule ${outlook.year.ugadiRule} is not implemented`);
+if (outlook.year.adhikaChaitra !== 'startsYear') throw new Error(`outlook.json year.adhikaChaitra ${outlook.year.adhikaChaitra} is not implemented`);
+
+/** The first Chaitra new moon at or before jd: the start of the Ugadi year (outlook.json year.adhikaChaitra 'startsYear': an adhika Chaitra counts as the start). */
 function chaitraStart(deps: OutlookDeps, jd: number): Masa {
   let m = deps.masaAt(jd);
   // Walk back to number 1; if the month before is also Chaitra (adhika), start there.
@@ -247,4 +251,16 @@ export function yearOutlook(deps: OutlookDeps, q: YearOutlookInput): YearOutlook
     todos: outlook.income.todos.map((id) => ({ id })),
     remedies: outlook.income.remedies,
   };
+}
+
+/**
+ * outlook.json year.ugadiRule on the last day of Phalguna: when the Chaitra new moon falls after this sunrise and
+ * shukla pratipada ends before the next sunrise (kshaya), today is Ugadi. Returns the new year's first month then.
+ */
+export function kshayaUgadiToday(eph: Ephemeris, masa: Masa, nextSunrise: number, masaAt: (jd: number) => Masa): Masa | null {
+  if (masa.number !== 12 || masa.endNewMoon >= nextSunrise) return null;
+  const next = masaAt(masa.endNewMoon + SECOND);
+  if (next.number !== 1) return null;
+  const pratipadaEnd = findCrossing(angles(eph).elongation, 12, masa.endNewMoon + SECOND, 1, 3);
+  return pratipadaEnd < nextSunrise ? next : null;
 }

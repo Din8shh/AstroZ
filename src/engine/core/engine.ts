@@ -15,7 +15,7 @@ import { dayExclusions, scoreDay, type DayContext, type DayHead, type VaraId, ty
 import muhurthamTable from '../tables/muhurtham.json';
 import tarabalamTable from '../tables/tarabalam.json';
 import type { Door, MuhurthamQuery, MuhurthamResult, MuhurthamWindowView } from '../api';
-import { jobOutlook, yearOutlook, type OutlookDeps } from './outlook';
+import { jobOutlook, kshayaUgadiToday, yearOutlook, type OutlookDeps } from './outlook';
 import type { JobOutlookInput, YearOutlookInput } from '../api';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
@@ -258,7 +258,8 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         masa: { number: masa.number, name: masa.name, adhika: masa.adhika, kshaya: masa.kshaya },
         ruthu: ruthu(masa.ruthu),
         ayana: ayana(e.position('sun', f.sunrise).longitude),
-        samvatsara: samvatsara(masa),
+        // The year name changes at Ugadi by the same rule as yearOutlook (outlook.json year.ugadiRule).
+        samvatsara: samvatsara(kshayaUgadiToday(e, masa, f.nextSunrise, (jd) => masaAt(e, jd)) ?? masa),
       };
     },
 
