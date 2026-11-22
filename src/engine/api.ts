@@ -215,6 +215,69 @@ export type MuhurthamResult = {
   ms: number;
 };
 
+export type TransitView = {
+  planet: 'jupiter' | 'saturn' | 'rahu';
+  name: Name;
+  rasi: number;
+  rasiName: Name;
+  /** House from the janma (Moon) rasi. */
+  house: number;
+  status: Status;
+  phase?: 'sadeSati' | 'ardhashtama' | 'ashtama';
+  /** When it moves to the next rasi (within ~3 years), and where. */
+  until?: LocalTime;
+  nextRasi?: number;
+  reasons: Reading['reasons'];
+};
+
+export type DashaSpan = { lord: Lord; name: Name; short: Name; start: LocalTime; end: LocalTime; /** Full length of this lord's mahadasha (vimshottari.json). */ years: number };
+
+export type JobOutlookInput = { person: { id: string; birth: BirthInput }; from: string; days: number; place: GeoPlace };
+export type JobOutlook = {
+  person: { id: string; nakshatra: number; rasi: number };
+  /** Birth time unknown: dasha dates are approximate. */
+  approximate: boolean;
+  status: Status;
+  dasha: {
+    mahadashas: DashaSpan[];
+    current: DashaSpan;
+    antardashas: DashaSpan[];
+    currentAntar: DashaSpan;
+    /** The antardasha after the current one (may be in the next mahadasha). */
+    nextAntar?: DashaSpan;
+    /** A mahadasha change within the next 12 months. */
+    nextMaha?: DashaSpan;
+  };
+  transits: TransitView[];
+  /** Best stretches of days in the range (tarabalam + chandrabalam + transits). */
+  windows: { start: string; end: string; score: number; status: Status; reasons: Reading['reasons'] }[];
+  /** Good days to join (findMuhurtham 'job'), outside any hold-off. */
+  joining: MuhurthamWindowView[];
+  /** Days around a mahadasha change: hold off on joining. */
+  holdOff: { start: string; end: string; reasons: Reading['reasons'] }[];
+  reasons: Reading['reasons'];
+  todos: { id: string }[];
+  remedies: string[];
+};
+
+export type YearOutlookInput = { rasi: number; date: string; place: GeoPlace };
+export type YearOutlook = {
+  samvatsara: { number: number; name: Name; shaka: number };
+  /** Civil dates of this Ugadi and the next one. */
+  ugadi: { start: string; end: string };
+  /** Null when this year's table is not loaded yet (add tables/yearly/<name>-<years>.json at Ugadi). */
+  table: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number; scale: { aadayam: number; vyayam: number; rajapujyam: number; avamanam: number }; source: string;
+    /** outlook.json income.honour: rajapujyam ≥ avamanam → good, else mixed. */
+    honour: Status } | null;
+  status: Status;
+  months: { masa: { number: number; name: Name; adhika: boolean }; start: string; end: string; status: Status; transits: { planet: 'jupiter' | 'saturn' | 'rahu'; house: number; status: Status }[] }[];
+  /** Index into months for `date`. */
+  current: number;
+  reasons: Reading['reasons'];
+  todos: { id: string }[];
+  remedies: string[];
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -238,6 +301,10 @@ export interface AstroEngine {
   /** Marriage matching (Ashtakoota, Rajju, Vedha, Kuja). basis 'names' = peru balam from names only, approximate. */
   match(input: { bride: MatchPersonInput; groom: MatchPersonInput; basis: 'chart' | 'names' }): Promise<MatchReading>;
   /** Rasi and nakshatra names (index 0 = number 1), for showing stored profile numbers. */
+  /** Dasha now, Guru/Shani/Rahu transits from janma rasi, best windows and joining days over a range. */
+  jobOutlook(q: JobOutlookInput): Promise<JobOutlook>;
+  /** The Ugadi year containing `date`: aadayam-vyayam (tables/yearly), month-by-month transit strip. */
+  yearOutlook(q: YearOutlookInput): Promise<YearOutlook>;
   /** Ranked muhurtham windows for an event over a date range (rules: tables/muhurtham.json). */
   findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult>;
   names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> }>;

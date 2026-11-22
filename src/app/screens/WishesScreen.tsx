@@ -1,4 +1,4 @@
-// Wishes hub (design/handoff WishesHub.dc.html). Marriage, muhurtham and new house are live; job and income arrive in Phase 7.
+// Wishes hub (design/handoff WishesHub.dc.html): every wish is live.
 import { WishCard } from '../components/WishCard';
 import { useT } from '../i18n';
 import { hrefFor } from '../router';
@@ -13,8 +13,8 @@ export function WishesScreen() {
         <WishCard icon="rings" title={t('wish.marriage')} subtitle={t('wish.marriageSub')} href={hrefFor('wishes', 'marriage')} />
         <WishCard icon="muhurtham" title={t('wish.muhurtham')} subtitle={t('wish.muhurthamSub')} href={hrefFor('wishes', 'muhurtham')} />
         <WishCard icon="house" title={t('wish.house')} subtitle={t('wish.houseSub')} href={hrefFor('wishes', 'house')} />
-        <WishCard icon="briefcase" title={t('wish.job')} subtitle={t('wish.jobSub')} />
-        <WishCard icon="coins" title={t('wish.income')} subtitle={t('wish.incomeSub')} />
+        <WishCard icon="briefcase" title={t('wish.job')} subtitle={t('wish.jobSub')} href={hrefFor('wishes', 'job')} />
+        <WishCard icon="coins" title={t('wish.income')} subtitle={t('wish.incomeSub')} href={hrefFor('wishes', 'income')} />
       </div>
     </Screen>
   );

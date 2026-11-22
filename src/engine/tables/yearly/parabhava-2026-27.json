@@ -1,0 +1,120 @@
+{
+  "source": "https://www.onlinejyotish.com/free-astrology/parabhava-samvatsaramu/adaya-vyayamulu.php via .claude/skills/telugu-jyotisha/reference.md §11 (no formula is published; yearly data). Not yet checked by a person.",
+  "version": "2026.1",
+  "notes": "Aadayam-vyayam (income-expense), rajapujyam (honour) and avamanam (setbacks) by janma rasi for the Ugadi year. scale: aadayam/vyayam shown out of 15 and rajapujyam/avamanam out of 7 (design/handoff Income; every value here is within those ranges). Add the next year's file at each Ugadi (Plavanga 2027–28 is not loaded yet).",
+  "samvatsara": {
+    "number": 40,
+    "en": "Parabhava",
+    "te": "పరాభవ",
+    "shaka": 1948
+  },
+  "ugadi": {
+    "start": "2026-03-19",
+    "end": "2027-04-07",
+    "note": "Gregorian dates for display/sanity only; the engine decides the year from the panchangam (samvatsara at the day's sunrise)."
+  },
+  "scale": {
+    "aadayam": 15,
+    "vyayam": 15,
+    "rajapujyam": 7,
+    "avamanam": 7
+  },
+  "rasis": [
+    {
+      "rasi": 1,
+      "en": "Mesha",
+      "aadayam": 11,
+      "vyayam": 5,
+      "rajapujyam": 2,
+      "avamanam": 4
+    },
+    {
+      "rasi": 2,
+      "en": "Vrishabha",
+      "aadayam": 5,
+      "vyayam": 14,
+      "rajapujyam": 5,
+      "avamanam": 4
+    },
+    {
+      "rasi": 3,
+      "en": "Mithuna",
+      "aadayam": 8,
+      "vyayam": 11,
+      "rajapujyam": 1,
+      "avamanam": 7
+    },
+    {
+      "rasi": 4,
+      "en": "Karkataka",
+      "aadayam": 2,
+      "vyayam": 11,
+      "rajapujyam": 4,
+      "avamanam": 7
+    },
+    {
+      "rasi": 5,
+      "en": "Simha",
+      "aadayam": 5,
+      "vyayam": 5,
+      "rajapujyam": 7,
+      "avamanam": 7
+    },
+    {
+      "rasi": 6,
+      "en": "Kanya",
+      "aadayam": 8,
+      "vyayam": 11,
+      "rajapujyam": 3,
+      "avamanam": 3
+    },
+    {
+      "rasi": 7,
+      "en": "Tula",
+      "aadayam": 5,
+      "vyayam": 14,
+      "rajapujyam": 6,
+      "avamanam": 3
+    },
+    {
+      "rasi": 8,
+      "en": "Vrischika",
+      "aadayam": 11,
+      "vyayam": 5,
+      "rajapujyam": 2,
+      "avamanam": 6
+    },
+    {
+      "rasi": 9,
+      "en": "Dhanus",
+      "aadayam": 14,
+      "vyayam": 11,
+      "rajapujyam": 5,
+      "avamanam": 6
+    },
+    {
+      "rasi": 10,
+      "en": "Makara",
+      "aadayam": 2,
+      "vyayam": 8,
+      "rajapujyam": 1,
+      "avamanam": 2
+    },
+    {
+      "rasi": 11,
+      "en": "Kumbha",
+      "aadayam": 2,
+      "vyayam": 8,
+      "rajapujyam": 4,
+      "avamanam": 2
+    },
+    {
+      "rasi": 12,
+      "en": "Meena",
+      "aadayam": 14,
+      "vyayam": 11,
+      "rajapujyam": 7,
+      "avamanam": 2
+    }
+  ]
+}

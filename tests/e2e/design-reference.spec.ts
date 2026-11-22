@@ -17,6 +17,8 @@ const ARTBOARDS = [
   ['finder', 'te', 'MhFinder.dc.html'], ['nothing', 'te', 'MhNothing.dc.html'],
   ['detail', 'te', 'MhDetail.dc.html'], ['detail', 'en', 'MhDetailEn.dc.html'],
   ['house', 'te', 'NewHouseTe.dc.html'], ['house', 'en', 'NewHouseEn.dc.html'],
+  ['job', 'te', 'JobTe.dc.html'], ['job', 'en', 'JobEn.dc.html'],
+  ['income', 'te', 'IncomeTe.dc.html'], ['income', 'en', 'IncomeEn.dc.html'],
 ] as const;
 
 for (const width of [360, 390]) {
@@ -36,7 +38,7 @@ for (const width of [360, 390]) {
       await page.goto(`http://design.local/${file}`);
       await page.waitForTimeout(1500);
       await page.evaluate(() => document.fonts.ready);
-      const dir = screen === 'today' ? 'today' : ['wishes', 'pick', 'result', 'why'].includes(screen) ? 'marriage' : ['finder', 'nothing', 'detail', 'house'].includes(screen) ? 'muhurtham' : 'people';
+      const dir = screen === 'today' ? 'today' : ['wishes', 'pick', 'result', 'why'].includes(screen) ? 'marriage' : ['finder', 'nothing', 'detail', 'house'].includes(screen) ? 'muhurtham' : ['job', 'income'].includes(screen) ? 'outlook' : 'people';
       await page.screenshot({ path: `test-results/${dir}/design-${screen}-${lang}-${width}.png`, fullPage: true });
       await ctx.close();
     });

@@ -17,8 +17,8 @@ const WISHES: { icon: IconName; label: MessageKey; href: string }[] = [
   { icon: 'rings', label: 'wish.marriage', href: '#/wishes/marriage' },
   { icon: 'muhurtham', label: 'wish.muhurtham', href: '#/wishes/muhurtham' },
   { icon: 'house', label: 'wish.house', href: '#/wishes/house' },
-  { icon: 'briefcase', label: 'wish.job', href: '#/wishes' },
-  { icon: 'coins', label: 'wish.income', href: '#/wishes' },
+  { icon: 'briefcase', label: 'wish.job', href: '#/wishes/job' },
+  { icon: 'coins', label: 'wish.income', href: '#/wishes/income' },
 ];
 
 export function TodayScreen() {

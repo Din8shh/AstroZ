@@ -1,0 +1,50 @@
+{
+  "source": ".claude/skills/telugu-jyotisha/reference.md §10 (Gochara from birth rasi, standard): Jupiter good 2, 5, 7, 9, 11; Saturn good 3, 6, 11, Sade Sati 12/1/2, Ardhashtama 4, Ashtama 8; Rahu/Ketu good 3, 6, 11.",
+  "version": "0.1.0",
+  "notes": "house = ((transit rasi − janma (Moon) rasi + 12) mod 12) + 1. Good houses → 'good'; every other house → 'mixed' (calm copy: transits are never shown as 'avoid'). Saturn's named phases are reported as reasons (sadeSati, ardhashtama, ashtama), never as predictions of harm. Rahu uses the mean node (ephemeris setting). Pandit review pending.",
+  "planets": {
+    "jupiter": {
+      "good": [
+        2,
+        5,
+        7,
+        9,
+        11
+      ],
+      "phases": {}
+    },
+    "saturn": {
+      "good": [
+        3,
+        6,
+        11
+      ],
+      "phases": {
+        "sadeSati": [
+          12,
+          1,
+          2
+        ],
+        "ardhashtama": [
+          4
+        ],
+        "ashtama": [
+          8
+        ]
+      }
+    },
+    "rahu": {
+      "good": [
+        3,
+        6,
+        11
+      ],
+      "phases": {}
+    }
+  },
+  "order": [
+    "jupiter",
+    "saturn",
+    "rahu"
+  ]
+}

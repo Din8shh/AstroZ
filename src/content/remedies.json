@@ -1,5 +1,5 @@
 {
-  "source": "Kuja dosha 'what helps' list and the Tuesday diya to-do from design/handoff MatchMixed.dc.html (Telugu as written there).",
+  "source": "Kuja dosha 'what helps' list and the Tuesday diya to-do from design/handoff MatchMixed.dc.html (Telugu as written there). Job and Income remedies from design/handoff JobTe/JobEn and IncomeTe/IncomeEn (Telugu as written there).",
   "version": "0.1.0",
   "notes": "Simple and free only (CLAUDE.md, SPEC §8): stotram names, temple visits, fasting ('if your health allows'), daanam, colours/days, diyas, elders. NEVER gemstones, paid pujas, products or buy links. Every item has free: true (tests/unit/engine/matching.test.ts).",
   "items": [
@@ -28,6 +28,67 @@
       ],
       "te": "పెద్దల సలహాతో బలమైన ముహూర్తం ఎంచుకోవడం",
       "en": "Choosing a strong muhurtham with the elders' advice",
+      "free": true
+    },
+    {
+      "id": "job.thursdayDiya",
+      "for": [
+        "job",
+        "jupiter"
+      ],
+      "te": "గురువారం ఉదయం దీపం వెలిగించండి",
+      "en": "Light a diya on Thursday morning",
+      "when": {
+        "te": "గురువారం",
+        "en": "Thursday"
+      },
+      "free": true
+    },
+    {
+      "id": "job.saturdayBirds",
+      "for": [
+        "job",
+        "saturn"
+      ],
+      "te": "శనివారం ఉదయం పక్షులకు గింజలు వేయండి",
+      "en": "Feed birds on Saturday morning",
+      "when": {
+        "te": "శనివారం",
+        "en": "Saturday"
+      },
+      "free": true
+    },
+    {
+      "id": "income.fridayDiya",
+      "for": [
+        "income",
+        "venus"
+      ],
+      "te": "శుక్రవారం సాయంత్రం డబ్బు పెట్టే చోట దీపం వెలిగించండి",
+      "en": "Light a diya where you keep money on Friday evenings",
+      "when": {
+        "te": "సూర్యాస్తమయం తర్వాత",
+        "en": "After sunset"
+      },
+      "free": true
+    },
+    {
+      "id": "income.thursdayElders",
+      "for": [
+        "income",
+        "jupiter"
+      ],
+      "te": "గురువారం పెద్దలకు నమస్కరించి ఆశీర్వాదం తీసుకోండి",
+      "en": "On Thursdays, greet elders and take their blessings",
+      "free": true
+    },
+    {
+      "id": "income.feedHungry",
+      "for": [
+        "income"
+      ],
+      "te": "వారానికి ఒకసారి ఆకలితో ఉన్నవారికి అన్నం పెట్టండి",
+      "en": "Once a week, feed someone who is hungry",
       "free": true
     }
   ]

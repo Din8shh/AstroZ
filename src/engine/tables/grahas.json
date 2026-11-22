@@ -1,0 +1,70 @@
+{
+  "source": "Names as used in design/handoff (JobTe/JobEn: చంద్ర, కుజ, రాహు, గురు, శని and the short forms చం, కు, రా, గు, శ / Ch, Ku, Ra, Gu, Sh; బుధ, శుక్ర from Muhurtham and Today copy).",
+  "version": "0.1.0",
+  "notes": "Telugu only where design/handoff has it (Surya and Ketu need human-written Telugu). id matches vimshottari.json lords and ephemeris body names.",
+  "items": [
+    {
+      "id": "sun",
+      "en": "Surya",
+      "te": null,
+      "shortEn": "Su",
+      "shortTe": null
+    },
+    {
+      "id": "moon",
+      "en": "Chandra",
+      "te": "చంద్ర",
+      "shortEn": "Ch",
+      "shortTe": "చం"
+    },
+    {
+      "id": "mars",
+      "en": "Kuja",
+      "te": "కుజ",
+      "shortEn": "Ku",
+      "shortTe": "కు"
+    },
+    {
+      "id": "mercury",
+      "en": "Budha",
+      "te": "బుధ",
+      "shortEn": "Bu",
+      "shortTe": null
+    },
+    {
+      "id": "jupiter",
+      "en": "Guru",
+      "te": "గురు",
+      "shortEn": "Gu",
+      "shortTe": "గు"
+    },
+    {
+      "id": "venus",
+      "en": "Shukra",
+      "te": "శుక్ర",
+      "shortEn": "Shu",
+      "shortTe": null
+    },
+    {
+      "id": "saturn",
+      "en": "Shani",
+      "te": "శని",
+      "shortEn": "Sh",
+      "shortTe": "శ"
+    },
+    {
+      "id": "rahu",
+      "en": "Rahu",
+      "te": "రాహు",
+      "shortEn": "Ra",
+      "shortTe": "రా"
+    },
+    {
+      "id": "ketu",
+      "en": "Ketu",
+      "te": null,
+      "shortEn": "Ke",
+      "shortTe": null
+    }
+  ]
+}
