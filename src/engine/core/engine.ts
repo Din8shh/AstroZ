@@ -15,6 +15,8 @@ import { dayExclusions, scoreDay, type DayContext, type DayHead, type VaraId, ty
 import muhurthamTable from '../tables/muhurtham.json';
 import tarabalamTable from '../tables/tarabalam.json';
 import type { Door, MuhurthamQuery, MuhurthamResult, MuhurthamWindowView } from '../api';
+import { jobOutlook, yearOutlook, type OutlookDeps } from './outlook';
+import type { JobOutlookInput, YearOutlookInput } from '../api';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
 import kootaTable from '../tables/kootas.json';
@@ -195,6 +197,17 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
     };
   };
 
+  const outlookDeps = async (): Promise<OutlookDeps> => {
+    const e = await ready();
+    return {
+      eph: e,
+      birthChart: (b) => api.birthChart(b),
+      findMuhurtham: (q) => api.findMuhurtham(q),
+      masaAt: (jd) => masaAt(e, jd),
+      sunriseOf: (date, place) => dayFrame(e, date, place).sunrise,
+    };
+  };
+
   const api: AstroEngine = {
     init,
 
@@ -345,6 +358,14 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         reasons: [{ ruleId: 'match.total', values: { score: core.score, max: core.max, status: core.status, basis: input.basis } }],
         todos, remedies,
       };
+    },
+
+    async jobOutlook(q: JobOutlookInput) {
+      return jobOutlook(await outlookDeps(), q);
+    },
+
+    async yearOutlook(q: YearOutlookInput) {
+      return yearOutlook(await outlookDeps(), q);
     },
 
     async findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult> {

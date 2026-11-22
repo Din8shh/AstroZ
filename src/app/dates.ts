@@ -62,3 +62,19 @@ export function shortDayMonth(date: string, lang: Lang): string {
   const p = parts(date, lang, { day: 'numeric', month: lang === 'te' ? 'long' : 'short' });
   return `${p.day} ${p.month}`;
 }
+
+/** "జూన్ 2024" / "Jun 2024". */
+export function monthYear(date: string, lang: Lang): string {
+  const p = parts(date, lang, { month: lang === 'te' ? 'long' : 'short', year: 'numeric' });
+  return `${p.month} ${p.year}`;
+}
+
+/** "8 – 19 డిసెంబర్" when both days share a month, else "28 డిసెంబర్ – 3 జనవరి". */
+export function dayRange(a: string, b: string, lang: Lang): string {
+  if (a === b) return dayMonth(a, lang);
+  const pa = parts(a, lang, { day: 'numeric', month: 'long' }), pb = parts(b, lang, { day: 'numeric', month: 'long' });
+  return pa.month === pb.month ? `${pa.day} – ${pb.day} ${pb.month}` : `${pa.day} ${pa.month} – ${pb.day} ${pb.month}`;
+}
+
+/** Gregorian year of a civil date. */
+export const yearOf = (date: string) => date.slice(0, 4);

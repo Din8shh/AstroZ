@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest';
 
 const DIR = 'src/engine/tables';
 const tables = Object.fromEntries(
-  readdirSync(DIR).filter((f) => f.endsWith('.json')).map((f) => [f, JSON.parse(readFileSync(`${DIR}/${f}`, 'utf8')) as Record<string, unknown>]),
+  [...readdirSync(DIR).filter((f) => f.endsWith('.json')), ...readdirSync(`${DIR}/yearly`).filter((f) => f.endsWith('.json')).map((f) => `yearly/${f}`)]
+    .map((f) => [f, JSON.parse(readFileSync(`${DIR}/${f}`, 'utf8')) as Record<string, unknown>]),
 );
 
 type Named = { en: string; te: string | null };
