@@ -1,9 +1,9 @@
 // Job outlook and Ugadi-year outlook. Pure computation over the Ephemeris interface plus engine helpers
 // (birth chart, muhurtham search, cached amanta months); every rule and number comes from tables.
-import type { BirthChart, BirthInput, DashaSpan, FutureInput, FutureOutlook, FuturePeriod, GeoPlace, JobOutlook, JobOutlookInput, MuhurthamQuery, MuhurthamResult, TransitMilestone, TransitView, YearOutlook, YearOutlookInput } from '../api';
+import type { BirthChart, BirthInput, DashaSpan, FutureDetail, FutureDetailInput, FutureInput, FutureOutlook, FuturePeriod, GeoPlace, JobOutlook, JobOutlookInput, MuhurthamQuery, MuhurthamResult, TransitMilestone, TransitView, YearOutlook, YearOutlookInput } from '../api';
 import type { Ephemeris } from '../ephemeris/types';
 import type { Masa } from './panchangam';
-import { angles, findCrossing, samvatsara as samvatsaraOf } from './panchangam';
+import { angles, findCrossing, names as angaNames, samvatsara as samvatsaraOf } from './panchangam';
 import { nakshatraOf, rasiName, rasiOf } from './chart';
 import { addDays, resolveLocal, toLocal } from './time';
 import { chandrabalam, tarabalam, type Reason, type Status } from '../rules/strength';
@@ -40,6 +40,8 @@ export type OutlookDeps = {
   masaAt: (jd: number) => Masa;
   /** Sunrise (JD UT) on a civil date at a place. */
   sunriseOf: (date: string, place: GeoPlace) => number;
+  /** Tithi (1–30) current at that day's sunrise. */
+  tithiAtSunrise: (date: string, place: GeoPlace) => number;
 };
 
 /** The planet's sidereal rasi at jd. */
@@ -350,5 +352,124 @@ export async function futureOutlook(deps: OutlookDeps, q: FutureInput): Promise<
     dashas, periods, milestones,
     reasons: [{ ruleId: 'future.now', values: { mahadasha: cur.m.lord, antardasha: cur.a.lord } }],
     remedies: future.remedies,
+  };
+}
+
+/** Pratyantardashas of an antardasha: the same Vimshottari order from the antardasha lord, lengths in proportion. */
+function pratyantars(a: { lord: string; start: { jdUt: number }; end: { jdUt: number } }, tz: string): DashaSpan[] {
+  const order = vimshottari.order;
+  const i0 = order.findIndex((o) => o.lord === a.lord);
+  const len = a.end.jdUt - a.start.jdUt;
+  const out: DashaSpan[] = [];
+  let t = a.start.jdUt;
+  for (let k = 0; k < order.length; k++) {
+    const o = order[(i0 + k) % order.length]!;
+    const d = (len * o.years) / vimshottari.totalYears;
+    out.push(span(o.lord, toLocal(t, tz), toLocal(t + d, tz)));
+    t += d;
+  }
+  return out;
+}
+
+/** One Future period in detail (future.json detail). */
+export async function futureDetail(deps: OutlookDeps, q: FutureDetailInput): Promise<FutureDetail> {
+  const e = deps.eph;
+  const chart = await deps.birthChart(q.person.birth);
+  const janma = chart.moon.rasi, birthNak = chart.moon.nakshatra;
+  const tz = q.place.tz;
+  const noon = (date: string) => resolveLocal({ date, time: '12:00', tz }).jdUt;
+  const a = resolveLocal({ date: q.start, time: '00:00', tz }).jdUt;
+  const b = resolveLocal({ date: addDays(q.end, 1), time: '00:00', tz }).jdUt;
+  const days = Math.round(b - a);
+  const mahas = chart.dasha.mahadashas;
+
+  const dashas: FutureDetail['dashas'] = mahas.flatMap((m) => m.antardashas
+    .filter((x) => x.end.jdUt > a && x.start.jdUt < b)
+    .map((x) => ({
+      mahadasha: span(m.lord, m.start, m.end),
+      antardasha: span(x.lord, x.start, x.end),
+      pratyantars: pratyantars(x, tz).filter((p) => p.end.jdUt > a && p.start.jdUt < b),
+    })));
+
+  const transits: FutureDetail['transits'] = TRANSIT_PLANETS.map((p) => {
+    const r = rasiAt(e, p, a);
+    const t = transit(p, janma, r);
+    const changes: TransitMilestone[] = [];
+    let jd = a;
+    for (let guard = 0; guard < 40; guard++) {
+      const next = nextIngress(e, p, jd, Math.max(30, b - jd + 2));
+      if (!next || next.jd >= b) break;
+      const tt = transit(p, janma, next.rasi);
+      changes.push({ planet: p, name: graha(p).name, date: toLocal(next.jd, tz).date, rasi: next.rasi, rasiName: rasiName(next.rasi), house: tt.house, status: tt.status, ...(tt.phase && { phase: tt.phase }) });
+      jd = next.jd + 1;
+    }
+    return { planet: p, name: graha(p).name, rasi: r, rasiName: rasiName(r), house: t.house, status: t.status, ...(t.phase && { phase: t.phase }), changes };
+  });
+
+  const D = future.detail;
+  const goodAtLeast = future.status.goodIfAtLeast;
+  const transitsAt = (jd: number) => TRANSIT_PLANETS.map((p) => { const t = transit(p, janma, rasiAt(e, p, jd)); return { planet: p, house: t.house, status: t.status }; });
+  const at = (jd: number) => {
+    const m = mahas.find((x) => x.start.jdUt <= jd && jd < x.end.jdUt) ?? mahas[mahas.length - 1]!;
+    const x = m.antardashas.find((y) => y.start.jdUt <= jd && jd < y.end.jdUt) ?? m.antardashas[0]!;
+    return { m, x };
+  };
+  const overall = transitsAt((a + b) / 2);
+  const status: Status = overall.filter((x) => x.status === 'good').length >= goodAtLeast ? 'good' : 'mixed';
+
+  let periods: FuturePeriod[] | undefined;
+  let goodDays: FutureDetail['goodDays'];
+  let lunarDays: FutureDetail['lunarDays'];
+  const kind: FutureDetail['kind'] = days > D.yearsFromDays ? 'years' : days > D.monthsFromDays ? 'months' : 'days';
+  if (kind !== 'days') {
+    periods = [];
+    const months = periods;
+    const step = kind === 'years' ? 12 : 1;
+    const [y0, m0] = q.start.split('-').map(Number) as [number, number];
+    for (let i = 0; i < 400 * step; i += step) {
+      const s0 = i === 0 ? q.start : new Date(Date.UTC(y0, m0 - 1 + i, 1)).toISOString().slice(0, 10);
+      if (s0 > q.end) break;
+      const endOfMonth = new Date(Date.UTC(y0, m0 - 1 + i + step, 0)).toISOString().slice(0, 10);
+      const e0 = endOfMonth < q.end ? endOfMonth : q.end;
+      const mid = (noon(s0) + noon(e0)) / 2;
+      const d = at(mid);
+      const tr = transitsAt(mid);
+      months.push({
+        start: s0, end: e0,
+        mahadasha: span(d.m.lord, d.m.start, d.m.end), antardasha: span(d.x.lord, d.x.start, d.x.end),
+        segments: [], transits: tr, status: tr.filter((x) => x.status === 'good').length >= goodAtLeast ? 'good' : 'mixed',
+      });
+    }
+  } else {
+    const good: NonNullable<FutureDetail['goodDays']> = [];
+    lunarDays = [];
+    for (let i = 0; i < days; i++) {
+      const date = addDays(q.start, i);
+      const moon = e.position('moon', noon(date)).longitude;
+      const t = tarabalam(birthNak, nakshatraOf(moon));
+      const c = chandrabalam(janma, rasiOf(moon));
+      if (t.status === 'good' && c.status === 'good') good.push({ date, tara: t.tara, chandraHouse: c.house });
+      let tithi: number;
+      try { tithi = deps.tithiAtSunrise(date, q.place); } catch { continue; }
+      for (const [k, list] of Object.entries(D.lunarDays) as ['pournami' | 'amavasya' | 'ekadashi', number[]][]) {
+        if (list.includes(tithi)) lunarDays.push({ date, kind: k, tithi, name: angaNames.tithi(tithi) });
+      }
+    }
+    goodDays = good.slice(0, D.goodDays);
+  }
+
+  const lords = [...new Set(dashas.flatMap((d) => [d.mahadasha.lord, d.antardasha.lord]))];
+  const lr = future.lordRemedies as Record<string, string[]>;
+  const remedies = [...new Set(lords.flatMap((l) => lr[l] ?? []))];
+
+  return {
+    start: q.start, end: q.end, kind, approximate: chart.approximate,
+    person: { id: q.person.id, nakshatra: birthNak, rasi: janma },
+    status, dashas, transits,
+    ...(periods && { periods }),
+    ...(goodDays && { goodDays }),
+    ...(lunarDays && { lunarDays }),
+    reasons: [{ ruleId: 'future.detail', values: { goodTransits: overall.filter((x) => x.status === 'good').length, status } }],
+    remedies: remedies.length ? remedies : future.remedies,
   };
 }

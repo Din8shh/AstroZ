@@ -19,7 +19,7 @@ describe('content catalogs', () => {
   });
 
   it('Telugu strings are not left in English (except brand-neutral keys)', () => {
-    const latinOnly = new Set(['lang.en', '$source', '$pending', 'why.title', 'future.span']); // why.title is a pure template: {koota} · {points}/{max}
+    const latinOnly = new Set(['lang.en', '$source', '$pending', 'why.title', 'future.span', 'future.d.range']); // why.title is a pure template: {koota} · {points}/{max}
     for (const [k, v] of Object.entries(te)) {
       if (latinOnly.has(k) || pending.has(k)) continue;
       expect(/[ఀ-౿]/.test(String(v)), `te.${k} has no Telugu script`).toBe(true);

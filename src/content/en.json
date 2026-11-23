@@ -550,5 +550,17 @@
   "future.milestone": "{planet} moves into {rasi} — house {house} from your rasi",
   "future.method": "Vimshottari dasha from the Moon's nakshatram at birth; Guru, Shani and Rahu counted from your janma rasi (good houses from the Telugu panchangam tradition). A period is 'good' when at least two of the three transits are good. Tendencies only — not predictions of events.",
   "future.span": "{from} – {to}",
-  "future.more": "Show {n} more"
+  "future.more": "Show {n} more",
+  "future.d.dashas": "Dasha changes in this period",
+  "future.d.range": "{from} – {to}",
+  "future.d.pratyantars": "Pratyantardashas",
+  "future.d.transits": "Slow planets",
+  "future.d.change": "{date}: moves into {rasi} — house {house}",
+  "future.d.noChange": "Stays in this sign for the whole period.",
+  "future.d.goodDays": "Good days",
+  "future.d.goodDay": "{tara} tara · Moon in house {house}",
+  "future.d.noGoodDays": "No day in this period has both tarabalam and chandrabalam good — ordinary days are fine for routine work.",
+  "future.d.lunar": "Pournami, Amavasya and Ekadashi",
+  "future.d.missing": "This person isn't saved on this phone. Open the Future tab and choose someone.",
+  "future.d.tapHint": "Tap a period for details"
 }

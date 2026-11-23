@@ -26,6 +26,7 @@ const MuhurthamDetailScreen = lazyNamed(() => import('./screens/MuhurthamDetailS
 const NewHouseScreen = lazyNamed(() => import('./screens/NewHouseScreen'), 'NewHouseScreen') as ComponentType;
 const JobScreen = lazyNamed(() => import('./screens/JobScreen'), 'JobScreen') as ComponentType;
 const IncomeScreen = lazyNamed(() => import('./screens/IncomeScreen'), 'IncomeScreen') as ComponentType;
+const FutureDetailScreen = lazyNamed(() => import('./screens/FutureDetailScreen'), 'FutureDetailScreen') as ComponentType<{ personId: string; start: string; end: string }>;
 const InfoScreen = lazyNamed(() => import('./screens/InfoScreen'), 'InfoScreen') as ComponentType<{ page: 'method' | 'privacy' | 'disclaimer' }>;
 import s from './App.module.css';
 
@@ -38,6 +39,8 @@ function subScreen(r: Route) {
   if (r.tab === 'wishes' && r.rest[0] === 'job') return <JobScreen />;
   if (r.tab === 'wishes' && r.rest[0] === 'income') return <IncomeScreen />;
   if (r.tab === 'wishes' && r.rest[0] === 'house') return isDate(r.rest[1]) ? <MuhurthamDetailScreen key={r.rest[1]} date={r.rest[1]!} base="house" /> : <NewHouseScreen />;
+  // Future detail: a random profile id and the period's dates only.
+  if (r.tab === 'future' && r.rest.length === 3 && isDate(r.rest[1]) && isDate(r.rest[2])) return <FutureDetailScreen key={r.rest.join('/')} personId={r.rest[0]!} start={r.rest[1]!} end={r.rest[2]!} />;
   if (r.tab === 'more' && (r.rest[0] === 'method' || r.rest[0] === 'privacy' || r.rest[0] === 'disclaimer')) return <InfoScreen key={r.rest[0]} page={r.rest[0]} />;
   if (r.tab !== 'family') return null;
   const [a, b] = r.rest;
