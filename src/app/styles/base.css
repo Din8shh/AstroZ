@@ -28,3 +28,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Installed app: our own pull-to-refresh handles the top overscroll (no rubber-band or native refresh fighting it). */
+html.az-standalone, html.az-standalone body { overscroll-behavior-y: contain; }

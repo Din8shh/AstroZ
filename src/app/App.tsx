@@ -6,6 +6,7 @@ import { AppHeader } from './components/AppHeader';
 import { OfflineBanner } from './components/OfflineBanner';
 import { BottomNav } from './components/BottomNav';
 import { UpdateToast } from './components/UpdateToast';
+import { PullToRefresh } from './components/PullToRefresh';
 import { ScreenBoundary } from './components/ScreenBoundary';
 import { TodayScreen } from './screens/TodayScreen';
 import { WishesScreen } from './screens/WishesScreen';
@@ -68,6 +69,7 @@ export function App() {
   const Current = TAB_SCREENS[route.tab];
   return (
     <div className={['az', `az-${lang}`, elder && 'az-elder', s.app].filter(Boolean).join(' ')}>
+      <PullToRefresh />
       <UpdateToast />
       {sub ? <Boundary key={route.rest.join('/')}><Suspense fallback={<Loading />}>{sub}</Suspense></Boundary> : (
         <>
