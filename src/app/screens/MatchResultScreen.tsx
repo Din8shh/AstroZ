@@ -8,7 +8,7 @@ import { GunaDial, formatScore } from '../components/GunaDial';
 import { Icon } from '../components/Icon';
 import { KootaRow } from '../components/KootaRow';
 import { ShareCard } from '../components/ShareCard';
-import { StatusChip } from '../components/StatusChip';
+import { STATUS_ICON, StatusChip, type Status } from '../components/StatusChip';
 import { SubHeader } from '../components/SubHeader';
 import { TodoList, type TodoItem } from '../components/TodoList';
 import { WhyLink, WhySheet, type Factor } from '../components/WhySheet';
@@ -26,7 +26,7 @@ import EN from '../../content/en.json';
 const KEYS: Record<string, unknown> = EN;
 import s from './Match.module.css';
 
-type Sheet = { kind: 'score' } | { kind: 'koota'; k: KootaResult } | { kind: 'dosha'; id: 'rajju' | 'vedha' | 'kuja' } | { kind: 'peru' } | null;
+type Sheet = { kind: 'score' } | { kind: 'verdict' } | { kind: 'koota'; k: KootaResult } | { kind: 'dosha'; id: 'rajju' | 'vedha' | 'kuja' } | { kind: 'peru' } | null;
 
 export function MatchResultScreen() {
   const t = useT();
@@ -63,18 +63,36 @@ function Result({ r }: { r: MatchReading }) {
   const cls = (id: unknown) => (typeof id === 'string' && names?.classes[id] ? name(names.classes[id]!) : String(id));
   const a = r.bride.name, b = r.groom.name;
   const namesBasis = r.basis === 'names';
-  const band = t(`band.${r.status}`);
+  const v = r.verdict;
+  const band = t(`verdict.${v.id}`);
+  const verdictText = t(v.id === 'fair' ? (v.issues.length ? 'verdict.text.fairIssue' : 'verdict.text.fairScore')
+    : v.id === 'strong' && !r.kuja.checked ? 'verdict.text.strongNoKuja' : `verdict.text.${v.id}`);
+  const cancelledBy = (id: string) => v.cancellations.find((c) => c.koota === id);
+  /** One highlight line: an issue still standing, a cancellation used, or a strength. */
+  const highlight = (h: { ruleId: string; values: Record<string, unknown> }): { text: string; status: Status } => {
+    const x = h.values;
+    const dist = x.distance as number[] | undefined;
+    const vars: Record<string, string> = {
+      cls: cls(x.bride), bride: cls(x.bride), groom: cls(x.groom),
+      a: String(dist?.[0] ?? ''), b: String(dist?.[1] ?? ''),
+      points: typeof x.points === 'number' ? formatScore(x.points) : '', max: String(x.max ?? ''),
+      rule: typeof x.rule === 'string' ? t(`verdict.rule.${x.rule}` as MessageKey) : '',
+    };
+    return { text: t(h.ruleId as MessageKey, vars), status: h.ruleId.startsWith('verdict.issue.') ? 'mixed' : 'good' };
+  };
   const approxLabel = namesBasis ? t('match.namesApprox') : r.approximate ? t('approx') : undefined;
   // Time unknown: the Moon changed nakshatra or rasi on the birth date, so the points may differ.
   const uncertain = (['bride', 'groom'] as const).filter((w) => { const d = r[w].dayRange; return !!d && (d.nakshatras.length > 1 || d.rasis.length > 1); });
 
   const shareData: ShareCardData = {
-    names: [a, b], score: r.score, max: r.max, verdict: band, status: r.status,
+    names: [a, b], score: r.score, max: r.max, verdict: band, status: v.status,
     approxLabel,
     kicker: t('share.kicker'), foot: t('share.foot'), lang,
   };
 
   const note = (k: KootaResult) => {
+    const c = cancelledBy(k.id);
+    if (c) return t('why.cancelledBy', { rule: t(`verdict.rule.${c.ruleId}` as MessageKey) });
     const key = `note.${k.id}.${k.status}` as MessageKey;
     if (!(key in KEYS)) return undefined;
     const d = k.reasons[0]?.values.distance as number[] | undefined;
@@ -112,16 +130,35 @@ function Result({ r }: { r: MatchReading }) {
         </div>
       ) : null}
 
-      <section className={`${s.card} ${s.dialCard}`}>
-        <GunaDial score={r.score} max={r.max} status={r.status} label={band} unit={t('match.gunas')} approxLabel={approxLabel} />
-        <p className={s.summary}>{t(namesBasis ? 'match.summaryNames' : 'match.summary', { score: formatScore(r.score) })}</p>
+      <section className={`${s.card} ${s.dialCard}`} data-testid="verdict" data-verdict={v.id}>
+        <GunaDial score={r.score} max={r.max} status={v.status} label={band} unit={t('match.gunas')} approxLabel={approxLabel} />
+        <p className={s.summary}>{verdictText}</p>
+        <p className={s.scoreNote}>{t(namesBasis ? 'match.summaryNames' : 'verdict.score', { score: formatScore(r.score) })}</p>
         {uncertain.map((w) => <p key={w} className={s.text} role="note" data-testid="day-range">{t('match.dayRange', { name: r[w].name })}</p>)}
-        <WhyLink label={t('match.whyScore')} onClick={() => setSheet({ kind: 'score' })} />
+        <div className={s.standsOut}>
+          <h2 className={s.h3} id="stands-h">{t('verdict.standsOut')}</h2>
+          <ul className={s.hlList} aria-labelledby="stands-h">
+            {v.highlights.map((h) => {
+              const line = highlight(h);
+              return (
+                <li key={h.ruleId} className={s.hl} data-testid="verdict-highlight">
+                  <span className={line.status === 'good' ? s.hlGood : s.hlMixed}><Icon name={STATUS_ICON[line.status]} size={18} /></span>
+                  <span>{line.text}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {v.provisional ? <p className={s.note}>{t('verdict.provisional')}</p> : null}
+        <div className={s.inline}>
+          <WhyLink label={t('why.verdict.title')} onClick={() => setSheet({ kind: 'verdict' })} />
+          <WhyLink label={t('match.whyScore')} onClick={() => setSheet({ kind: 'score' })} />
+        </div>
       </section>
 
       {!namesBasis && r.peruBalam ? (
         <section className={`${s.card} ${s.peru}`} data-testid="peru">
-          <div className={s.rowHead}><h2 className={s.h3}>{t('match.peru')}</h2><StatusChip status={r.peruBalam.status} /></div>
+          <div className={s.rowHead}><h2 className={s.h3}>{t('match.peru')}</h2><StatusChip status={r.peruBalam.status === 'avoid' ? 'mixed' : r.peruBalam.status} /></div>
           <p className={s.text}>{t(`match.peru.${r.peruBalam.status}`, { a, b })}</p>
           {r.peruBalam.ambiguous ? <p className={s.text}>{t('match.peruAmbiguous')}</p> : null}
           <div className={s.inline}><span className={s.approx}>{t('match.peruApprox')}</span><WhyLink label={t('match.why')} onClick={() => setSheet({ kind: 'peru' })} /></div>
@@ -170,6 +207,18 @@ function Result({ r }: { r: MatchReading }) {
           whyLabel={t('match.why')} onWhy={() => setSheet({ kind: 'dosha', id: 'vedha' })} />
       </section>
 
+      {v.questions.length ? (
+        <section className={s.section} aria-labelledby="ask-h" data-testid="astrologer-questions">
+          <div>
+            <h2 className={s.h2} id="ask-h">{t('match.askTitle')}</h2>
+            <p className={s.sub}>{t('match.askIntro')}</p>
+          </div>
+          <ol className={`${s.card} ${s.askList}`}>
+            {v.questions.map((q) => <li key={q} className={s.ask}>{t(`match.ask.${q}` as MessageKey)}</li>)}
+          </ol>
+        </section>
+      ) : null}
+
       <TodoList title={t('match.todos')} items={todos} freeLabel={t('free')} />
 
       <section className={s.section} aria-labelledby="share-h">
@@ -196,7 +245,12 @@ function WhyFor({ sheet, r, onClose, nak, rasi, kootaName, cls }: WhyProps) {
   const common = { kicker: t('why.kicker'), closeLabel: t('form.close'), method: t('why.method'), onClose };
   const factors = useMemo<Factor[]>(() => {
     if (sheet.kind === 'score') return r.kootas.map((k) => ({ label: kootaName(k.id), value: `${k.points}/${k.max}`, status: k.status }));
-    if (sheet.kind === 'peru' && r.peruBalam) return [{ label: t('match.peru'), value: `${formatScore(r.peruBalam.score)}/${r.peruBalam.max}`, status: r.peruBalam.status }];
+    if (sheet.kind === 'verdict') return [
+      { label: t('match.gunas'), value: `${formatScore(r.score)}/${r.max}` },
+      ...r.verdict.issues.map((i) => ({ label: i === 'rajju' || i === 'vedha' || i === 'kuja' ? t(`dosha.${i}.title`) : kootaName(i), value: t('status.mixed'), status: 'mixed' as const })),
+      ...r.verdict.cancellations.map((c) => ({ label: kootaName(c.koota), value: t('why.cancelledBy', { rule: t(`verdict.rule.${c.ruleId}` as MessageKey) }), status: 'good' as const })),
+    ];
+    if (sheet.kind === 'peru' && r.peruBalam) return [{ label: t('match.peru'), value: `${formatScore(r.peruBalam.score)}/${r.peruBalam.max}`, status: r.peruBalam.status === 'avoid' ? 'mixed' : r.peruBalam.status }];
     if (sheet.kind === 'koota') {
       const v = sheet.k.reasons[0]!.values;
       const base: Factor[] = [
@@ -219,13 +273,18 @@ function WhyFor({ sheet, r, onClose, nak, rasi, kootaName, cls }: WhyProps) {
   }, [sheet, r, lang]);
   const title =
     sheet.kind === 'score' ? t('match.whyScore')
+    : sheet.kind === 'verdict' ? t('why.verdict.title')
     : sheet.kind === 'peru' ? t('match.peru')
     : sheet.kind === 'koota' ? t('why.title', { koota: kootaName(sheet.k.id), points: String(sheet.k.points), max: String(sheet.k.max) })
     : t(`dosha.${sheet.id}.title`);
-  const body = sheet.kind === 'koota' && sheet.k.id === 'bhakoot' ? t('why.body.bhakoot') : undefined;
+  const body = sheet.kind === 'verdict' ? t('why.verdict.body')
+    : sheet.kind === 'koota' && sheet.k.id === 'bhakoot' ? t('why.body.bhakoot')
+    : sheet.kind === 'koota' && sheet.k.id === 'varna' ? t('why.varna.note') : undefined;
+  const cancelled = sheet.kind === 'koota' ? r.verdict.cancellations.find((c) => c.koota === sheet.k.id) : undefined;
   return (
     <WhySheet title={title} factors={factors} {...common}>
       {body ? <p>{body}</p> : null}
+      {cancelled ? <p>{t('why.cancelledBy', { rule: t(`verdict.rule.${cancelled.ruleId}` as MessageKey) })}</p> : null}
     </WhySheet>
   );
 }

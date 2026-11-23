@@ -6,7 +6,7 @@
     {
       "id": "sun",
       "en": "Surya",
-      "te": null,
+      "te": "సూర్యుడు",
       "shortEn": "Su",
       "shortTe": null
     },
@@ -62,7 +62,7 @@
     {
       "id": "ketu",
       "en": "Ketu",
-      "te": null,
+      "te": "కేతువు",
       "shortEn": "Ke",
       "shortTe": null
     }

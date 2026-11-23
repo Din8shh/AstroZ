@@ -14,7 +14,7 @@
     "names": {
       "uttarayana": {
         "en": "Uttarayanam",
-        "te": null
+        "te": "ఉత్తరాయణం"
       },
       "dakshinayana": {
         "en": "Dakshinayanam",
@@ -29,24 +29,24 @@
     },
     "krishna": {
       "en": "Krishna paksham",
-      "te": null
+      "te": "కృష్ణ పక్షం"
     }
   },
   "ruthus": [
     {
       "number": 1,
       "en": "Vasanta ruthu",
-      "te": null
+      "te": "వసంత ఋతువు"
     },
     {
       "number": 2,
       "en": "Grishma ruthu",
-      "te": null
+      "te": "గ్రీష్మ ఋతువు"
     },
     {
       "number": 3,
       "en": "Varsha ruthu",
-      "te": null
+      "te": "వర్ష ఋతువు"
     },
     {
       "number": 4,
@@ -56,12 +56,12 @@
     {
       "number": 5,
       "en": "Hemanta ruthu",
-      "te": null
+      "te": "హేమంత ఋతువు"
     },
     {
       "number": 6,
       "en": "Shishira ruthu",
-      "te": null
+      "te": "శిశిర ఋతువు"
     }
   ]
 }

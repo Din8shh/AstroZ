@@ -325,6 +325,21 @@
                 },
                 "shaka": {
                   "type": "integer"
+                },
+                "partial": {
+                  "type": "array",
+                  "description": "Period fields read only in part: listed slots must match; extra engine slots are allowed. Remove once a person reads every slot.",
+                  "items": {
+                    "enum": [
+                      "rahuKalam",
+                      "yamagandam",
+                      "gulikaKalam",
+                      "abhijit",
+                      "durmuhurtham",
+                      "varjyam",
+                      "amritaKalam"
+                    ]
+                  }
                 }
               }
             }

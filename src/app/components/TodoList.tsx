@@ -1,4 +1,5 @@
 import { useId, useState } from 'react';
+import { useT } from '../i18n';
 import { Icon } from './Icon';
 import s from './TodoList.module.css';
 
@@ -7,6 +8,7 @@ export type TodoItem = { id: string; text: string; when?: string | undefined; fr
 export function TodoList({ title, items, freeLabel }: { title: string; items: TodoItem[]; freeLabel: string }) {
   const uid = useId();
   const [done, setDone] = useState<Record<string, boolean>>({});
+  const t = useT();
   return (
     <section className={s.todo} data-testid="todos">
       <h3 className={s.title}><span className={s.titleIcon}><Icon name="diya" size={22} /></span>{title}</h3>
@@ -25,6 +27,7 @@ export function TodoList({ title, items, freeLabel }: { title: string; items: To
           );
         })}
       </ul>
+      {items.some((it) => it.free) ? <p className={s.note}>{t('todo.safetyNote')}</p> : null}
     </section>
   );
 }

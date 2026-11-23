@@ -97,7 +97,7 @@ States: calculating, time unknown, nothing auspicious in range, offline, mixed s
 
 ## 12. Launch checklist
 Status 2026-11-22 (Phase 8). Evidence for each line: docs/launch.md.
-- [ ] Golden fixtures pass (Hyderabad, Vijayawada, Tirupati, Dallas) — every row passes, but **no Tirupati panchangam row yet** and **no row is confirmed by a person** (all `verified: false`)
+- [ ] Golden fixtures pass (Hyderabad, Vijayawada, Tirupati, Dallas) — every row passes, including Tirupati (added 2026-11-23, with a Hyderabad Thursday and a Hyderabad adhika-masa row); **no row is confirmed by a person** (all `verified: false`). Matching: 7 of 13 published reports reproduce exactly, 6 differ on recorded kootas (docs/pending-inputs.md)
 - [ ] Pandit review of tables and dosha copy — not done (needs a pandit)
 - [ ] Installs on Android Chrome + iOS Safari; works offline after first visit — Chromium: installable (Lighthouse PWA 100) and offline after first visit (e2e); **real Android and iOS Safari devices not tested**
 - [x] Lighthouse ≥ 90 (PWA, a11y, perf) on throttled mobile — performance 99 (median of 5, simulated) and 98 (DevTools throttling); accessibility and PWA 100

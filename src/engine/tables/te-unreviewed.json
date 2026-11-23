@@ -1,0 +1,863 @@
+{
+  "source": "Telugu names loaded on 2026-11-23 from the user's machine-drafted sheet astroz-telugu-names-DRAFT.csv (docs/inputs/research-2026-11-23.md §5: 'machine draft; needs human Telugu review'), at the user's request to load them for now and change later.",
+  "version": "0.1.0",
+  "notes": "UNREVIEWED DRAFT Telugu. Every entry below is shown in the app but has NOT been written or checked by a fluent Telugu speaker (CLAUDE.md: Telugu is written by a human). A reviewer should confirm or correct each one in its table, note the panchangam used, and then remove the entry here. `flag` = a point raised for the reviewer. tests/unit/tables-te-draft.test.ts lists what remains.",
+  "entries": [
+    {
+      "table": "calendar.json",
+      "path": "ayana.names.uttarayana",
+      "en": "Uttarayanam",
+      "te": "ఉత్తరాయణం"
+    },
+    {
+      "table": "calendar.json",
+      "path": "paksha.krishna",
+      "en": "Krishna paksham",
+      "te": "కృష్ణ పక్షం"
+    },
+    {
+      "table": "calendar.json",
+      "path": "ruthus[0]",
+      "en": "Vasanta ruthu",
+      "te": "వసంత ఋతువు"
+    },
+    {
+      "table": "calendar.json",
+      "path": "ruthus[1]",
+      "en": "Grishma ruthu",
+      "te": "గ్రీష్మ ఋతువు"
+    },
+    {
+      "table": "calendar.json",
+      "path": "ruthus[2]",
+      "en": "Varsha ruthu",
+      "te": "వర్ష ఋతువు"
+    },
+    {
+      "table": "calendar.json",
+      "path": "ruthus[4]",
+      "en": "Hemanta ruthu",
+      "te": "హేమంత ఋతువు"
+    },
+    {
+      "table": "calendar.json",
+      "path": "ruthus[5]",
+      "en": "Shishira ruthu",
+      "te": "శిశిర ఋతువు"
+    },
+    {
+      "table": "grahas.json",
+      "path": "items[0]",
+      "en": "Surya",
+      "te": "సూర్యుడు"
+    },
+    {
+      "table": "grahas.json",
+      "path": "items[8]",
+      "en": "Ketu",
+      "te": "కేతువు"
+    },
+    {
+      "table": "karanas.json",
+      "path": "movable[2]",
+      "en": "Kaulava",
+      "te": "కౌలవం"
+    },
+    {
+      "table": "karanas.json",
+      "path": "movable[3]",
+      "en": "Taitila",
+      "te": "తైతిలం"
+    },
+    {
+      "table": "karanas.json",
+      "path": "movable[4]",
+      "en": "Garaja",
+      "te": "గరజం"
+    },
+    {
+      "table": "karanas.json",
+      "path": "movable[5]",
+      "en": "Vanija",
+      "te": "వణిజం"
+    },
+    {
+      "table": "karanas.json",
+      "path": "fixed[0]",
+      "en": "Kimstughna",
+      "te": "కింస్తుఘ్నం",
+      "flag": "Drik spells it Kinstughna; pick one spelling."
+    },
+    {
+      "table": "karanas.json",
+      "path": "fixed[1]",
+      "en": "Shakuni",
+      "te": "శకుని"
+    },
+    {
+      "table": "karanas.json",
+      "path": "fixed[2]",
+      "en": "Chatushpada",
+      "te": "చతుష్పదం",
+      "flag": "Spelled చతుష్పదం here but చతుష్పాదం for the vashya class: pick one."
+    },
+    {
+      "table": "karanas.json",
+      "path": "fixed[3]",
+      "en": "Naga",
+      "te": "నాగం"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.brahmin",
+      "en": "Brahmin",
+      "te": "బ్రాహ్మణుడు",
+      "flag": "Word for a person; as a koota group బ్రాహ్మణ may read better (caste-sensitive wording)."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.kshatriya",
+      "en": "Kshatriya",
+      "te": "క్షత్రియుడు",
+      "flag": "Word for a person; క్షత్రియ may read better."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.vaishya",
+      "en": "Vaishya",
+      "te": "వైశ్యుడు",
+      "flag": "Word for a person; వైశ్య may read better."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.shudra",
+      "en": "Shudra",
+      "te": "శూద్రుడు",
+      "flag": "Word for a person; శూద్ర may read better (caste-sensitive wording)."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.chatushpada",
+      "en": "Chatushpada",
+      "te": "చతుష్పాదం",
+      "flag": "Spelled చతుష్పాదం here but చతుష్పదం for the karana: pick one."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.nara",
+      "en": "Nara",
+      "te": "నరం"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.jalachara",
+      "en": "Jalachara",
+      "te": "జలచరం"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.vanachara",
+      "en": "Vanachara",
+      "te": "వనచరం"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.keeta",
+      "en": "Keeta",
+      "te": "కీటకం",
+      "flag": "Some panchangams use కీట."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.rakshasa",
+      "en": "Rakshasa",
+      "te": "రాక్షసం",
+      "flag": "Gana is usually రాక్షస (like దేవ, మనుష్య already in the app)."
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.adi",
+      "en": "Adi",
+      "te": "ఆది"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.madhya",
+      "en": "Madhya",
+      "te": "మధ్య"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.antya",
+      "en": "Antya",
+      "te": "అంత్య"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.horse",
+      "en": "Horse",
+      "te": "గుర్రం"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.elephant",
+      "en": "Elephant",
+      "te": "ఏనుగు"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.sheep",
+      "en": "Sheep",
+      "te": "గొర్రె"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.serpent",
+      "en": "Serpent",
+      "te": "పాము"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.dog",
+      "en": "Dog",
+      "te": "కుక్క"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.cat",
+      "en": "Cat",
+      "te": "పిల్లి"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.rat",
+      "en": "Rat",
+      "te": "ఎలుక"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.cow",
+      "en": "Cow",
+      "te": "ఆవు"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.buffalo",
+      "en": "Buffalo",
+      "te": "గేదె"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.tiger",
+      "en": "Tiger",
+      "te": "పులి"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.deer",
+      "en": "Deer",
+      "te": "జింక"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.monkey",
+      "en": "Monkey",
+      "te": "కోతి"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.mongoose",
+      "en": "Mongoose",
+      "te": "ముంగిస"
+    },
+    {
+      "table": "kootas.json",
+      "path": "classNames.lion",
+      "en": "Lion",
+      "te": "సింహం"
+    },
+    {
+      "table": "rasis.json",
+      "path": "items[2]",
+      "en": "Mithuna",
+      "te": "మిథునం"
+    },
+    {
+      "table": "rasis.json",
+      "path": "items[6]",
+      "en": "Tula",
+      "te": "తుల"
+    },
+    {
+      "table": "rasis.json",
+      "path": "items[7]",
+      "en": "Vrischika",
+      "te": "వృశ్చికం"
+    },
+    {
+      "table": "rasis.json",
+      "path": "items[8]",
+      "en": "Dhanus",
+      "te": "ధనుస్సు"
+    },
+    {
+      "table": "rasis.json",
+      "path": "items[9]",
+      "en": "Makara",
+      "te": "మకరం"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[0]",
+      "en": "Prabhava",
+      "te": "ప్రభవ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[1]",
+      "en": "Vibhava",
+      "te": "విభవ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[2]",
+      "en": "Shukla",
+      "te": "శుక్ల"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[3]",
+      "en": "Pramoduta",
+      "te": "ప్రమోదూత"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[4]",
+      "en": "Prajotpatti",
+      "te": "ప్రజోత్పత్తి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[5]",
+      "en": "Angirasa",
+      "te": "ఆంగీరస"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[6]",
+      "en": "Shrimukha",
+      "te": "శ్రీముఖ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[7]",
+      "en": "Bhava",
+      "te": "భవ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[8]",
+      "en": "Yuva",
+      "te": "యువ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[9]",
+      "en": "Dhatu",
+      "te": "ధాతు"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[10]",
+      "en": "Ishvara",
+      "te": "ఈశ్వర"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[11]",
+      "en": "Bahudhanya",
+      "te": "బహుధాన్య"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[12]",
+      "en": "Pramathi",
+      "te": "ప్రమథి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[13]",
+      "en": "Vikrama",
+      "te": "విక్రమ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[14]",
+      "en": "Vrisha",
+      "te": "వృష"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[15]",
+      "en": "Chitrabhanu",
+      "te": "చిత్రభాను"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[16]",
+      "en": "Svabhanu",
+      "te": "స్వభాను"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[17]",
+      "en": "Tarana",
+      "te": "తారణ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[18]",
+      "en": "Parthiva",
+      "te": "పార్థివ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[19]",
+      "en": "Vyaya",
+      "te": "వ్యయ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[20]",
+      "en": "Sarvajit",
+      "te": "సర్వజిత్"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[21]",
+      "en": "Sarvadhari",
+      "te": "సర్వధారి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[22]",
+      "en": "Virodhi",
+      "te": "విరోధి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[23]",
+      "en": "Vikriti",
+      "te": "వికృతి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[24]",
+      "en": "Khara",
+      "te": "ఖర"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[25]",
+      "en": "Nandana",
+      "te": "నందన"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[26]",
+      "en": "Vijaya",
+      "te": "విజయ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[27]",
+      "en": "Jaya",
+      "te": "జయ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[28]",
+      "en": "Manmatha",
+      "te": "మన్మథ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[29]",
+      "en": "Durmukhi",
+      "te": "దుర్ముఖి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[30]",
+      "en": "Hevilambi",
+      "te": "హేవిళంబి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[31]",
+      "en": "Vilambi",
+      "te": "విళంబి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[32]",
+      "en": "Vikari",
+      "te": "వికారి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[33]",
+      "en": "Sharvari",
+      "te": "శార్వరి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[34]",
+      "en": "Plava",
+      "te": "ప్లవ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[35]",
+      "en": "Shubhakritu",
+      "te": "శుభకృత్"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[36]",
+      "en": "Shobhakritu",
+      "te": "శోభకృత్"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[37]",
+      "en": "Krodhi",
+      "te": "క్రోధి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[38]",
+      "en": "Vishvavasu",
+      "te": "విశ్వావసు"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[40]",
+      "en": "Plavanga",
+      "te": "ప్లవంగ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[41]",
+      "en": "Kilaka",
+      "te": "కీలక"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[42]",
+      "en": "Saumya",
+      "te": "సౌమ్య"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[43]",
+      "en": "Sadharana",
+      "te": "సాధారణ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[44]",
+      "en": "Virodhikritu",
+      "te": "విరోధికృత్"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[45]",
+      "en": "Paridhavi",
+      "te": "పరిధావి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[46]",
+      "en": "Pramadicha",
+      "te": "ప్రమాదీచ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[47]",
+      "en": "Ananda",
+      "te": "ఆనంద"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[48]",
+      "en": "Rakshasa",
+      "te": "రాక్షస"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[49]",
+      "en": "Nala",
+      "te": "నల"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[50]",
+      "en": "Pingala",
+      "te": "పింగళ"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[51]",
+      "en": "Kalayukti",
+      "te": "కాళయుక్తి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[52]",
+      "en": "Siddharthi",
+      "te": "సిద్ధార్థి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[53]",
+      "en": "Raudri",
+      "te": "రౌద్రి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[54]",
+      "en": "Durmati",
+      "te": "దుర్మతి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[55]",
+      "en": "Dundubhi",
+      "te": "దుందుభి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[56]",
+      "en": "Rudhirodgari",
+      "te": "రుధిరోద్గారి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[57]",
+      "en": "Raktakshi",
+      "te": "రక్తాక్షి"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[58]",
+      "en": "Krodhana",
+      "te": "క్రోధన"
+    },
+    {
+      "table": "samvatsaras.json",
+      "path": "items[59]",
+      "en": "Akshaya",
+      "te": "అక్షయ"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[0]",
+      "en": "Janma",
+      "te": "జన్మ"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[2]",
+      "en": "Vipat",
+      "te": "విపత్"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[3]",
+      "en": "Kshema",
+      "te": "క్షేమ"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[5]",
+      "en": "Sadhana",
+      "te": "సాధన"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[6]",
+      "en": "Naidhana",
+      "te": "నైధన"
+    },
+    {
+      "table": "tarabalam.json",
+      "path": "taras[7]",
+      "en": "Mitra",
+      "te": "మిత్ర"
+    },
+    {
+      "table": "tithis.json",
+      "path": "items[29]",
+      "en": "Amavasya",
+      "te": "అమావాస్య"
+    },
+    {
+      "table": "varas.json",
+      "path": "items[0]",
+      "en": "Sunday",
+      "te": "ఆదివారం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[0]",
+      "en": "Vishkambha",
+      "te": "విష్కంభం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[1]",
+      "en": "Priti",
+      "te": "ప్రీతి"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[2]",
+      "en": "Ayushman",
+      "te": "ఆయుష్మాన్"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[3]",
+      "en": "Saubhagya",
+      "te": "సౌభాగ్యం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[4]",
+      "en": "Shobhana",
+      "te": "శోభనం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[5]",
+      "en": "Atiganda",
+      "te": "అతిగండం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[6]",
+      "en": "Sukarma",
+      "te": "సుకర్మ"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[7]",
+      "en": "Dhriti",
+      "te": "ధృతి"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[8]",
+      "en": "Shula",
+      "te": "శూలం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[9]",
+      "en": "Ganda",
+      "te": "గండం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[10]",
+      "en": "Vriddhi",
+      "te": "వృద్ధి"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[11]",
+      "en": "Dhruva",
+      "te": "ధృవం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[12]",
+      "en": "Vyaghata",
+      "te": "వ్యాఘాతం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[13]",
+      "en": "Harshana",
+      "te": "హర్షణం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[14]",
+      "en": "Vajra",
+      "te": "వజ్రం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[16]",
+      "en": "Vyatipata",
+      "te": "వ్యతీపాతం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[17]",
+      "en": "Variyan",
+      "te": "వరియాన్",
+      "flag": "Panchangams usually print వరీయాన్."
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[18]",
+      "en": "Parigha",
+      "te": "పరిఘం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[19]",
+      "en": "Shiva",
+      "te": "శివం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[20]",
+      "en": "Siddha",
+      "te": "సిద్ధం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[22]",
+      "en": "Shubha",
+      "te": "శుభం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[23]",
+      "en": "Shukla",
+      "te": "శుక్లం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[24]",
+      "en": "Brahma",
+      "te": "బ్రహ్మ"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[25]",
+      "en": "Indra",
+      "te": "ఇంద్రం"
+    },
+    {
+      "table": "yogas.json",
+      "path": "items[26]",
+      "en": "Vaidhriti",
+      "te": "వైధృతి"
+    }
+  ]
+}

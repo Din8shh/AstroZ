@@ -14,3 +14,4 @@
 .done .text { color: var(--az-ink-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
 .when { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
 .free { flex: none; align-self: center; padding: 1px 10px; border-radius: var(--az-radius-pill); background: var(--az-leaf-soft); color: var(--az-leaf-ink); font-size: calc(var(--fs-caption) * var(--az-scale)); font-weight: 600; line-height: 1.6; }
+.note { margin: var(--az-space-2) 0 var(--az-space-1); font-size: calc(var(--fs-caption) * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }

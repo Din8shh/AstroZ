@@ -1,0 +1,26 @@
+{
+  "source": "AstroZ worked cases for the overall verdict (src/engine/tables/match-verdict.json, PROVISIONAL). Case 'mesha-kumbha-same-adi-nadi' is the example agreed in the 2026-11-23 product discussion (17/36, only nadi standing → Fair, not 'Low match'). The other cases pin one cancellation rule each. These are not published reports: koota points are proven by tests/fixtures/matching-golden.json; these check the verdict layer only.",
+  "version": "0.1.0",
+  "notes": "bride/groom: nakshatra 1–27, pada 1–4 (rasi follows from the pada). kootas order: varna, vashya, tara, yoni, grahaMaitri, gana, bhakoot, nadi. cancellations as koota:rule:condition.",
+  "cases": [
+    { "id": "mesha-kumbha-same-adi-nadi", "bride": { "nakshatra": 1, "pada": 1 }, "groom": { "nakshatra": 25, "pada": 1 },
+      "expected": { "kootas": [0, 1, 1.5, 1, 0.5, 6, 7, 0], "score": 17, "verdict": "fair", "issues": ["nadi"], "cancellations": [],
+        "highlights": ["verdict.issue.nadi", "verdict.strength.bhakoot", "verdict.strength.gana"] } },
+    { "id": "nadi-cancelled-same-rasi", "bride": { "nakshatra": 6, "pada": 1 }, "groom": { "nakshatra": 7, "pada": 1 },
+      "expected": { "score": 25, "verdict": "strong", "issues": [], "cancellations": ["nadi:sameRasiOrNakshatra:sameRasiDifferentNakshatra"] } },
+    { "id": "nadi-cancelled-same-nakshatra", "bride": { "nakshatra": 3, "pada": 1 }, "groom": { "nakshatra": 3, "pada": 2 },
+      "expected": { "score": 18, "verdict": "careful", "issues": ["rajju", "bhakoot"], "cancellations": ["nadi:sameRasiOrNakshatra:sameNakshatraDifferentRasi"] } },
+    { "id": "same-nakshatra-and-rasi-no-cancellation", "bride": { "nakshatra": 1, "pada": 1 }, "groom": { "nakshatra": 1, "pada": 1 },
+      "expected": { "score": 28, "verdict": "careful", "issues": ["nadi", "rajju"], "cancellations": [] } },
+    { "id": "bhakoot-cancelled-lords-friendly", "bride": { "nakshatra": 1, "pada": 1 }, "groom": { "nakshatra": 11, "pada": 1 },
+      "expected": { "score": 25, "verdict": "strong", "issues": [], "cancellations": ["bhakoot:lordsFriendly:lordsFriendly"] } },
+    { "id": "bhakoot-cancelled-navapanchaka", "bride": { "nakshatra": 7, "pada": 4 }, "groom": { "nakshatra": 17, "pada": 1 },
+      "expected": { "score": 26, "verdict": "strong", "issues": [], "cancellations": ["bhakoot:navapanchaka:brideNinthGroomFifth"] } },
+    { "id": "gana-cancelled-tara-full", "bride": { "nakshatra": 3, "pada": 2 }, "groom": { "nakshatra": 11, "pada": 1 },
+      "expected": { "score": 20, "verdict": "fair", "issues": [], "cancellations": ["gana:taraFull:taraFull"] } },
+    { "id": "two-issues-careful", "bride": { "nakshatra": 1, "pada": 1 }, "groom": { "nakshatra": 24, "pada": 1 },
+      "expected": { "score": 14, "verdict": "careful", "issues": ["nadi", "gana"], "cancellations": [] } },
+    { "id": "strong-nothing-standing", "bride": { "nakshatra": 1, "pada": 1 }, "groom": { "nakshatra": 2, "pada": 1 },
+      "expected": { "score": 34, "verdict": "strong", "issues": [], "cancellations": [] } }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "source": "Kuja dosha 'what helps' list and the Tuesday diya to-do from design/handoff MatchMixed.dc.html (Telugu as written there). Job and Income remedies from design/handoff JobTe/JobEn and IncomeTe/IncomeEn (Telugu as written there).",
   "version": "0.1.0",
-  "notes": "Simple and free only (CLAUDE.md, SPEC §8): stotram names, temple visits, fasting ('if your health allows'), daanam, colours/days, diyas, elders. NEVER gemstones, paid pujas, products or buy links. Every item has free: true (tests/unit/engine/matching.test.ts).",
+  "notes": "Simple and free only (CLAUDE.md, SPEC §8): stotram names, temple visits, fasting ('if your health allows'), daanam, colours/days, diyas, elders. NEVER gemstones, paid pujas, products or buy links. Every item has free: true (tests/unit/engine/matching.test.ts). Audit 2026-11-23 (docs/pending-inputs.md §4 Q19): all eight items are free, calm, with no gemstones, paid pujas, products or links; their lineage is the design handoff, not a classical text. 'free' means nothing is sold, not zero real-world cost (oil, grain, food), so every list of remedies carries the content note todo.safetyNote (optional, within means, fire safety, no promised outcome).",
   "items": [
     {
       "id": "kuja.compareCharts",

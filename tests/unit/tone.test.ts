@@ -5,7 +5,7 @@ import te from '../../src/content/te.json';
 import en from '../../src/content/en.json';
 import remedies from '../../src/content/remedies.json';
 
-const RESULT_PREFIXES = ['dosha.', 'match.', 'note.', 'todo.', 'band.', 'why.', 'share.', 'today.chandraText', 'today.taraText'];
+const RESULT_PREFIXES = ['dosha.', 'match.', 'note.', 'todo.', 'band.', 'verdict.', 'why.', 'share.', 'today.chandraText', 'today.taraText'];
 const pick = (cat: Record<string, unknown>) =>
   Object.entries(cat).filter(([k, v]) => typeof v === 'string' && RESULT_PREFIXES.some((p) => k.startsWith(p))) as [string, string][];
 
@@ -16,7 +16,7 @@ const FORBIDDEN_EN = [
 ];
 const FORBIDDEN_TE = ['చేసుకోకండి', 'చేసుకోవద్దు', 'మరణ', 'చావు', 'విధవ', 'విడాకు', 'ప్రమాద', 'శాప', 'నాశన', 'రోగ', 'సంతానం లేదు', 'ఖచ్చితంగా జరుగుతుంది'];
 // Present-dosha copy must send people to elders / an astrologer rather than decide for them.
-const MUST_DISCUSS = ['dosha.rajju.present', 'dosha.vedha.present', 'dosha.kuja.present', 'dosha.kuja.balanced', 'note.nadi.avoid'];
+const MUST_DISCUSS = ['dosha.rajju.present', 'dosha.vedha.present', 'dosha.kuja.present', 'dosha.kuja.balanced', 'note.nadi.avoid', 'verdict.text.fairIssue', 'verdict.text.careful'];
 
 describe('dosha and result copy follows the tone rules (SPEC §8)', () => {
   it.each(pick(en))('en %s', (_k, v) => {

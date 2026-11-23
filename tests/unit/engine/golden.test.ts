@@ -24,6 +24,8 @@ type Panchangam = {
   tithi?: AngaRef[]; nakshatra?: AngaRef[]; yoga?: AngaRef[]; karana?: AngaRef[];
   rahuKalam?: Span; yamagandam?: Span; gulikaKalam?: Span; abhijit?: Span | null;
   durmuhurtham?: Span[]; varjyam?: Span[]; amritaKalam?: Span[];
+  /** Period fields the reference was only partly read for: each listed slot must exist, extra engine slots are allowed. */
+  partial?: (keyof typeof PERIOD_FIELDS)[];
 };
 type Row = {
   id: string;
@@ -76,7 +78,7 @@ describe('panchangam-golden.json', () => {
 
   it('every panchangam field in the fixtures is one this test checks', () => {
     // Reference data that is typed in but not checked must never be silently ignored.
-    const checked = new Set(['vara', 'paksha', 'masa', 'adhika', 'samvatsara', 'shaka', 'tithi', 'nakshatra', 'yoga', 'karana', ...Object.keys(PERIOD_FIELDS)]);
+    const checked = new Set(['partial', 'vara', 'paksha', 'masa', 'adhika', 'samvatsara', 'shaka', 'tithi', 'nakshatra', 'yoga', 'karana', ...Object.keys(PERIOD_FIELDS)]);
     const unchecked = rows.flatMap((r) => Object.keys(r.expected.panchangam ?? {}).filter((k) => !checked.has(k)).map((k) => `${r.id}.${k}`));
     expect(unchecked).toEqual([]);
   });
@@ -145,9 +147,12 @@ describe('golden: sunrise ±1 min, sunset/ends/periods ±2 min, longitudes ±0.0
         if (!(field in pc)) continue;
         const raw = pc[field];
         const want: Span[] = raw === null || raw === undefined ? [] : Array.isArray(raw) ? raw : [raw];
-        it(`${label} · ${field} boundaries ±2 min`, async () => {
-          const got = (await engine.dayPeriods(row.date, row.place)).filter((p: DayPeriodView) => p.kind === kind);
-          expect(got.length, `${field}: ${got.map((g) => `${g.start.time}–${g.end.time}`).join(', ') || 'none'}`).toBe(want.length);
+        const partial = pc.partial?.includes(field) ?? false;
+        it(`${label} · ${field} boundaries ±2 min${partial ? ' (partial read)' : ''}`, async () => {
+          const all = (await engine.dayPeriods(row.date, row.place)).filter((p: DayPeriodView) => p.kind === kind);
+          // A partial read lists only the slots the reader saw: match each to the nearest engine slot, in order.
+          const got = partial ? want.map((w) => all.reduce((a, b) => (Math.abs(b.start.jdUt - jd(w.start)) < Math.abs(a.start.jdUt - jd(w.start)) ? b : a))) : all;
+          if (!partial) expect(got.length, `${field}: ${got.map((g) => `${g.start.time}–${g.end.time}`).join(', ') || 'none'}`).toBe(want.length);
           want.forEach((w, i) => {
             within(got[i]!.start, w.start, `${field} start`);
             within(got[i]!.end, w.end, `${field} end`);

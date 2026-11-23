@@ -94,3 +94,32 @@ test('share image downloads as a PNG', async ({ page }) => {
   expect(bytes.subarray(1, 4).toString()).toBe('PNG');
   await download.saveAs('test-results/marriage/share-card.png');
 });
+
+test('overall verdict: same nadi alone reads Fair with points to discuss, not a low match', async ({ page }) => {
+  // Chu = Ashwini 1 (Mesha), Se = Purva Bhadrapada 1 (Kumbha): 17/36, both Adi nadi, nothing else standing
+  // (tests/fixtures/match-verdict-cases.json mesha-kumbha-same-adi-nadi).
+  await page.goto('./#/wishes/marriage');
+  await page.getByRole('radio', { name: 'Names only' }).click();
+  await page.getByLabel('Bride').fill('Chudamani');
+  await page.getByLabel('Groom').fill('Sekhar');
+  await page.getByRole('button', { name: 'See the match' }).click();
+  const card = page.getByTestId('verdict');
+  await expect(card).toBeVisible({ timeout: 15_000 });
+  await expect(card).toHaveAttribute('data-verdict', 'fair');
+  await expect(page.getByTestId('guna-score')).toContainText('17');
+  await expect(card).toContainText('Fair match');
+  await expect(card).not.toContainText('Low match');
+  const lines = page.getByTestId('verdict-highlight');
+  await expect(lines).toHaveCount(3);
+  await expect(lines.first()).toContainText('Nadi: both are Adi nadi, not cancelled');
+  await expect(lines.nth(1)).toContainText('Bhakoot: 7/7');
+  await expect(lines.nth(2)).toContainText('Gana: 6/6');
+  const ask = page.getByTestId('astrologer-questions');
+  await expect(ask).toContainText('Is there a parihara in the full charts?');
+  await expect(ask).toContainText('including kuja dosha');
+  await card.getByRole('button', { name: 'How the overall picture is decided' }).click();
+  await expect(page.getByRole('dialog')).toContainText('The 36-point score stays as tradition counts it.');
+  await page.keyboard.press('Escape');
+  await page.getByTestId('koota-row').filter({ hasText: 'Varna' }).getByRole('button', { name: 'Why?' }).click();
+  await expect(page.getByRole('dialog')).toContainText('It is not about caste');
+});
