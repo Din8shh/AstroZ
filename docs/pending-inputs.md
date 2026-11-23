@@ -20,6 +20,7 @@
 >   - **Citations only:** Chaturmas limits, gochara houses, the adhika-Chaitra and kshaya-Ugadi rules, and sandhi.
 >   - **Remedies:** a safety and "optional" note now shows under every remedies list (Q19).
 >   - **Not applied, recorded instead:** the Q6 yoni table (62 cells differ), the Q13 Ardra amrita 35 vs 45, Hasta 21 vs 22, and Q12 business rules (one secondary source, and they would need eclipse calculations).
+> - **§5 Telugu names:** the 141 draft names are loaded into the tables as **unreviewed drafts**, at your request. They are listed in `src/engine/tables/te-unreviewed.json` (10 flagged), and a test keeps reminding until they are reviewed. The reviewer works from `docs/inputs/telugu-names.csv`.
 > - **Still open, needs people:**
 >   - a pandit, for the tradition choices in §4;
 >   - a person, to check fixture rows;

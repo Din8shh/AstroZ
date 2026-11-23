@@ -6,7 +6,7 @@
     {
       "tara": 1,
       "en": "Janma",
-      "te": null,
+      "te": "జన్మ",
       "status": "mixed"
     },
     {
@@ -18,13 +18,13 @@
     {
       "tara": 3,
       "en": "Vipat",
-      "te": null,
+      "te": "విపత్",
       "status": "avoid"
     },
     {
       "tara": 4,
       "en": "Kshema",
-      "te": null,
+      "te": "క్షేమ",
       "status": "good"
     },
     {
@@ -36,19 +36,19 @@
     {
       "tara": 6,
       "en": "Sadhana",
-      "te": null,
+      "te": "సాధన",
       "status": "good"
     },
     {
       "tara": 7,
       "en": "Naidhana",
-      "te": null,
+      "te": "నైధన",
       "status": "avoid"
     },
     {
       "tara": 8,
       "en": "Mitra",
-      "te": null,
+      "te": "మిత్ర",
       "status": "good"
     },
     {

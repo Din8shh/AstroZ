@@ -21,7 +21,7 @@
     {
       "number": 3,
       "en": "Mithuna",
-      "te": null,
+      "te": "మిథునం",
       "lord": "mercury",
       "teCompound": null
     },
@@ -49,28 +49,28 @@
     {
       "number": 7,
       "en": "Tula",
-      "te": null,
+      "te": "తుల",
       "lord": "venus",
       "teCompound": null
     },
     {
       "number": 8,
       "en": "Vrischika",
-      "te": null,
+      "te": "వృశ్చికం",
       "lord": "mars",
       "teCompound": null
     },
     {
       "number": 9,
       "en": "Dhanus",
-      "te": null,
+      "te": "ధనుస్సు",
       "lord": "jupiter",
       "teCompound": null
     },
     {
       "number": 10,
       "en": "Makara",
-      "te": null,
+      "te": "మకరం",
       "lord": "saturn",
       "teCompound": null
     },

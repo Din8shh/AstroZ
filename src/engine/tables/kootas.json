@@ -685,39 +685,39 @@
   "classNames": {
     "brahmin": {
       "en": "Brahmin",
-      "te": null
+      "te": "బ్రాహ్మణుడు"
     },
     "kshatriya": {
       "en": "Kshatriya",
-      "te": null
+      "te": "క్షత్రియుడు"
     },
     "vaishya": {
       "en": "Vaishya",
-      "te": null
+      "te": "వైశ్యుడు"
     },
     "shudra": {
       "en": "Shudra",
-      "te": null
+      "te": "శూద్రుడు"
     },
     "chatushpada": {
       "en": "Chatushpada",
-      "te": null
+      "te": "చతుష్పాదం"
     },
     "nara": {
       "en": "Nara",
-      "te": null
+      "te": "నరం"
     },
     "jalachara": {
       "en": "Jalachara",
-      "te": null
+      "te": "జలచరం"
     },
     "vanachara": {
       "en": "Vanachara",
-      "te": null
+      "te": "వనచరం"
     },
     "keeta": {
       "en": "Keeta",
-      "te": null
+      "te": "కీటకం"
     },
     "deva": {
       "en": "Deva",
@@ -729,75 +729,75 @@
     },
     "rakshasa": {
       "en": "Rakshasa",
-      "te": null
+      "te": "రాక్షసం"
     },
     "adi": {
       "en": "Adi",
-      "te": null
+      "te": "ఆది"
     },
     "madhya": {
       "en": "Madhya",
-      "te": null
+      "te": "మధ్య"
     },
     "antya": {
       "en": "Antya",
-      "te": null
+      "te": "అంత్య"
     },
     "horse": {
       "en": "Horse",
-      "te": null
+      "te": "గుర్రం"
     },
     "elephant": {
       "en": "Elephant",
-      "te": null
+      "te": "ఏనుగు"
     },
     "sheep": {
       "en": "Sheep",
-      "te": null
+      "te": "గొర్రె"
     },
     "serpent": {
       "en": "Serpent",
-      "te": null
+      "te": "పాము"
     },
     "dog": {
       "en": "Dog",
-      "te": null
+      "te": "కుక్క"
     },
     "cat": {
       "en": "Cat",
-      "te": null
+      "te": "పిల్లి"
     },
     "rat": {
       "en": "Rat",
-      "te": null
+      "te": "ఎలుక"
     },
     "cow": {
       "en": "Cow",
-      "te": null
+      "te": "ఆవు"
     },
     "buffalo": {
       "en": "Buffalo",
-      "te": null
+      "te": "గేదె"
     },
     "tiger": {
       "en": "Tiger",
-      "te": null
+      "te": "పులి"
     },
     "deer": {
       "en": "Deer",
-      "te": null
+      "te": "జింక"
     },
     "monkey": {
       "en": "Monkey",
-      "te": null
+      "te": "కోతి"
     },
     "mongoose": {
       "en": "Mongoose",
-      "te": null
+      "te": "ముంగిస"
     },
     "lion": {
       "en": "Lion",
-      "te": null
+      "te": "సింహం"
     }
   }
 }

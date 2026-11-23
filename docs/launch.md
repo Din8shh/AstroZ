@@ -49,7 +49,7 @@ Status of each line in docs/SPEC.md §12, with the evidence. Unticked lines need
      - `dasha-golden.json` (5);
      - `matching-golden.json`.
    - Replace the panchangam longitudes sampled from the engine itself with independent ones.
-3. **Telugu copy:** 208 content strings (`te.json` `$pending`) and 141 table names (yogas, karanas, samvatsaras, some rasis and taras, Sunday, Surya, Ketu, …) need human-written Telugu. Until then, Telugu users see English for these.
+3. **Telugu copy:** 208 content strings (`te.json` `$pending`) need human-written Telugu, and the 141 table names (yogas, karanas, samvatsaras, koota classes…) are loaded as UNREVIEWED machine drafts (src/engine/tables/te-unreviewed.json; 10 flagged) that a fluent Telugu speaker must check. Until then, Telugu users see English for those 208 strings.
 4. **Devices:** install and run offline on a real Android Chrome phone and on iOS Safari.
 
 ## Known accuracy notes (within tolerance, recorded)
