@@ -16,7 +16,7 @@ import { useMhText } from '../muhurthamText';
 import type { Place } from '../places';
 import { hrefFor } from '../router';
 import { useSettings } from '../store/settings';
-import { Choices, PeoplePicker, WindowWhy, participantsOf, useCalendarExport, useDefaultPeople, useParticipantProfiles, windowLabel } from './muhurthamShared';
+import { afterMidnight, Choices, PeoplePicker, WindowWhy, participantsOf, useCalendarExport, useDefaultPeople, useParticipantProfiles, windowLabel } from './muhurthamShared';
 import s from './Muhurtham.module.css';
 
 export const FINDER_EVENTS: EventId[] = ['vivaham', 'gruhapravesam', 'vehicle', 'job', 'business'];
@@ -175,9 +175,11 @@ export function Card({ w, rank, event, people, onWhy, action, base = 'muhurtham'
   return (
     <DateResultCard
       {...(rank !== undefined && { rank })}
-      date={dayMonth(w.date, lang)}
-      sub={`${name(w.panchanga.vara.name)} · ${name(w.panchanga.paksha.name)} · ${name(w.panchanga.tithi.name)}`}
-      score={w.score} window={windowLabel(w)} status={w.status}
+      date={dayMonth(w.start.date, lang)}
+      sub={afterMidnight(w)
+        ? t('mh.panchangDay', { vara: name(w.panchanga.vara.name), date: dayMonth(w.date, lang) })
+        : `${name(w.panchanga.vara.name)} · ${name(w.panchanga.paksha.name)} · ${name(w.panchanga.tithi.name)}`}
+      score={w.score} window={windowLabel(w, lang)} status={w.status}
       reasons={lines(w, event, people)}
       whyLabel={t('match.why')} onWhy={onWhy} action={action}
       href={hrefFor('wishes', base, w.date)}

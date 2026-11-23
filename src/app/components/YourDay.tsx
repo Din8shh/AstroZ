@@ -10,7 +10,9 @@ import { hrefFor } from '../router';
 import { AddProfileChip, ProfileChip } from './ProfileChip';
 import { StatusChip } from './StatusChip';
 import { Icon } from './Icon';
+import { WhyLink, WhySheet } from './WhySheet';
 import s from './YourDay.module.css';
+import { useState } from 'react';
 
 type Props = { date: string; place: Place; periods: DayPeriodView[]; nowJd: number };
 
@@ -30,6 +32,7 @@ export function YourDay({ date, place, periods, nowJd }: Props) {
   const d = person?.derived;
   const strength = useDayStrength(d?.nakshatra && d.rasi ? { nakshatra: d.nakshatra, rasi: d.rasi } : null, date, place);
   const withChart = profiles.filter((p) => p.birth);
+  const [why, setWhy] = useState(false);
 
   const rahu = periods.find((p) => p.kind === 'rahu');
   const good = periods.find((p) => p.kind === 'abhijit');
@@ -78,16 +81,16 @@ export function YourDay({ date, place, periods, nowJd }: Props) {
               <p className={s.rowText}>{t('today.rahuText', { time: `${hm(rahu.start)} – ${hm(rahu.end)}` })}</p>
             </div>
           ) : null}
-          {good ? (
-            <div className={s.foot}>
-              <span>{t('today.goodWindow', { time: `${hm(good.start)} – ${hm(good.end)}` })}</span>
-            </div>
-          ) : null}
+          <div className={s.foot}>
+            {good ? <span>{t('today.goodWindow', { time: `${hm(good.start)} – ${hm(good.end)}` })}</span> : <span />}
+            <WhyLink label={t('match.why')} onClick={() => setWhy(true)} />
+          </div>
           {!person.birth.timeKnown ? (
             <div className={s.foot}><span className={s.approx}><Icon name="clock" size={16} />{t('approx')}</span></div>
           ) : null}
         </div>
       ) : null}
+      {why ? <WhySheet title={t('today.yourDay')} kicker={t('why.kicker')} closeLabel={t('form.close')} method={t('today.whyYourDay')} onClose={() => setWhy(false)} /> : null}
     </section>
   );
 }

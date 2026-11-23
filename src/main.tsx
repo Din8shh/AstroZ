@@ -13,12 +13,16 @@ if (!root) throw new Error('#root missing');
 
 void useSettings.getState().load();
 void useProfiles.getState().load();
-createRoot(root).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
-registerPwa();
+// Let the static shell in index.html paint first, then mount the app after one painted frame (~16–32 ms):
+// the first paint never waits for React, on fast and slow devices alike.
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  createRoot(root).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+  registerPwa();
+}));
 
 // Warm the engine worker once the page has loaded, so the first reading is instant.
 window.addEventListener('load', () => {

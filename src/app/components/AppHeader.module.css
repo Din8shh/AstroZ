@@ -1,2 +1,5 @@
 .header { display: flex; align-items: center; justify-content: space-between; gap: var(--az-space-2); padding: var(--az-space-3) var(--az-space-4) 0; }
 .brand { font-family: var(--az-font-display); font-weight: var(--fw-display); font-size: calc(22px * var(--az-scale)); line-height: 1.3; color: var(--az-kumkum-ink); }
+.tools { display: flex; align-items: center; gap: var(--az-space-2); }
+.elder { display: grid; place-items: center; min-width: 48px; height: 48px; padding: 0 10px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-line-strong); background: var(--az-surface); color: var(--az-ink); font-weight: 600; font-size: 17px; cursor: pointer; }
+.elder[aria-pressed='true'] { border-color: var(--az-kumkum); background: var(--az-kumkum-soft); color: var(--az-kumkum-ink); }

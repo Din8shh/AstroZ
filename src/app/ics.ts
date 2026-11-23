@@ -9,7 +9,7 @@ export function icsTime(jdUt: number): string {
 }
 
 /** Escape TEXT values (RFC 5545 §3.3.11). */
-const text = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+const text = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
 
 /** Fold lines longer than 75 octets (RFC 5545 §3.1). */
 function fold(line: string): string {

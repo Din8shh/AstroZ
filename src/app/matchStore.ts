@@ -18,6 +18,7 @@ type State = {
   assign: (slot: Slot, id: string | null) => void;
   setName: (slot: Slot, name: string) => void;
   setChoice: (slot: Slot, i: number) => void;
+  reset: () => void;
 };
 
 export const useMatch = create<State>()((set) => ({
@@ -32,4 +33,5 @@ export const useMatch = create<State>()((set) => ({
   assign: (slot, id) => set(slot === 'bride' ? { brideId: id } : { groomId: id }),
   setName: (slot, name) => set(slot === 'bride' ? { brideName: name, brideChoice: 0 } : { groomName: name, groomChoice: 0 }),
   setChoice: (slot, i) => set(slot === 'bride' ? { brideChoice: i } : { groomChoice: i }),
+  reset: () => set({ basis: 'chart', brideId: null, groomId: null, brideName: '', groomName: '', brideChoice: 0, groomChoice: 0 }),
 }));

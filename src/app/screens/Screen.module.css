@@ -5,3 +5,4 @@
 .note { margin: 0; padding: var(--az-space-4); border-radius: var(--az-radius-card); background: var(--az-surface); box-shadow: var(--az-shadow-card); font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.6; }
 .privacy { margin: 0; display: flex; align-items: flex-start; gap: var(--az-space-2); font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }
 .privacyIcon { display: inline-flex; color: var(--az-gold); }
+.page { display: flex; flex-direction: column; min-height: 100dvh; }

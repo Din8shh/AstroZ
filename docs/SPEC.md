@@ -96,12 +96,13 @@ States: calculating, time unknown, nothing auspicious in range, offline, mixed s
 - Historical time zones, Telugu name ambiguity, cultural harm from dosha copy: see mitigations in the build guide.
 
 ## 12. Launch checklist
-- [ ] Golden fixtures pass (Hyderabad, Vijayawada, Tirupati, Dallas)
-- [ ] Pandit review of tables and dosha copy
-- [ ] Installs on Android Chrome + iOS Safari; works offline after first visit
-- [ ] Lighthouse ≥ 90 (PWA, a11y, perf) on throttled mobile
-- [ ] te/en at 360 px with elder text
-- [ ] Disclaimer, methodology, privacy pages
+Status 2026-11-22 (Phase 8). Evidence for each line: docs/launch.md.
+- [ ] Golden fixtures pass (Hyderabad, Vijayawada, Tirupati, Dallas) — every row passes, but **no Tirupati panchangam row yet** and **no row is confirmed by a person** (all `verified: false`)
+- [ ] Pandit review of tables and dosha copy — not done (needs a pandit)
+- [ ] Installs on Android Chrome + iOS Safari; works offline after first visit — Chromium: installable (Lighthouse PWA 100) and offline after first visit (e2e); **real Android and iOS Safari devices not tested**
+- [x] Lighthouse ≥ 90 (PWA, a11y, perf) on throttled mobile — performance 99 (median of 5, simulated) and 98 (DevTools throttling); accessibility and PWA 100
+- [x] te/en at 360 px with elder text
+- [x] Disclaimer, methodology, privacy pages
 - [x] LICENSE matches ephemeris choice (AGPL-3.0-or-later)
-- [ ] In-app "Source" link (AGPL §13)
-- [ ] Parabhava 2026–27 table loaded; reminder for Plavanga 2027–28 at Ugadi
+- [x] In-app "Source" link (AGPL §13) — Settings → About → Source code
+- [x] Parabhava 2026–27 table loaded; reminder for Plavanga 2027–28 at Ugadi — scheduled task on 24 Mar 2027

@@ -16,6 +16,7 @@ type SettingsState = Settings & {
   setLang: (lang: Lang) => void;
   setTheme: (theme: Theme) => void;
   setElderText: (on: boolean) => void;
+  setHomePlaceId: (id: string) => void;
   load: () => Promise<void>;
 };
 
@@ -34,6 +35,7 @@ export const useSettings = create<SettingsState>()((setState, getState) => {
     setLang: (lang) => { setState({ lang }); save(); },
     setTheme: (theme) => { setState({ theme }); save(); },
     setElderText: (elderText) => { setState({ elderText }); save(); },
+    setHomePlaceId: (homePlaceId) => { setState({ homePlaceId }); save(); },
     load: async () => {
       try {
         const stored = await get<Partial<Settings>>(KEY);

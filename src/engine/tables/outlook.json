@@ -1,12 +1,19 @@
 {
   "source": "Job and Income guidance ids from design/handoff JobTe/JobEn and IncomeTe/IncomeEn (to-dos and free remedies). Window rules: tarabalam (tarabalam.json), chandrabalam (chandrabalam.json) and gochara (gochara.json).",
   "version": "0.1.0",
-  "notes": "job.windows: each day of the range is judged with the Moon at local noon: score = tarabalam good 2 / mixed 1, chandrabalam good 1, + 1 for each good transit (Jupiter, Saturn, Rahu); a day with an avoid tara is never a best day. Best windows = runs of consecutive best days (score ≥ minScore), the top `count` by total score. job.sandhiDays: days either side of a mahadasha change marked 'hold off on joining' (design JobTe 'మహాదశ మారే సంధి కాలం'); tradition, pandit to confirm the length. job.joining: the first `count` results of findMuhurtham('job') in the range. year.monthStatus: a month is 'good' when at least `goodIfAtLeast` of the three transits are good, else 'mixed'. income.status: aadayam ≥ vyayam → good, else mixed. year.ugadiRule 'pratipadaAtSunrise': a lunar month (and the Ugadi year) starts on the day whose sunrise falls inside shukla pratipada; when pratipada touches no sunrise (kshaya pratipada), on the day it begins. Ugadi 2026: pratipada began 06:52 IST on 19 March and ended before the next sunrise, so Ugadi = 19 March (samvatsaras.json anchors). The panchangam's day-level samvatsara (Today screen) still follows the month at sunrise, so it shows the old year on such an Ugadi morning — reported, not changed here. income.honour: rajapujyam ≥ avamanam → good (respect outweighs setbacks), else mixed — decides which rajapujyam/avamanam note is shown.",
+  "notes": "job.windows: each day of the range is judged with the Moon at local noon: score = tarabalam good 2 / mixed 1, chandrabalam good 1, + 1 for each good transit (Jupiter, Saturn, Rahu); a day with an avoid tara is never a best day. Best windows = runs of consecutive best days (score ≥ minScore), the top `count` by total score. job.sandhiDays: days either side of a mahadasha change marked 'hold off on joining' (design JobTe 'మహాదశ మారే సంధి కాలం'); tradition, pandit to confirm the length. job.joining: the first `count` results of findMuhurtham('job') in the range. year.monthStatus: a month is 'good' when at least `goodIfAtLeast` of the three transits are good, else 'mixed'. income.status: aadayam ≥ vyayam → good, else mixed. year.ugadiRule 'pratipadaAtSunrise': a lunar month (and the Ugadi year) starts on the day whose sunrise falls inside shukla pratipada; when pratipada touches no sunrise (kshaya pratipada), on the day it begins. Ugadi 2026: pratipada began 06:52 IST on 19 March and ended before the next sunrise, so Ugadi = 19 March (samvatsaras.json anchors). income.honour: rajapujyam ≥ avamanam → good (respect outweighs setbacks), else mixed — decides which rajapujyam/avamanam note is shown. year.adhikaChaitra 'startsYear': when Chaitra is adhika, the year (Ugadi) starts with the adhika Chaitra — the convention panchangam.samvatsara also follows; next case Ugadi 2029 (16 March, Hyderabad). PANDIT TO CONFIRM (the alternative, the nija Chaitra, would put Ugadi 2029 about 14 April). The same Ugadi rule decides the samvatsara on the Today screen: on a kshaya-pratipada Ugadi the new year's name shows from that day's sunrise. job.windows.weights: the day score parts (above). goodWithin: a window is 'good' when its best day is within this many points of the maximum. job.statusGoodTransitsAtLeast: the overall status is 'good' with at least this many good transits.",
   "job": {
     "windows": {
       "minScore": 4,
       "count": 3,
-      "maxLength": 14
+      "maxLength": 14,
+      "weights": {
+        "taraGood": 2,
+        "taraMixed": 1,
+        "chandraGood": 1,
+        "perGoodTransit": 1
+      },
+      "goodWithin": 1
     },
     "sandhiDays": 3,
     "joining": {
@@ -19,13 +26,15 @@
     "remedies": [
       "job.thursdayDiya",
       "job.saturdayBirds"
-    ]
+    ],
+    "statusGoodTransitsAtLeast": 2
   },
   "year": {
     "monthStatus": {
       "goodIfAtLeast": 2
     },
-    "ugadiRule": "pratipadaAtSunrise"
+    "ugadiRule": "pratipadaAtSunrise",
+    "adhikaChaitra": "startsYear"
   },
   "income": {
     "todos": [

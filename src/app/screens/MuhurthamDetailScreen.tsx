@@ -9,7 +9,7 @@ import { initialOf } from '../components/ProfileChip';
 import { STATUS_ICON, StatusChip } from '../components/StatusChip';
 import { SubHeader } from '../components/SubHeader';
 import { WhyLink } from '../components/WhySheet';
-import { dayMonth } from '../dates';
+import { dayMonth, weekdayName } from '../dates';
 import { useDay } from '../hooks/useDay';
 import { useNames } from '../hooks/useEngine';
 import { useName, useT, type MessageKey } from '../i18n';
@@ -19,7 +19,7 @@ import { placeName } from '../places';
 import { useProfiles } from '../profiles';
 import { hrefFor } from '../router';
 import { useSettings } from '../store/settings';
-import { hm, useCalendarExport, WindowWhy, windowLabel } from './muhurthamShared';
+import { afterMidnight, hm, useCalendarExport, WindowWhy, windowLabel } from './muhurthamShared';
 import s from './Muhurtham.module.css';
 
 export function MuhurthamDetailScreen({ date, base }: { date: string; base: 'muhurtham' | 'house' }) {
@@ -74,7 +74,7 @@ function Detail({ w, event, place, peopleIds, back }: { w: MuhurthamWindowView; 
   ];
 
   const share = async () => {
-    const text = t('share.mhText', { event: t(`event.${event}.muhurtham` as MessageKey), date: dayMonth(w.date, lang), time: windowLabel(w) });
+    const text = t('share.mhText', { event: t(`event.${event}.muhurtham` as MessageKey), date: dayMonth(w.start.date, lang), time: windowLabel(w, lang) });
     try {
       if (navigator.share) await navigator.share({ text });
       else await navigator.clipboard.writeText(text);
@@ -89,8 +89,9 @@ function Detail({ w, event, place, peopleIds, back }: { w: MuhurthamWindowView; 
 
   return (
     <div className={s.screen}>
-      <SubHeader title={`${dayMonth(w.date, lang)}, ${name(pc.vara.name)}`} backHref={back} />
+      <SubHeader title={`${dayMonth(w.start.date, lang)}, ${afterMidnight(w) ? weekdayName(w.start.date, lang) : name(pc.vara.name)}`} backHref={back} />
       <main className={s.main} id="main">
+        {afterMidnight(w) ? <p className={s.sub} data-testid="panchang-day">{t('mh.panchangDay', { vara: name(pc.vara.name), date: dayMonth(w.date, lang) })}</p> : null}
         <p className={s.sub}>{t(`event.${event}.muhurtham` as MessageKey)}{people.length ? ` · ${people.map((p) => p.name).join(' & ')}` : ''}</p>
 
         <section className={s.hero} aria-labelledby="win-h" data-testid="mh-window">
@@ -98,7 +99,7 @@ function Detail({ w, event, place, peopleIds, back }: { w: MuhurthamWindowView; 
             <span className={s.heroLabel} id="win-h">{t('mhd.window')}</span>
             <StatusChip status={w.status} variant="solid" label={`${w.score}/100 · ${t(`status.${w.status}`)}`} />
           </div>
-          <span className={s.heroTime}>{windowLabel(w)}</span>
+          <span className={s.heroTime}>{windowLabel(w, lang)}</span>
           <span className={s.heroSub}>{t('mhd.lagnaOf', { lagna: lagnaName })} · {t('mhd.nakOf', { nakshatra: name(pc.nakshatra.name) })} · {name(pc.paksha.name)} {name(pc.tithi.name)}</span>
           <WhyLink label={t('mhd.whyTime')} onClick={() => setWhy(true)} />
         </section>
@@ -157,7 +158,7 @@ function Detail({ w, event, place, peopleIds, back }: { w: MuhurthamWindowView; 
             <div className={s.pair}>
               <div className={`${s.tile} ${s.tileGood}`}>
                 <span className={s.tileHead}><Icon name={STATUS_ICON.good} size={18} />{t('mhd.goodWindow')}</span>
-                <span className={`az-times ${s.tileTime}`}>{windowLabel(w)}</span>
+                <span className={`az-times ${s.tileTime}`}>{windowLabel(w, lang)}</span>
                 {amrita ? <span className={s.tileNote}>{name(amrita.name)} {hm(amrita.start)} – {hm(amrita.end)}</span> : null}
               </div>
               {avoid ? (

@@ -1,5 +1,7 @@
 // People saved on this phone. IndexedDB only (CLAUDE.md "Data and privacy"); never in URLs, logs or share cards.
 import { create } from 'zustand';
+import { useMatch } from './matchStore';
+import { useMuhurtham } from './muhurthamStore';
 import { del, get, set } from 'idb-keyval';
 
 /** Stored relation (SPEC §5). The form's finer labels (son, mother…) come from relation + gender. */
@@ -74,6 +76,9 @@ export const useProfiles = create<State>()((setState, getState) => ({
   },
   deleteAll: async () => {
     setState({ profiles: [], activeId: null });
+    // Typed names and searches held in memory go too.
+    useMatch.getState().reset();
+    useMuhurtham.getState().clear();
     try {
       await Promise.all([del(KEY), del(ACTIVE)]);
     } catch {

@@ -1,22 +1,30 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, type ComponentType } from 'react';
+import { useT } from './i18n';
 import { useSettings } from './store/settings';
 import { useRoute, type Route } from './router';
 import { AppHeader } from './components/AppHeader';
 import { OfflineBanner } from './components/OfflineBanner';
 import { BottomNav } from './components/BottomNav';
+import { UpdateToast } from './components/UpdateToast';
+import { ScreenBoundary } from './components/ScreenBoundary';
 import { TodayScreen } from './screens/TodayScreen';
 import { WishesScreen } from './screens/WishesScreen';
 import { FamilyScreen } from './screens/FamilyScreen';
 import { MoreScreen } from './screens/MoreScreen';
-import { PersonFormScreen } from './screens/PersonFormScreen';
-import { RevealScreen } from './screens/RevealScreen';
-import { MatchPickScreen } from './screens/MatchPickScreen';
-import { MatchResultScreen } from './screens/MatchResultScreen';
-import { MuhurthamScreen } from './screens/MuhurthamScreen';
-import { MuhurthamDetailScreen } from './screens/MuhurthamDetailScreen';
-import { NewHouseScreen } from './screens/NewHouseScreen';
-import { JobScreen } from './screens/JobScreen';
-import { IncomeScreen } from './screens/IncomeScreen';
+// Full-screen flows load on demand (smaller first download; every chunk is precached for offline use).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lazyNamed = <K extends string>(load: () => Promise<Record<K, ComponentType<any>>>, name: K) =>
+  lazy(async () => ({ default: (await load())[name]! }));
+const PersonFormScreen = lazyNamed(() => import('./screens/PersonFormScreen'), 'PersonFormScreen') as ComponentType<{ id?: string }>;
+const RevealScreen = lazyNamed(() => import('./screens/RevealScreen'), 'RevealScreen') as ComponentType<{ id: string }>;
+const MatchPickScreen = lazyNamed(() => import('./screens/MatchPickScreen'), 'MatchPickScreen') as ComponentType;
+const MatchResultScreen = lazyNamed(() => import('./screens/MatchResultScreen'), 'MatchResultScreen') as ComponentType;
+const MuhurthamScreen = lazyNamed(() => import('./screens/MuhurthamScreen'), 'MuhurthamScreen') as ComponentType;
+const MuhurthamDetailScreen = lazyNamed(() => import('./screens/MuhurthamDetailScreen'), 'MuhurthamDetailScreen') as ComponentType<{ date: string; base: 'muhurtham' | 'house' }>;
+const NewHouseScreen = lazyNamed(() => import('./screens/NewHouseScreen'), 'NewHouseScreen') as ComponentType;
+const JobScreen = lazyNamed(() => import('./screens/JobScreen'), 'JobScreen') as ComponentType;
+const IncomeScreen = lazyNamed(() => import('./screens/IncomeScreen'), 'IncomeScreen') as ComponentType;
+const InfoScreen = lazyNamed(() => import('./screens/InfoScreen'), 'InfoScreen') as ComponentType<{ page: 'method' | 'privacy' | 'disclaimer' }>;
 import s from './App.module.css';
 
 /** Full-screen flows opened from a tab (own header, no bottom nav). */
@@ -28,6 +36,7 @@ function subScreen(r: Route) {
   if (r.tab === 'wishes' && r.rest[0] === 'job') return <JobScreen />;
   if (r.tab === 'wishes' && r.rest[0] === 'income') return <IncomeScreen />;
   if (r.tab === 'wishes' && r.rest[0] === 'house') return isDate(r.rest[1]) ? <MuhurthamDetailScreen key={r.rest[1]} date={r.rest[1]!} base="house" /> : <NewHouseScreen />;
+  if (r.tab === 'more' && (r.rest[0] === 'method' || r.rest[0] === 'privacy' || r.rest[0] === 'disclaimer')) return <InfoScreen key={r.rest[0]} page={r.rest[0]} />;
   if (r.tab !== 'family') return null;
   const [a, b] = r.rest;
   if (a === 'new') return <PersonFormScreen />;
@@ -59,7 +68,8 @@ export function App() {
   const Current = TAB_SCREENS[route.tab];
   return (
     <div className={['az', `az-${lang}`, elder && 'az-elder', s.app].filter(Boolean).join(' ')}>
-      {sub ?? (
+      <UpdateToast />
+      {sub ? <Boundary key={route.rest.join('/')}><Suspense fallback={<Loading />}>{sub}</Suspense></Boundary> : (
         <>
           <AppHeader />
           <OfflineBanner />
@@ -69,4 +79,14 @@ export function App() {
       )}
     </div>
   );
+}
+
+function Loading() {
+  const t = useT();
+  return <p role="status" style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--az-ink-muted)' }}>{t('today.calculating')}</p>;
+}
+
+function Boundary({ children }: { children: React.ReactNode }) {
+  const t = useT();
+  return <ScreenBoundary message={t('error.screen')} retry={t('error.retry')}>{children}</ScreenBoundary>;
 }

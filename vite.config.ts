@@ -34,7 +34,9 @@ export default defineConfig({
     react(),
     swissephAssets(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' + update toast (src/app/pwa.ts): a new version waits until the person taps Update, so a reload
+      // never drops a half-filled form or in-memory results, and old lazy chunks keep being served until then.
+      registerType: 'prompt',
       injectRegister: false, // registered in src/app/pwa.ts
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {

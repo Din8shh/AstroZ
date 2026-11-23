@@ -57,3 +57,13 @@ describe('nama nakshatra', () => {
     expect(namaNakshatra(input)).toBeNull();
   });
 });
+
+describe('initials before the name are skipped (code review)', () => {
+  it('"K. Lakshmi", "K.Lakshmi", "K Lakshmi" and "కె. లక్ష్మి" read the name, not the initial', () => {
+    const want = namaNakshatra('Lakshmi')!;
+    for (const n of ['K. Lakshmi', 'K.Lakshmi', 'K Lakshmi', 'Dr. K. Lakshmi']) expect(namaNakshatra(n)?.candidates, n).toEqual(want.candidates);
+    expect(namaNakshatra('కె. లక్ష్మి')?.candidates).toEqual(namaNakshatra('లక్ష్మి')!.candidates);
+    // A one-word name is never skipped, and a name that is a single letter still reads.
+    expect(namaNakshatra('K')).not.toBeNull();
+  });
+});

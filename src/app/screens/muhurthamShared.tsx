@@ -10,11 +10,16 @@ import { placeName, type Place } from '../places';
 import { relationChoice, useProfiles, type Profile } from '../profiles';
 import { hrefFor } from '../router';
 import { useSettings } from '../store/settings';
-import { dayMonth } from '../dates';
+import { dayMonth, shortDate } from '../dates';
+import type { Lang } from '../types';
 import s from './Muhurtham.module.css';
 
 export const hm = (x: { time: string }) => x.time.slice(0, 5);
-export const windowLabel = (w: MuhurthamWindowView) => `${hm(w.start)} – ${hm(w.end)}`;
+/** "09:40 – 10:45"; a window that runs past midnight names the end's civil date ("23:40 – 00:30, 3 Dec"). */
+export const windowLabel = (w: MuhurthamWindowView, lang: Lang = 'en') =>
+  `${hm(w.start)} – ${hm(w.end)}${w.end.date !== w.start.date ? `, ${shortDate(w.end.date, lang)}` : ''}`;
+/** A full-day (vivaham) window after midnight belongs to the previous panchangam day: its civil date differs from w.date. */
+export const afterMidnight = (w: MuhurthamWindowView) => w.start.date !== w.date;
 
 /** Saved people who have a birth star (needed for tarabalam / chandrabalam). */
 export function useParticipantProfiles(): Profile[] {
@@ -86,7 +91,7 @@ export function WindowWhy({ w, event, people, onClose }: { w: MuhurthamWindowVie
     }),
   ];
   return (
-    <WhySheet title={`${dayMonth(w.date, lang)} · ${windowLabel(w)}`} kicker={t('why.kicker')} closeLabel={t('form.close')} factors={factors} method={t('mhd.method')} onClose={onClose}>
+    <WhySheet title={`${dayMonth(w.start.date, lang)} · ${windowLabel(w, lang)}`} kicker={t('why.kicker')} closeLabel={t('form.close')} factors={factors} method={t('mhd.method')} onClose={onClose}>
       <ul className={s.whyLines}>
         {lines(w, event, people, 6).map((l, i) => <li key={i}>{l.text}</li>)}
       </ul>
