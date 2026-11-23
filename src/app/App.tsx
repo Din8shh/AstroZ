@@ -12,6 +12,7 @@ import { TodayScreen } from './screens/TodayScreen';
 import { WishesScreen } from './screens/WishesScreen';
 import { FamilyScreen } from './screens/FamilyScreen';
 import { MoreScreen } from './screens/MoreScreen';
+import { FutureScreen } from './screens/FutureScreen';
 // Full-screen flows load on demand (smaller first download; every chunk is precached for offline use).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const lazyNamed = <K extends string>(load: () => Promise<Record<K, ComponentType<any>>>, name: K) =>
@@ -46,7 +47,7 @@ function subScreen(r: Route) {
   return null;
 }
 
-const TAB_SCREENS = { today: TodayScreen, wishes: WishesScreen, family: FamilyScreen, more: MoreScreen };
+const TAB_SCREENS = { today: TodayScreen, wishes: WishesScreen, future: FutureScreen, family: FamilyScreen, more: MoreScreen };
 
 export function App() {
   const lang = useSettings((st) => st.lang);

@@ -1,6 +1,6 @@
 // Job outlook and Ugadi-year outlook. Pure computation over the Ephemeris interface plus engine helpers
 // (birth chart, muhurtham search, cached amanta months); every rule and number comes from tables.
-import type { BirthChart, BirthInput, DashaSpan, GeoPlace, JobOutlook, JobOutlookInput, MuhurthamQuery, MuhurthamResult, TransitView, YearOutlook, YearOutlookInput } from '../api';
+import type { BirthChart, BirthInput, DashaSpan, FutureInput, FutureOutlook, FuturePeriod, GeoPlace, JobOutlook, JobOutlookInput, MuhurthamQuery, MuhurthamResult, TransitMilestone, TransitView, YearOutlook, YearOutlookInput } from '../api';
 import type { Ephemeris } from '../ephemeris/types';
 import type { Masa } from './panchangam';
 import { angles, findCrossing, samvatsara as samvatsaraOf } from './panchangam';
@@ -11,6 +11,7 @@ import { TRANSIT_PLANETS, transit, type TransitPlanet } from '../rules/gochara';
 import grahas from '../tables/grahas.json';
 import outlook from '../tables/outlook.json';
 import vimshottari from '../tables/vimshottari.json';
+import future from '../tables/future.json';
 
 const DAY = 1;
 const SECOND = 1 / 86_400;
@@ -264,4 +265,90 @@ export function kshayaUgadiToday(eph: Ephemeris, masa: Masa, nextSunrise: number
   if (next.number !== 1) return null;
   const pratipadaEnd = findCrossing(angles(eph).elongation, 12, masa.endNewMoon + SECOND, 1, 3);
   return pratipadaEnd < nextSunrise ? next : null;
+}
+
+/** Future tab: dasha timeline, transit milestones and a period strip over a horizon (future.json). */
+export async function futureOutlook(deps: OutlookDeps, q: FutureInput): Promise<FutureOutlook> {
+  const e = deps.eph;
+  const chart = await deps.birthChart(q.person.birth);
+  const janma = chart.moon.rasi;
+  const tz = q.place.tz;
+  const noon = (date: string) => resolveLocal({ date, time: '12:00', tz }).jdUt;
+  const now = noon(q.from);
+  const mahas = chart.dasha.mahadashas;
+  const whole = q.years <= 0;
+  const startJd = whole ? mahas[0]!.start.jdUt : now;
+  const endJd = whole ? mahas[mahas.length - 1]!.end.jdUt : noon(`${Number(q.from.slice(0, 4)) + q.years}${q.from.slice(4)}`);
+  const granularity: FutureOutlook['horizon']['granularity'] = whole || q.years > future.granularity.yearsUpTo ? 'mahadasha' : q.years <= future.granularity.monthsUpTo ? 'month' : 'year';
+
+  const at = (jd: number) => {
+    const m = mahas.find((x) => x.start.jdUt <= jd && jd < x.end.jdUt) ?? (jd < mahas[0]!.start.jdUt ? mahas[0]! : mahas[mahas.length - 1]!);
+    const a = m.antardashas.find((x) => x.start.jdUt <= jd && jd < x.end.jdUt) ?? m.antardashas[0]!;
+    return { m, a };
+  };
+  const cur = at(now);
+  /** Mahadasha–antardasha pairs overlapping [a, b). */
+  const segmentsIn = (a: number, b: number) => mahas.flatMap((m) => m.antardashas
+    .filter((x) => x.end.jdUt > a && x.start.jdUt < b)
+    .map((x) => ({ mahadasha: span(m.lord, m.start, m.end), antardasha: span(x.lord, x.start, x.end) })));
+
+  const dashas = mahas.filter((m) => m.end.jdUt > startJd && m.start.jdUt < endJd).map((m) => ({
+    ...span(m.lord, m.start, m.end),
+    antardashas: m.antardashas.filter((a) => a.end.jdUt > startJd && a.start.jdUt < endJd).map((a) => span(a.lord, a.start, a.end)),
+  }));
+
+  // Period strip.
+  const goodAtLeast = future.status.goodIfAtLeast;
+  const transitsAt = (jd: number) => TRANSIT_PLANETS.map((p) => { const t = transit(p, janma, rasiOf(e.position(p, jd).longitude)); return { planet: p, house: t.house, status: t.status }; });
+  const periods: FuturePeriod[] = [];
+  if (granularity === 'mahadasha') {
+    for (const m of dashas) periods.push({ start: m.start.date, end: m.end.date, mahadasha: m, antardasha: span(m.antardashas[0]?.lord ?? m.lord, m.start, m.end), segments: [] });
+  } else {
+    const step = granularity === 'month' ? 1 : 12;
+    const [y0, m0] = q.from.split('-').map(Number) as [number, number];
+    for (let i = 0; ; i += step) {
+      const a = new Date(Date.UTC(y0, m0 - 1 + i, 1)), b = new Date(Date.UTC(y0, m0 - 1 + i + step, 0));
+      const s0 = i === 0 ? q.from : a.toISOString().slice(0, 10);
+      const e0 = b.toISOString().slice(0, 10);
+      if (noon(s0) >= endJd) break;
+      const mid = (noon(s0) + Math.min(noon(e0), endJd)) / 2;
+      const d = at(mid);
+      const tr = transitsAt(mid);
+      periods.push({
+        start: s0, end: e0,
+        mahadasha: span(d.m.lord, d.m.start, d.m.end), antardasha: span(d.a.lord, d.a.start, d.a.end),
+        segments: segmentsIn(noon(s0), Math.min(noon(e0) + 1, endJd)),
+        transits: tr, status: tr.filter((x) => x.status === 'good').length >= goodAtLeast ? 'good' : 'mixed',
+      });
+    }
+  }
+
+  // Transit milestones (sign changes) inside the horizon.
+  const milestones: TransitMilestone[] = [];
+  if (!whole && q.years <= future.transitsUpTo) {
+    for (const p of TRANSIT_PLANETS) {
+      let jd = now;
+      for (let guard = 0; guard < 200; guard++) {
+        const next = nextIngress(e, p, jd);
+        if (!next || next.jd >= endJd) break;
+        const t = transit(p, janma, next.rasi);
+        milestones.push({ planet: p, name: graha(p).name, date: toLocal(next.jd, tz).date, rasi: next.rasi, rasiName: rasiName(next.rasi), house: t.house, status: t.status, ...(t.phase && { phase: t.phase }) });
+        jd = next.jd + 1;
+      }
+    }
+    milestones.sort((a, b) => a.date.localeCompare(b.date));
+  }
+
+  return {
+    person: { id: q.person.id, nakshatra: chart.moon.nakshatra, rasi: janma },
+    approximate: chart.approximate,
+    horizon: { from: whole ? mahas[0]!.start.date : q.from, to: toLocal(endJd, tz).date, years: q.years, granularity },
+    now: {
+      mahadasha: span(cur.m.lord, cur.m.start, cur.m.end), antardasha: span(cur.a.lord, cur.a.start, cur.a.end),
+      transits: TRANSIT_PLANETS.map((p) => transitView(e, p, janma, now, tz)),
+    },
+    dashas, periods, milestones,
+    reasons: [{ ruleId: 'future.now', values: { mahadasha: cur.m.lord, antardasha: cur.a.lord } }],
+    remedies: future.remedies,
+  };
 }

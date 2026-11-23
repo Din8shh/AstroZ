@@ -21,7 +21,7 @@ async function seed(page: Page) {
 const SCREENS: [string, string][] = [
   ['today', './'], ['wishes', './#/wishes'], ['family', './#/family'], ['settings', './#/more'],
   ['method', './#/more/method'], ['privacy', './#/more/privacy'], ['match', './#/wishes/marriage'],
-  ['muhurtham', './#/wishes/muhurtham'], ['house', './#/wishes/house'], ['job', './#/wishes/job'], ['income', './#/wishes/income'],
+  ['muhurtham', './#/wishes/muhurtham'], ['house', './#/wishes/house'], ['job', './#/wishes/job'], ['income', './#/wishes/income'], ['future', './#/future'],
   ['add', './#/family/new'],
 ];
 
@@ -38,7 +38,7 @@ for (const scheme of ['light', 'dark'] as const) {
       await page.getByRole('radio', { name: lang === 'te' ? 'తెలుగు' : 'English' }).click();
       for (const [name, url] of SCREENS) {
         await page.goto(url);
-        await page.waitForTimeout(name === 'job' || name === 'income' || name === 'house' ? 2500 : 900);
+        await page.waitForTimeout(name === 'job' || name === 'income' || name === 'house' || name === 'future' ? 2500 : 900);
         const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
         for (const v of r.violations.filter((x) => x.impact === 'serious' || x.impact === 'critical')) {
           problems.push(`${scheme} ${lang} ${name}: ${v.id} (${v.impact}) — ${v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ')}`);

@@ -533,5 +533,22 @@
   "error.retry": "Try again",
   "ptr.pull": "Pull down to refresh",
   "ptr.release": "Release to refresh",
-  "ptr.refreshing": "Checking for updates…"
+  "ptr.refreshing": "Checking for updates…",
+  "nav.future": "Future",
+  "future.title": "Your future",
+  "future.intro": "Dasha periods and the slow transits ahead, from your birth star. Tendencies, not promises.",
+  "future.horizon": "How far ahead?",
+  "future.h.3": "3 years",
+  "future.h.10": "10 years",
+  "future.h.0": "Whole life",
+  "future.nowTitle": "Running now",
+  "future.nowText": "{maha} mahadasha · {antar} antardasha, until {date}.",
+  "future.byMonth": "Month by month",
+  "future.byYear": "Year by year",
+  "future.byMaha": "Mahadasha by mahadasha",
+  "future.milestones": "Transit changes ahead",
+  "future.milestone": "{planet} moves into {rasi} — house {house} from your rasi",
+  "future.method": "Vimshottari dasha from the Moon's nakshatram at birth; Guru, Shani and Rahu counted from your janma rasi (good houses from the Telugu panchangam tradition). A period is 'good' when at least two of the three transits are good. Tendencies only — not predictions of events.",
+  "future.span": "{from} – {to}",
+  "future.more": "Show {n} more"
 }
