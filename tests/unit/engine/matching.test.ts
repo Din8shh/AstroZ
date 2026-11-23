@@ -18,22 +18,49 @@ const side = (nakshatra: number, pada: number, extra: Partial<MatchSide> = {}): 
 };
 
 describe('matching fixtures (tests/fixtures/matching-golden.json): koota points exact', () => {
-  const open = fixture.rows.filter((r) => !r.expected).map((r) => r.id);
+  type Row = { id: string; verified: boolean; kind?: string; illustrative?: boolean; expected?: Record<string, number> | null;
+    bride?: { nakshatra: number; pada: number; note: string }; groom?: { nakshatra: number; pada: number; note: string };
+    first?: { nakshatra: number; pada: number; note: string }; second?: { nakshatra: number; pada: number; note: string };
+    published?: Record<string, number>; disagreements?: Record<string, { ours?: number; published?: number; why: string }> };
+  const rows = fixture.rows as unknown as Row[];
+  const full = rows.filter((r) => r.expected && !r.illustrative);
+  const pairs = rows.filter((r) => r.kind === 'pair');
+  const open = rows.filter((r) => !r.expected && r.kind !== 'pair').map((r) => r.id);
   if (open.length) it.todo(`fill from published reports (${open.length} rows): ${open.join(', ')}`);
-  const published = fixture.rows.filter((r) => r.expected && !('illustrative' in r && r.illustrative));
-  if (published.length < 10) it.todo(`SPEC §9 Phase 5 needs 10 published reports; ${published.length} filled (illustrative examples do not count)`);
-  const unverified = fixture.rows.filter((r) => r.expected && !r.verified).map((r) => r.id);
+  if (full.length < 10) it.todo(`SPEC §9 Phase 5 needs 10 published reports with bride/groom named: ${full.length} full; plus ${pairs.length} published pair pages checked on the direction-independent kootas`);
+  const unverified = rows.filter((r) => (r.expected || r.kind === 'pair') && !r.verified).map((r) => r.id);
   if (unverified.length) it.todo(`a person must check: ${unverified.join(', ')}`);
 
-  for (const r of fixture.rows) {
-    if (!r.expected) continue;
+  for (const r of rows) {
+    if (!r.expected || !r.bride || !r.groom) continue;
     const want = r.expected;
     it(`${r.id}: ${r.bride.note} × ${r.groom.note}`, () => {
-      const ks = ashtakoota(side(r.bride.nakshatra, r.bride.pada), side(r.groom.nakshatra, r.groom.pada));
+      const ks = ashtakoota(side(r.bride!.nakshatra, r.bride!.pada), side(r.groom!.nakshatra, r.groom!.pada));
       const got = Object.fromEntries(ks.map((k) => [k.id, k.points]));
       const { total, ...perKoota } = want;
       expect(got).toEqual(perKoota);
       expect(ks.reduce((s, k) => s + k.points, 0)).toBe(total);
+    });
+  }
+
+  // Pair pages: the bride is not named, so only kootas that read the same in both directions are compared.
+  const SYMMETRIC = ['tara', 'yoni', 'grahaMaitri', 'bhakoot', 'nadi'] as const;
+  for (const r of pairs) {
+    it(`${r.id}: ${r.first!.note} & ${r.second!.note} — direction-independent kootas`, () => {
+      const a = side(r.first!.nakshatra, r.first!.pada), b = side(r.second!.nakshatra, r.second!.pada);
+      const ab = Object.fromEntries(ashtakoota(a, b).map((k) => [k.id, k.points]));
+      const ba = Object.fromEntries(ashtakoota(b, a).map((k) => [k.id, k.points]));
+      for (const k of SYMMETRIC) {
+        expect(ab[k], `${k} reads the same both ways`).toBe(ba[k]);
+        const dis = r.disagreements?.[k];
+        if (dis) {
+          // A recorded disagreement: the app keeps its sourced value; the published value is documented, not adopted.
+          expect(ab[k], `${k}: ours`).toBe(dis.ours);
+          expect(r.published![k], `${k}: published`).toBe(dis.published);
+        } else {
+          expect(ab[k], k).toBe(r.published![k]);
+        }
+      }
     });
   }
 });

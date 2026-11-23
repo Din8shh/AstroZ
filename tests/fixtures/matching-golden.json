@@ -1,194 +1,462 @@
 {
-  "version": 1,
-  "reference": "TO FILL: 10 published matching reports (SPEC §9 Phase 5), with a person checking each. Koota points must match exactly. Rows with illustrative: true are worked examples, not real reports, and do not count toward the 10.",
-  "rows": [
-    {
-      "id": "calcatools-rohini-mrigashira",
-      "verified": false,
-      "source": "https://calcatools.com/how-guna-milan-score-is-calculated-worked-example/ — worked example (the page calls it 'a composite illustration, not a real pair'); read by an automated agent on 2026-11-21, NOT yet checked by a person.",
-      "bride": {
-        "nakshatra": 4,
-        "pada": 1,
-        "note": "Rohini, Taurus (pada not stated; all Rohini padas are in Taurus)"
-      },
-      "groom": {
-        "nakshatra": 5,
-        "pada": 1,
-        "note": "Mrigashira in its Taurus padas (pada not stated)"
-      },
-      "expected": {
-        "varna": 1,
-        "vashya": 2,
-        "tara": 3,
-        "yoni": 4,
-        "grahaMaitri": 5,
-        "gana": 5,
-        "bhakoot": 7,
-        "nadi": 8,
-        "total": 35
-      },
-      "illustrative": true,
-      "disagreement": "The page states rules that contradict kootas.json (gana Rakshasa–Rakshasa = 0 and Manushya–Rakshasa = 1; tara remainder 1 unfavourable; Rohini as Adya nadi). It agrees with our tables for this pair only by coincidence. Reported, not changed."
-    },
-    {
-      "id": "oj-hasta2-rohini2",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 4,
-        "pada": 2,
-        "note": "Rohini 2"
-      },
-      "groom": {
-        "nakshatra": 13,
-        "pada": 2,
-        "note": "Hasta 2"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-ashwini1-bharani2",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 2,
-        "pada": 2,
-        "note": "Bharani 2"
-      },
-      "groom": {
-        "nakshatra": 1,
-        "pada": 1,
-        "note": "Ashwini 1"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-magha1-uttara-bhadra3",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 26,
-        "pada": 3,
-        "note": "Uttara Bhadra 3"
-      },
-      "groom": {
-        "nakshatra": 10,
-        "pada": 1,
-        "note": "Magha 1"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-swati2-anuradha3",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 17,
-        "pada": 3,
-        "note": "Anuradha 3"
-      },
-      "groom": {
-        "nakshatra": 15,
-        "pada": 2,
-        "note": "Swati 2"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-pushya2-shravana1",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 22,
-        "pada": 1,
-        "note": "Shravana 1"
-      },
-      "groom": {
-        "nakshatra": 8,
-        "pada": 2,
-        "note": "Pushya 2"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-revati4-krittika1",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 3,
-        "pada": 1,
-        "note": "Krittika 1"
-      },
-      "groom": {
-        "nakshatra": 27,
-        "pada": 4,
-        "note": "Revati 4"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-mula1-ardra2",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 6,
-        "pada": 2,
-        "note": "Ardra 2"
-      },
-      "groom": {
-        "nakshatra": 19,
-        "pada": 1,
-        "note": "Mula 1"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-chitra3-dhanishta3",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 23,
-        "pada": 3,
-        "note": "Dhanishta 3"
-      },
-      "groom": {
-        "nakshatra": 14,
-        "pada": 3,
-        "note": "Chitra 3"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-jyeshtha4-punarvasu4",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 7,
-        "pada": 4,
-        "note": "Punarvasu 4"
-      },
-      "groom": {
-        "nakshatra": 18,
-        "pada": 4,
-        "note": "Jyeshtha 4"
-      },
-      "expected": null
-    },
-    {
-      "id": "oj-shatabhisha1-purva-phalguni1",
-      "verified": false,
-      "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
-      "bride": {
-        "nakshatra": 11,
-        "pada": 1,
-        "note": "Purva Phalguni 1"
-      },
-      "groom": {
-        "nakshatra": 24,
-        "pada": 1,
-        "note": "Shatabhisha 1"
-      },
-      "expected": null
+ "version": 1,
+ "reference": "SPEC §9 Phase 5: 10 published matching reports must reproduce koota points. Rows with `expected` are full reports with bride and groom named (all eight kootas compared exactly). Rows with kind 'pair' are published pair pages that do not name the bride: only the direction-independent kootas are compared, and any disagreement is recorded, not hidden. Illustrative rows do not count. A person should confirm every row (verified: true).",
+ "rows": [
+  {
+   "id": "calcatools-rohini-mrigashira",
+   "verified": false,
+   "source": "https://calcatools.com/how-guna-milan-score-is-calculated-worked-example/ — worked example (the page calls it 'a composite illustration, not a real pair'); read by an automated agent on 2026-11-21, NOT yet checked by a person.",
+   "bride": {
+    "nakshatra": 4,
+    "pada": 1,
+    "note": "Rohini, Taurus (pada not stated; all Rohini padas are in Taurus)"
+   },
+   "groom": {
+    "nakshatra": 5,
+    "pada": 1,
+    "note": "Mrigashira in its Taurus padas (pada not stated)"
+   },
+   "expected": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 3,
+    "yoni": 4,
+    "grahaMaitri": 5,
+    "gana": 5,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 35
+   },
+   "illustrative": true,
+   "disagreement": "The page states rules that contradict kootas.json (gana Rakshasa–Rakshasa = 0 and Manushya–Rakshasa = 1; tara remainder 1 unfavourable; Rohini as Adya nadi). It agrees with our tables for this pair only by coincidence. Reported, not changed."
+  },
+  {
+   "id": "asksoma-worked-hasta-rohini",
+   "verified": false,
+   "source": "https://asksoma.ai/kundli-matching/ashtakoot-guna-milan — worked example with bride and groom named ('Groom: Moon in Rohini, Vrishabha rashi. Bride: Moon in Hasta, Kanya rashi.'), per-koota points and total 25/36, read by an automated agent on 2026-11-23. AskSoma is a web astrology service (Swiss Ephemeris, Lahiri), not a printed panchangam; a person should confirm.",
+   "bride": {
+    "nakshatra": 13,
+    "pada": 2,
+    "note": "Hasta, Kanya (pada not stated)"
+   },
+   "groom": {
+    "nakshatra": 4,
+    "pada": 2,
+    "note": "Rohini, Vrishabha (pada not stated)"
+   },
+   "expected": {
+    "varna": 1,
+    "vashya": 1,
+    "tara": 3,
+    "yoni": 1,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 0,
+    "nadi": 8,
+    "total": 25
+   }
+  },
+  {
+   "id": "oj-revati4-krittika1",
+   "verified": false,
+   "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+   "bride": {
+    "nakshatra": 3,
+    "pada": 1,
+    "note": "Krittika 1"
+   },
+   "groom": {
+    "nakshatra": 27,
+    "pada": 4,
+    "note": "Revati 4"
+   },
+   "expected": null
+  },
+  {
+   "id": "oj-chitra3-dhanishta3",
+   "verified": false,
+   "source": "TO FILL from a published report: onlinejyotish.com star-match (Guna Milan, 'without' cancellations) — https://www.onlinejyotish.com/free-astrology/star-match.php?service=guna-milan — enter boy and girl rasi/nakshatra/pada and copy the eight koota points and total.",
+   "bride": {
+    "nakshatra": 23,
+    "pada": 3,
+    "note": "Dhanishta 3"
+   },
+   "groom": {
+    "nakshatra": 14,
+    "pada": 3,
+    "note": "Chitra 3"
+   },
+   "expected": null
+  },
+  {
+   "id": "asksoma-rohini-mrigashira",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/rohini-mrigashira — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 4,
+    "pada": 2,
+    "note": "Rohini"
+   },
+   "second": {
+    "nakshatra": 5,
+    "pada": 1,
+    "note": "Mrigashira, Vrishabha (Moon signs 2 and 2)"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 3,
+    "yoni": 4,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 36
+   }
+  },
+  {
+   "id": "asksoma-ashwini-bharani",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/ashwini-bharani — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 1,
+    "pada": 2,
+    "note": "Ashwini"
+   },
+   "second": {
+    "nakshatra": 2,
+    "pada": 2,
+    "note": "Bharani"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 3,
+    "yoni": 2,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 34
+   }
+  },
+  {
+   "id": "asksoma-hasta-ashwini",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/hasta-ashwini — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 13,
+    "pada": 2,
+    "note": "Hasta"
+   },
+   "second": {
+    "nakshatra": 1,
+    "pada": 2,
+    "note": "Ashwini"
+   },
+   "published": {
+    "varna": 0,
+    "vashya": 1,
+    "tara": 1.5,
+    "yoni": 0,
+    "grahaMaitri": 0.5,
+    "gana": 6,
+    "bhakoot": 0,
+    "nadi": 0,
+    "total": 9.0
+   }
+  },
+  {
+   "id": "asksoma-revati-uttara-bhadrapada",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/revati-uttara-bhadrapada — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 27,
+    "pada": 2,
+    "note": "Revati"
+   },
+   "second": {
+    "nakshatra": 26,
+    "pada": 2,
+    "note": "Uttara Bhadra"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 3,
+    "yoni": 2,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 34
+   }
+  },
+  {
+   "id": "asksoma-purva-ashadha-uttara-ashadha",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/purva-ashadha-uttara-ashadha — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 20,
+    "pada": 2,
+    "note": "Purva Ashadha"
+   },
+   "second": {
+    "nakshatra": 21,
+    "pada": 1,
+    "note": "Uttara Ashadha, Dhanus"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 3,
+    "yoni": 3,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 35
+   }
+  },
+  {
+   "id": "asksoma-mrigashira-swati",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/mrigashira-swati — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 5,
+    "pada": 1,
+    "note": "Mrigashira, Vrishabha"
+   },
+   "second": {
+    "nakshatra": 15,
+    "pada": 2,
+    "note": "Swati"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 1,
+    "tara": 3,
+    "yoni": 1,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 32
+   },
+   "disagreements": {
+    "bhakoot": {
+     "ours": 0,
+     "published": 7,
+     "why": "Vrishabha–Tula is a 6/8 placement (Bhakoot dosha, 0 by the standard rule, kootas.json). Both signs are ruled by Shukra, a traditional cancellation; AskSoma evidently awards the full 7 when the dosha is cancelled. The app keeps raw points and reports cancellations separately. Convention difference, not changed."
     }
-  ]
+   }
+  },
+  {
+   "id": "asksoma-magha-uttara-bhadrapada",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/magha-uttara-bhadrapada — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 10,
+    "pada": 2,
+    "note": "Magha"
+   },
+   "second": {
+    "nakshatra": 26,
+    "pada": 2,
+    "note": "Uttara Bhadra"
+   },
+   "published": {
+    "varna": 0,
+    "vashya": 0,
+    "tara": 1.5,
+    "yoni": 2,
+    "grahaMaitri": 5,
+    "gana": 0,
+    "bhakoot": 0,
+    "nadi": 8,
+    "total": 16.5
+   },
+   "disagreements": {
+    "vashya": {
+     "ours": 1,
+     "published": 0,
+     "why": "Simha (vanachara) with Meena (jalachara): the onlinejyotish table the app uses gives 1 in both directions; AskSoma gives 0. Vashya tables vary between sources. Not changed."
+    }
+   }
+  },
+  {
+   "id": "asksoma-swati-anuradha",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/swati-anuradha — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 15,
+    "pada": 2,
+    "note": "Swati"
+   },
+   "second": {
+    "nakshatra": 17,
+    "pada": 2,
+    "note": "Anuradha"
+   },
+   "published": {
+    "varna": 0,
+    "vashya": 0,
+    "tara": 1.5,
+    "yoni": 2,
+    "grahaMaitri": 3,
+    "gana": 6,
+    "bhakoot": 0,
+    "nadi": 8,
+    "total": 20.5
+   }
+  },
+  {
+   "id": "asksoma-pushya-shravana",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/pushya-shravana — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 8,
+    "pada": 2,
+    "note": "Pushya"
+   },
+   "second": {
+    "nakshatra": 22,
+    "pada": 3,
+    "note": "Shravana"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 1.5,
+    "yoni": 0,
+    "grahaMaitri": 0.5,
+    "gana": 6,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 26.0
+   }
+  },
+  {
+   "id": "asksoma-mula-ardra",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/mula-ardra — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 19,
+    "pada": 2,
+    "note": "Mula"
+   },
+   "second": {
+    "nakshatra": 6,
+    "pada": 2,
+    "note": "Ardra"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 2,
+    "tara": 1.5,
+    "yoni": 4,
+    "grahaMaitri": 0.5,
+    "gana": 0,
+    "bhakoot": 7,
+    "nadi": 0,
+    "total": 16.0
+   }
+  },
+  {
+   "id": "asksoma-jyeshtha-punarvasu",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/jyeshtha-punarvasu — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 18,
+    "pada": 3,
+    "note": "Jyeshtha"
+   },
+   "second": {
+    "nakshatra": 7,
+    "pada": 2,
+    "note": "Punarvasu, Mithuna"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 0,
+    "tara": 1.5,
+    "yoni": 3,
+    "grahaMaitri": 0.5,
+    "gana": 1,
+    "bhakoot": 0,
+    "nadi": 0,
+    "total": 7.0
+   },
+   "disagreements": {
+    "direction": {
+     "why": "Varna, Vashya and Gana together match neither bride/groom order: AskSoma's direction conventions differ from the onlinejyotish tables (Vashya nara/keeta, Gana Rakshasa/Deva). Direction-dependent kootas are not compared for pair pages."
+    }
+   }
+  },
+  {
+   "id": "asksoma-shatabhisha-purva-phalguni",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/shatabhisha-purva-phalguni — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 24,
+    "pada": 2,
+    "note": "Shatabhisha"
+   },
+   "second": {
+    "nakshatra": 11,
+    "pada": 2,
+    "note": "Purva Phalguni"
+   },
+   "published": {
+    "varna": 0,
+    "vashya": 0,
+    "tara": 1.5,
+    "yoni": 2,
+    "grahaMaitri": 0,
+    "gana": 0,
+    "bhakoot": 7,
+    "nadi": 8,
+    "total": 18.5
+   }
+  },
+  {
+   "id": "asksoma-hasta-rohini",
+   "verified": false,
+   "kind": "pair",
+   "source": "https://asksoma.ai/nakshatra-compatibility/hasta-rohini — per-koota points as printed, read by an automated agent on 2026-11-23. The page lists the pair as 'A & B' without saying who is the bride, gives no padas (pada chosen inside the rasi the page states or implies) and publishes no method; only the direction-independent kootas (tara, yoni, grahaMaitri, bhakoot, nadi) are compared.",
+   "first": {
+    "nakshatra": 13,
+    "pada": 2,
+    "note": "Hasta"
+   },
+   "second": {
+    "nakshatra": 4,
+    "pada": 2,
+    "note": "Rohini"
+   },
+   "published": {
+    "varna": 1,
+    "vashya": 1,
+    "tara": 3,
+    "yoni": 1,
+    "grahaMaitri": 5,
+    "gana": 6,
+    "bhakoot": 0,
+    "nadi": 8,
+    "total": 25
+   }
+  }
+ ]
 }
