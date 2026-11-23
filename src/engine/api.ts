@@ -306,6 +306,26 @@ export type FutureOutlook = {
   remedies: string[];
 };
 
+export type FutureDetailInput = { person: { id: string; birth: BirthInput }; start: string; end: string; place: GeoPlace };
+export type FutureDetail = {
+  start: string;
+  end: string;
+  /** 'years' / 'months': broken down into `periods`; 'days': its best days and lunar days. */
+  kind: 'years' | 'months' | 'days';
+  approximate: boolean;
+  person: { id: string; nakshatra: number; rasi: number };
+  status: Status;
+  /** Mahadasha–antardasha pairs in the period, each with its pratyantardashas that fall in the period. */
+  dashas: { mahadasha: DashaSpan; antardasha: DashaSpan; pratyantars: DashaSpan[] }[];
+  /** Each slow planet at the start, and every sign change inside the period. */
+  transits: { planet: 'jupiter' | 'saturn' | 'rahu'; name: Name; rasi: number; rasiName: Name; house: number; status: Status; phase?: 'sadeSati' | 'ardhashtama' | 'ashtama'; changes: TransitMilestone[] }[];
+  periods?: FuturePeriod[];
+  goodDays?: { date: string; tara: { number: number; name: Name }; chandraHouse: number }[];
+  lunarDays?: { date: string; kind: 'pournami' | 'amavasya' | 'ekadashi'; tithi: number; name: Name }[];
+  reasons: Reading['reasons'];
+  remedies: string[];
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -335,6 +355,8 @@ export interface AstroEngine {
   yearOutlook(q: YearOutlookInput): Promise<YearOutlook>;
   /** Dasha timeline, transit milestones and a period strip from `from` for `years` (0 = whole life). */
   futureOutlook(q: FutureInput): Promise<FutureOutlook>;
+  /** One Future period in detail: dasha changes to pratyantardasha, transit changes, months or best days. */
+  futureDetail(q: FutureDetailInput): Promise<FutureDetail>;
   /** Ranked muhurtham windows for an event over a date range (rules: tables/muhurtham.json). */
   findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult>;
   names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; futureHorizons: { options: number[]; default: number }; kootas: Record<string, Name>; classes: Record<string, Name> }>;

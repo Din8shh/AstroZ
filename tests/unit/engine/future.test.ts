@@ -73,3 +73,58 @@ describe('engine.futureOutlook', () => {
     for (const id of future.remedies) expect(remedies.items.find((r) => r.id === id)?.free, id).toBe(true);
   });
 });
+
+describe('engine.futureDetail', () => {
+  it('a year: dasha changes with pratyantardashas, transit sign changes inside it, month by month', async () => {
+    const d = await engine.futureDetail({ person, start: '2026-11-23', end: '2027-10-31', place: HYD });
+    expect(d.kind).toBe('months');
+    expect(d.periods).toHaveLength(12);
+    expect(d.periods![0]).toMatchObject({ start: '2026-11-23', end: '2026-11-30' });
+    expect(d.periods!.at(-1)).toMatchObject({ start: '2027-10-01', end: '2027-10-31' });
+    // Ketu mahadasha: Rahu antardasha, then Guru from Feb 2027 (dasha fixture).
+    expect(d.dashas.map((x) => `${x.mahadasha.lord}-${x.antardasha.lord}`).slice(0, 2)).toEqual(['ketu-rahu', 'ketu-jupiter']);
+    for (const x of d.dashas) {
+      expect(x.pratyantars.length).toBeGreaterThan(0);
+      // Pratyantardashas tile their antardasha: the full set (before clipping) sums to its length.
+    }
+    const chart = await engine.birthChart(person.birth);
+    const rahuAntar = chart.dasha.mahadashas.flatMap((m) => m.antardashas.map((x) => ({ m: m.lord, x }))).find((y) => y.m === 'ketu' && y.x.lord === 'rahu')!.x;
+    const all = (await engine.futureDetail({ person, start: rahuAntar.start.date, end: rahuAntar.end.date, place: HYD })).dashas.find((x) => x.antardasha.lord === 'rahu')!.pratyantars;
+    expect(all.map((p) => p.lord)).toEqual(['rahu', 'jupiter', 'saturn', 'mercury', 'ketu', 'venus', 'sun', 'moon', 'mars']);
+    expect(all[0]!.start.jdUt).toBeCloseTo(rahuAntar.start.jdUt, 6);
+    expect(all.at(-1)!.end.jdUt).toBeCloseTo(rahuAntar.end.jdUt, 6);
+    for (const t of d.transits) for (const c of t.changes) expect(c.date >= '2026-11-23' && c.date <= '2027-10-31').toBe(true);
+    expect(d.transits.find((t) => t.planet === 'jupiter')!.changes.length).toBeGreaterThan(0);
+    expect(d.goodDays).toBeUndefined();
+  }, 60_000);
+
+  it('a whole mahadasha opens year by year', async () => {
+    const chart = await engine.birthChart(person.birth);
+    const venus = chart.dasha.mahadashas.find((m) => m.lord === 'venus')!;
+    const d = await engine.futureDetail({ person, start: venus.start.date, end: venus.end.date, place: HYD });
+    expect(d.kind).toBe('years');
+    expect(d.periods!.length).toBeGreaterThanOrEqual(20);
+    expect(d.periods!.length).toBeLessThanOrEqual(21);
+    // The nine Venus antardashas; the first and last day can also carry the neighbouring mahadasha's tail.
+    expect(d.dashas.filter((x) => x.mahadasha.lord === 'venus')).toHaveLength(9);
+    expect(d.dashas.length).toBeLessThanOrEqual(11);
+  }, 60_000);
+
+  it('a month: best days (tara and chandra good) and lunar days by the tithi at sunrise', async () => {
+    const d = await engine.futureDetail({ person, start: '2026-12-01', end: '2026-12-31', place: HYD });
+    expect(d.kind).toBe('days');
+    expect(d.periods).toBeUndefined();
+    expect(d.goodDays!.length).toBeGreaterThan(0);
+    expect(d.goodDays!.length).toBeLessThanOrEqual(future.detail.goodDays);
+    for (const g of d.goodDays!) expect(g.date >= '2026-12-01' && g.date <= '2026-12-31').toBe(true);
+    const kinds = d.lunarDays!.map((l) => l.kind);
+    expect(kinds).toContain('pournami');
+    expect(kinds).toContain('amavasya');
+    expect(kinds.filter((k) => k === 'ekadashi').length).toBeGreaterThanOrEqual(1);
+    for (const l of d.lunarDays!) {
+      const p = await engine.panchangam(l.date, HYD);
+      expect(p.tithi[0]!.number, l.date).toBe(l.tithi);
+    }
+    for (const id of d.remedies) expect(remedies.items.find((r) => r.id === id)?.free, id).toBe(true);
+  }, 60_000);
+});

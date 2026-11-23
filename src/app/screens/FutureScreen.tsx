@@ -51,13 +51,13 @@ export function FutureScreen() {
       ) : null}
       {state.status === 'loading' ? <p className={s.status} role="status">{t('today.calculating')}</p> : null}
       {state.status === 'error' ? <p className={s.status} role="alert">—</p> : null}
-      {state.status === 'ready' ? <Timeline f={state.data} /> : null}
+      {state.status === 'ready' && person ? <Timeline f={state.data} personId={person.id} /> : null}
       <p className={s.disclaimer}>{t('disclaimer.body')}</p>
     </Screen>
   );
 }
 
-function Timeline({ f }: { f: FutureOutlook }) {
+function Timeline({ f, personId }: { f: FutureOutlook; personId: string }) {
   const t = useT();
   const name = useName();
   const lang = useSettings((st) => st.lang);
@@ -83,16 +83,19 @@ function Timeline({ f }: { f: FutureOutlook }) {
       </section>
 
       <section className={s.section} aria-labelledby="tl-h">
-        <h2 className={s.h2} id="tl-h">{t(label as MessageKey)}</h2>
+        <div>
+          <h2 className={s.h2} id="tl-h">{t(label as MessageKey)}</h2>
+          <p className={s.sub}>{t('future.d.tapHint')}</p>
+        </div>
         <div className={`${s.card} ${s.list}`} data-testid="future-periods">
           {f.periods.map((p) => {
             const current = f.horizon.granularity === 'mahadasha' ? p.start <= today && today <= p.end : isNow(p);
             const when = f.horizon.granularity === 'month' ? monthYear(p.start, lang)
               : f.horizon.granularity === 'year' ? range(p.start, p.end) : `${yearOf(p.start)} – ${yearOf(p.end)}`;
             return (
-              <div key={p.start} className={`${s.wrow} ${current ? s.wrowTop : ''}`} data-testid="future-period" aria-current={current ? 'true' : undefined}>
+              <a key={p.start} href={hrefFor('future', personId, p.start, p.end)} className={`${s.wrow} ${s.rowLink} ${current ? s.wrowTop : ''}`} data-testid="future-period" aria-current={current ? 'true' : undefined}>
                 <div className={s.wHead}>
-                  <span className={s.wDate}>{when}</span>
+                  <span className={s.wDate}>{when}<span className={s.chev} aria-hidden="true"><Icon name="chevron-right" size={18} /></span></span>
                   {p.status ? <StatusChip status={p.status} /> : current ? <span className={s.nowTag}>{t('job.now')}</span> : null}
                 </div>
                 <span>{f.horizon.granularity === 'mahadasha'
@@ -105,7 +108,7 @@ function Timeline({ f }: { f: FutureOutlook }) {
                     r: String(p.transits.find((x) => x.planet === 'rahu')!.house),
                   })}</span>
                 ) : null}
-              </div>
+              </a>
             );
           })}
           <div className={s.wFoot}><WhyLink label={t('match.why')} onClick={() => setWhy(true)} /></div>

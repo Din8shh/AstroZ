@@ -1,7 +1,7 @@
 {
   "source": "Vimshottari dasha (vimshottari.json, reference.md §9) and gochara from the janma rasi (gochara.json, reference.md §10). Horizons and granularity: product choice (user request 2026-11-23: a configurable Future tab).",
   "version": "0.1.0",
-  "notes": "horizons: the choices offered (years ahead; 0 = whole life, i.e. the full 120-year Vimshottari cycle from birth). granularity: months for ≤ monthsUpTo years, years for ≤ yearsUpTo years, else one period per mahadasha. transitsUpTo: transit milestones (sign changes of Guru, Shani, Rahu) are listed only for horizons up to this many years. Each period's status: 'good' when at least goodIfAtLeast of the three transits are good at its middle, else 'mixed' (calm: never 'avoid'; whole-life periods carry no transit status). Pandit review pending, like gochara.json.",
+  "notes": "horizons: the choices offered (years ahead; 0 = whole life, i.e. the full 120-year Vimshottari cycle from birth). granularity: months for ≤ monthsUpTo years, years for ≤ yearsUpTo years, else one period per mahadasha. transitsUpTo: transit milestones (sign changes of Guru, Shani, Rahu) are listed only for horizons up to this many years. Each period's status: 'good' when at least goodIfAtLeast of the three transits are good at its middle, else 'mixed' (calm: never 'avoid'; whole-life periods carry no transit status). Pandit review pending, like gochara.json. lordRemedies: free remedies shown in a period's detail for its running mahadasha/antardasha lords (falls back to remedies). detail: a period longer than monthsFromDays days is shown month by month; a shorter one lists its best days (tarabalam and chandrabalam both good with the Moon at local noon; at most goodDays) and its lunar days by the tithi at sunrise (pournami 15, amavasya 30, ekadashi 11 and 26). Pratyantardashas: each antardasha splits in the same Vimshottari order and proportions (vimshottari.json). A period longer than detail.yearsFromDays days (a whole mahadasha) is broken down year by year instead of month by month.",
   "horizons": [
     3,
     10,
@@ -20,5 +20,34 @@
     "job.thursdayDiya",
     "job.saturdayBirds",
     "income.thursdayElders"
-  ]
+  ],
+  "lordRemedies": {
+    "jupiter": [
+      "job.thursdayDiya",
+      "income.thursdayElders"
+    ],
+    "saturn": [
+      "job.saturdayBirds"
+    ],
+    "venus": [
+      "income.fridayDiya"
+    ]
+  },
+  "detail": {
+    "monthsFromDays": 40,
+    "goodDays": 8,
+    "lunarDays": {
+      "pournami": [
+        15
+      ],
+      "amavasya": [
+        30
+      ],
+      "ekadashi": [
+        11,
+        26
+      ]
+    },
+    "yearsFromDays": 400
+  }
 }

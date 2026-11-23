@@ -16,8 +16,8 @@ import muhurthamTable from '../tables/muhurtham.json';
 import futureTable from '../tables/future.json';
 import tarabalamTable from '../tables/tarabalam.json';
 import type { Door, MuhurthamQuery, MuhurthamResult, MuhurthamWindowView } from '../api';
-import { futureOutlook, jobOutlook, kshayaUgadiToday, yearOutlook, type OutlookDeps } from './outlook';
-import type { FutureInput, JobOutlookInput, YearOutlookInput } from '../api';
+import { futureDetail, futureOutlook, jobOutlook, kshayaUgadiToday, yearOutlook, type OutlookDeps } from './outlook';
+import type { FutureDetailInput, FutureInput, JobOutlookInput, YearOutlookInput } from '../api';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
 import kootaTable from '../tables/kootas.json';
@@ -210,6 +210,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       findMuhurtham: (q) => api.findMuhurtham(q),
       masaAt: (jd) => masaAt(e, jd),
       sunriseOf: (date, place) => dayFrame(e, date, place).sunrise,
+      tithiAtSunrise: (date, place) => day(e, date, place).angas.tithi[0]!.number,
     };
   };
 
@@ -368,6 +369,10 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
 
     async jobOutlook(q: JobOutlookInput) {
       return jobOutlook(await outlookDeps(), q);
+    },
+
+    async futureDetail(q: FutureDetailInput) {
+      return futureDetail(await outlookDeps(), q);
     },
 
     async futureOutlook(q: FutureInput) {

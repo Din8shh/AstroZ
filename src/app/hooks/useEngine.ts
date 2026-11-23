@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { BirthChart, FutureOutlook, JobOutlook, MuhurthamQuery, MuhurthamResult, Name, NamaResult, YearOutlook } from '../../engine/api';
+import type { BirthChart, FutureDetail, FutureOutlook, JobOutlook, MuhurthamQuery, MuhurthamResult, Name, NamaResult, YearOutlook } from '../../engine/api';
 import { getEngine, initEngine } from '../../engine/client';
 import { placeById } from '../places';
 import type { Profile } from '../profiles';
@@ -184,6 +184,30 @@ export function useFutureOutlook(profile: Profile | undefined, from: string, yea
       const data = await getEngine().futureOutlook({
         person: { id: profile.id, birth: { date: profile.birth!.date, ...(profile.birth!.time && { time: profile.birth!.time }), timeKnown: profile.birth!.timeKnown, place: { lat: bp.lat, lon: bp.lon, tz: bp.tz } } },
         from, years, place: { lat: place.lat, lon: place.lon, tz: place.tz },
+      });
+      if (live) setState({ status: 'ready', data });
+    })().catch(() => { if (live) setState({ status: 'error' }); });
+    return () => { live = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return state;
+}
+
+/** One Future period in detail (year, month or mahadasha), in the worker. */
+export function useFutureDetail(profile: Profile | undefined, start: string, end: string, place: { lat: number; lon: number; tz: string }): Load<FutureDetail> {
+  const [state, setState] = useState<Load<FutureDetail>>({ status: 'idle' });
+  const key = JSON.stringify([profile?.id, profile?.birth, start, end, place.lat, place.lon, place.tz]);
+  useEffect(() => {
+    if (!profile?.birth) { setState({ status: 'idle' }); return; }
+    let live = true;
+    setState({ status: 'loading' });
+    (async () => {
+      const bp = await placeById(profile.birth!.placeId);
+      if (!bp) throw new Error('no birthplace');
+      await initEngine();
+      const data = await getEngine().futureDetail({
+        person: { id: profile.id, birth: { date: profile.birth!.date, ...(profile.birth!.time && { time: profile.birth!.time }), timeKnown: profile.birth!.timeKnown, place: { lat: bp.lat, lon: bp.lon, tz: bp.tz } } },
+        start, end, place: { lat: place.lat, lon: place.lon, tz: place.tz },
       });
       if (live) setState({ status: 'ready', data });
     })().catch(() => { if (live) setState({ status: 'error' }); });
