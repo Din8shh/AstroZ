@@ -24,10 +24,11 @@ describe('matching fixtures (tests/fixtures/matching-golden.json): koota points 
     published?: Record<string, number>; disagreements?: Record<string, { ours?: number; published?: number; why: string }> };
   const rows = fixture.rows as unknown as Row[];
   const full = rows.filter((r) => r.expected && !r.illustrative);
+  const exact = full.filter((r) => !r.disagreements);
   const pairs = rows.filter((r) => r.kind === 'pair');
   const open = rows.filter((r) => !r.expected && r.kind !== 'pair').map((r) => r.id);
   if (open.length) it.todo(`fill from published reports (${open.length} rows): ${open.join(', ')}`);
-  if (full.length < 10) it.todo(`SPEC §9 Phase 5 needs 10 published reports with bride/groom named: ${full.length} full; plus ${pairs.length} published pair pages checked on the direction-independent kootas`);
+  if (exact.length < 10) it.todo(`SPEC §9 Phase 5 needs 10 published reports reproduced: ${exact.length} of ${full.length} full reports reproduce every koota exactly; ${full.length - exact.length} differ on recorded kootas (${full.filter((r) => r.disagreements).map((r) => `${r.id}: ${Object.keys(r.disagreements!).join('+')}`).join(', ')}); plus ${pairs.length} published pair pages checked on the direction-independent kootas`);
   const unverified = rows.filter((r) => (r.expected || r.kind === 'pair') && !r.verified).map((r) => r.id);
   if (unverified.length) it.todo(`a person must check: ${unverified.join(', ')}`);
 
@@ -38,8 +39,18 @@ describe('matching fixtures (tests/fixtures/matching-golden.json): koota points 
       const ks = ashtakoota(side(r.bride!.nakshatra, r.bride!.pada), side(r.groom!.nakshatra, r.groom!.pada));
       const got = Object.fromEntries(ks.map((k) => [k.id, k.points]));
       const { total, ...perKoota } = want;
-      expect(got).toEqual(perKoota);
-      expect(ks.reduce((s, k) => s + k.points, 0)).toBe(total);
+      if (!r.disagreements) {
+        expect(got).toEqual(perKoota);
+        expect(ks.reduce((s, k) => s + k.points, 0)).toBe(total);
+        return;
+      }
+      // A recorded disagreement: every other koota must match; the disputed ones keep AstroZ's sourced value.
+      for (const [k, v] of Object.entries(perKoota)) {
+        const dis = r.disagreements[k];
+        if (dis) { expect(got[k], `${k}: ours`).toBe(dis.ours); expect(v, `${k}: published`).toBe(dis.published); }
+        else expect(got[k], k).toBe(v);
+      }
+      expect(Object.values(perKoota).reduce((s, v) => s + v, 0), 'published total adds up').toBe(total);
     });
   }
 

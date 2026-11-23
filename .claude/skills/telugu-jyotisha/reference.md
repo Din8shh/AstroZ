@@ -91,7 +91,7 @@ Amrita kalam ghati table: see https://www.wisdomlib.org/hinduism/essay/significa
 - Months (Uttarayanam): Magha, Phalguna, Vaishakha, Jyeshtha (https://gotirupati.com/?p=58899)
 - Nakshatras: Rohini, Pushya, Dhanishta, Mrigashira, Shatabhisha, Uttara Bhadra + other Uttaras (https://www.hindu-blog.com/2021/07/griha-pravesh-rules-in-hinduism.html); also Chitra, Anuradha, Revati (https://assureshift.in/blog/griha-pravesh-dates-shubh-muhurat)
 - Weekdays: Mon, Wed, Thu, Fri
-- Entry: nanda tithis 1, 6, 11 → south; bhadra 2, 7, 12 → east (hindu-blog above); others from pandit review
+- Entry (sources disagree; see muhurtham.json gruhapravesam.entry): AstroZ uses purna 5, 10, 15 → east; nanda 1, 6, 11 → south; bhadra 2, 7, 12 → west; jaya 3, 8, 13 → north (nidarshanavedh.com citing Muhurta Chintamani, and astrowindowschandigarh, read 2026-11-23). hindu-blog above gives nanda → south but bhadra → east. Rikta 4, 9, 14 and Amavasya: no door. Pandit to confirm.
 - Later: Kalasha / Vrishabha chakra on Sun's nakshatra (https://www.onlinejyotish.com/articles/online-muhurta-finder-article.php)
 
 ## 9. Vimshottari years (standard)

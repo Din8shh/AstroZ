@@ -1,5 +1,33 @@
 # AstroZ: inputs needed from people
 
+> **Status 2026-11-23: your research is integrated.** The research itself is kept as `docs/inputs/research-2026-11-23.md`. Integrated:
+>
+> - **§1 Matching:** 9 onlinejyotish reports and 3 astrotyke cross-checks are in `tests/fixtures/matching-golden.json`. **7 of 13 full reports reproduce every koota exactly.** The 6 that differ are recorded, not hidden:
+>   - **Gana:** the onlinejyotish calculator reads the gana matrix in the reverse direction from its own Gana article. AstroZ follows the article, and astrotyke agrees with AstroZ.
+>   - **Vashya:** half-point table differences, plus one pada that straddles the 15° split.
+>   - **Still needed:** SPEC's "10 reproduce" is not met yet (7). Pandit Q3 on gana direction, or 3 more matching reports from another site, would close it.
+>   - **Note A was a mix-up:** the 17/36 verdict case is Ashwini × *Purva Bhadrapada*, not × Shatabhisha (14/36 in AstroZ, 14.5 on onlinejyotish).
+> - **§2 Panchangam:**
+>   - **Existing rows:** 6 rows filled out (tithi, nakshatra, yoga, karana, masa…), and Thursday Durmuhurtham added.
+>   - **New rows:** **Tirupati 20 Dec 2026**, a second Thursday (3 Dec), and an **adhika Chaitra day (1 Apr 2029)**. All 12 rows pass (sunrise ±1 min, other times ±2 min).
+>   - **Two corrections:** 3 Dec masa was recorded as 8 (amanta Kartika); the "9" was Drik's purnimanta name, see the row note. The 2029 Amrita kalam is left for a person: AstroZ finds a second pre-sunrise slot the read missed, the same as the second slots on 26 and 28 Nov.
+>   - **Still `verified: false`:** a person must check the rows.
+> - **§3 Charts:** 5 onlinejyotish charts are in `tests/fixtures/charts-published.json`. Every planet, the lagna and the Moon are within the site's arcminute truncation. Nakshatra and pada match exactly, and every current mahadasha and antardasha date matches to the day.
+> - **§4 Pandit research applied, all provisional:**
+>   - **Gruhapravesam doors:** the full Muhurta Chintamani scheme is now used (east purna, south nanda, west bhadra, north jaya). This **changes east from bhadra to purna**.
+>   - **Gruhapravesam nakshatras and Chaturmas:** avoid-nakshatras added, and Chaturmas is excluded.
+>   - **New job:** confirmed from Muhurta Chintamani 2.26. Pitru paksha and Dhanu kharmas are now excluded.
+>   - **Citations only:** Chaturmas limits, gochara houses, the adhika-Chaitra and kshaya-Ugadi rules, and sandhi.
+>   - **Remedies:** a safety and "optional" note now shows under every remedies list (Q19).
+>   - **Not applied, recorded instead:** the Q6 yoni table (62 cells differ), the Q13 Ardra amrita 35 vs 45, Hasta 21 vs 22, and Q12 business rules (one secondary source, and they would need eclipse calculations).
+> - **Still open, needs people:**
+>   - a pandit, for the tradition choices in §4;
+>   - a person, to check fixture rows;
+>   - human Telugu (§5; machine drafts can't ship);
+>   - real-device tests (§6);
+>   - the Plavanga table at Ugadi 2027 (§7).
+
+
 What the code can't produce by itself. Everything else in SPEC §12 is done. Each section says **what** to collect, **from where**, the **exact fields** to collect, and **how to hand it over**. You can paste values into a chat or fill the CSVs in `docs/inputs/`. I'll turn them into fixtures and tables, and the tests will show whether AstroZ agrees.
 
 Ground rules for everything you collect:
@@ -172,7 +200,7 @@ Two CSVs are ready. Fill the last column with Telugu.
 
 | File | Rows | What |
 |---|---|---|
-| `docs/inputs/telugu-content.csv` | **207** | App sentences: `verdict` and `match.ask` (marriage overall picture, 49), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
+| `docs/inputs/telugu-content.csv` | **208** | App sentences: `verdict` and `match.ask` (marriage overall picture, 49), `todo.safetyNote`, `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
 | `docs/inputs/telugu-names.csv` | **141** | Names in tables: samvatsaras (59), koota labels (27), yogas (25), karanas (8), calendar terms (7), tarabalam (6), rasis (5), grahas (2), tithi (1), vara (1) |
 
 Notes for the translator:

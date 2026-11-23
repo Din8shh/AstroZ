@@ -28,22 +28,28 @@ Status of each line in docs/SPEC.md §12, with the evidence. Unticked lines need
 1. **Pandit review**
    - All rule tables, and the dosha copy.
    - Specific open choices:
-     - the gruhapravesam door ↔ tithi groups, where sources disagree;
-     - the new-job muhurtham table, which is unverified;
+     - the gruhapravesam door ↔ tithi groups (now the Muhurtha Chintamani scheme from two agreeing sites; east changed bhadra → purna);
+     - the new-job tithis and lagna rule (nakshatras and weekdays now cited to Muhurta Chintamani 2.26);
      - the chaturmas limits;
      - the adhika-Chaitra Ugadi convention (`outlook.json` `year.adhikaChaitra`; next case is Ugadi 2029);
      - Monday for gruhapravesam;
      - which events the nine bad yogas and the fixed karanas apply to;
      - kuja cancellations.
 2. **Golden fixtures**
-   - Add a Tirupati panchangam row; add a Thursday Durmuhurtham entry.
+   - Done 2026-11-23 (from the user's research, docs/inputs/research-2026-11-23.md):
+     - Tirupati, a second Thursday and an adhika-Chaitra row added;
+     - Thursday Durmuhurtham filled;
+     - 6 rows completed;
+     - all 12 panchangam rows pass.
+   - Matching: 13 full reports. 7 reproduce exactly and 6 differ on recorded kootas (gana direction on the onlinejyotish calculator; vashya half-points).
+   - Charts: 5 independent-site charts (`charts-published.json`) agree within arcminute truncation, and dasha dates agree to the day.
    - Have a person confirm every row against its reference and set `verified: true`:
-     - `panchangam-golden.json` (9 rows);
-     - `charts-golden.json` (5);
+     - `panchangam-golden.json` (12 rows, including the 2029 Amrita slots);
+     - `charts-golden.json` and `charts-published.json` (5 each);
      - `dasha-golden.json` (5);
-     - `matching-golden.json`, where the 10 published reports are still empty.
+     - `matching-golden.json`.
    - Replace the panchangam longitudes sampled from the engine itself with independent ones.
-3. **Telugu copy:** 122 content strings (`te.json` `$pending`) and 112 table names (yogas, karanas, samvatsaras, some rasis and taras, Sunday, Surya, Ketu, …) need human-written Telugu. Until then, Telugu users see English for these.
+3. **Telugu copy:** 208 content strings (`te.json` `$pending`) and 141 table names (yogas, karanas, samvatsaras, some rasis and taras, Sunday, Surya, Ketu, …) need human-written Telugu. Until then, Telugu users see English for these.
 4. **Devices:** install and run offline on a real Android Chrome phone and on iOS Safari.
 
 ## Known accuracy notes (within tolerance, recorded)

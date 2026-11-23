@@ -100,7 +100,7 @@ describe('windows within a day', () => {
     const nm = d.sunrise + 5 * HOUR; // Jyeshtha ends 5 h after sunrise; Ashadha is not a gruhapravesam month
     const masaSpans = [{ start: d.sunrise, end: nm, number: 3, adhika: false, kshaya: false }, { start: nm, end: d.nextSunrise, number: 4, adhika: false, kshaya: false }];
     const span2 = [{ number: 2, name: { en: '', te: null }, start: d.sunrise - HOUR, end: d.nextSunrise + HOUR }];
-    const r = scoreDay('gruhapravesam', { ...d, masaSpans, tithi: span2 }, [], 'east');
+    const r = scoreDay('gruhapravesam', { ...d, masaSpans, tithi: span2 }, [], 'west'); // tithi 2 is bhadra = the west door
     expect(r.windows.length).toBeGreaterThan(0);
     for (const w of r.windows) expect(w.end).toBeLessThanOrEqual(nm + 1e-9);
     // Sun enters Dhanus 6 h after sunrise: vivaham windows stop there.
@@ -137,18 +137,18 @@ describe('windows within a day', () => {
     expect(weakMoon.best?.status).toBe('mixed');
     expect(weakMoon.best?.people[0]).toMatchObject({ chandraStatus: 'avoid', taraStatus: 'good' });
   });
-  it('a gruhapravesam door limits tithis to its group (strict); unmapped doors leave the tithi out', () => {
+  it('a gruhapravesam door limits tithis to its group (strict)', () => {
     const d = plainDay({ masa: { number: 11, adhika: false, kshaya: false }, vara: 'thu' });
-    const east = scoreDay('gruhapravesam', d, [], 'east'); // tithi 3 is jaya; east = bhadra → strict: no window
+    const east = scoreDay('gruhapravesam', d, [], 'east'); // tithi 3 is jaya; east = purna → strict: no window
     expect(east.best).toBeNull();
-    expect(east.excluded[0]).toMatchObject({ ruleId: 'mh.x.door', values: { door: 'east', group: 'bhadra' } });
+    expect(east.excluded[0]).toMatchObject({ ruleId: 'mh.x.door', values: { door: 'east', group: 'purna' } });
     const span2 = [{ number: 2, name: { en: '', te: null }, start: d.sunrise - HOUR, end: d.nextSunrise + HOUR }];
-    const east2 = scoreDay('gruhapravesam', { ...d, tithi: span2 }, [], 'east');
-    expect(east2.best?.door).toEqual({ door: 'east', group: 'bhadra', fits: true });
-    expect(east2.best!.reasons.find((r) => r.ruleId === 'mh.door')!.values.fits).toBe(true);
-    const north = scoreDay('gruhapravesam', d, [], 'north');
-    expect(north.best?.door).toEqual({ door: 'north', group: null, fits: false });
-    expect(north.best!.reasons.some((r) => r.ruleId === 'mh.door')).toBe(false);
+    const west2 = scoreDay('gruhapravesam', { ...d, tithi: span2 }, [], 'west'); // tithi 2 is bhadra; west = bhadra
+    expect(west2.best?.door).toEqual({ door: 'west', group: 'bhadra', fits: true });
+    expect(west2.best!.reasons.find((r) => r.ruleId === 'mh.door')!.values.fits).toBe(true);
+    const north = scoreDay('gruhapravesam', d, [], 'north'); // tithi 3 is jaya; north = jaya
+    expect(north.best?.door).toEqual({ door: 'north', group: 'jaya', fits: true });
+    expect(north.best!.reasons.some((r) => r.ruleId === 'mh.door')).toBe(true);
   });
   it('reasons carry rule ids and values only, strongest first', () => {
     const w = scoreDay('vivaham', plainDay(), people).best!;

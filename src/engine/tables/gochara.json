@@ -1,5 +1,5 @@
 {
-  "source": ".claude/skills/telugu-jyotisha/reference.md §10 (Gochara from birth rasi, standard): Jupiter good 2, 5, 7, 9, 11; Saturn good 3, 6, 11, Sade Sati 12/1/2, Ardhashtama 4, Ashtama 8; Rahu/Ketu good 3, 6, 11.",
+  "source": ".claude/skills/telugu-jyotisha/reference.md §10 (Gochara from birth rasi, standard): Jupiter good 2, 5, 7, 9, 11; Saturn good 3, 6, 11, Sade Sati 12/1/2, Ardhashtama 4, Ashtama 8; Rahu/Ketu good 3, 6, 11. Cross-checked 2026-11-23 (docs/pending-inputs.md §4 Q16): https://jagannathhora.com/gochara/ gives the same houses counted from the janma rasi — Saturn 3, 6, 11; Jupiter 2, 5, 7, 9, 11; Rahu/Ketu 3, 6, 11 'by common convention (texts vary for the nodes)'; sade sati opens with Saturn in the 12th, ashtama Shani is the 8th. That site is a bylined astrology site, not a classical text; pandit review of the wording still pending.",
   "version": "0.1.0",
   "notes": "house = ((transit rasi − janma (Moon) rasi + 12) mod 12) + 1. Good houses → 'good'; every other house → 'mixed' (calm copy: transits are never shown as 'avoid'). Saturn's named phases are reported as reasons (sadeSati, ardhashtama, ashtama), never as predictions of harm. Rahu uses the mean node (ephemeris setting). Pandit review pending.",
   "planets": {

@@ -260,7 +260,8 @@
     "verdict.text.strongNoKuja",
     "verdict.rule.shashtashtakaList",
     "verdict.rule.dwirdwadashaVashya",
-    "verdict.rule.navamshaLords"
+    "verdict.rule.navamshaLords",
+    "todo.safetyNote"
   ],
   "family.intro": "ఈ ఫోన్‌లో ఉన్నవారు. ఎవరిని నొక్కినా వారి వివరాలు మార్చవచ్చు.",
   "family.add": "వ్యక్తిని జోడించండి",
@@ -821,5 +822,6 @@
   "verdict.text.strongNoKuja": "Nothing important stands out from the Moon stars, and the score is good. Kuja dosha needs both full charts.",
   "verdict.rule.shashtashtakaList": "a listed 6/8 pair",
   "verdict.rule.dwirdwadashaVashya": "one rasi under the other's influence",
-  "verdict.rule.navamshaLords": "friendly navamsha lords"
+  "verdict.rule.navamshaLords": "friendly navamsha lords",
+  "todo.safetyNote": "Optional practices only. Use what you already have, spend nothing you can't spare, and keep a lit diya away from cash and anything that can catch fire. They do not promise any outcome."
 }

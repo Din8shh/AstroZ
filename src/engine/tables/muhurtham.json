@@ -1,6 +1,6 @@
 {
   "source": "Per-event sources are listed on each event and rule below. General rules: .claude/skills/telugu-jyotisha (SKILL.md 'Muhurtham scoring order', reference.md §7–§8); https://dekhopanchang.com/en/learn/muhurtas (rikta tithis 4/9/14; Vyatipata and Vaidhriti; outside Rahu kalam, Yamaganda, Gulika); https://dekhopanchang.com/en/learn/muhurta-selection (the nine inauspicious yogas; Vishti karana forbidden; combust Venus 10° / 8° retrograde, Jupiter 11°); https://www.onlinejyotish.com/free-astrology/astrology-lessons/lesson_148.php (same orbs). All pages read by an automated agent on 2026-11-21; NOT yet checked by a person.",
-  "version": 1,
+  "version": 2,
   "notes": "Scoring order (skill): 1 hard exclusions (month rules, combust, event-avoid nakshatra/tithi/vara, avoid yogas and karanas, a participant's tarabalam in Vipat/Pratyak/Naidhana); 2 panchanga shuddhi points; 3 personal tarabalam + chandrabalam; 4 windows: every period kind listed in removePeriods is cut out (all 'avoid' kinds in day-periods.json; Gulika is event-dependent in the skill, removed for every event here because the vehicle and business sources say to avoid it), Abhijit and Amrita kalam earn the preferred points; 5 best window per day, ranked by score, with the three strongest reasons. Tithi lists are paksha-relative (1–15, the same number in both pakshas); Amavasya is tithi 30. Score = 100 × earned / possible (components that don't apply, e.g. personal with no participants or the tithi of a gruhapravesam whose door has no tithi rule, or an event whose source lists no tithis, are left out of 'possible'). Lagna at the window start is reported for information only and does not score (lagna checks: later). Pandit review pending for every list here. Gruhapravesam tithis come from the door (entry.byDoor): a tithi in the door's group is 'good', others 'neutral'; with no door or an unmapped door the tithi component is left out. nearestDays: how far past the range to look for the nearest good day when nothing qualifies (gruhapravesam months can be over four months apart). Month rules (adhika, kshaya, month list, chaturmas, kharmas, pitru paksha) are judged for every stretch of the day — masa, tithi and Sun rasi at that stretch — not only at sunrise: the day is cut at a new moon and at a sankranti. Combust planets are judged at sunrise (their distance from the Sun changes about 1° a day). weights.shortfallFactor: when ranking reasons, points NOT earned count this much more than points earned, so a weak point surfaces.",
   "weights": {
     "nakshatra": {
@@ -94,7 +94,7 @@
       "tithi": 11
     },
     "verified": false,
-    "note": "Ashadha shukla ekadashi to Karthika shukla ekadashi (amanta), the end tithi excluded from chaturmas. reference.md §7 names Chaturmas as an exclusion but none of the fetched pages states its limits: standard definition, pandit to confirm."
+    "note": "Ashadha shukla ekadashi (Devshayani) to Kartika shukla ekadashi (Prabodhini), amanta; the end tithi excluded. Sources: https://www.drikpanchang.com/calendars/hindu/months/chaturmasa/hindu-calendar-chaturmasa.html and https://hastro.date/learn/chaturmas agree on these limits (read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text). Drik adds that, per Dharma Sindhu, the sankalpa follows the Dwadashi evening worship, so it counts Chaturmas from Dwadashi; AstroZ keeps Ekadashi (the wider, more cautious start). Blocked per those sources: marriage, engagement, griha pravesh, mundan, upanayana, starting construction. Pandit to confirm for AP/TS."
   },
   "kharmas": {
     "sunRasis": [
@@ -183,7 +183,7 @@
         "en": "Gruhapravesam",
         "te": "గృహప్రవేశం"
       },
-      "source": "reference.md §8: months (gotirupati.com), nakshatras (hindu-blog.com + assureshift.in), weekdays Mon/Wed/Thu/Fri; entry direction by tithi group (hindu-blog.com: nanda → south, bhadra → east).",
+      "source": "reference.md §8: months (gotirupati.com), nakshatras (hindu-blog.com + assureshift.in), weekdays Mon/Wed/Thu/Fri; entry direction by tithi group (hindu-blog.com: nanda → south, bhadra → east). Avoid nakshatras Bharani, Ardra, Ashlesha, Jyeshtha, Mula, Purva Bhadrapada and Monday allowed: https://www.shreekundli.com/muhurat/griha-pravesh (read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text; one site, pandit to confirm). Chaturmas excluded per the Drik and hastro.date Chaturmas pages (also shreekundli); the allowed months above already fall outside it.",
       "window": "daytime",
       "nakshatras": {
         "good": [
@@ -199,7 +199,14 @@
           17,
           27
         ],
-        "avoid": [],
+        "avoid": [
+          2,
+          6,
+          9,
+          18,
+          19,
+          25
+        ],
         "strict": false
       },
       "tithis": {
@@ -221,7 +228,7 @@
       "exclude": {
         "adhika": true,
         "kshaya": true,
-        "chaturmas": false,
+        "chaturmas": true,
         "kharmas": false,
         "combust": [],
         "pitruPaksha": false,
@@ -261,13 +268,13 @@
           ]
         },
         "byDoor": {
+          "east": "purna",
           "south": "nanda",
-          "east": "bhadra",
-          "north": null,
-          "west": null
+          "west": "bhadra",
+          "north": "jaya"
         },
         "verified": false,
-        "note": "SOURCES DISAGREE — reported, not resolved. reference.md / hindu-blog.com: 'first, sixth or eleventh (nanda) … from the southern side; second, seventh or twelfth (bhadra) … from the eastern side'; jaya and purna not stated ('others from pandit review'). astrowindowschandigarh.blogspot.com (per a search summary; the page itself returned 503): purna → east, nanda → south, bhadra → west, jaya → north. design/handoff NewHouse: east = nanda, north = purna, west = jaya, south = bhadra. Only the reference's two rules are used; north and west doors get no tithi rule until a pandit decides. Rikta tithis suit no door. strict: with a mapped door, only tithis of that door's group qualify (hindu-blog: 'entry should be made from the southern side' on nanda tithis; design: 'Days with nanda tithis, for an east door'); unmapped doors are not limited.",
+        "note": "SOURCES DISAGREE — the table now follows the only complete scheme with two agreeing sources: purna → east, nanda → south, bhadra → west, jaya → north. https://nidarshanavedh.com/calculators/griha-pravesh-door-facing-calculator/ (attributes it to Muhurta Chintamani's griha-pravesha chapter; read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text) and astrowindowschandigarh.blogspot.com (search summary; page returned 503) agree. Earlier AstroZ used reference.md / hindu-blog.com: nanda → south (same) and bhadra → east (CHANGED to purna → east on 2026-11-23); that source states no north or west rule. design/handoff NewHouse shows a third scheme (east = nanda, north = purna, west = jaya, south = bhadra) and is not used. Rikta tithis (4, 9, 14) and Amavasya suit no door. strict: only tithis of the door's group qualify. Pandit to confirm (docs/pending-inputs.md §4 Q8).",
         "strict": true
       },
       "checklist": [
@@ -352,7 +359,7 @@
         "en": "New job",
         "te": "కొత్త ఉద్యోగం"
       },
-      "source": "UNVERIFIED: no fetched page states rules (dekhopanchang new-job and job-joining pages are empty shells; hindupad.com lists only dated 2023 entries). Nakshatras from a web-search summary of astrobix.com 'Muhurat for Joining the Government Job' (page did not load): Hasta, Ashwini, Pushya + Mrigashira, Revati, Chitra, Anuradha; weekdays from the same search summary (Sunday, Wednesday, Thursday, Friday; Tuesday most often avoided). Pandit must supply this table.",
+      "source": "https://tarini.app/blog/muhurat-guides/auspicious-day-new-job-venture quoting Muhurta Chintamani 2.26 (read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text): join service on Wednesday, Thursday, Friday or Sunday, in a Kshipra (Hasta, Ashwini, Pushya) or Maitra (Mrigashira, Chitra, Anuradha, Revati) nakshatra; avoid Pitru Paksha and Dhanu kharmas (and, where a better day is open, Meena kharmas, adhika masa, holashtaka); check tara bala and chandra bala. This confirms the nakshatras and weekdays already here (first taken from an astrobix.com search summary). Still UNSOURCED: the tithi list (the passage gives none) and the lagna rule (benefic lagna, Sun or Mars in the 10th/11th — needs lagna checks AstroZ does not run yet). Tuesday-avoid is from the astrobix summary only.",
       "verified": false,
       "window": "daytime",
       "nakshatras": {
@@ -394,9 +401,9 @@
         "adhika": false,
         "kshaya": false,
         "chaturmas": false,
-        "kharmas": false,
+        "kharmas": true,
         "combust": [],
-        "pitruPaksha": false,
+        "pitruPaksha": true,
         "months": null
       }
     },

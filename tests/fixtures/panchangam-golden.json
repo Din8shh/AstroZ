@@ -1,7 +1,7 @@
 {
   "$schema": "./panchangam-golden.schema.json",
   "version": 1,
-  "reference": "Drik Panchang (English day panchang), drikpanchang.com. Rows were read by an automated agent on 2026-11-21 — TO FILL: a person must check every value against the page, set verified: true, and add a Tirupati row (SPEC §12).",
+  "reference": "Drik Panchang (English day panchang), drikpanchang.com. Rows were read by automated agents on 2026-11-21 and re-read (with new rows for Tirupati, a second Thursday and an adhika day) by the user's research on 2026-11-23 (docs/pending-inputs.md §2). TO FILL: a person must check every value against the page and set verified: true (SPEC §12).",
   "settings": {
     "ayanamsa": "lahiri",
     "sunrise": "upper-limb",
@@ -123,12 +123,12 @@
           ]
         }
       },
-      "notes": "Saturday: two Durmuhurtham slots (Drik prints the second in its other column)."
+      "notes": "Saturday: two Durmuhurtham slots (Drik prints the second in its other column). Kshaya tithi: Dwadashi begins 06:31 (after sunrise) and ends 04:56 Nov 22 (before the next sunrise), so it prevails at no sunrise; the Nov 22 Drik page shows Trayodashi at sunrise. Every value re-read and matched on 2026-11-23."
     },
     {
       "id": "vij-2027-04-07",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1253184&date=07/04/2027 — read by an automated agent on 2026-11-21, NOT yet checked by a person. Longitudes are SAMPLE values from AstroZ's adapter (Drik does not print them).",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1253184&date=07/04/2027 — read by an automated agent on 2026-11-21, NOT yet checked by a person. Longitudes are SAMPLE values from AstroZ's adapter (Drik does not print them). Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a: all values match; automated fetch, NOT a person's check).",
       "notes": "Ugadi 2027 (Chaitra shukla padyami, Plavanga begins). Wednesday: no Abhijit.",
       "place": {
         "id": "vijayawada",
@@ -228,7 +228,7 @@
     {
       "id": "dal-2026-03-08",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=4684888&date=08/03/2026 — read by an automated agent on 2026-11-21, NOT yet checked by a person. Longitudes are SAMPLE values from AstroZ's adapter (Drik does not print them).",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=4684888&date=08/03/2026 — read by an automated agent on 2026-11-21, NOT yet checked by a person. Longitudes are SAMPLE values from AstroZ's adapter (Drik does not print them). Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a: all values match; automated fetch, NOT a person's check).",
       "notes": "US daylight saving starts at 02:00 this day: sunrise and sunset are in CDT (UTC−5).",
       "place": {
         "id": "dallas",
@@ -326,7 +326,7 @@
     {
       "id": "hyd-2026-11-23",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=23/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=23/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
       "notes": "Monday: Durmuhurtham slots 9 and 12.",
       "place": {
         "id": "hyderabad",
@@ -341,6 +341,44 @@
         "sunset": "17:40",
         "panchangam": {
           "vara": 2,
+          "paksha": "shukla",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 14,
+              "name": "Chaturdashi",
+              "endsAt": "2026-11-23T23:42"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 2,
+              "name": "Bharani",
+              "endsAt": "2026-11-24T02:02"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 18,
+              "name": "Variyana",
+              "endsAt": "2026-11-23T19:58"
+            }
+          ],
+          "karana": [
+            {
+              "number": 27,
+              "name": "Garaja",
+              "endsAt": "2026-11-23T13:13"
+            },
+            {
+              "number": 28,
+              "name": "Vanija",
+              "endsAt": "2026-11-23T23:42"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-11-23T07:50",
             "end": "2026-11-23T09:14"
@@ -385,7 +423,7 @@
     {
       "id": "hyd-2026-11-24",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=24/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=24/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
       "notes": "Tuesday: day Durmuhurtham slot 4 and night slot 7.",
       "place": {
         "id": "hyderabad",
@@ -400,6 +438,44 @@
         "sunset": "17:40",
         "panchangam": {
           "vara": 3,
+          "paksha": "shukla",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 15,
+              "name": "Purnima",
+              "endsAt": "2026-11-24T20:23"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 3,
+              "name": "Krittika",
+              "endsAt": "2026-11-24T23:25"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 19,
+              "name": "Parigha",
+              "endsAt": "2026-11-24T16:06"
+            }
+          ],
+          "karana": [
+            {
+              "number": 29,
+              "name": "Vishti",
+              "endsAt": "2026-11-24T10:05"
+            },
+            {
+              "number": 30,
+              "name": "Bava",
+              "endsAt": "2026-11-24T20:23"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-11-24T14:51",
             "end": "2026-11-24T16:15"
@@ -444,8 +520,8 @@
     {
       "id": "hyd-2026-11-26",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=26/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
-      "notes": "Thursday. Durmuhurtham omitted: the saved page's second slot could not be recovered reliably. Two Amrita kalams; the second (starts before the next sunrise) is printed in Drik's other column.",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=26/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
+      "notes": "Thursday. Durmuhurtham (both slots, day slots 6 and 12 of 15) added from the 2026-11-23 re-read. Two Amrita kalams; the second (Ardra, starts before the next sunrise) was printed in Drik's other column on the 2026-11-21 read. CONFLICT, kept: the 2026-11-23 re-read did not find that second slot on the Nov 26 or Nov 27 page; swarnsiddhi.com's amrita table gives Ardra 45 ghatis (09:48–11:14 Nov 27) where nakshatras.json gives 35. Pandit Q13; a person must look at both Drik columns.",
       "place": {
         "id": "hyderabad",
         "nameEn": "Hyderabad",
@@ -459,6 +535,49 @@
         "sunset": "17:40",
         "panchangam": {
           "vara": 5,
+          "paksha": "krishna",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 17,
+              "name": "Dwitiya",
+              "endsAt": "2026-11-26T13:15"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 5,
+              "name": "Mrigashira",
+              "endsAt": "2026-11-26T17:47"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 21,
+              "name": "Siddha",
+              "endsAt": "2026-11-26T07:50"
+            },
+            {
+              "number": 22,
+              "name": "Sadhya",
+              "endsAt": "2026-11-27T03:44"
+            }
+          ],
+          "karana": [
+            {
+              "number": 34,
+              "name": "Garaja",
+              "endsAt": "2026-11-26T13:15"
+            },
+            {
+              "number": 35,
+              "name": "Vanija",
+              "endsAt": "2026-11-26T23:30"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-11-26T13:27",
             "end": "2026-11-26T14:52"
@@ -475,6 +594,16 @@
             "start": "2026-11-26T11:41",
             "end": "2026-11-26T12:26"
           },
+          "durmuhurtham": [
+            {
+              "start": "2026-11-26T10:11",
+              "end": "2026-11-26T10:56"
+            },
+            {
+              "start": "2026-11-26T14:40",
+              "end": "2026-11-26T15:25"
+            }
+          ],
           "varjyam": [
             {
               "start": "2026-11-27T01:15",
@@ -497,7 +626,7 @@
     {
       "id": "hyd-2026-11-27",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=27/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=27/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
       "notes": "Friday: Durmuhurtham slots 4 and 9. No Amrita kalam STARTS this day (one crosses this sunrise but belongs to the previous day).",
       "place": {
         "id": "hyderabad",
@@ -512,6 +641,44 @@
         "sunset": "17:40",
         "panchangam": {
           "vara": 6,
+          "paksha": "krishna",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 18,
+              "name": "Tritiya",
+              "endsAt": "2026-11-27T09:48"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 6,
+              "name": "Ardra",
+              "endsAt": "2026-11-27T15:08"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 23,
+              "name": "Shubha",
+              "endsAt": "2026-11-27T23:51"
+            }
+          ],
+          "karana": [
+            {
+              "number": 36,
+              "name": "Vishti",
+              "endsAt": "2026-11-27T09:48"
+            },
+            {
+              "number": 37,
+              "name": "Bava",
+              "endsAt": "2026-11-27T20:11"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-11-27T10:40",
             "end": "2026-11-27T12:04"
@@ -551,8 +718,8 @@
     {
       "id": "hyd-2026-11-28",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=28/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
-      "notes": "Saturday: Durmuhurtham slots 1 and 2. Two Amrita kalams; the second is printed in Drik's other column.",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=28/11/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
+      "notes": "Saturday: Durmuhurtham slots 1 and 2. Two Amrita kalams; the second is printed in Drik's other column. CONFLICT, kept: the 2026-11-23 re-read did not find the second Amrita slot (Pushya, 05:05–06:33 Nov 29) on the Nov 28 or Nov 29 page; swarnsiddhi.com lists it (to 06:34). A person must look at both Drik columns.",
       "place": {
         "id": "hyderabad",
         "nameEn": "Hyderabad",
@@ -566,6 +733,54 @@
         "sunset": "17:40",
         "panchangam": {
           "vara": 7,
+          "paksha": "krishna",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 19,
+              "name": "Chaturthi",
+              "endsAt": "2026-11-28T06:39"
+            },
+            {
+              "number": 20,
+              "name": "Panchami",
+              "endsAt": "2026-11-29T03:56"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 7,
+              "name": "Punarvasu",
+              "endsAt": "2026-11-28T12:50"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 24,
+              "name": "Shukla",
+              "endsAt": "2026-11-28T20:18"
+            }
+          ],
+          "karana": [
+            {
+              "number": 38,
+              "name": "Balava",
+              "endsAt": "2026-11-28T06:39"
+            },
+            {
+              "number": 39,
+              "name": "Kaulava",
+              "endsAt": "2026-11-28T17:14"
+            },
+            {
+              "number": 40,
+              "name": "Taitila",
+              "endsAt": "2026-11-29T03:56"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-11-28T09:16",
             "end": "2026-11-28T10:40"
@@ -614,8 +829,8 @@
     {
       "id": "hyd-2026-12-09",
       "verified": false,
-      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=09/12/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person.",
-      "notes": "Wednesday (no Abhijit). Mula's first Varjyam window, 20 ghatis in (Mula has two: 20 and 56).",
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=09/12/2026 — page saved by an automated verifier agent on 2026-11-21; second Durmuhurtham slots re-assigned by hand from Drik's two-column layout. NOT yet checked by a person. Values re-read from Drik by the user's research on 2026-11-23 (docs/pending-inputs.md §2a; automated fetch, NOT a person's check).",
+      "notes": "Wednesday (no Abhijit). Mula's first Varjyam window, 20 ghatis in (Mula has two: 20 and 56). Tithi omitted: Drik prints Pratipada 'upto Full Night' (no end time). Drik spells the karana 'Kinstughna'.",
       "place": {
         "id": "hyderabad",
         "nameEn": "Hyderabad",
@@ -629,6 +844,32 @@
         "sunset": "17:42",
         "panchangam": {
           "vara": 4,
+          "paksha": "shukla",
+          "masa": 9,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "nakshatra": [
+            {
+              "number": 18,
+              "name": "Jyeshtha",
+              "endsAt": "2026-12-09T21:00"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 8,
+              "name": "Dhriti",
+              "endsAt": "2026-12-09T08:40"
+            }
+          ],
+          "karana": [
+            {
+              "number": 1,
+              "name": "Kimstughna",
+              "endsAt": "2026-12-09T19:31"
+            }
+          ],
           "rahuKalam": {
             "start": "2026-12-09T12:08",
             "end": "2026-12-09T13:32"
@@ -658,6 +899,292 @@
             {
               "start": "2026-12-09T11:12",
               "end": "2026-12-09T12:59"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "tir-2026-12-20",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1254360&date=20/12/2026 — read by the user's research on 2026-11-23 (docs/pending-inputs.md §2b; automated fetch, NOT a person's check).",
+      "notes": "Tirupati, Vaikuntha (Mukkoti) Ekadashi, Sunday. Place = the GeoNames coordinates of Drik's geoname-id 1254360. Two Varjyam slots. Also printed: Bhadra 09:17–20:14, Ganda Moola 06:30–14:55.",
+      "place": {
+        "id": "tirupati",
+        "nameEn": "Tirupati",
+        "lat": 13.63551,
+        "lon": 79.41989,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-12-20",
+      "expected": {
+        "sunrise": "06:30",
+        "sunset": "17:50",
+        "panchangam": {
+          "vara": 1,
+          "paksha": "shukla",
+          "masa": 9,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 11,
+              "name": "Ekadashi",
+              "endsAt": "2026-12-20T20:14"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 1,
+              "name": "Ashwini",
+              "endsAt": "2026-12-20T14:55"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 19,
+              "name": "Parigha",
+              "endsAt": "2026-12-20T08:10"
+            },
+            {
+              "number": 20,
+              "name": "Shiva",
+              "endsAt": "2026-12-21T05:07"
+            }
+          ],
+          "karana": [
+            {
+              "number": 21,
+              "name": "Vanija",
+              "endsAt": "2026-12-20T09:17"
+            },
+            {
+              "number": 22,
+              "name": "Vishti",
+              "endsAt": "2026-12-20T20:14"
+            }
+          ],
+          "rahuKalam": {
+            "start": "2026-12-20T16:25",
+            "end": "2026-12-20T17:50"
+          },
+          "yamagandam": {
+            "start": "2026-12-20T12:10",
+            "end": "2026-12-20T13:35"
+          },
+          "gulikaKalam": {
+            "start": "2026-12-20T15:00",
+            "end": "2026-12-20T16:25"
+          },
+          "abhijit": {
+            "start": "2026-12-20T11:47",
+            "end": "2026-12-20T12:33"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-12-20T16:19",
+              "end": "2026-12-20T17:04"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-12-20T11:06",
+              "end": "2026-12-20T12:38"
+            },
+            {
+              "start": "2026-12-20T23:48",
+              "end": "2026-12-21T01:17"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-12-20T08:02",
+              "end": "2026-12-20T09:34"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2026-12-03",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=03/12/2026 — read by the user's research on 2026-11-23 (docs/pending-inputs.md §2b; automated fetch, NOT a person's check).",
+      "notes": "Second Thursday: two Durmuhurtham day slots (6 and 12 of 15). masa: the research recorded 9 (Margashirsha), which is Drik's purnimanta name for this krishna paksha. Amanta (AstroZ's convention) it is 8, Kartika: 3 Dec lies between the 24 Nov Kartika purnima and the 9 Dec amavasya, and the same research recorded masa 8 for 26–28 Nov in this fortnight (and 9 from 9 Dec). Set to 8 for that reason; a person should confirm Drik's 'Amanta' line.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2026-12-03",
+      "expected": {
+        "sunrise": "06:31",
+        "sunset": "17:41",
+        "panchangam": {
+          "vara": 5,
+          "paksha": "krishna",
+          "masa": 8,
+          "adhika": false,
+          "samvatsara": 40,
+          "shaka": 1948,
+          "tithi": [
+            {
+              "number": 25,
+              "name": "Dashami",
+              "endsAt": "2026-12-03T23:03"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 12,
+              "name": "Uttara Phalguni",
+              "endsAt": "2026-12-03T09:23"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 2,
+              "name": "Priti",
+              "endsAt": "2026-12-03T09:15"
+            }
+          ],
+          "karana": [
+            {
+              "number": 49,
+              "name": "Vanija",
+              "endsAt": "2026-12-03T10:53"
+            },
+            {
+              "number": 50,
+              "name": "Vishti",
+              "endsAt": "2026-12-03T23:03"
+            }
+          ],
+          "rahuKalam": {
+            "start": "2026-12-03T13:30",
+            "end": "2026-12-03T14:53"
+          },
+          "yamagandam": {
+            "start": "2026-12-03T06:31",
+            "end": "2026-12-03T07:55"
+          },
+          "gulikaKalam": {
+            "start": "2026-12-03T09:19",
+            "end": "2026-12-03T10:42"
+          },
+          "abhijit": {
+            "start": "2026-12-03T11:44",
+            "end": "2026-12-03T12:28"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2026-12-03T10:14",
+              "end": "2026-12-03T10:59"
+            },
+            {
+              "start": "2026-12-03T14:42",
+              "end": "2026-12-03T15:27"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2026-12-03T18:08",
+              "end": "2026-12-03T19:48"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2026-12-04T04:08",
+              "end": "2026-12-04T05:48"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hyd-2029-04-01",
+      "verified": false,
+      "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=01/04/2029 — read by the user's research on 2026-11-23 (docs/pending-inputs.md §2b; automated fetch, NOT a person's check).",
+      "notes": "Adhika masa day: Adhika Chaitra 2029 (Drik prints 'Chaitra (Adhik) – Purnimanta'; amanta, 1 April is in the adhika month that began with the 16 March new moon). Drik already prints 'Shaka Samvat 1951 Saumya' during the adhika month — the same convention as outlook.json year.adhikaChaitra 'startsYear' (Ugadi at the start of the adhika month; pandit Q14). Amrita kalam left out of `expected`: the research read one slot (06:39–08:04, which AstroZ reproduces at 06:40–08:05), but AstroZ also finds a second slot before the next sunrise (about 04:11–05:37 on 2 April, Vishakha) that the research did not report — the same pattern as the second slots on 26 and 28 Nov. A person must read both of Drik's columns and fill this field.",
+      "place": {
+        "id": "hyderabad",
+        "nameEn": "Hyderabad",
+        "lat": 17.384,
+        "lon": 78.4564,
+        "tz": "Asia/Kolkata"
+      },
+      "date": "2029-04-01",
+      "expected": {
+        "sunrise": "06:11",
+        "sunset": "18:29",
+        "panchangam": {
+          "vara": 1,
+          "paksha": "krishna",
+          "masa": 1,
+          "adhika": true,
+          "samvatsara": 43,
+          "shaka": 1951,
+          "tithi": [
+            {
+              "number": 18,
+              "name": "Tritiya",
+              "endsAt": "2029-04-01T20:44"
+            }
+          ],
+          "nakshatra": [
+            {
+              "number": 15,
+              "name": "Swati",
+              "endsAt": "2029-04-01T14:26"
+            }
+          ],
+          "yoga": [
+            {
+              "number": 14,
+              "name": "Harshana",
+              "endsAt": "2029-04-01T12:57"
+            }
+          ],
+          "karana": [
+            {
+              "number": 35,
+              "name": "Vanija",
+              "endsAt": "2029-04-01T10:24"
+            },
+            {
+              "number": 36,
+              "name": "Vishti",
+              "endsAt": "2029-04-01T20:44"
+            }
+          ],
+          "rahuKalam": {
+            "start": "2029-04-01T16:57",
+            "end": "2029-04-01T18:29"
+          },
+          "yamagandam": {
+            "start": "2029-04-01T12:20",
+            "end": "2029-04-01T13:52"
+          },
+          "gulikaKalam": {
+            "start": "2029-04-01T15:25",
+            "end": "2029-04-01T16:57"
+          },
+          "abhijit": {
+            "start": "2029-04-01T11:55",
+            "end": "2029-04-01T12:45"
+          },
+          "durmuhurtham": [
+            {
+              "start": "2029-04-01T16:51",
+              "end": "2029-04-01T17:40"
+            }
+          ],
+          "varjyam": [
+            {
+              "start": "2029-04-01T19:30",
+              "end": "2029-04-01T20:56"
             }
           ]
         }
