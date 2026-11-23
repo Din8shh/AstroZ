@@ -1,8 +1,8 @@
 {
   "source": "Cancellations (parihara): onlinejyotish.com English articles nadi-kootam.php, bhakoota-kootam.php, gana-kootam.php under https://www.onlinejyotish.com/articles/marriage-matching/english/ (read by an automated agent on 2026-11-23; not yet checked by a person). Verdict bands: AstroZ product rule agreed 2026-11-23 (the score alone does not describe a match; 18 of 36 'generally considered acceptable' is the kootas.json source intro).",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "provisional": true,
-  "notes": "PROVISIONAL — pandit review pending for every rule here (docs/pending-inputs.md §4, questions 1–5). Koota points are never changed: a cancelled koota keeps its traditional points and is reported as cancelled, and a cancelled dosha does not count as a standing issue. Conditions are named; src/engine/rules/verdict.ts evaluates each name. 'lordsFriendly' = the two Moon-sign lords are the same planet or mutual friends, read as Graha Maitri at its full 5 points (the source says 'mutual friends or equals'; whether 'equals' also covers mutual neutrals, 3 points, is a pandit question). 'taraFull' = Tara at its full 3 points (the source says 'strong Tara compatibility' / 'Tara compatibility is satisfactory'). Rules listed with applied: false are printed by the source but NOT used, with the reason given. Varna-based severity notes on the nadi and gana pages are deliberately not used: the app never asks anyone's caste or varna, and Varna koota is a temperament grouping by Moon sign, not caste. cancellationsUnless: no cancellation is applied when both share the same nakshatra AND the same rasi — Jyotirnibandha's exception is stated only for a differing nakshatra or rasi (AstroZ reading; pandit to confirm).",
+  "notes": "PROVISIONAL — pandit review pending for every rule here (docs/pending-inputs.md §4, questions 1–5). Koota points are never changed: a cancelled koota keeps its traditional points and is reported as cancelled, and a cancelled dosha does not count as a standing issue. Conditions are named; src/engine/rules/verdict.ts evaluates each name. 'lordsFriendly' = the two Moon-sign lords are the same planet or mutual friends, read as Graha Maitri at its full 5 points (the source says 'mutual friends or equals'; whether 'equals' also covers mutual neutrals, 3 points, is a pandit question). 'taraFull' = Tara at its full 3 points (the source says 'strong Tara compatibility' / 'Tara compatibility is satisfactory'). Rules listed with applied: false are printed by the source but NOT used, with the reason given. Varna-based severity notes on the nadi and gana pages are deliberately not used: the app never asks anyone's caste or varna, and Varna koota is a temperament grouping by Moon sign, not caste. cancellationsUnless: when both share the same nakshatra AND the same rasi, no cancellation is applied. In practice this only blocks the lord-friendship cancellation (Muhurta Ganapati) of nadi — same rasi means same lord, so Graha Maitri is always 5 — and no cited text gives that exception: it is a conservative AstroZ reading (pandit to confirm). Precedence: for the reverse 5/9 order (bride's sign 5th from the groom's), which Jyotih Prakasam does not cancel, the general lordsFriendly rule still cancels it when the lords are friends (8 of the 12 such pairs); which rule wins is a pandit question.",
   "issues": {
     "notes": "A koota is a standing issue when its points are at or below issueAtMost and no applied cancellation holds. Rajju and vedha present, and kuja present in one chart only (not balanced), are standing issues too. order = how issues are listed (first = shown first).",
     "kootas": {
@@ -64,7 +64,7 @@
         "taraFull"
       ],
       "applied": true,
-      "source": "gana-kootam.php (Piyushadhara): 'or when Tara compatibility is satisfactory'; Key Takeaways: 'strong Tara compatibility can cancel Gana Dosha'."
+      "source": "gana-kootam.php (Piyushadhara): 'or when Tara compatibility is satisfactory'; Key Takeaways: 'strong Tara compatibility can cancel Gana Dosha'. The Sanskrit ('rāśyadhipe maitryam upeyuṣi … tārāviśuddhau ca') may read as friendly lords AND good tara; the page's English (and AstroZ) treat them as two separate cancellations — pandit to confirm."
     },
     {
       "id": "navapanchaka",
@@ -75,7 +75,7 @@
         "brideNinthGroomFifth"
       ],
       "applied": true,
-      "source": "bhakoota-kootam.php (Jyotih Prakasam): 'When the bride's sign is ninth from the groom's sign and the groom's sign is fifth from the bride's sign, the combination is auspicious.' (The reverse order is not cancelled; AstroZ never repeats the page's wording about it.)"
+      "source": "bhakoota-kootam.php (Jyotih Prakasam): 'When the bride's sign is ninth from the groom's sign and the groom's sign is fifth from the bride's sign, the combination is auspicious.' This rule does not cancel the reverse order, but lordsFriendly may (see notes); AstroZ never repeats the page's wording about the reverse order."
     },
     {
       "id": "differentNakshatraAndRasi",
@@ -111,6 +111,36 @@
       "applied": false,
       "whyNot": "Depends on the people's varna (caste). AstroZ never asks or infers caste.",
       "source": "nadi-kootam.php (Vasistha Samhita) and gana-kootam.php (Jyotirnibandha, Vasistha Samhita)."
+    },
+    {
+      "id": "shashtashtakaList",
+      "kootas": [
+        "bhakoot"
+      ],
+      "when": [],
+      "applied": false,
+      "whyNot": "Listed pairs mostly follow from lordsFriendly; Cancer–Sagittarius (Moon–Jupiter, Graha Maitri 4) does not, and Gemini–Virgo as printed is not a 6/8 pair. Pandit to confirm the list before it is applied.",
+      "source": "bhakoota-kootam.php (Muhurta Pradipa): 'Aries–Scorpio, Taurus–Libra, Cancer–Sagittarius, Leo–Pisces, Gemini–Virgo and Capricorn–Aquarius are not considered harmful even when the signs occupy a 6/8 relationship.'"
+    },
+    {
+      "id": "dwirdwadashaVashya",
+      "kootas": [
+        "bhakoot"
+      ],
+      "when": [],
+      "applied": false,
+      "whyNot": "'Under the influence of the other' is not defined on the page (vashya group, or sign-lord rulership?). Pandit to define.",
+      "source": "bhakoota-kootam.php (Kala Prakasika): 'When the sign lords are mutually friendly or one sign is naturally under the influence of the other, the Dwir-Dwadasha dosha arising from a 2/12 relationship does not apply.'"
+    },
+    {
+      "id": "navamshaLords",
+      "kootas": [
+        "nadi"
+      ],
+      "when": [],
+      "applied": false,
+      "whyNot": "Needs navamsha positions and planetary strength, which the matching inputs (Moon nakshatra and rasi) do not carry; names-only matches have no chart at all.",
+      "source": "nadi-kootam.php (Muhurta Ganapati): 'or when their Navamsha lords are friendly and strong.'"
     }
   ],
   "verdict": {

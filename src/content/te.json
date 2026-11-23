@@ -257,7 +257,10 @@
     "why.verdict.title",
     "why.verdict.body",
     "why.cancelledBy",
-    "verdict.text.strongNoKuja"
+    "verdict.text.strongNoKuja",
+    "verdict.rule.shashtashtakaList",
+    "verdict.rule.dwirdwadashaVashya",
+    "verdict.rule.navamshaLords"
   ],
   "family.intro": "ఈ ఫోన్‌లో ఉన్నవారు. ఎవరిని నొక్కినా వారి వివరాలు మార్చవచ్చు.",
   "family.add": "వ్యక్తిని జోడించండి",
@@ -815,5 +818,8 @@
   "why.verdict.title": "How the overall picture is decided",
   "why.verdict.body": "The 36-point score stays as tradition counts it. AstroZ then checks which doshas still stand after published cancellations: none and a good score is Strong; one, or a modest score, is Fair; several together needs a careful look.",
   "why.cancelledBy": "Cancelled: {rule}",
-  "verdict.text.strongNoKuja": "Nothing important stands out from the Moon stars, and the score is good. Kuja dosha needs both full charts."
+  "verdict.text.strongNoKuja": "Nothing important stands out from the Moon stars, and the score is good. Kuja dosha needs both full charts.",
+  "verdict.rule.shashtashtakaList": "a listed 6/8 pair",
+  "verdict.rule.dwirdwadashaVashya": "one rasi under the other's influence",
+  "verdict.rule.navamshaLords": "friendly navamsha lords"
 }

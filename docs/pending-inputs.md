@@ -131,6 +131,10 @@ Find a pandit or experienced astrologer (AP/TS tradition, amanta) to answer thes
 1. **Nadi dosha cancellations.** Which do you accept? For example: same rasi but different nakshatra; same nakshatra but different pada; rasi lords friends or the same. For the Mesha–Kumbha same-Adi-nadi example (17/36, rajju and vedha clear, kuja balanced), what would you tell the family?
 2. **Bhakoot (6/8, 2/12, 5/9) cancellations.** Same lord or friendly lords, nadi clear?
 3. **Gana cancellations.** Deva × rakshasa when the tara or graha maitri is good?
+   - Piyushadhara: do friendly rasi lords and a good tara cancel gana each on their own (OR), or only together (the verse's "ca", AND)?
+   - Bhakoot 5/9: when the bride's sign is 5th from the groom's (which Jyotih Prakasam does not cancel) but the rasi lords are friends, does the dosha stand? AstroZ currently cancels it.
+   - Not applied yet, please rule on each: the Muhurta Pradipa list of harmless 6/8 pairs (incl. Cancer–Sagittarius; "Gemini–Virgo" as printed is not 6/8); Kala Prakasika's "one sign under the influence of the other" for 2/12; friendly navamsha lords for nadi.
+   - Same nakshatra and same rasi: AstroZ keeps nadi standing even though the lords are the same. Is that right?
 4. **Kuja dosha.** Which houses (1, 2, 4, 7, 8, 12)? Counted from the Moon, the lagna, Venus, or all three? Which cancellations: own or exalted sign, Jupiter's aspect, both partners having it?
 5. **Overall wording.** At what point would you call a match "Strong", "Fair, a few points to talk about", or "needs a careful look"? Is it the total score, or certain kootas or doshas?
 6. **Yoni table.** Please check the 14×14 animal table (only the same-yoni and enemy pairs are confirmed so far).
@@ -168,7 +172,7 @@ Two CSVs are ready. Fill the last column with Telugu.
 
 | File | Rows | What |
 |---|---|---|
-| `docs/inputs/telugu-content.csv` | **204** | App sentences: `verdict` and `match.ask` (marriage overall picture, 46), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
+| `docs/inputs/telugu-content.csv` | **207** | App sentences: `verdict` and `match.ask` (marriage overall picture, 49), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
 | `docs/inputs/telugu-names.csv` | **141** | Names in tables: samvatsaras (59), koota labels (27), yogas (25), karanas (8), calendar terms (7), tarabalam (6), rasis (5), grahas (2), tithi (1), vara (1) |
 
 Notes for the translator:
