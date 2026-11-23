@@ -1107,7 +1107,7 @@
       "id": "hyd-2029-04-01",
       "verified": false,
       "source": "Drik Panchang day panchang, https://www.drikpanchang.com/panchang/day-panchang.html?geoname-id=1269843&date=01/04/2029 — read by the user's research on 2026-11-23 (docs/pending-inputs.md §2b; automated fetch, NOT a person's check).",
-      "notes": "Adhika masa day: Adhika Chaitra 2029 (Drik prints 'Chaitra (Adhik) – Purnimanta'; amanta, 1 April is in the adhika month that began with the 16 March new moon). Drik already prints 'Shaka Samvat 1951 Saumya' during the adhika month — the same convention as outlook.json year.adhikaChaitra 'startsYear' (Ugadi at the start of the adhika month; pandit Q14). Amrita kalam left out of `expected`: the research read one slot (06:39–08:04, which AstroZ reproduces at 06:40–08:05), but AstroZ also finds a second slot before the next sunrise (about 04:11–05:37 on 2 April, Vishakha) that the research did not report — the same pattern as the second slots on 26 and 28 Nov. A person must read both of Drik's columns and fill this field.",
+      "notes": "Adhika masa day: Adhika Chaitra 2029 (Drik prints 'Chaitra (Adhik) – Purnimanta'; amanta, 1 April is in the adhika month that began with the 16 March new moon). Drik already prints 'Shaka Samvat 1951 Saumya' during the adhika month — the same convention as outlook.json year.adhikaChaitra 'startsYear' (Ugadi at the start of the adhika month; pandit Q14). Amrita kalam is a PARTIAL read (`partial`): the research read one slot (06:39–08:04, tested; AstroZ gives 06:40–08:05), but AstroZ also finds a second slot before the next sunrise (about 04:11–05:37 on 2 April, Vishakha) that the research did not report — the same pattern as the second slots on 26 and 28 Nov. A person must read both of Drik's columns, add the second slot and drop `partial`.",
       "place": {
         "id": "hyderabad",
         "nameEn": "Hyderabad",
@@ -1120,6 +1120,9 @@
         "sunrise": "06:11",
         "sunset": "18:29",
         "panchangam": {
+          "partial": [
+            "amritaKalam"
+          ],
           "vara": 1,
           "paksha": "krishna",
           "masa": 1,
@@ -1185,6 +1188,12 @@
             {
               "start": "2029-04-01T19:30",
               "end": "2029-04-01T20:56"
+            }
+          ],
+          "amritaKalam": [
+            {
+              "start": "2029-04-01T06:39",
+              "end": "2029-04-01T08:04"
             }
           ]
         }

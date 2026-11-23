@@ -183,7 +183,7 @@
         "en": "Gruhapravesam",
         "te": "గృహప్రవేశం"
       },
-      "source": "reference.md §8: months (gotirupati.com), nakshatras (hindu-blog.com + assureshift.in), weekdays Mon/Wed/Thu/Fri; entry direction by tithi group (hindu-blog.com: nanda → south, bhadra → east). Avoid nakshatras Bharani, Ardra, Ashlesha, Jyeshtha, Mula, Purva Bhadrapada and Monday allowed: https://www.shreekundli.com/muhurat/griha-pravesh (read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text; one site, pandit to confirm). Chaturmas excluded per the Drik and hastro.date Chaturmas pages (also shreekundli); the allowed months above already fall outside it.",
+      "source": "reference.md §8: months (gotirupati.com), nakshatras (hindu-blog.com + assureshift.in), weekdays Mon/Wed/Thu/Fri; entry direction by tithi group: see entry.note (since 2026-11-23 the Muhurta Chintamani scheme, purna → east, nanda → south, bhadra → west, jaya → north; it supersedes hindu-blog.com's bhadra → east). Avoid nakshatras Bharani, Ardra, Ashlesha, Jyeshtha, Mula, Purva Bhadrapada and Monday allowed: https://www.shreekundli.com/muhurat/griha-pravesh (read by the user's research on 2026-11-23 (docs/pending-inputs.md §4); verse attributions are the website's, not checked against a printed text; one site, pandit to confirm). Chaturmas excluded per the Drik and hastro.date Chaturmas pages (also shreekundli); the allowed months above already fall outside it.",
       "window": "daytime",
       "nakshatras": {
         "good": [
