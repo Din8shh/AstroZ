@@ -132,7 +132,6 @@
   "match.timeNote": "Birth time not known? That's fine — the result will say “approximate”.",
   "match.cta": "See the match",
   "match.change": "Change",
-  "match.summary": "{score} of 36 gunas.",
   "match.summaryNames": "{score} of 36 gunas, from names.",
   "match.whyScore": "Why this score?",
   "match.why": "Why?",
@@ -609,5 +608,6 @@
   "why.varna.note": "Varna koota groups Moon signs by temperament. It is not about caste, and AstroZ never asks for it.",
   "why.verdict.title": "How the overall picture is decided",
   "why.verdict.body": "The 36-point score stays as tradition counts it. AstroZ then checks which doshas still stand after published cancellations: none and a good score is Strong; one, or a modest score, is Fair; several together needs a careful look.",
-  "why.cancelledBy": "Cancelled: {rule}"
+  "why.cancelledBy": "Cancelled: {rule}",
+  "verdict.text.strongNoKuja": "Nothing important stands out from the Moon stars, and the score is good. Kuja dosha needs both full charts."
 }

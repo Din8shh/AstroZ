@@ -256,7 +256,8 @@
     "why.varna.note",
     "why.verdict.title",
     "why.verdict.body",
-    "why.cancelledBy"
+    "why.cancelledBy",
+    "verdict.text.strongNoKuja"
   ],
   "family.intro": "ఈ ఫోన్‌లో ఉన్నవారు. ఎవరిని నొక్కినా వారి వివరాలు మార్చవచ్చు.",
   "family.add": "వ్యక్తిని జోడించండి",
@@ -337,7 +338,6 @@
   "match.timeNote": "పుట్టిన సమయం తెలియకపోయినా పరవాలేదు — ఫలితం “సుమారు” అని చూపిస్తాం.",
   "match.cta": "పొంతన చూడండి",
   "match.change": "మార్చండి",
-  "match.summary": "36లో {score} గుణాలు.",
   "match.summaryNames": "పేర్ల నుంచి 36లో {score} గుణాలు.",
   "match.whyScore": "ఎందుకు ఈ స్కోరు?",
   "match.why": "ఎందుకు?",
@@ -814,5 +814,6 @@
   "why.varna.note": "Varna koota groups Moon signs by temperament. It is not about caste, and AstroZ never asks for it.",
   "why.verdict.title": "How the overall picture is decided",
   "why.verdict.body": "The 36-point score stays as tradition counts it. AstroZ then checks which doshas still stand after published cancellations: none and a good score is Strong; one, or a modest score, is Fair; several together needs a careful look.",
-  "why.cancelledBy": "Cancelled: {rule}"
+  "why.cancelledBy": "Cancelled: {rule}",
+  "verdict.text.strongNoKuja": "Nothing important stands out from the Moon stars, and the score is good. Kuja dosha needs both full charts."
 }

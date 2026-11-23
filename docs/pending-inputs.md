@@ -168,7 +168,7 @@ Two CSVs are ready. Fill the last column with Telugu.
 
 | File | Rows | What |
 |---|---|---|
-| `docs/inputs/telugu-content.csv` | **203** | App sentences: `verdict` and `match.ask` (marriage overall picture, 45), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
+| `docs/inputs/telugu-content.csv` | **204** | App sentences: `verdict` and `match.ask` (marriage overall picture, 46), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
 | `docs/inputs/telugu-names.csv` | **141** | Names in tables: samvatsaras (59), koota labels (27), yogas (25), karanas (8), calendar terms (7), tarabalam (6), rasis (5), grahas (2), tithi (1), vara (1) |
 
 Notes for the translator:
