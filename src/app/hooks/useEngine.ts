@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import type { BirthChart, JobOutlook, MuhurthamQuery, MuhurthamResult, Name, NamaResult, YearOutlook } from '../../engine/api';
+import type { BirthChart, FutureOutlook, JobOutlook, MuhurthamQuery, MuhurthamResult, Name, NamaResult, YearOutlook } from '../../engine/api';
 import { getEngine, initEngine } from '../../engine/client';
 import { placeById } from '../places';
 import type { Profile } from '../profiles';
 
-type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> };
+type Names = { rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; futureHorizons: { options: number[]; default: number }; kootas: Record<string, Name>; classes: Record<string, Name> };
 let namesCache: Promise<Names> | null = null;
 
 /** Rasi / nakshatra names from the engine tables (loaded once). */
@@ -166,5 +166,29 @@ export function useYearOutlook(rasi: number | undefined, date: string, place: { 
     })().catch(() => { if (live) setState({ status: 'error' }); });
     return () => { live = false; };
   }, [rasi, date, place.lat, place.lon, place.tz]);
+  return state;
+}
+
+/** Future tab: dasha timeline and transits for a saved person (needs birth details), in the worker. */
+export function useFutureOutlook(profile: Profile | undefined, from: string, years: number | null, place: { lat: number; lon: number; tz: string }): Load<FutureOutlook> {
+  const [state, setState] = useState<Load<FutureOutlook>>({ status: 'idle' });
+  const key = JSON.stringify([profile?.id, profile?.birth, from, years, place.lat, place.lon, place.tz]);
+  useEffect(() => {
+    if (!profile?.birth || years === null) { setState({ status: 'idle' }); return; }
+    let live = true;
+    setState({ status: 'loading' });
+    (async () => {
+      const bp = await placeById(profile.birth!.placeId);
+      if (!bp) throw new Error('no birthplace');
+      await initEngine();
+      const data = await getEngine().futureOutlook({
+        person: { id: profile.id, birth: { date: profile.birth!.date, ...(profile.birth!.time && { time: profile.birth!.time }), timeKnown: profile.birth!.timeKnown, place: { lat: bp.lat, lon: bp.lon, tz: bp.tz } } },
+        from, years, place: { lat: place.lat, lon: place.lon, tz: place.tz },
+      });
+      if (live) setState({ status: 'ready', data });
+    })().catch(() => { if (live) setState({ status: 'error' }); });
+    return () => { live = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
   return state;
 }

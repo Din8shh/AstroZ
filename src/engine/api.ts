@@ -278,6 +278,34 @@ export type YearOutlook = {
   remedies: string[];
 };
 
+export type FutureInput = { person: { id: string; birth: BirthInput }; from: string; /** 0 = whole life */ years: number; place: GeoPlace };
+export type FuturePeriod = {
+  start: string;
+  end: string;
+  /** Mahadasha and antardasha running at the period's middle. */
+  mahadasha: DashaSpan;
+  antardasha: DashaSpan;
+  /** Every mahadasha–antardasha pair that runs during the period, in order (a period can hold a change). */
+  segments: { mahadasha: DashaSpan; antardasha: DashaSpan }[];
+  /** Transit houses from the janma rasi at the middle (absent for whole-life periods). */
+  transits?: { planet: 'jupiter' | 'saturn' | 'rahu'; house: number; status: Status }[];
+  status?: Status;
+};
+export type TransitMilestone = { planet: 'jupiter' | 'saturn' | 'rahu'; name: Name; date: string; rasi: number; rasiName: Name; house: number; status: Status; phase?: 'sadeSati' | 'ardhashtama' | 'ashtama' };
+export type FutureOutlook = {
+  person: { id: string; nakshatra: number; rasi: number };
+  approximate: boolean;
+  horizon: { from: string; to: string; years: number; granularity: 'month' | 'year' | 'mahadasha' };
+  now: { mahadasha: DashaSpan; antardasha: DashaSpan; transits: TransitView[] };
+  /** Mahadashas that touch the horizon, each with its antardashas inside it. */
+  dashas: (DashaSpan & { antardashas: DashaSpan[] })[];
+  periods: FuturePeriod[];
+  /** Sign changes of Guru, Shani and Rahu inside the horizon (none for whole life). */
+  milestones: TransitMilestone[];
+  reasons: Reading['reasons'];
+  remedies: string[];
+};
+
 export class NoSunriseError extends Error {
   override name = 'NoSunriseError';
 }
@@ -305,7 +333,9 @@ export interface AstroEngine {
   jobOutlook(q: JobOutlookInput): Promise<JobOutlook>;
   /** The Ugadi year containing `date`: aadayam-vyayam (tables/yearly), month-by-month transit strip. */
   yearOutlook(q: YearOutlookInput): Promise<YearOutlook>;
+  /** Dasha timeline, transit milestones and a period strip from `from` for `years` (0 = whole life). */
+  futureOutlook(q: FutureInput): Promise<FutureOutlook>;
   /** Ranked muhurtham windows for an event over a date range (rules: tables/muhurtham.json). */
   findMuhurtham(q: MuhurthamQuery): Promise<MuhurthamResult>;
-  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; kootas: Record<string, Name>; classes: Record<string, Name> }>;
+  names(): Promise<{ rasis: Name[]; rasisCompound: Name[]; nakshatras: Name[]; tithis: Name[]; futureHorizons: { options: number[]; default: number }; kootas: Record<string, Name>; classes: Record<string, Name> }>;
 }

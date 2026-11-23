@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
 
 // Hash routing only: GitHub Pages has no SPA fallback. Never put birth details in a route.
-export const TABS = ['today', 'wishes', 'family', 'more'] as const;
+export const TABS = ['today', 'wishes', 'future', 'family', 'more'] as const;
 export type Tab = (typeof TABS)[number];
 export const DEFAULT_TAB: Tab = 'today';
 

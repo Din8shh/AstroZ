@@ -13,10 +13,11 @@ import type { MatchPersonInput, MatchReading, MatchSideView } from '../api';
 import { angles, findCrossing } from './panchangam';
 import { dayExclusions, scoreDay, type DayContext, type DayHead, type VaraId, type Window } from '../rules/muhurtham';
 import muhurthamTable from '../tables/muhurtham.json';
+import futureTable from '../tables/future.json';
 import tarabalamTable from '../tables/tarabalam.json';
 import type { Door, MuhurthamQuery, MuhurthamResult, MuhurthamWindowView } from '../api';
-import { jobOutlook, kshayaUgadiToday, yearOutlook, type OutlookDeps } from './outlook';
-import type { JobOutlookInput, YearOutlookInput } from '../api';
+import { futureOutlook, jobOutlook, kshayaUgadiToday, yearOutlook, type OutlookDeps } from './outlook';
+import type { FutureInput, JobOutlookInput, YearOutlookInput } from '../api';
 import nakshatraTable from '../tables/nakshatras.json';
 import rasiTable from '../tables/rasis.json';
 import kootaTable from '../tables/kootas.json';
@@ -369,6 +370,10 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       return jobOutlook(await outlookDeps(), q);
     },
 
+    async futureOutlook(q: FutureInput) {
+      return futureOutlook(await outlookDeps(), q);
+    },
+
     async yearOutlook(q: YearOutlookInput) {
       return yearOutlook(await outlookDeps(), q);
     },
@@ -435,6 +440,7 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
         rasisCompound: rasiTable.items.map((r) => ({ en: r.en, te: r.teCompound ?? null })),
         nakshatras: nakshatraTable.items.map((r) => ({ en: r.en, te: r.te ?? null })),
         tithis: Array.from({ length: 30 }, (_, i) => angaNames.tithi(i + 1)),
+        futureHorizons: { options: futureTable.horizons, default: futureTable.default },
         kootas: Object.fromEntries(Object.entries(kootaTable.kootas).map(([id, k]) => [id, { en: k.name.en, te: k.name.te ?? null }])),
         classes: Object.fromEntries(Object.entries(kootaTable.classNames).map(([id, n]) => [id, { en: n.en, te: n.te ?? null }])),
       };

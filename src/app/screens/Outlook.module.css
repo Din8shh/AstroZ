@@ -81,3 +81,5 @@
 .mGood { color: var(--az-leaf-ink); display: inline-flex; flex-direction: column; align-items: center; }
 .mMixed { color: var(--az-caution-ink); display: inline-flex; flex-direction: column; align-items: center; }
 .missing { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--az-radius-card); background: var(--az-turmeric-soft); border: 1px solid var(--az-gold); }
+.horizon { min-height: 44px; padding: 4px 16px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-line-strong); background: var(--az-surface); color: var(--az-ink); cursor: pointer; font-size: calc(var(--fs-label) * var(--az-scale)); }
+.horizon[aria-checked='true'] { border-color: var(--az-kumkum); background: var(--az-kumkum-soft); box-shadow: inset 0 0 0 1px var(--az-kumkum); color: var(--az-kumkum-ink); font-weight: 600; }

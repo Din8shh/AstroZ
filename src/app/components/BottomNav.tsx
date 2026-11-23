@@ -7,6 +7,7 @@ import s from './BottomNav.module.css';
 const ITEMS: { id: Tab; icon: IconName; label: MessageKey }[] = [
   { id: 'today', icon: 'sunrise', label: 'nav.today' },
   { id: 'wishes', icon: 'kalasham', label: 'nav.wishes' },
+  { id: 'future', icon: 'nakshatram', label: 'nav.future' },
   { id: 'family', icon: 'family', label: 'nav.family' },
   { id: 'more', icon: 'more', label: 'nav.more' },
 ];

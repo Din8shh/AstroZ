@@ -1,0 +1,24 @@
+{
+  "source": "Vimshottari dasha (vimshottari.json, reference.md §9) and gochara from the janma rasi (gochara.json, reference.md §10). Horizons and granularity: product choice (user request 2026-11-23: a configurable Future tab).",
+  "version": "0.1.0",
+  "notes": "horizons: the choices offered (years ahead; 0 = whole life, i.e. the full 120-year Vimshottari cycle from birth). granularity: months for ≤ monthsUpTo years, years for ≤ yearsUpTo years, else one period per mahadasha. transitsUpTo: transit milestones (sign changes of Guru, Shani, Rahu) are listed only for horizons up to this many years. Each period's status: 'good' when at least goodIfAtLeast of the three transits are good at its middle, else 'mixed' (calm: never 'avoid'; whole-life periods carry no transit status). Pandit review pending, like gochara.json.",
+  "horizons": [
+    3,
+    10,
+    0
+  ],
+  "default": 10,
+  "granularity": {
+    "monthsUpTo": 3,
+    "yearsUpTo": 20
+  },
+  "transitsUpTo": 20,
+  "status": {
+    "goodIfAtLeast": 2
+  },
+  "remedies": [
+    "job.thursdayDiya",
+    "job.saturdayBirds",
+    "income.thursdayElders"
+  ]
+}
