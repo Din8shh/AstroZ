@@ -8,9 +8,10 @@ import type { Lord } from './core/chart';
 import type { NamaResult } from './core/nama';
 import type { Reading, Status } from './rules/strength';
 import type { KootaResult, KujaResult } from './rules/matching';
+import type { Verdict } from './rules/verdict';
 import type { Door, EventId, Participant } from './rules/muhurtham';
 
-export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading, Status, KootaResult, KujaResult, Door, EventId, Participant };
+export type { LocalMoment, LocalTime, TimeNote, Name, PeriodKind, PeriodStatus, Lord, NamaResult, Reading, Status, KootaResult, KujaResult, Verdict, Door, EventId, Participant };
 
 /** A place as the engine needs it (subset of SPEC `Place`). */
 export type GeoPlace = { lat: number; lon: number; tz: string; altitude?: number };
@@ -146,7 +147,10 @@ export type MatchSideView = {
 export type MatchReading = {
   basis: 'chart' | 'names';
   approximate: boolean;
+  /** The overall verdict's status (never 'avoid'); the score band alone is reasons[0].values.band. */
   status: Status;
+  /** Overall picture: standing issues, cancellations used, highlights, astrologer questions (rules/verdict.ts). */
+  verdict: Verdict;
   score: number;
   max: number;
   kootas: KootaResult[];

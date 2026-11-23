@@ -44,3 +44,13 @@
 .lockIcon { display: inline-flex; color: var(--az-leaf-ink); }
 .disclaimer { margin: 0; padding: var(--az-space-4); border-radius: var(--az-radius-card); background: var(--az-surface-sunk); font-size: calc(var(--fs-caption) * var(--az-scale)); line-height: 1.6; color: var(--az-ink-muted); }
 .status { padding: var(--az-space-6) 0; color: var(--az-ink-muted); text-align: center; }
+
+/* Overall verdict (top card): what stands out, astrologer questions */
+.standsOut { align-self: stretch; display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--az-line); }
+.hlList { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.hl { display: flex; gap: 8px; align-items: flex-start; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.5; }
+.hlGood { flex: none; display: inline-flex; margin-top: 2px; color: var(--az-leaf-ink); }
+.hlMixed { flex: none; display: inline-flex; margin-top: 2px; color: var(--az-caution-ink); }
+.askList { margin: 0; padding: 12px 16px 12px 36px; display: flex; flex-direction: column; gap: 10px; }
+.ask { font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.55; }
+.scoreNote { margin: 0; text-align: center; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }

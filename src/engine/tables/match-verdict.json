@@ -1,0 +1,149 @@
+{
+  "source": "Cancellations (parihara): onlinejyotish.com English articles nadi-kootam.php, bhakoota-kootam.php, gana-kootam.php under https://www.onlinejyotish.com/articles/marriage-matching/english/ (read by an automated agent on 2026-11-23; not yet checked by a person). Verdict bands: AstroZ product rule agreed 2026-11-23 (the score alone does not describe a match; 18 of 36 'generally considered acceptable' is the kootas.json source intro).",
+  "version": "0.1.0",
+  "provisional": true,
+  "notes": "PROVISIONAL — pandit review pending for every rule here (docs/pending-inputs.md §4, questions 1–5). Koota points are never changed: a cancelled koota keeps its traditional points and is reported as cancelled, and a cancelled dosha does not count as a standing issue. Conditions are named; src/engine/rules/verdict.ts evaluates each name. 'lordsFriendly' = the two Moon-sign lords are the same planet or mutual friends, read as Graha Maitri at its full 5 points (the source says 'mutual friends or equals'; whether 'equals' also covers mutual neutrals, 3 points, is a pandit question). 'taraFull' = Tara at its full 3 points (the source says 'strong Tara compatibility' / 'Tara compatibility is satisfactory'). Rules listed with applied: false are printed by the source but NOT used, with the reason given. Varna-based severity notes on the nadi and gana pages are deliberately not used: the app never asks anyone's caste or varna, and Varna koota is a temperament grouping by Moon sign, not caste. cancellationsUnless: no cancellation is applied when both share the same nakshatra AND the same rasi — Jyotirnibandha's exception is stated only for a differing nakshatra or rasi (AstroZ reading; pandit to confirm).",
+  "issues": {
+    "notes": "A koota is a standing issue when its points are at or below issueAtMost and no applied cancellation holds. Rajju and vedha present, and kuja present in one chart only (not balanced), are standing issues too. order = how issues are listed (first = shown first).",
+    "kootas": {
+      "nadi": {
+        "issueAtMost": 0
+      },
+      "bhakoot": {
+        "issueAtMost": 0
+      },
+      "gana": {
+        "issueAtMost": 1
+      }
+    },
+    "order": [
+      "nadi",
+      "rajju",
+      "bhakoot",
+      "gana",
+      "vedha",
+      "kuja"
+    ]
+  },
+  "cancellationsUnless": [
+    "sameNakshatraAndRasi"
+  ],
+  "cancellations": [
+    {
+      "id": "sameRasiOrNakshatra",
+      "kootas": [
+        "nadi",
+        "gana"
+      ],
+      "when": [
+        "sameRasiDifferentNakshatra",
+        "sameNakshatraDifferentRasi"
+      ],
+      "applied": true,
+      "source": "nadi-kootam.php (Jyotirnibandha) and gana-kootam.php (Jyotirnibandha): 'When the bride and groom have the same nakshatra but different Moon signs, or the same Moon sign but different nakshatras, … neither Nadi Dosha nor Gana Dosha applies.'"
+    },
+    {
+      "id": "lordsFriendly",
+      "kootas": [
+        "nadi",
+        "bhakoot",
+        "gana"
+      ],
+      "when": [
+        "lordsFriendly"
+      ],
+      "applied": true,
+      "source": "nadi-kootam.php (Muhurta Ganapati): 'cancelled when the lords of the bride's and groom's Moon signs are mutual friends or equals'; bhakoota-kootam.php: 'cancelled when the two signs have the same lord or when their lords are mutual friends'; gana-kootam.php (Piyushadhara, Jyotirnibandha): 'does not apply when the lords … are mutually friendly', 'completely cancelled when Graha Maitri is perfect and receives the full 5 points'."
+    },
+    {
+      "id": "taraFull",
+      "kootas": [
+        "gana"
+      ],
+      "when": [
+        "taraFull"
+      ],
+      "applied": true,
+      "source": "gana-kootam.php (Piyushadhara): 'or when Tara compatibility is satisfactory'; Key Takeaways: 'strong Tara compatibility can cancel Gana Dosha'."
+    },
+    {
+      "id": "navapanchaka",
+      "kootas": [
+        "bhakoot"
+      ],
+      "when": [
+        "brideNinthGroomFifth"
+      ],
+      "applied": true,
+      "source": "bhakoota-kootam.php (Jyotih Prakasam): 'When the bride's sign is ninth from the groom's sign and the groom's sign is fifth from the bride's sign, the combination is auspicious.' (The reverse order is not cancelled; AstroZ never repeats the page's wording about it.)"
+    },
+    {
+      "id": "differentNakshatraAndRasi",
+      "kootas": [
+        "nadi"
+      ],
+      "when": [
+        "differentNakshatraAndRasi"
+      ],
+      "applied": false,
+      "whyNot": "Would cancel almost every same-nadi pair, and other passages on the same page give narrower rules. Pandit to decide.",
+      "source": "nadi-kootam.php §5: 'if the bride and groom share the same Nadi but their Nakshatras and Rashis are entirely different, … the Nadi Dosha is naturally dissolved.'"
+    },
+    {
+      "id": "exemptNakshatras",
+      "kootas": [
+        "nadi"
+      ],
+      "when": [
+        "exemptNakshatra"
+      ],
+      "applied": false,
+      "whyNot": "The page gives two lists that disagree (Narada Samhita: Rohini, Ardra, Magha, Pushya, Vishakha, Shravana, Bharani, Uttara Bhadrapada; Piyushdhara: Rohini, Ardra, Mrigashira, Krittika, Pushya, Shravana, Revati, Uttara Bhadrapada). Pandit to choose.",
+      "source": "nadi-kootam.php §3 and §6."
+    },
+    {
+      "id": "byVarna",
+      "kootas": [
+        "nadi",
+        "gana"
+      ],
+      "when": [],
+      "applied": false,
+      "whyNot": "Depends on the people's varna (caste). AstroZ never asks or infers caste.",
+      "source": "nadi-kootam.php (Vasistha Samhita) and gana-kootam.php (Jyotirnibandha, Vasistha Samhita)."
+    }
+  ],
+  "verdict": {
+    "notes": "Checked in order; the first that holds wins. careful = several standing issues, or a very low score; strong = a good score (kootas.json bands.good) and nothing standing; everything else is fair (one standing issue, or a modest score with none). Never 'avoid': no verdict is shown in red.",
+    "careful": {
+      "issuesAtLeast": 2,
+      "orScoreBelow": 12
+    },
+    "strong": {
+      "issuesAtMost": 0,
+      "scoreAtLeast": 24
+    },
+    "fallback": "fair",
+    "status": {
+      "strong": "good",
+      "fair": "mixed",
+      "careful": "mixed"
+    }
+  },
+  "highlights": {
+    "notes": "At most `max` lines for the top card: standing issues first (issues.order), then cancellations, then strengths in `strengths` order (a koota at full points; rajju/vedha clear; kuja absent or balanced).",
+    "max": 3,
+    "strengths": [
+      "bhakoot",
+      "gana",
+      "nadi",
+      "rajju",
+      "vedha",
+      "kuja"
+    ]
+  },
+  "questions": {
+    "notes": "Questions for an astrologer, from the standing issues and the cancellations used. Content keys match.ask.<id>.",
+    "lowScoreBelow": 18
+  }
+}

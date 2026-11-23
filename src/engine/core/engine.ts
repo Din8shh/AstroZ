@@ -9,6 +9,7 @@ import { chartAt, nakshatraName, nakshatraOf, rasiName, rasiOf, vimshottariDasha
 import { namaNakshatra } from './nama';
 import { chandrabalam, tarabalam } from '../rules/strength';
 import { guidanceFor, matchCore, type MatchSide } from '../rules/matching';
+import { verdict } from '../rules/verdict';
 import type { MatchPersonInput, MatchReading, MatchSideView } from '../api';
 import { angles, findCrossing } from './panchangam';
 import { dayExclusions, scoreDay, type DayContext, type DayHead, type VaraId, type Window } from '../rules/muhurtham';
@@ -354,15 +355,16 @@ export function createEngine(load: () => Promise<Ephemeris>): AstroEngine {
       const core = matchCore(b.side, g.side);
       const names = input.basis === 'names';
       const peru = namesB && namesG ? matchCore(namesB.side, namesG.side) : null;
-      const { todos, remedies } = guidanceFor(core, names);
+      const overall = verdict(b.side, g.side, core);
+      const { todos, remedies } = guidanceFor(core, overall.id, names);
       return {
         basis: input.basis,
         approximate: names || b.view.approximate || g.view.approximate,
-        status: core.status, score: core.score, max: core.max,
+        status: overall.status, verdict: overall, score: core.score, max: core.max,
         kootas: core.kootas, rajju: core.rajju, vedha: core.vedha, kuja: core.kuja,
         bride: b.view, groom: g.view,
         ...(peru && { peruBalam: { status: peru.status, score: peru.score, max: peru.max, ambiguous: !!(namesB!.view.namaAmbiguous || namesG!.view.namaAmbiguous) } }),
-        reasons: [{ ruleId: 'match.total', values: { score: core.score, max: core.max, status: core.status, basis: input.basis } }],
+        reasons: [{ ruleId: 'match.total', values: { score: core.score, max: core.max, band: core.status, basis: input.basis } }, ...overall.reasons],
         todos, remedies,
       };
     },

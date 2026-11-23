@@ -1,19 +1,19 @@
 {
   "source": "To-do and remedy sets chosen from the design handoff's Marriage result screens (design/handoff MatchStrong, MatchMixed, MatchNamesOnly).",
-  "version": "0.1.0",
-  "notes": "Which to-do ids (src/content/{te,en}.json 'todo.*') and remedy ids (src/content/remedies.json) a match reading returns, by result. Remedies are simple and free only.",
+  "version": "0.2.0",
+  "notes": "Which to-do ids (src/content/{te,en}.json 'todo.*') and remedy ids (src/content/remedies.json) a match reading returns, by overall verdict (match-verdict.json: strong / fair / careful; names = names-only basis). Remedies are simple and free only.",
   "todos": {
-    "good": [
+    "strong": [
       "todo.eldersBlessings",
       "todo.muhurthamTarabalam",
       "todo.diyaEngagement"
     ],
-    "mixed": [
+    "fair": [
       "todo.diyaTuesday",
       "todo.eldersReview",
       "todo.muhurthamStrong"
     ],
-    "avoid": [
+    "careful": [
       "todo.diyaTuesday",
       "todo.eldersReview",
       "todo.muhurthamStrong"

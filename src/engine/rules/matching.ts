@@ -155,9 +155,9 @@ export function matchCore(bride: MatchSide, groom: MatchSide): MatchCore {
   return { score, max: kootas.total, status: bandOf(score), kootas: ks, rajju: rajju(bride, groom), vedha: vedha(bride, groom), kuja: kuja(bride, groom) };
 }
 
-/** To-do and remedy ids for a result (match-guidance.json). */
-export function guidanceFor(core: MatchCore, namesOnly: boolean) {
-  const todos = namesOnly ? guidance.todos.names : guidance.todos[core.status];
+/** To-do and remedy ids for a result (match-guidance.json), by the overall verdict (rules/verdict.ts). */
+export function guidanceFor(core: MatchCore, verdictId: 'strong' | 'fair' | 'careful', namesOnly: boolean) {
+  const todos = namesOnly ? guidance.todos.names : guidance.todos[verdictId];
   const kujaPresent = core.kuja.checked && core.kuja.status !== 'good';
   return { todos: todos.map((id) => ({ id })), remedies: kujaPresent ? guidance.remedies.kuja : [] };
 }

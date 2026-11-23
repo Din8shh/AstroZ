@@ -168,7 +168,7 @@ Two CSVs are ready. Fill the last column with Telugu.
 
 | File | Rows | What |
 |---|---|---|
-| `docs/inputs/telugu-content.csv` | **158** | App sentences: `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
+| `docs/inputs/telugu-content.csv` | **203** | App sentences: `verdict` and `match.ask` (marriage overall picture, 45), `future` (25), `mhx` muhurtham extras (14), `job` (11), `gochara` (11), `inc` income (11), `settings` (10), `mh`, `mhr` (8 each), `dasha` (8), `method` (8), and smaller groups |
 | `docs/inputs/telugu-names.csv` | **141** | Names in tables: samvatsaras (59), koota labels (27), yogas (25), karanas (8), calendar terms (7), tarabalam (6), rasis (5), grahas (2), tithi (1), vara (1) |
 
 Notes for the translator:
@@ -214,7 +214,7 @@ Plus the source and the Ugadi date that source states.
 ## 8. Still waiting on you (not data)
 
 - **Design enhancements.** The attachment never arrived. Please re-send the image or file.
-- **Marriage "overall verdict" layer** (Strong / Fair / Needs a careful look, plus cancellations). Say "build it" and I'll do it now with clearly-marked provisional rules, then replace them with the pandit's answers (§4, Q1–5). Or wait for the pandit first.
+- **Marriage "overall verdict" layer** is built with PROVISIONAL rules (`src/engine/tables/match-verdict.json`). The pandit's answers to §4 Q1–5 replace them as table edits.
 
 ## Quickest wins
 
