@@ -38,12 +38,57 @@ test('Today shows the engine values for 21 Nov 2026, Hyderabad', async ({ page }
   await expect(card).toContainText('Vishti');
   await expect(page.getByText('Parabhava')).toBeVisible();
   await expect(page.getByText('Karthikam')).toBeVisible();
-  const list = page.locator('ol').first();
+  const list = page.locator('section[aria-labelledby="day-h"] ol');
   await expect(list.locator('li')).toHaveCount(8); // incl. Saturday's two Durmuhurtham slots
   await expect(list).toContainText('Rahu kalam');
   await expect(list).toContainText('09:13 – 10:37'); // Drik (geoname 1269843, same coordinates): 09:13 – 10:38
   // 11:02 falls in no period; Abhijit (11:39) is next.
   await expect(list.locator('li', { hasText: 'Now' })).toHaveCount(0);
+});
+
+test('every anga change in the sunrise-to-sunrise day is shown, with day-part words', async ({ page }) => {
+  // 21 Nov 2026, Hyderabad: Ekadashi ends 06:32 (minutes after sunrise 06:24), Dwadashi runs to 04:57 before
+  // the next sunrise, then Trayodashi. Karanam changes three times. At 11:02 Dwadashi and Bava are running.
+  await page.clock.install({ time: DESIGN_NOW });
+  await page.goto('./#/today');
+  await page.getByRole('radio', { name: 'English' }).click();
+  const card = page.locator('section[aria-labelledby="panchangam-h"]');
+  const tithi = card.getByTestId('anga').nth(0);
+  await expect(tithi.locator('li')).toHaveCount(3, { timeout: 15_000 });
+  await expect(tithi.locator('li').nth(0)).toContainText('Ekadashi');
+  await expect(tithi.locator('li').nth(0)).toContainText('until 06:32 morning');
+  await expect(tithi.locator('li').nth(1)).toContainText('Dwadashi');
+  await expect(tithi.locator('li').nth(1)).toContainText('until 04:57 before dawn');
+  await expect(tithi.locator('li').nth(1)).toContainText('Now');
+  await expect(tithi.locator('li').nth(2)).toContainText('Trayodashi');
+  await expect(tithi.locator('li').nth(2)).toContainText('from 04:57 before dawn');
+  const karana = card.getByTestId('anga').nth(3);
+  await expect(karana.locator('li')).toHaveCount(4);
+  await expect(karana.locator('li', { hasText: 'Now' })).toContainText('Bava');
+  await expect(karana.locator('li').nth(2)).toContainText('until 04:57 before dawn');
+  await expect(karana.locator('li').nth(1)).toContainText('until 17:50 evening');
+  await expect(card.locator('li', { hasText: 'Now' })).toHaveCount(4); // one running anga per row
+});
+
+test('Telugu day-part words on the anga times', async ({ page }) => {
+  await page.clock.install({ time: DESIGN_NOW });
+  await page.goto('./#/today');
+  const tithi = page.locator('section[aria-labelledby="panchangam-h"]').getByTestId('anga').nth(0);
+  await expect(tithi.locator('li').nth(1)).toContainText('తెల్లవారుజాము 04:57 వరకు', { timeout: 15_000 });
+  await expect(tithi.locator('li').nth(2)).toContainText('తెల్లవారుజాము 04:57 నుంచి');
+});
+
+test('another date shows no Now marker on the angas', async ({ page }) => {
+  await page.clock.install({ time: DESIGN_NOW });
+  await page.goto('./#/today');
+  await page.getByRole('radio', { name: 'English' }).click();
+  await page.getByLabel('Date').fill('2026-11-26');
+  const card = page.locator('section[aria-labelledby="panchangam-h"]');
+  // Yogam: Siddha until 07:49, Sadhya to 03:44 before dawn, then Shubha.
+  const yoga = card.getByTestId('anga').nth(2);
+  await expect(yoga.locator('li')).toHaveCount(3, { timeout: 15_000 });
+  await expect(yoga.locator('li').nth(1)).toContainText('until 03:44 before dawn');
+  await expect(card.locator('li', { hasText: 'Now' })).toHaveCount(0);
 });
 
 test('date picker changes the day', async ({ page }) => {
