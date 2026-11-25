@@ -20,12 +20,7 @@
 .cardHead { display: flex; align-items: center; gap: 10px; padding: 12px 0 4px; }
 .goldIcon { display: inline-flex; color: var(--az-gold); }
 .h2 { margin: 0; font-family: var(--az-font-display); font-weight: var(--fw-display); font-size: calc(24px * var(--az-scale)); line-height: 1.4; }
-.angaRow { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--az-line); }
-.lastRow { border-bottom: 0; }
-.angaName { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.angaValue { font-size: calc(19px * var(--az-scale)); font-weight: 600; line-height: 1.5; }
-.angaEnd { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
-.until { font-size: calc(16px * var(--az-scale)); font-weight: 600; line-height: 1.5; }
+.angaNote { margin: 4px 0 0; font-size: calc(14px * var(--az-scale)); line-height: 1.5; color: var(--az-ink-muted); }
 .sun { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 12px 14px; margin-top: 4px; border-radius: var(--az-radius-md); background: var(--az-turmeric-soft); }
 .sunItem { display: flex; align-items: center; gap: 8px; font-size: calc(15px * var(--az-scale)); line-height: 1.5; }
 .sunIcon { display: inline-flex; color: var(--az-kumkum-ink); }

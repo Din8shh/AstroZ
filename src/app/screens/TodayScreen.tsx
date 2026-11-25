@@ -1,9 +1,10 @@
-// Today: panchangam card, the day ribbon with a "now" marker, and the same periods as a list.
+// Today: panchangam card (each anga across the sunrise-to-sunrise day), the day ribbon with a "now" marker, and the same periods as a list.
 // Layout from design/handoff TodayTe.dc.html. All values come from the engine worker.
 import { useState } from 'react';
 import type { Anga, LocalTime } from '../../engine/api';
 import { Icon } from '../components/Icon';
 import type { IconName } from '../components/icons';
+import { AngaTimeline } from '../components/AngaTimeline';
 import { DayRibbon } from '../components/DayRibbon';
 import { YourDay } from '../components/YourDay';
 import { WhyLink, WhySheet } from '../components/WhySheet';
@@ -11,7 +12,7 @@ import { useDay, useNow, usePlace } from '../hooks/useDay';
 import { useName, useT, type MessageKey } from '../i18n';
 import { placeName } from '../places';
 import { useSettings } from '../store/settings';
-import { chipDate, clockIn, jdNow, plusDays, shortDate, todayIn } from '../dates';
+import { chipDate, clockIn, jdNow, plusDays, todayIn } from '../dates';
 import s from './TodayScreen.module.css';
 
 const WISHES: { icon: IconName; label: MessageKey; href: string }[] = [
@@ -45,7 +46,6 @@ export function TodayScreen() {
   const city = placeName(place, lang);
 
   const hm = (x: LocalTime) => x.time.slice(0, 5);
-  const endLabel = (x: LocalTime) => (x.date === date ? hm(x) : `${hm(x)}, ${shortDate(x.date, lang)}`);
 
   return (
     <main className={s.main} id="main">
@@ -108,8 +108,10 @@ export function TodayScreen() {
                 ['today.karanam', day.panchangam.karana],
               ] as [MessageKey, Anga[]][]
             ).map(([label, angas], i) => (
-              <AngaRow key={label} last={i === 3} label={t(label)} angas={angas} nameOf={name} endLabel={endLabel} t={t} />
+              <AngaTimeline key={label} last={i === 3} label={t(label)} angas={angas} date={date}
+                sunrise={day.panchangam.sunrise} sunset={day.panchangam.sunset} nextSunrise={day.panchangam.nextSunrise} nowJd={jdNow(now)} />
             ))}
+            <p className={s.angaNote}>{t('today.angaNote')}</p>
             <div className={s.sun}>
               <span className={s.sunItem}>
                 <span className={s.sunIcon}><Icon name="sunrise" size={20} /></span>
@@ -184,47 +186,5 @@ function Fact({ label, value }: { label: string; value: string }) {
       <span className={s.label}>{label}</span>
       <span className={s.value}>{value}</span>
     </div>
-  );
-}
-
-type AngaRowProps = {
-  last: boolean;
-  label: string;
-  angas: Anga[];
-  nameOf: (n: { en: string; te: string | null }) => string;
-  endLabel: (x: LocalTime) => string;
-  t: ReturnType<typeof useT>;
-};
-
-/** The anga current at sunrise, when it ends, and what follows. */
-function AngaRow({ last, label, angas, nameOf, endLabel, t }: AngaRowProps) {
-  const current = angas[0];
-  const next = angas[1];
-  if (!current) return null;
-  return (
-    <div className={last ? `${s.angaRow} ${s.lastRow}` : s.angaRow}>
-      <div className={s.angaName}>
-        <span className={s.label}>{label}</span>
-        <span className={s.angaValue}>{nameOf(current.name)}</span>
-      </div>
-      <div className={s.angaEnd}>
-        <span className={s.until}>
-          {renderUntil(t('today.until', { time: '\u0000' }), endLabel(current.end))}
-        </span>
-        {next ? <span className={s.label}>{t('today.then', { name: nameOf(next.name) })}</span> : null}
-      </div>
-    </div>
-  );
-}
-
-/** Puts the time inside the translated "{time} until" phrase with tabular digits. */
-function renderUntil(template: string, time: string) {
-  const [before, after] = template.split('\u0000');
-  return (
-    <>
-      {before}
-      <span className="az-times">{time}</span>
-      {after}
-    </>
   );
 }
