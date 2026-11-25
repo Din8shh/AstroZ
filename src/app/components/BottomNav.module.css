@@ -6,3 +6,11 @@
 .on { color: var(--az-kumkum-ink); }
 .on .pill { background: var(--az-kumkum-soft); }
 .on .label { font-weight: 700; }
+
+/* Motion: the active pill grows out from the icon and the icon hops once; a press squeezes the tab. */
+.item { -webkit-tap-highlight-color: transparent; transition: color var(--az-dur) ease; }
+.pill { transition: background-color var(--az-dur) ease, transform var(--az-dur-fast) ease; }
+.item:active .pill { transform: scale(0.92); }
+.on .pill { animation: pill-in var(--az-dur-slow) var(--az-ease-spring); }
+.on .pill > svg { animation: global(az-nudge) 360ms var(--az-ease-out) 60ms; }
+@keyframes pill-in { from { transform: scaleX(0.4); opacity: 0.4; } }

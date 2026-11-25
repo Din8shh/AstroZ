@@ -116,7 +116,7 @@ function HouseResults({ result, door, place, people }: { result: MuhurthamResult
           <h2 className={s.h2} id="best-h">{t(result.results.length ? 'nh.best' : 'mh.nearest')}</h2>
           <p className={s.sub}>{group ? t('nh.bestSub', { door: doorLc, group: groupName(group) }) : t('nh.bestSubNone', { door: doorLc })}</p>
         </div>
-        <div className={s.list}>
+        <div className={`${s.list} az-stagger`}>
           {list.slice(0, count).map((w, i) => (
             <Card key={w.date} w={w} rank={i + 1} event="gruhapravesam" people={people} base="house" onWhy={() => setWhy(w)}
               action={i === 0 ? <button type="button" className={buttonClass('secondary')} onClick={() => exportIcs(w, 'gruhapravesam', place)}>{t('mh.toCalendar')}</button> : undefined} />

@@ -7,3 +7,6 @@
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--az-line); border-radius: var(--az-radius-md); overflow: hidden; }
 .option { width: 100%; min-height: 44px; padding: 8px 14px; border: 0; border-bottom: 1px solid var(--az-line); background: var(--az-surface); color: var(--az-ink); font: inherit; text-align: left; cursor: pointer; }
 .option[aria-selected='true'] { background: var(--az-kumkum-soft); }
+
+/* Motion: options highlight smoothly. */
+.option { transition: background-color var(--az-dur-fast) ease; }

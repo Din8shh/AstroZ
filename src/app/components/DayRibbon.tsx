@@ -1,6 +1,7 @@
 // The day from sunrise to the next sunrise: good and avoid windows on two lanes, a "now" marker,
 // or the same periods as a list. Ported from design/handoff DayRibbon. Pure layout: every time
 // comes from the engine (DayPeriodView / LocalTime); this only maps instants onto the track.
+import type { CSSProperties } from 'react';
 import type { DayPeriodView, LocalTime } from '../../engine/api';
 import { useT } from '../i18n';
 import { useSettings } from '../store/settings';
@@ -38,7 +39,7 @@ export function DayRibbon({ sunrise, sunset, nextSunrise, periods, nowJd, nowLab
 
   if (view === 'list') {
     return (
-      <ol className={s.list}>
+      <ol className={`${s.list} az-stagger`}>
         {periods.map((p, i) => (
           <li key={`${p.kind}-${i}`} className={[s.row, p.status === 'good' ? s.rowGood : s.rowAvoid, isNow(p) && s.isNow].filter(Boolean).join(' ')}>
             <span className={s.rowIcon}><Icon name={STATUS_ICON[p.status]} size={20} /></span>
@@ -85,7 +86,7 @@ export function DayRibbon({ sunrise, sunset, nextSunrise, periods, nowJd, nowLab
                 const a = frac(p.start.jdUt), b = frac(p.end.jdUt);
                 return (
                   <span key={i} className={`${s.seg} ${ln.id === 'good' ? s.segGood : s.segAvoid}`}
-                    style={{ left: pct(a), width: pct(b - a) }} title={`${nameOf(p)} ${hm(p.start)}–${hm(p.end)}`} />
+                    style={{ left: pct(a), width: pct(b - a), '--i': i } as CSSProperties} title={`${nameOf(p)} ${hm(p.start)}–${hm(p.end)}`} />
                 );
               })}
             </div>

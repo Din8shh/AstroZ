@@ -8,3 +8,8 @@
 .check { color: var(--az-kumkum-ink); }
 .add { border-style: dashed; color: var(--az-kumkum-ink); }
 .add .avatar { background: transparent; border-style: dashed; border-color: var(--az-line-strong); color: var(--az-kumkum-ink); }
+
+/* Motion: a press squeezes the chip; picking it pops the check in. */
+.chip { transition: transform var(--az-dur-fast) ease, background-color var(--az-dur) ease, border-color var(--az-dur) ease, box-shadow var(--az-dur) ease; -webkit-tap-highlight-color: transparent; }
+.chip:active { transform: scale(0.97); }
+.check { display: inline-flex; animation: global(az-pop) var(--az-dur-slow) var(--az-ease-spring); }

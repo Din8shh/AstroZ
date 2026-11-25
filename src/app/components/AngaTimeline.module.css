@@ -20,3 +20,14 @@
 .at { white-space: nowrap; }
 .at b { color: var(--az-ink); font-weight: 600; }
 .nowTag { padding: 0 8px; border-radius: var(--az-radius-pill); background: var(--az-turmeric); color: var(--az-on-turmeric); font-size: 12px; font-weight: 700; line-height: 1.6; }
+
+/* Motion (styles/motion.css). The day fills in left to right, one anga after another, then the now marker
+   drops in and keeps a slow halo. The running anga carries a soft shimmer; the Now tag pops in with a live dot. */
+.seg { transform-origin: left center; animation: global(az-grow-x) var(--az-dur-draw) var(--az-ease-out) backwards; animation-delay: calc(120ms + var(--i, 0) * 90ms); }
+.segNow { overflow: hidden; }
+.segNow::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent); animation: global(az-shimmer) 3.2s ease-in-out 1.2s infinite; transform: translateX(-100%); }
+.now { animation: global(az-drop) var(--az-dur-slow) var(--az-ease-out) backwards; animation-delay: calc(200ms + var(--n, 1) * 90ms + var(--az-dur-draw) * 0.6); }
+.now::after { content: ""; position: absolute; top: 50%; left: -5px; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: var(--az-turmeric); animation: global(az-halo) 2.4s ease-out 1.4s infinite; opacity: 0; }
+.nowTag { display: inline-flex; align-items: center; gap: 5px; animation: global(az-pop) var(--az-dur-slow) var(--az-ease-spring) 0.5s backwards; }
+.nowTag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: global(az-blink) 1.6s ease-in-out infinite; }
+.item { transition: background-color var(--az-dur) ease; }

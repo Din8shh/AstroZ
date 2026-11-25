@@ -151,7 +151,7 @@ function Results({ result, search, people, onSee90, onOtherDates }: { result: Mu
         <h2 className={s.h2} id="res-h">{t('mh.resultsTitle', { event: ev })}</h2>
         <p className={s.sub}>{t('mh.resultsSub', { count: String(result.results.length), days: String(result.daysSearched) })}</p>
       </div>
-      <div className={s.list}>
+      <div className={`${s.list} az-stagger`}>
         {result.results.slice(0, count).map((w, i) => (
           <Card key={w.date} w={w} rank={i + 1} event={search.event} people={people} onWhy={() => setWhy(w)}
             action={i === 0 ? <button type="button" className={buttonClass('secondary')} onClick={() => exportIcs(w, search.event, search.place)}>{t('mh.toCalendar')}</button> : undefined} />

@@ -3,3 +3,6 @@
 .actions { display: flex; gap: 8px; }
 .later, .now { min-height: 44px; padding: 0 14px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-bg); background: transparent; color: var(--az-bg); font-weight: 600; cursor: pointer; }
 .now { background: var(--az-bg); color: var(--az-ink); }
+
+/* Motion: the toast rises in above the tab bar. */
+.toast { animation: global(az-rise) var(--az-dur-slow) var(--az-ease-out); }

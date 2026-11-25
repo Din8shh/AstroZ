@@ -158,7 +158,7 @@ export function TodayScreen() {
       {/* Shown once the day is ready: rendered earlier it would jump down when the panchangam arrives (layout shift). */}
       {day.status !== 'loading' ? <section className={s.wishes} aria-labelledby="wishes-h">
         <h2 className={s.h2} id="wishes-h">{t('today.yourWishes')}</h2>
-        <div className={s.wishGrid}>
+        <div className={`${s.wishGrid} az-stagger`}>
           {WISHES.map((w) => (
             <a key={w.label} className={s.wish} href={w.href}>
               <span className={s.wishIcon}><Icon name={w.icon} size={20} /></span>

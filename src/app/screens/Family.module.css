@@ -40,3 +40,10 @@
 .calcTitle { margin: 0; font-family: var(--az-font-display); font-weight: var(--fw-display); font-size: calc(28px * var(--az-scale)); line-height: 1.4; }
 .calcSub { margin: 0; font-size: calc(var(--fs-body) * var(--az-scale)); line-height: 1.6; color: var(--az-ink-muted); }
 .screen, .formScreen { display: flex; flex-direction: column; min-height: 100dvh; }
+
+/* Motion: rows highlight on tap, the chevron nudges toward where it goes. */
+.row { transition: background-color var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.row:active { background: var(--az-surface-sunk); }
+.chev { transition: transform var(--az-dur) var(--az-ease-out); }
+.row:active .chev { transform: translateX(3px); }
+@media (hover: hover) { .row:hover .chev { transform: translateX(3px); } }

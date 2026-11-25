@@ -20,3 +20,8 @@
 .r_avoid > :first-child { color: var(--az-avoid-ink); }
 .foot { display: flex; align-items: center; justify-content: space-between; gap: var(--az-space-2); border-top: 1px solid var(--az-line); padding-top: var(--az-space-3); }
 .good, .mixed, .avoid { }
+
+/* Motion: the design brief's 2 px card lift on tap (and on hover where there is a mouse). */
+.card { transition: transform var(--az-dur-fast) var(--az-ease-out), box-shadow var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.card:has(> .link:active) { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); }
+@media (hover: hover) { .card:has(> .link:hover) { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); } }

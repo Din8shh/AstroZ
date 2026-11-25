@@ -131,7 +131,7 @@ function Result({ r }: { r: MatchReading }) {
       ) : null}
 
       <section className={`${s.card} ${s.dialCard}`} data-testid="verdict" data-verdict={v.id}>
-        <GunaDial score={r.score} max={r.max} status={v.status} label={band} unit={t('match.gunas')} approxLabel={approxLabel} />
+        <GunaDial score={r.score} max={r.max} status={v.status} label={band} unit={t('match.gunas')} approxLabel={approxLabel} celebrate={v.status === 'good'} />
         <p className={s.summary}>{verdictText}</p>
         <p className={s.scoreNote}>{t(namesBasis ? 'match.summaryNames' : 'verdict.score', { score: formatScore(r.score) })}</p>
         {uncertain.map((w) => <p key={w} className={s.text} role="note" data-testid="day-range">{t('match.dayRange', { name: r[w].name })}</p>)}

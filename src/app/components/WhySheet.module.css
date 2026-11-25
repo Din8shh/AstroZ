@@ -20,3 +20,7 @@
 .method { display: flex; gap: var(--az-space-2); margin: 0; font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
 .methodIcon { color: var(--az-gold); margin-top: 1px; display: inline-flex; }
 .why { display: inline-flex; align-items: center; gap: var(--az-space-1); min-height: var(--az-touch); padding: 0 var(--az-space-1); margin: -12px 0; background: none; border: 0; color: var(--az-kumkum-ink); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 600; cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* Motion: the scrim fades in and the sheet slides up from the bottom edge. */
+.scrim { animation: global(az-fade) var(--az-dur) ease-out; }
+.sheet { animation: global(az-sheet-up) var(--az-dur-slow) var(--az-ease-out); }

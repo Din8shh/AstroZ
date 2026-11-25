@@ -39,3 +39,14 @@
 .wishLabel { font-size: calc(16px * var(--az-scale)); font-weight: 600; line-height: 1.5; }
 .seeAll { justify-content: center; background: transparent; box-shadow: none; border: 1.5px dashed var(--az-line-strong); color: var(--az-kumkum-ink); }
 .status { padding: var(--az-space-6) 0; color: var(--az-ink-muted); }
+
+/* Motion: the design brief's 2 px card lift on tap (and on hover where there is a mouse). */
+.wish { transition: transform var(--az-dur-fast) var(--az-ease-out), box-shadow var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.wish:active { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); }
+@media (hover: hover) { .wish:hover { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); } }
+.wishIcon { transition: transform var(--az-dur) var(--az-ease-spring); }
+.wish:active .wishIcon { transform: scale(1.08) rotate(-4deg); }
+@media (hover: hover) { .wish:hover .wishIcon { transform: scale(1.08) rotate(-4deg); } }
+.chip { transition: transform var(--az-dur-fast) ease, border-color var(--az-dur-fast) ease; }
+.chip:active { transform: scale(0.97); }
+.seeAll:active, .seeAll:hover { box-shadow: none; }

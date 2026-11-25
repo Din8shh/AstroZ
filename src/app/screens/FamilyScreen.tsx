@@ -18,7 +18,7 @@ export function FamilyScreen() {
         {profiles.length ? <p className={s.intro}>{t('family.intro')}</p> : null}
       </div>
       {profiles.length ? (
-        <section className={s.card} aria-label={t('family.listLabel')}>
+        <section className={`${s.card} az-stagger`} aria-label={t('family.listLabel')}>
           {profiles.map((p) => <PersonRow key={p.id} p={p} />)}
         </section>
       ) : null}

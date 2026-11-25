@@ -31,3 +31,16 @@
 .rowTime { font-size: calc(15px * var(--az-scale)); color: var(--az-ink); }
 .isNow { background: var(--az-turmeric-soft); border-radius: var(--az-radius-sm); box-shadow: inset 4px 0 0 var(--az-turmeric); }
 .nowTag { padding: 0 8px; border-radius: var(--az-radius-pill); background: var(--az-turmeric); color: var(--az-on-turmeric); font-size: 12px; font-weight: 700; line-height: 1.6; }
+
+/* Motion (styles/motion.css): windows grow out along their lane, night shades in, the now line drops in
+   with its pill and keeps a slow halo; the running row's Now tag pops in with a live dot. */
+.seg { transform-origin: left center; animation: global(az-grow-x) var(--az-dur-draw) var(--az-ease-out) backwards; animation-delay: calc(150ms + var(--i, 0) * 70ms); }
+.night { animation: global(az-fade) 600ms ease-out backwards; }
+.now { transform-origin: bottom center; animation: now-in var(--az-dur-slow) var(--az-ease-out) 0.7s backwards; }
+@keyframes now-in { from { transform: scaleY(0); } }
+.now::after { content: ""; position: absolute; top: 50%; left: -7px; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--az-turmeric); animation: global(az-halo) 2.4s ease-out 1.4s infinite; opacity: 0; }
+.nowPill { animation: pill-pop var(--az-dur-slow) var(--az-ease-spring) 0.85s backwards; }
+/* Scale only, no fade: the pill's text keeps full contrast at every frame. */
+@keyframes pill-pop { from { transform: translateX(-50%) translateY(6px) scale(0.4); } }
+.nowTag { display: inline-flex; align-items: center; gap: 5px; animation: global(az-pop) var(--az-dur-slow) var(--az-ease-spring) 0.4s backwards; }
+.nowTag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: global(az-blink) 1.6s ease-in-out infinite; }
