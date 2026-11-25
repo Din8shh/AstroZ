@@ -37,3 +37,11 @@
 .relOpt { min-height: 40px; padding: 4px 16px; border-radius: var(--az-radius-pill); border: 1.5px solid var(--az-line-strong); background: var(--az-surface); color: var(--az-ink); font-size: calc(var(--fs-label) * var(--az-scale)); font-weight: 500; cursor: pointer; }
 .relOpt[aria-checked='true'] { background: var(--az-kumkum); border-color: var(--az-kumkum); color: var(--az-on-kumkum); font-weight: 600; }
 .privacy { display: flex; align-items: center; justify-content: center; gap: var(--az-space-1); margin: -4px 0 0; font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
+
+/* Motion: switches slide with a little spring; choice chips squeeze on press. */
+.thumb { transition: transform var(--az-dur) var(--az-ease-spring), background-color var(--az-dur) ease; }
+.track { transition: background-color var(--az-dur) ease, border-color var(--az-dur) ease; }
+
+/* Motion: choice chips squeeze on press and settle in when picked. */
+.relOpt, .segOpt { transition: transform var(--az-dur-fast) ease, background-color var(--az-dur) ease, border-color var(--az-dur) ease, color var(--az-dur) ease, box-shadow var(--az-dur) ease; -webkit-tap-highlight-color: transparent; }
+.relOpt:active, .segOpt:active { transform: scale(0.96); }

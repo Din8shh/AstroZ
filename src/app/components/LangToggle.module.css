@@ -4,3 +4,8 @@
 .te { font-family: var(--font-body-te); font-size: 18px; }
 .en { font-family: var(--font-body-en); font-size: 15px; letter-spacing: 0.02em; }
 .on { background: var(--az-kumkum); color: var(--az-on-kumkum); }
+
+/* Motion: the chosen language pops in. */
+.opt { transition: background-color var(--az-dur) ease, color var(--az-dur) ease, transform var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.opt:active { transform: scale(0.94); }
+.on { animation: global(az-pop) var(--az-dur-slow) var(--az-ease-spring); }

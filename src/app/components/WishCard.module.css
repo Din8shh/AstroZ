@@ -6,3 +6,13 @@
 .title { font-size: calc(var(--fs-title) * var(--az-scale)); font-weight: 600; line-height: 1.4; }
 .sub { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); line-height: 1.5; }
 .chev { color: var(--az-ink-muted); display: inline-flex; }
+
+/* Motion: the design brief's 2 px card lift on tap (and on hover where there is a mouse). */
+.wish { transition: transform var(--az-dur-fast) var(--az-ease-out), box-shadow var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.wish:not(.disabled):active { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); }
+@media (hover: hover) { .wish:not(.disabled):hover { transform: translateY(-2px); box-shadow: var(--az-shadow-lift); } }
+.icon { transition: transform var(--az-dur) var(--az-ease-spring); }
+.wish:not(.disabled):active .icon { transform: scale(1.08) rotate(-4deg); }
+.chev { transition: transform var(--az-dur) var(--az-ease-out); }
+.wish:not(.disabled):active .chev { transform: translateX(3px); }
+@media (hover: hover) { .wish:not(.disabled):hover .icon { transform: scale(1.08) rotate(-4deg); } .wish:not(.disabled):hover .chev { transform: translateX(3px); } }

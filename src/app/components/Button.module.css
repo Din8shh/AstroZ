@@ -9,3 +9,8 @@
 .primary:active:not(:disabled) { filter: brightness(0.92); }
 .secondary:active:not(:disabled), .quiet:active:not(:disabled) { background: var(--az-kumkum-soft); }
 .btn:disabled { background: var(--az-surface-sunk); color: var(--az-ink-muted); border-color: var(--az-line); cursor: not-allowed; }
+
+/* Motion: a springy press; primary buttons get a soft glow while held. */
+.btn { transition: transform var(--az-dur-fast) var(--az-ease-spring), background-color var(--az-dur-fast) ease, box-shadow var(--az-dur) ease, filter var(--az-dur-fast) ease; -webkit-tap-highlight-color: transparent; }
+.btn:active:not(:disabled) { transform: translateY(1px) scale(0.98); }
+@media (hover: hover) { .primary:hover:not(:disabled) { box-shadow: 0 4px 14px color-mix(in srgb, var(--az-kumkum) 35%, transparent); } }

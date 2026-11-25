@@ -9,7 +9,7 @@ export function WishesScreen() {
   const t = useT();
   return (
     <Screen title="wishes.title" intro="wishes.intro" privacy="privacy.line">
-      <div className={s.list}>
+      <div className={`${s.list} az-stagger`}>
         <WishCard icon="rings" title={t('wish.marriage')} subtitle={t('wish.marriageSub')} href={hrefFor('wishes', 'marriage')} />
         <WishCard icon="muhurtham" title={t('wish.muhurtham')} subtitle={t('wish.muhurthamSub')} href={hrefFor('wishes', 'muhurtham')} />
         <WishCard icon="house" title={t('wish.house')} subtitle={t('wish.houseSub')} href={hrefFor('wishes', 'house')} />

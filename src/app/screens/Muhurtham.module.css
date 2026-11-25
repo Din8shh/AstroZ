@@ -77,3 +77,7 @@
 .groupList { font-size: calc(var(--fs-caption) * var(--az-scale)); color: var(--az-ink-muted); }
 .riktaNote { margin: 0; display: flex; gap: 8px; align-items: flex-start; font-size: calc(var(--fs-label) * var(--az-scale)); line-height: 1.5; }
 .riktaNote > :first-child { flex: none; color: var(--az-caution-ink); }
+
+/* Motion: choice chips squeeze on press and settle in when picked. */
+.choice, .more { transition: transform var(--az-dur-fast) ease, background-color var(--az-dur) ease, border-color var(--az-dur) ease, color var(--az-dur) ease, box-shadow var(--az-dur) ease; -webkit-tap-highlight-color: transparent; }
+.choice:active, .more:active { transform: scale(0.96); }

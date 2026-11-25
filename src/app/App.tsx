@@ -1,7 +1,7 @@
-import { lazy, Suspense, useEffect, type ComponentType } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, type ComponentType } from 'react';
 import { useT } from './i18n';
 import { useSettings } from './store/settings';
-import { useRoute, type Route } from './router';
+import { TABS, useRoute, type Route } from './router';
 import { AppHeader } from './components/AppHeader';
 import { OfflineBanner } from './components/OfflineBanner';
 import { BottomNav } from './components/BottomNav';
@@ -50,6 +50,18 @@ function subScreen(r: Route) {
   return null;
 }
 
+/** How the next screen should come in, given where we were (see styles/motion.css). */
+export function viewDirection(prev: Route | null, next: Route, prevDepth: number, nextDepth: number): string | null {
+  if (!prev) return null; // first screen after launch: no animation, nothing delays the first paint
+  if (prev.tab === next.tab) {
+    if (nextDepth > prevDepth) return 'forward';
+    if (nextDepth < prevDepth) return 'back';
+    return 'fade';
+  }
+  if (prevDepth === 0 && nextDepth === 0) return TABS.indexOf(next.tab) > TABS.indexOf(prev.tab) ? 'right' : 'left';
+  return nextDepth > prevDepth ? 'forward' : nextDepth < prevDepth ? 'back' : 'fade';
+}
+
 const TAB_SCREENS = { today: TodayScreen, wishes: WishesScreen, future: FutureScreen, family: FamilyScreen, more: MoreScreen };
 
 export function App() {
@@ -71,15 +83,25 @@ export function App() {
 
   const sub = subScreen(route);
   const Current = TAB_SCREENS[route.tab];
+  const depth = sub ? route.rest.length : 0;
+  const viewKey = sub ? `${route.tab}/${route.rest.join('/')}` : route.tab;
+  const prev = useRef<{ route: Route; depth: number } | null>(null);
+  const dir = useMemo(
+    () => viewDirection(prev.current?.route ?? null, route, prev.current?.depth ?? 0, depth),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [viewKey],
+  );
+  useEffect(() => { prev.current = { route, depth }; }, [viewKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const viewClass = dir ? `az-view az-view-${dir}` : 'az-view';
   return (
     <div className={['az', `az-${lang}`, elder && 'az-elder', s.app].filter(Boolean).join(' ')}>
       <PullToRefresh />
       <UpdateToast />
-      {sub ? <Boundary key={route.rest.join('/')}><Suspense fallback={<Loading />}>{sub}</Suspense></Boundary> : (
+      {sub ? <div key={viewKey} className={viewClass}><Boundary><Suspense fallback={<Loading />}>{sub}</Suspense></Boundary></div> : (
         <>
           <AppHeader />
           <OfflineBanner />
-          <Current />
+          <div key={viewKey} className={viewClass}><Current /></div>
           <BottomNav active={route.tab} />
         </>
       )}

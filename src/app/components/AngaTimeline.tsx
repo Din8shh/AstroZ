@@ -3,7 +3,7 @@
 // sunrise, and a day can hold three tithis or four karanas. So every anga current during the day is listed,
 // each with a day-part word next to its clock time, on a bar that shares the day ribbon's sunrise→sunrise axis.
 // Pure layout: names and instants come from the engine (Anga / LocalTime).
-import { Fragment, type ReactNode } from 'react';
+import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import type { Anga, LocalTime } from '../../engine/api';
 import { useName, useT, type MessageKey } from '../i18n';
 import { useSettings } from '../store/settings';
@@ -104,9 +104,9 @@ export function AngaTimeline({ label, angas, date, sunrise, sunset, nextSunrise,
       <div className={s.bar} aria-hidden="true">
         {inDay.map((a, i) => {
           const l = frac(a.start.jdUt), r = frac(a.end.jdUt);
-          return <span key={i} className={[s.seg, i % 2 ? s.segB : s.segA, isNow(a) && s.segNow].filter(Boolean).join(' ')} style={{ left: pct(l), width: pct(r - l) }} />;
+          return <span key={i} className={[s.seg, i % 2 ? s.segB : s.segA, isNow(a) && s.segNow].filter(Boolean).join(' ')} style={{ left: pct(l), width: pct(r - l), '--i': i } as CSSProperties} />;
         })}
-        {live !== undefined ? <span className={s.now} style={{ left: pct(frac(live)) }} /> : null}
+        {live !== undefined ? <span className={s.now} style={{ left: pct(frac(live)), '--n': inDay.length } as CSSProperties} /> : null}
       </div>
       <ol className={s.list}>
         {inDay.map((a, i) => {

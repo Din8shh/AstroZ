@@ -1,0 +1,64 @@
+/* Motion: tokens, keyframes and the screen-change wrapper.
+   Design brief: 150–300 ms, a 2 px card lift on tap, muggulu draw-in while loading, marigold petals on a
+   high match, and always respect reduced motion. Only transform and opacity animate, so the work stays on
+   the compositor on low-end phones. base.css turns every animation and transition off under
+   prefers-reduced-motion: reduce; entrance animations start from their resting state there. */
+
+:root {
+  --az-dur-fast: 150ms;
+  --az-dur: 220ms;
+  --az-dur-slow: 300ms;
+  --az-dur-draw: 640ms;
+  --az-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --az-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --az-stagger: 45ms;
+  --az-shadow-lift: 0 2px 4px rgba(43, 29, 20, 0.08), 0 10px 24px rgba(43, 29, 20, 0.12);
+}
+
+@keyframes az-fade { from { opacity: 0; } }
+@keyframes az-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes az-from-right { from { opacity: 0; transform: translateX(20px); } }
+/* Going back travels less, like a page settling back into place (and never pushes the left gutter off-screen). */
+@keyframes az-from-left { from { opacity: 0; transform: translateX(-12px); } }
+@keyframes az-sheet-up { from { transform: translateY(100%); } }
+/* Scale only: text that pops in keeps full contrast on every frame. */
+@keyframes az-pop { 0% { transform: scale(0.6); } 70% { transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes az-grow-x { from { transform: scaleX(0); } }
+@keyframes az-drop { from { opacity: 0; transform: translateY(-6px); } }
+@keyframes az-halo { 0% { opacity: 0.6; transform: scale(1); } 80%, 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes az-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes az-shimmer { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+@keyframes az-nudge { 0% { transform: translateY(0); } 40% { transform: translateY(-3px); } 100% { transform: translateY(0); } }
+
+/* Screen changes (App.tsx). A tab change slides toward the tab you picked; opening a flow pushes in from the
+   right and going back comes in from the left. The first screen after launch does not animate, so the first
+   paint is never held back. No fill mode: once done, the wrapper has no transform, so fixed sheets inside
+   it (Why sheet) position against the viewport as before. */
+.az-view { display: flex; flex-direction: column; flex-grow: 1; }
+.az-view-right { animation: az-from-right var(--az-dur-slow) var(--az-ease-out); }
+.az-view-left { animation: az-from-left var(--az-dur-slow) var(--az-ease-out); }
+.az-view-forward { animation: az-from-right var(--az-dur-slow) var(--az-ease-out); }
+.az-view-back { animation: az-from-left var(--az-dur-slow) var(--az-ease-out); }
+.az-view-fade { animation: az-fade var(--az-dur) ease-out; }
+
+/* Sections of a screen rise in one after another, also when they arrive later (a reading finishing). */
+.az-view main > * { animation: az-rise var(--az-dur-slow) var(--az-ease-out) backwards; }
+.az-view main > :nth-child(2) { animation-delay: calc(1 * var(--az-stagger)); }
+.az-view main > :nth-child(3) { animation-delay: calc(2 * var(--az-stagger)); }
+.az-view main > :nth-child(4) { animation-delay: calc(3 * var(--az-stagger)); }
+.az-view main > :nth-child(5) { animation-delay: calc(4 * var(--az-stagger)); }
+.az-view main > :nth-child(n + 6) { animation-delay: calc(5 * var(--az-stagger)); }
+
+/* Lists whose rows should cascade (wish cards, family, results). */
+.az-stagger > * { animation: az-rise var(--az-dur-slow) var(--az-ease-out) backwards; }
+.az-stagger > :nth-child(2) { animation-delay: 40ms; }
+.az-stagger > :nth-child(3) { animation-delay: 80ms; }
+.az-stagger > :nth-child(4) { animation-delay: 120ms; }
+.az-stagger > :nth-child(5) { animation-delay: 160ms; }
+.az-stagger > :nth-child(6) { animation-delay: 200ms; }
+.az-stagger > :nth-child(n + 7) { animation-delay: 240ms; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) { --az-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.4); }
+}
+:root[data-theme='dark'] { --az-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.4); }
